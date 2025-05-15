@@ -3,7 +3,9 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import { isDevelopment, formatDate } from "@util";
 const { frontmatter, slug } = Astro.props;
 
-const searchable = (isDevelopment && frontmatter.published === false) || frontmatter.published === true;
+const searchable =
+  (isDevelopment && frontmatter.published === false) ||
+  frontmatter.published === true;
 ---
 
 <BaseLayout
@@ -11,8 +13,11 @@ const searchable = (isDevelopment && frontmatter.published === false) || frontma
   pageDescription={frontmatter?.description}
   noBreadcrumbs={true}
 >
-  <section class="contain-sm" data-note-id={searchable ? slug : undefined}>
-    <img src={`/images/notes/${slug}.png`} alt={frontmatter.image.alt} />
+  <section
+    class="note-layout contain-sm"
+    data-note-id={searchable ? slug : undefined}
+  >
+    <img src={`/images/notes/${slug}.jpg`} />
     <div class="head">
       <h1>
         {frontmatter.title}
@@ -52,21 +57,15 @@ const searchable = (isDevelopment && frontmatter.published === false) || frontma
         <slot />
       </div>
     </div>
-
-    {
-      frontmatter?.date && (
-        <div class="hide" data-details>
-          {frontmatter.updated ? "Updated" : "Written"}
-          {formatDate("" + frontmatter.date)}
-        </div>
-        <a class="hide" href={`/notes/${slug}`} data-link>link</a>
-      )
-    }
   </section>
 </BaseLayout>
 
 <style lang="scss">
   @use "@css/util";
+
+  .content {
+    padding-bottom: 3rem;
+  }
 
   // offset for in-page navigation
   :global([id]:before) {
@@ -98,5 +97,4 @@ const searchable = (isDevelopment && frontmatter.published === false) || frontma
     margin: 2rem 0;
     border-color: var(--content-subtle);
   }
-  
 </style>

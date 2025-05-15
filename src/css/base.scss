@@ -11,9 +11,11 @@
   /* Type */
   --ff-inter: 'Inter', Tahoma, Verdana, Arial, sans-serif;
   --ff-bubbleshack: 'KC Bubble Shack', Tahoma, Verdana, Arial, sans-serif;
+  --ff-pelletiertyped:  'KC Pelletier Typed', 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+  --ff-courier: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
 
   /* Spacing */
-  --site-padding: 2.5%;
+  --site-padding: 3%;
   --content-width-sm: 56.25rem; //900px
 
   --nav-height: 62px;
@@ -42,6 +44,7 @@
 
   --ff-default: var(--ff-inter);
   --ff-brand: var(--ff-bubbleshack);
+  --ff-notes: var(--ff-pelletiertyped);
 
   /* Rules */
   color: var(--font-color);

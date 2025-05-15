@@ -30,6 +30,7 @@
   let totalPages = $state(0);
 
   let hasError = $state(false);
+  let errorMessage = "Search Error";
 
   /**
    * Search
@@ -152,7 +153,7 @@
     {#if loading}
       <Loader />
     {/if}
-    {#if history.length && !results.length && (query.length < 2 || query.trim() === "")}
+    {#if history.length && !hasError && !results.length && (query.length < 2 || query.trim() === "")}
       <div class="recent">
         <span>Recent searches</span>
         <div class="inner">
@@ -166,6 +167,9 @@
           {/each}
         </div>
       </div>
+    {/if}
+    {#if hasError}
+      <div class="error">{errorMessage}</div>
     {/if}
 
     {#if results.length}

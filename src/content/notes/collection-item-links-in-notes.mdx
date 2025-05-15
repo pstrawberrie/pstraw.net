@@ -1,0 +1,46 @@
+---
+title: 'New Component: Collection Item'
+date: 2025-01-16
+description: 'A quick demo of the CollectionItem component'
+authors: ['Josh']
+image:
+    pathname: 'collectionitems.png'
+    alt: 'new component collection item'
+tags: ["webdev"]
+published: true
+---
+import CollectionItem from '@components/CollectionItem.astro';
+
+Individual items from all [likes](/likes) collections (movies, shows, music, games, etc.) now have their own component! Using the new `<CollectionItem>` component, any type of collection item can be referenced from anywhere on the site, including in notes `.mdx` files (this page)!
+
+Here's an example of a movie collection item...
+```js
+<CollectionItem category="movies" itemId="348" text="Plain text can also be passed through to give some context for the item being included!" />
+```
+<CollectionItem category="movies" itemId="348" text="Plain text can also be passed through to give some context for the item being included!" />
+
+Here is an example of a show...
+```js
+<CollectionItem category="shows" itemId="39793" />
+```
+<CollectionItem category="shows" itemId="39793" />
+
+Here is an example of a band...
+```js
+<CollectionItem category="bands" itemId="7DjwIxbe8kpw4pqnzAMoin" />
+```
+<CollectionItem category="bands" itemId="7DjwIxbe8kpw4pqnzAMoin" />
+
+Here is an example of a song...
+```js
+<CollectionItem category="songs" itemId="4niDU35YEMnJIQjKb506hb" />
+```
+<CollectionItem category="songs" itemId="4niDU35YEMnJIQjKb506hb" />
+
+And finally, an example of a game!
+```js
+<CollectionItem category="games" itemId="1086940" />
+```
+<CollectionItem category="games" itemId="1086940" />
+
+Pretty nifty!

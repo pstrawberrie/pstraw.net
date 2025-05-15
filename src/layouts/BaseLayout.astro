@@ -1,0 +1,102 @@
+---
+import { SITE } from "@constants";
+import HeadMeta from "@components/HeadMeta.astro";
+import Footer from "@components/Footer.svelte";
+
+import "@css/reset.css";
+import "@css/fonts.css";
+import "@css/base.scss";
+import "@css/shared.scss";
+
+const { pageTitle, pageDescription, noBreadcrumbs, removeSiteTitle } =
+  Astro.props;
+---
+
+<html lang="en" class="theme-light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Title  -->
+    <title>
+      {pageTitle && `${pageTitle}${removeSiteTitle ? "" : " • "}`}{
+        !removeSiteTitle ? SITE.TITLE : ""
+      }
+    </title>
+
+    <!-- Preload Font -->
+    <link
+      rel="preload"
+      href="/fonts/KCBubbleShackRegular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      transition:persist
+    />
+    <link
+      rel="preload"
+      href="/fonts/Inter18pt-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      transition:persist
+    />
+    <link
+      rel="preload"
+      href="/fonts/Inter18pt-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      transition:persist
+    />
+
+    <!-- Meta  -->
+    <HeadMeta
+      pageTitle={`${pageTitle ? `${removeSiteTitle ? pageTitle : pageTitle + " • "}` : ""}${!removeSiteTitle ? SITE.TITLE : ""}`}
+      {pageDescription}
+    />
+
+    <!-- Theme Support -->
+    <script is:inline>
+      document.documentElement.classList.remove("theme-light");
+
+      function theme() {
+        const LSTheme = window?.localStorage?.getItem("theme");
+        if (LSTheme) {
+          document.documentElement.classList.add(`theme-${LSTheme}`);
+        } else if (window.matchMedia) {
+          document.documentElement.classList.add(
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "theme-dark"
+              : "theme-light"
+          );
+        } else {
+          document.documentElement.classList.add("theme-light");
+        }
+      }
+
+      theme();
+    </script>
+  </head>
+
+  <body>
+    <!-- Nav -->
+    <a class="skip-to-content" href="#main">Skip to main content</a>
+
+    <!-- Main Content  -->
+    <main id="main">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+
+    <!-- Say hi to consolers -->
+    <script is:inline>
+      console.log(
+        "%c.........................\n         Hello           \n     (づ｡◕‿‿◕｡)づ      \n  Welcome to pstraw.net  \n.........................",
+        "background: #151515; color: #FFEE88;"
+      );
+    </script>
+  </body>
+</html>

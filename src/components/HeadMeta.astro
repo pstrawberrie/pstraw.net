@@ -1,0 +1,35 @@
+---
+import { SITE } from "@constants";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const { pageDescription, pageTitle, noindex } = Astro.props;
+---
+
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Regular -->
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="canonical" href={canonicalURL} />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="generator" content={Astro.generator} />
+<meta name="description" content={pageDescription || SITE.DESCRIPTION} />
+
+<!-- OG -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={`${Astro.site}joshdplo_og-image.png`} />
+<meta property="og:description" content={pageDescription || SITE.DESCRIPTION} />
+<meta property="og:title" content={pageTitle || SITE.TITLE} />
+<meta property="og:site_name" content={SITE.TITLE} />
+<meta property="og:see_also" content={Astro.site} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle || SITE.TITLE} />
+<meta
+  name="twitter:description"
+  content={pageDescription || SITE.DESCRIPTION}
+/>
+<meta
+  name="twitter:image"
+  content={`${Astro.site}joshdplo_twitter-image.png`}
+/>

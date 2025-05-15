@@ -1,0 +1,45 @@
+{
+  "name": "astro",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+"scripts": {
+    "start": "npm run dev",
+    "dev:astro": "astro dev",
+    "dev:web": "nodemon _server/server.js",
+    "dev": "npm-run-all -l -p dev:astro dev:web",
+    "build:history": "node slurpi/scripts/build-history.js",
+    "build:astro": "astro build",
+    "build": "npm-run-all -l -s build:history build:astro",
+    "preview": "astro preview",
+    "astro": "astro",
+    "slurpi": "node slurpi/scripts/slurp.js",
+    "slurpi-sync": "node slurpi/scripts/sync-db.js",
+    "slurpi-tmdb-dates": "node slurpi/scripts/tmdb-csv-dates.js",
+    "buildprod": "NODE_ENV=production npm run build",
+    "prod:web": "NODE_ENV=production node _server/server.js"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.2.6",
+    "@astrojs/sitemap": "^3.3.1",
+    "@astrojs/svelte": "^7.0.13",
+    "astro": "^5.7.12",
+    "convert-csv-to-json": "^2.50.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "gray-matter": "^4.0.3",
+    "helmet": "^8.0.0",
+    "lodash-es": "^4.17.21",
+    "nodemon": "^3.1.9",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.83.0",
+    "sequelize": "^6.37.6",
+    "sharp": "^0.33.5",
+    "sqlite3": "^5.1.7",
+    "svelte": "^5.22.1",
+    "typescript": "^5.8.2"
+  }
+}

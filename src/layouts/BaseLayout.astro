@@ -1,6 +1,7 @@
 ---
 import { SITE } from "@constants";
 import HeadMeta from "@components/HeadMeta.astro";
+import Nav from "@components/Nav.svelte";
 import Footer from "@components/Footer.svelte";
 
 import "@css/reset.css";
@@ -82,6 +83,7 @@ const { pageTitle, pageDescription, noBreadcrumbs, removeSiteTitle } =
   <body>
     <!-- Nav -->
     <a class="skip-to-content" href="#main">Skip to main content</a>
+    <Nav client:load currentPage={Astro.url.pathname} {noBreadcrumbs} />
 
     <!-- Main Content  -->
     <main id="main">

@@ -14,14 +14,31 @@
 
   /* Spacing */
   --site-padding: 2.5%;
-  --content-padding: .65rem;
   --content-width-sm: 56.25rem; //900px
+
+  --nav-height: 62px;
 
   /* Definitions */
   --c-primary: #f92740;
-  --c-secondary: var(--c-theme-mint);
-  --c-tertiary: var(--c-theme-sky-blue);
-  --c-quaternary: var(--c-theme-coral);
+  --c-primary-s1: #c71f33;
+  --c-primary-s2: #951726;
+  --c-primary-t1: #fa5266;
+  --c-primary-t2: #fb7d8c;
+  --c-secondary: #2c8f04;
+  --c-secondary-s1: #237203;
+  --c-secondary-s2: #1a5602;
+  --c-secondary-t1: #56a536;
+  --c-secondary-t2: #80bc68;
+  --c-tertiary: #26c6f8;
+  --c-tertiary-s1: #1e9ec6;
+  --c-tertiary-s2: #177795;
+  --c-tertiary-t1: #51d1f9;
+  --c-tertiary-t2: #7dddfb;
+  --c-quaternary: #ffd700;
+  --c-quaternary-s1: #ccac00;
+  --c-quaternary-s2: #998100;
+  --c-quaternary-t1: #ffdf33;
+  --c-quaternary-t2: #ffe766;
 
   --ff-default: var(--ff-inter);
   --ff-brand: var(--ff-bubbleshack);
@@ -378,8 +395,8 @@ ol ol {
 @include util.themeStyles(light) {
   --font-color: var(--c-black);
   --font-color-opposite: var(--c-white);
-  --background: var(--c-theme-light);
-  --background-opposite: var(--c-theme-dark);
+  --background: var(--c-light);
+  --background-opposite: var(--c-dark);
 
   .show-dark {
     display: none;
@@ -393,8 +410,8 @@ ol ol {
 @include util.themeStyles(dark) {
   --font-color: var(--c-white);
   --font-color-opposite: var(--c-black);
-  --background: var(--c-theme-dark);
-  --background-opposite: var(--c-theme-light);
+  --background: var(--c-dark);
+  --background-opposite: var(--c-light);
 
   .show-dark {
     display: block;

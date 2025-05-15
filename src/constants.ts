@@ -4,6 +4,7 @@ export const SERVER_URL = IS_DEV ?
 
 export const SITE = {
   TITLE: 'pstraw.net',
+  LOGO_TITLE: 'pstraw',
   DESCRIPTION: 'it\'s pstrawberrie\'s web site!',
   NOTES_PER_PAGE: 10,
   MOVIES_PER_PAGE: 20,

@@ -1,0 +1,102 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { isDevelopment, formatDate } from "@util";
+const { frontmatter, slug } = Astro.props;
+
+const searchable = (isDevelopment && frontmatter.published === false) || frontmatter.published === true;
+---
+
+<BaseLayout
+  pageTitle={frontmatter.title}
+  pageDescription={frontmatter?.description}
+  noBreadcrumbs={true}
+>
+  <section class="contain-sm" data-note-id={searchable ? slug : undefined}>
+    <img src={`/images/notes/${slug}.png`} alt={frontmatter.image.alt} />
+    <div class="head">
+      <h1>
+        {frontmatter.title}
+      </h1>
+      <div class="subhead">
+        {
+          frontmatter?.updated && (
+            <i class="updated bg-subtle">
+              Updated {formatDate("" + frontmatter.updated)}
+            </i>
+          )
+        }
+        {
+          frontmatter?.date && (
+            <div class="date">
+              Written {formatDate("" + frontmatter.date)} by{" "}
+              {frontmatter?.authors.map((a) => (
+                <a href={`/notes/authors/${a}`}>{a}</a>
+              ))}
+            </div>
+          )
+        }
+        {
+          frontmatter?.tags && (
+            <div class="tags">
+              {frontmatter?.tags.map((t) => (
+                <a href={`/notes/tags/${t}`}>#{t}</a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="inner">
+        <slot />
+      </div>
+    </div>
+
+    {
+      frontmatter?.date && (
+        <div class="hide" data-details>
+          {frontmatter.updated ? "Updated" : "Written"}
+          {formatDate("" + frontmatter.date)}
+        </div>
+        <a class="hide" href={`/notes/${slug}`} data-link>link</a>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  @use "@css/util";
+
+  // offset for in-page navigation
+  :global([id]:before) {
+    display: block;
+    content: " ";
+    margin-top: -65px;
+    height: 65px;
+    visibility: hidden;
+  }
+
+  // lists
+  :global(ul) {
+    list-style-type: square;
+    list-style-position: inside;
+  }
+
+  :global(ul ul) {
+    padding-left: 0.7em;
+  }
+
+  // headers
+  :global(h3 + h4) {
+    margin-top: 0.4em;
+  }
+
+  // markdown hr
+  :global(hr) {
+    display: block;
+    margin: 2rem 0;
+    border-color: var(--content-subtle);
+  }
+  
+</style>

@@ -1,0 +1,65 @@
+---
+import { SITE } from "@constants";
+import { getPageMenuLinksFromPath, isDevelopment } from "@util";
+import { getCollection } from "astro:content";
+import CollectionLayout from "@layouts/CollectionLayout.astro";
+import NoteCard from "@components/NoteCard.svelte";
+import Pagination from "@components/Pagination.astro";
+
+const pageMenuLinks = getPageMenuLinksFromPath("/notes");
+
+export async function getStaticPaths({ paginate }) {
+  const notes = await getCollection("notes", ({ data }) =>
+    isDevelopment ? true : data.published
+  );
+  const sortedNotes = notes.sort(
+    (a, b) =>
+      new Date(b.data.updated || b.data.date) -
+      new Date(a.data.updated || a.data.date)
+  );
+  return paginate(sortedNotes, { pageSize: SITE.NOTES_PER_PAGE });
+}
+
+const { page } = Astro.props;
+const { total, currentPage, lastPage } = page;
+---
+
+<CollectionLayout
+  pageTitle={`📋 All Notes${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
+  heroText="Notes"
+  {pageMenuLinks}
+  {currentPage}
+>
+  <section class="contain">
+    {currentPage === 1 && <h2 class="h1">Browse All Notes</h2>}
+    <div class="list">
+      {page.data.map((note) => <NoteCard itemData={note} />)}
+    </div>
+
+    <Pagination
+      {total}
+      {currentPage}
+      {lastPage}
+      label="notes"
+      nextUrl={page.url.next}
+      prevUrl={page.url.prev}
+    />
+  </section>
+</CollectionLayout>
+
+<style lang="scss">
+  @use "@css/util";
+
+  .list {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin: 2rem 0 2.5rem;
+
+    @include util.mq(md) {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 1.2rem;
+    }
+  }
+</style>

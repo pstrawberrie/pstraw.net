@@ -1,0 +1,75 @@
+---
+import { SITE } from "@constants";
+import { isDevelopment, getPageMenuLinksFromPath } from "@util";
+import { getCollection } from "astro:content";
+import CollectionLayout from "@layouts/CollectionLayout.astro";
+import NoteCard from "@components/NoteCard.svelte";
+import Pagination from "@components/Pagination.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const notes = await getCollection("notes", ({ data }) =>
+    isDevelopment ? true : data.published
+  );
+  const tags = [...new Set(notes.map((n) => n.data.tags).flat())];
+
+  return tags.flatMap((t) => {
+    const tagNotes = notes.filter((n) => n.data.tags.includes(t));
+    const sortedNotes = tagNotes.sort(
+      (a, b) =>
+        new Date(b.data.updated || b.data.date) -
+        new Date(a.data.updated || a.data.date)
+    );
+
+    return paginate(sortedNotes, {
+      params: { tag: t },
+      pageSize: SITE.NOTES_PER_PAGE,
+    });
+  });
+}
+
+const { tag } = Astro.params;
+const { page } = Astro.props;
+const { total, currentPage, lastPage } = page;
+const pageMenuLinks = getPageMenuLinksFromPath("/notes");
+---
+
+<CollectionLayout
+  pageTitle={`📋 ${tag} Notes ${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
+  heroText="Notes"
+  heroSubtext={`#${tag}`}
+  {pageMenuLinks}
+  {currentPage}
+  pageDescription={`${tag} Notes`}
+>
+  <section class="contain">
+    <div class="list">
+      {page.data.map((note) => <NoteCard itemData={note} />)}
+    </div>
+
+    <Pagination
+      {total}
+      {currentPage}
+      {lastPage}
+      label="notes"
+      nextUrl={page.url.next}
+      prevUrl={page.url.prev}
+    />
+  </section>
+</CollectionLayout>
+
+<style lang="scss">
+  @use "@css/util";
+
+  .list {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin: 2rem 0 2.5rem;
+
+    @include util.mq(md) {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 1.2rem;
+    }
+  }
+</style>

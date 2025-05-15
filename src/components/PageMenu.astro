@@ -1,0 +1,136 @@
+---
+const { links, currentPage = null, center = true } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const isActive = (path) => {
+  const current = currentPath.split("/").splice(1);
+  const link = path.split("/").splice(1);
+
+  // @TODO: theres definitely a better way to do this - this is very hard to read >.<
+  if (path === currentPath) return true; // standard links
+  if (
+    currentPage &&
+    current[current.length - 1] === `${currentPage}` &&
+    link[link.length - 1] === current[current.length - 2]
+  )
+    return true; // single-level paginated links
+  if (
+    (currentPage &&
+      link[link.length - 1] === "tags" &&
+      current[current.length - 2] === "tags") ||
+    (link[link.length - 1] === "tags" &&
+      current[current.length - 3] === "tags" &&
+      current[current.length - 1] === `${currentPage}`)
+  )
+    return true; // notes tags paginated links
+  if (
+    (currentPage &&
+      link[link.length - 1] === "authors" &&
+      current[current.length - 2] === "authors") ||
+    (link[link.length - 1] === "authors" &&
+      current[current.length - 3] === "authors" &&
+      current[current.length - 1] === `${currentPage}`)
+  )
+    return true; // notes authors paginated links
+  return false;
+};
+---
+
+<div class="page-menu" class:list={[{ center }]}>
+  <ul>
+    {
+      links.map((l) => (
+        <li>
+          <a href={l.path} class:list={[{ active: isActive(l.path) }]}>
+            {l.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style lang="scss">
+  @use "@css/util";
+
+  .page-menu {
+    --main-color: var(--font-color);
+
+    display: flex;
+    margin-bottom: 1rem;
+    padding-bottom: 1.5rem;
+    @include util.zindex(pageMenu);
+
+    &.center {
+      justify-content: center;
+    }
+  }
+
+  .page-menu ul {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+
+  li,
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  a {
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0 0.4rem;
+    border: 2px solid var(--font-color);
+    color: var(--font-color);
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+
+    &:not(.active):hover,
+    &:focus-within {
+      background-color: var(--c-accent);
+      color: var(--c-black);
+      z-index: 2;
+    }
+  }
+
+  .active {
+    color: var(--c-black);
+    background-color: var(--main-color);
+
+    &.darkBg {
+      color: var(--c-white);
+    }
+  }
+
+  @include util.mq(md) {
+    .page-menu ul {
+      border-radius: 1.5em;
+      background-color: var(--font-color-opposite);
+      border: 0.3em double var(--main-color);
+      gap: 0;
+
+      a {
+        border: 0;
+        padding: 0.2rem 0.75rem;
+      }
+
+      li:first-child a {
+        border-top-left-radius: 1.5em;
+        border-bottom-left-radius: 1.5em;
+      }
+
+      li:last-child a {
+        border-top-right-radius: 1.5em;
+        border-bottom-right-radius: 1.5em;
+      }
+    }
+  }
+</style>

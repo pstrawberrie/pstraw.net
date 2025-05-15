@@ -75,6 +75,7 @@
         </a>
       </li>
     {/each}
+    <li class="bottom">bottom is here</li>
   </ul>
   <a href="/" class="logo" bind:this={logoEl}>{SITE.LOGO_TITLE}</a>
   <div class="right">
@@ -124,8 +125,9 @@
   .right {
     position: relative;
     display: flex;
+    align-items: center;
     margin-left: auto;
-    gap: 11px;
+    gap: 12px;
   }
 
   button {
@@ -137,7 +139,7 @@
   }
 
   #hamburger {
-    left: -2px;
+    left: -3px;
 
     :global(svg) {
       width: 35px;
@@ -148,8 +150,8 @@
   }
 
   :global(svg.show-dark, svg.show-light) {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
   }
 
   :global(svg.show-dark path, svg.show-light path) {
@@ -159,8 +161,8 @@
   :global(.search svg) {
     position: relative;
     top: 1px;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
   }
 
   :global(.search svg path) {
@@ -170,12 +172,15 @@
   // Popout Menu
   #popout-menu {
     position: fixed;
+    display: flex;
+    flex-direction: column;
     left: 0;
     top: var(--nav-height);
-    width: 300px;
+    width: 100%;
     height: calc(100% - var(--nav-height));
     color: var(--c-black);
     background-color: var(--c-quaternary);
+    border-top: 1px solid var(--background);
     opacity: 0;
     transform: translateX(-25px);
     transform-origin: left;
@@ -183,7 +188,31 @@
       transform 0.2s ease-in-out,
       opacity 0.2s ease-in-out;
     pointer-events: none;
+    overflow-y: auto;
     z-index: 2;
+
+    @include util.mq(sm) {
+      width: 300px;
+    }
+
+    li {
+      list-style-type: none;
+    }
+
+    a {
+      display: block;
+      padding: 6px var(--site-padding);
+      border-bottom: 1px solid var(--c-quaternary-s1);
+
+      &:hover {
+        background-color: var(--c-quaternary-t1);
+      }
+    }
+
+    .bottom {
+      margin-top: auto;
+      padding: 0 var(--site-padding);
+    }
   }
 
   #hamburger[aria-expanded="true"] + #popout-menu {

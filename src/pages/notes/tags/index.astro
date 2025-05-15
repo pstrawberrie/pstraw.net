@@ -1,0 +1,97 @@
+---
+import { isDevelopment, getPageMenuLinksFromPath } from "@util";
+import { getCollection } from "astro:content";
+import CollectionLayout from "@layouts/CollectionLayout.astro";
+
+const notes = await getCollection("notes", ({ data }) =>
+  isDevelopment ? true : data.published,
+);
+const tags = [...new Set(notes.map((k) => k.data.tags).flat())];
+const pageMenuLinks = getPageMenuLinksFromPath("/notes");
+
+const tagsCount = {};
+tags.forEach((t) => {
+  tagsCount[t] = 0;
+  notes.forEach((n) => {
+    if (n.data.tags.includes(t)) tagsCount[t]++;
+  });
+});
+---
+
+<CollectionLayout
+  pageTitle="🏷️ Notes by Tag"
+  heroText="Notes"
+  heroSubtext="by tag"
+  {pageMenuLinks}
+  pageDescription="Notes by Tag"
+>
+  <section class="contain">
+    <h2 class="h1">Browse All Tags</h2>
+    <div class="list">
+      {
+        tags.map((t) => (
+          <a class="card" href={`/notes/tags/${t}`}>
+            <i>#</i>
+            {t} <span>{tagsCount[t]}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</CollectionLayout>
+
+<style lang="scss">
+  @use "@css/util";
+
+  .list {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    span {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: var(--page-color);
+      color: var(--c-black);
+      font-size: 0.9rem;
+      font-weight: bold;
+      line-height: 1;
+      padding: 0.1rem 0.4rem;
+      border: 3px solid var(--font-color);
+      border-right: 0;
+      border-top: 0;
+      border-top-right-radius: 0.1rem;
+    }
+  }
+
+  i {
+    position: relative;
+    display: inline-block;
+    transform: scale(1.5);
+    color: var(--page-color);
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    padding: 1.4rem 1rem 1rem;
+    border: 3px solid var(--font-color);
+    text-decoration: none;
+    border-top-right-radius: 0.5rem;
+    text-align: center;
+    transition: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    @include util.mq(sm) {
+      width: auto;
+      font-size: 1.5rem;
+      border-width: 6px;
+    }
+  }
+</style>

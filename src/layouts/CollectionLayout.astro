@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PageMenu from "@components/PageMenu.astro";
+
+const {
+  pageTitle = "EMPTY",
+  pageMenuLinks = [],
+  currentPage = null,
+} = Astro.props;
+---
+
+<BaseLayout {pageTitle}>
+  <section class="contain">
+    <div class="center-full">HERO TEXT HERE</div>
+    {
+      pageMenuLinks.length > 0 && (
+        <PageMenu links={pageMenuLinks} {currentPage} />
+      )
+    }
+  </section>
+  <slot />
+</BaseLayout>

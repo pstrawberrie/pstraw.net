@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import { getPageMenuLinksFromPath } from "@util";
+import CollectionLayout from "@layouts/CollectionLayout.astro";
+import TMDBCard from "@components/TMDBCard.svelte";
+
+const pageMenuLinks = getPageMenuLinksFromPath("/media");
+
+const allTimeMoviesIds = [
+  "10406", //encino man
+  "348", //alien
+  "563", //starship troopers
+  "926", //galaxy quest
+  "579974", //RRR
+  "800937", //senior year
+  "19995", //avatar
+  "1648", //bill & ted 1
+  "332270", //battle for sevastapol
+  "13363", //man from earth
+];
+const allTimeShowsIds = [
+  "64432", //the magicians
+  "1855", //star trek voyager
+  "580", //start trek ds9
+  "4629", //stargate sg-1
+  "63333", //the last kingdom
+  "56296", //orphan black
+  "4586", //gilmore girls
+  "61664", //sense8
+  "10545", //true blood
+  "39793", //call the midwife
+];
+
+const allTimeMovies = await getCollection("movies", ({ id }) =>
+  allTimeMoviesIds.includes(id),
+);
+const allTimeShows = await getCollection("shows", ({ id }) =>
+  allTimeShowsIds.includes(id),
+);
+---
+
+<CollectionLayout
+  pageTitle="🔥 Favorite Media"
+  heroText="Media"
+  heroSubtext="favorites"
+  {pageMenuLinks}
+>
+  <section class="contain">
+    <h2>All-Time Movies</h2>
+    <div class="list grid-default">
+      {
+        allTimeMovies.map((m) => {
+          const link = "";
+
+          return <TMDBCard itemData={m} />;
+        })
+      }
+    </div>
+
+    <h2>All-Time Shows</h2>
+    <div class="list grid-default">
+      {allTimeShows.map((m) => <TMDBCard itemData={m} />)}
+    </div>
+  </section>
+</CollectionLayout>
+
+<style lang="scss">
+  @use "@css/util";
+
+  h2 {
+    margin-bottom: 0.8rem;
+  }
+
+  .list {
+    margin-bottom: 3rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+</style>

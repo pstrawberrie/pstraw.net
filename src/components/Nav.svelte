@@ -100,7 +100,7 @@
     width: 100%;
     height: var(--nav-height);
     padding: 0 var(--site-padding);
-    background-color: var(--c-quaternary);
+    background-color: var(--font-color-opposite);
     @include util.zindex(nav);
   }
 
@@ -119,7 +119,7 @@
     font-size: 3rem;
     line-height: 1;
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: var(--c-black);
+    -webkit-text-stroke-color: var(--font-color);
   }
 
   .right {
@@ -144,7 +144,7 @@
     :global(svg) {
       width: 35px;
       height: 35px;
-      fill: var(--c-black);
+      fill: var(--font-color);
       pointer-events: none;
     }
   }
@@ -155,7 +155,7 @@
   }
 
   :global(svg.show-dark path, svg.show-light path) {
-    fill: var(--c-black);
+    fill: var(--font-color);
   }
 
   :global(.search svg) {
@@ -166,7 +166,7 @@
   }
 
   :global(.search svg path) {
-    fill: var(--c-black);
+    fill: var(--font-color);
   }
 
   // Popout Menu
@@ -178,8 +178,8 @@
     top: var(--nav-height);
     width: 100%;
     height: calc(100% - var(--nav-height));
-    color: var(--c-black);
-    background-color: var(--c-quaternary);
+    // color: var(--c-black);
+    background-color: var(--font-color-opposite);
     border-top: 1px solid var(--background);
     opacity: 0;
     transform: translateX(-25px);
@@ -202,10 +202,10 @@
     a {
       display: block;
       padding: 6px var(--site-padding);
-      border-bottom: 1px solid var(--c-quaternary-s1);
+      border-bottom: 1px solid var(--background);
 
       &:hover {
-        background-color: var(--c-quaternary-t1);
+        background-color: var(--background-accent);
       }
     }
 

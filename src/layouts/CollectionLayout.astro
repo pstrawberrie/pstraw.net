@@ -1,22 +1,38 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@components/Hero.svelte";
 import PageMenu from "@components/PageMenu.astro";
 
 const {
   pageTitle = "EMPTY",
+  heroText,
+  heroSubtext,
+  heroBgColor,
+  heroColor,
   pageMenuLinks = [],
   currentPage = null,
 } = Astro.props;
 ---
 
 <BaseLayout {pageTitle}>
-  <section class="contain">
-    <div class="center-full">HERO TEXT HERE</div>
+  <Hero
+    text={heroText}
+    bgcolor={heroBgColor}
+    color={heroColor}
+    subtext={heroSubtext}
+  >
     {
       pageMenuLinks.length > 0 && (
         <PageMenu links={pageMenuLinks} {currentPage} />
       )
     }
-  </section>
+  </Hero>
+  <!-- <section class="contain">
+    {
+      pageMenuLinks.length > 0 && (
+        <PageMenu links={pageMenuLinks} {currentPage} />
+      )
+    }
+  </section> -->
   <slot />
 </BaseLayout>

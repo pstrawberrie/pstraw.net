@@ -46,6 +46,9 @@
     flex-direction: column;
     justify-content: space-between;
     text-decoration: none;
+    background-color: var(--font-color-opposite);
+    border: 2px solid var(--background-accent);
+    border-radius: 0.15rem;
 
     &::after {
       display: none;
@@ -56,7 +59,7 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      padding: 1rem 0;
+      padding: 1rem;
     }
 
     .details {
@@ -67,9 +70,8 @@
 
     .title {
       font-weight: bold;
-      font-size: 2rem;
+      font-size: 1.75rem;
       line-height: 1.2;
-      font-family: var(--ff-notes);
     }
 
     .info {
@@ -78,18 +80,18 @@
       gap: 6px;
       margin-top: 5px;
       font-size: 0.75rem;
+      opacity: 0.75;
       pointer-events: none;
 
       span {
         padding: 2px 4px;
-        border: 1px solid var(--background-transparent-opposite-3);
+        border: 1px solid var(--background-accent);
         border-radius: 2px;
       }
     }
 
     .overview {
       margin-top: 1rem;
-      font-size: 0.9rem;
       line-height: 1.1;
     }
 
@@ -99,10 +101,10 @@
       justify-content: space-between;
       align-items: center;
       margin-top: auto;
-      padding: 0.5rem 0;
+      padding: 0.5rem 1rem;
       font-size: 0.8rem;
       font-weight: bold;
-      border-top: 1px solid var(--background-transparent-opposite);
+      border-top: 2px solid var(--background-accent);
 
       i {
         opacity: 0.2;

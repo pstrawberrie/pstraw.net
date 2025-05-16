@@ -26,24 +26,41 @@ const { total, currentPage, lastPage } = page;
 
 <CollectionLayout
   pageTitle={`📋 All Notes${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
-  heroText="Notes"
+  heroText={`Browse All Notes (${total})`}
   {pageMenuLinks}
   {currentPage}
 >
   <section class="contain">
-    {currentPage === 1 && <h2 class="h1">Browse All Notes</h2>}
+    <!-- {currentPage === 1 && <h2 class="h1">Browse All Notes</h2>} -->
+    {
+      total > SITE.NOTES_PER_PAGE && (
+        <Pagination
+          {total}
+          {currentPage}
+          {lastPage}
+          label="notes"
+          nextUrl={page.url.next}
+          prevUrl={page.url.prev}
+        />
+      )
+    }
+
     <div class="list">
       {page.data.map((note) => <NoteCard itemData={note} />)}
     </div>
 
-    <Pagination
-      {total}
-      {currentPage}
-      {lastPage}
-      label="notes"
-      nextUrl={page.url.next}
-      prevUrl={page.url.prev}
-    />
+    {
+      total > SITE.NOTES_PER_PAGE && (
+        <Pagination
+          {total}
+          {currentPage}
+          {lastPage}
+          label="notes"
+          nextUrl={page.url.next}
+          prevUrl={page.url.prev}
+        />
+      )
+    }
   </section>
 </CollectionLayout>
 

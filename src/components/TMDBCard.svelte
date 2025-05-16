@@ -7,19 +7,12 @@
   const isMovie = itemData.collection === "movies";
   const tmdbUrl = `https://www.themoviedb.org/${isMovie ? "movie" : "tv"}/${id}`;
 
-  // CreatedAt Date
-  const createdAtDate = new Date(data.createdAt).toLocaleString(undefined, {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-
   // Runtime
   const episodeRuntimeArr = isMovie ? null : JSON.parse(data.episode_run_time);
   const runtime = isMovie
     ? minutesToHours(data.runtime)
     : minutesToHours(
-        parseInt(episodeRuntimeArr[episodeRuntimeArr.length - 1], 10),
+        parseInt(episodeRuntimeArr[episodeRuntimeArr.length - 1], 10)
       );
 </script>
 
@@ -50,7 +43,7 @@
       <span
         ><b
           >{new Date(
-            isMovie ? data.release_date : data.first_air_date,
+            isMovie ? data.release_date : data.first_air_date
           ).getFullYear()}</b
         ></span
       >
@@ -76,10 +69,8 @@
     justify-content: space-between;
     text-decoration: none;
     background-color: var(--font-color-opposite);
-    border: 1px solid var(--c-tertiary-s2);
+    border: 2px solid var(--background-accent);
     border-radius: 0.15rem;
-    box-shadow: 0 1px 2px #0000;
-    transform: scale(1);
     transition:
       transform 0.15s ease-out,
       box-shadow 0.18s ease-out;
@@ -130,12 +121,12 @@
       gap: 6px;
       margin-top: 5px;
       font-size: 0.75rem;
-      opacity: 0.6;
+      opacity: 0.75;
       pointer-events: none;
 
       span {
         padding: 2px 4px;
-        border: 1px solid var(--c-tertiary-s2);
+        border: 1px solid var(--background-accent);
         border-radius: 2px;
       }
     }
@@ -155,7 +146,7 @@
       padding: 0.5rem 0.7rem 0.3rem 0.7rem;
       font-size: 0.8rem;
       font-weight: bold;
-      border-top: 3px solid var(--content-subtle);
+      border-top: 2px solid var(--background-accent);
 
       i {
         position: relative;

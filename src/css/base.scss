@@ -6,13 +6,17 @@
   --c-white: #fff;
 
   --c-dark: #1a1a1a;
+  --c-dark-accent: #313131;
+  --c-dark-accent2: #484848;
+
   --c-light: #e7f1f1;
+  --c-light-accent: #b9c1c1;
+  --c-light-accent2: #8b9191;
 
   /* Type */
   --ff-inter: 'Inter', Tahoma, Verdana, Arial, sans-serif;
   --ff-bubbleshack: 'KC Bubble Shack', Tahoma, Verdana, Arial, sans-serif;
-  --ff-pelletiertyped: 'KC Pelletier Typed', 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
-  --ff-courier: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+  --ff-monospace: monospace;
 
   /* Spacing */
   --site-padding: 3%;
@@ -44,7 +48,7 @@
 
   --ff-default: var(--ff-inter);
   --ff-brand: var(--ff-bubbleshack);
-  --ff-notes: var(--ff-pelletiertyped);
+  --ff-code: var(--ff-monospace);
 
   /* Rules */
   color: var(--font-color);
@@ -140,6 +144,7 @@ label {
  * Type
  */
 p,
+.p,
 a,
 ul,
 ol {
@@ -399,6 +404,8 @@ ol ol {
   --font-color: var(--c-black);
   --font-color-opposite: var(--c-white);
   --background: var(--c-light);
+  --background-accent: var(--c-light-accent);
+  --background-accent2: var(--c-light-accent2);
   --background-opposite: var(--c-dark);
 
   .show-dark {
@@ -414,6 +421,8 @@ ol ol {
   --font-color: var(--c-white);
   --font-color-opposite: var(--c-black);
   --background: var(--c-dark);
+  --background-accent: var(--c-dark-accent);
+  --background-accent2: var(--c-dark-accent2);
   --background-opposite: var(--c-light);
 
   .show-dark {

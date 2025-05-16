@@ -11,7 +11,7 @@
   /* Type */
   --ff-inter: 'Inter', Tahoma, Verdana, Arial, sans-serif;
   --ff-bubbleshack: 'KC Bubble Shack', Tahoma, Verdana, Arial, sans-serif;
-  --ff-pelletiertyped:  'KC Pelletier Typed', 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+  --ff-pelletiertyped: 'KC Pelletier Typed', 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
   --ff-courier: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
 
   /* Spacing */
@@ -193,7 +193,7 @@ h3,
 h4,
 .h4 {
   line-height: 1.15;
-  font-weight: bold;
+  font-weight: 300;
 
   +p {
     margin-top: .7em;

@@ -19,7 +19,7 @@
   const runtime = isMovie
     ? minutesToHours(data.runtime)
     : minutesToHours(
-        parseInt(episodeRuntimeArr[episodeRuntimeArr.length - 1], 10)
+        parseInt(episodeRuntimeArr[episodeRuntimeArr.length - 1], 10),
       );
 </script>
 
@@ -50,7 +50,7 @@
       <span
         ><b
           >{new Date(
-            isMovie ? data.release_date : data.first_air_date
+            isMovie ? data.release_date : data.first_air_date,
           ).getFullYear()}</b
         ></span
       >
@@ -75,8 +75,8 @@
     flex-direction: column;
     justify-content: space-between;
     text-decoration: none;
-    background-color: var(--content-accent);
-    border: 3px solid var(--content-subtle);
+    background-color: var(--font-color-opposite);
+    border: 1px solid var(--c-tertiary-s2);
     border-radius: 0.15rem;
     box-shadow: 0 1px 2px #0000;
     transform: scale(1);
@@ -89,9 +89,7 @@
     }
 
     &:hover {
-      box-shadow:
-        rgba(0, 0, 0, 0.3) 11px 14px 8px,
-        rgba(0, 0, 0, 0.22) 6px 8px 2px;
+      // box-shadow: 0px 5px 17px 4px rgba(0, 0, 0, 0.61);
       transform: translateY(-2px);
       z-index: 2;
     }
@@ -137,7 +135,7 @@
 
       span {
         padding: 2px 4px;
-        border: 1px solid var(--content-subtle);
+        border: 1px solid var(--c-tertiary-s2);
         border-radius: 2px;
       }
     }
@@ -161,7 +159,7 @@
 
       i {
         position: relative;
-        color: var(--content-subtle);
+        opacity: 0.4;
         margin: 0 3px;
         font-style: normal;
       }

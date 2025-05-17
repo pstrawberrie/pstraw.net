@@ -10,12 +10,12 @@ const pageMenuLinks = getPageMenuLinksFromPath("/notes");
 
 export async function getStaticPaths({ paginate }) {
   const notes = await getCollection("notes", ({ data }) =>
-    isDevelopment ? true : data.published
+    isDevelopment ? true : data.published,
   );
   const sortedNotes = notes.sort(
     (a, b) =>
       new Date(b.data.updated || b.data.date) -
-      new Date(a.data.updated || a.data.date)
+      new Date(a.data.updated || a.data.date),
   );
   return paginate(sortedNotes, { pageSize: SITE.NOTES_PER_PAGE });
 }
@@ -26,7 +26,8 @@ const { total, currentPage, lastPage } = page;
 
 <CollectionLayout
   pageTitle={`📋 All Notes${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
-  heroText={`Browse All Notes (${total})`}
+  heroText="Notes"
+  heroSubtext={`browse all (${total})`}
   {pageMenuLinks}
   {currentPage}
 >
@@ -72,7 +73,6 @@ const { total, currentPage, lastPage } = page;
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    margin: 2rem 0 2.5rem;
 
     @include util.mq(md) {
       grid-template-columns: 1fr 1fr;

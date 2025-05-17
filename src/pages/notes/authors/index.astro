@@ -21,12 +21,11 @@ authors.forEach((t) => {
 <CollectionLayout
   pageTitle="✎ Notes by Author"
   heroText="Notes"
-  heroSubtext="by author"
+  heroSubtext={`browse by authors (${authors.length})`}
   {pageMenuLinks}
   pageDescription="Notes by Author"
 >
   <section class="contain">
-    <h2 class="h1">Browse All Authors</h2>
     <div class="list">
       {
         authors.map((t) => (
@@ -48,7 +47,6 @@ authors.forEach((t) => {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 2rem;
 
     span {
       position: absolute;

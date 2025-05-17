@@ -20,9 +20,10 @@ export const PAGE_COLORS = [
 export const ALL_LINKS = [
   { path: '/', title: 'Home' },
   {
-    path: '/media', title: 'Media', allTitle: 'Favorites', children: [
+    path: '/media', title: 'Media', allTitle: 'All Media', children: [
       { path: '/media/movies', title: 'Movies' },
       { path: '/media/shows', title: 'Shows' },
+      { path: '/media/favorites', title: 'Favorites' },
     ]
   },
   {

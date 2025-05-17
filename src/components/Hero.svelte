@@ -3,29 +3,29 @@
 </script>
 
 <div
-  class="hero contain"
+  class="hero"
   style={`background-color: ${bgcolor ? bgcolor : "transparent"}; color: ${color ? color : "var(--c-black;"};`}
 >
-  <div class="top">
+  <div class="contain">
     <div class="text h1">{text}</div>
     <div class="subtext p">{subtext}</div>
-    <slot />
   </div>
+  <slot />
 </div>
 
 <style lang="scss">
   .hero {
     padding-top: 0.8em;
     padding-bottom: 0.6em;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
   }
 
   .subtext {
-    line-height: 1;
+    line-height: 1.2;
   }
 
-  :global(.subtext + .page-menu) {
+  :global(.page-menu) {
     margin-top: 1rem;
   }
 </style>

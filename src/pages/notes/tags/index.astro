@@ -21,12 +21,11 @@ tags.forEach((t) => {
 <CollectionLayout
   pageTitle="🏷️ Notes by Tag"
   heroText="Notes"
-  heroSubtext="by tag"
+  heroSubtext={`browse by tags (${tags.length})`}
   {pageMenuLinks}
   pageDescription="Notes by Tag"
 >
   <section class="contain">
-    <h2 class="h1">Browse All Tags</h2>
     <div class="list">
       {
         tags.map((t) => (
@@ -48,7 +47,6 @@ tags.forEach((t) => {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 2rem;
 
     span {
       position: absolute;

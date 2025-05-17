@@ -53,6 +53,31 @@ export function capitalizeRomanNumerals(s: string) {
 }
 
 /**
+ * Remove Articles from String
+ */
+export function removeArticles(str: string) {
+  const articles = ['a ', 'an ', 'the ']; // Note the trailing spaces
+  let lowerStr = str.toLowerCase();
+
+  for (const article of articles) {
+    if (lowerStr.startsWith(article)) {
+      return str.substring(article.length).trim(); // Remove article and trim
+    }
+  }
+  return str;
+}
+
+/**
+ * Compare Names (for sort)
+ */
+export function compareNames(a: string, b: string) {
+  const nameA = removeArticles(a);
+  const nameB = removeArticles(b);
+
+  return nameA.localeCompare(nameB);
+}
+
+/**
  * Get Page Menu Links from Path
  */
 export function getPageMenuLinksFromPath(path: string) {

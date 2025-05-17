@@ -17,6 +17,7 @@ const allTimeMoviesIds = [
   "1648", //bill & ted 1
   "332270", //battle for sevastapol
   "13363", //man from earth
+  "24732", // harrison bergeron 1995
 ];
 const allTimeShowsIds = [
   "64432", //the magicians
@@ -40,13 +41,13 @@ const allTimeShows = await getCollection("shows", ({ id }) =>
 ---
 
 <CollectionLayout
-  pageTitle="🔥 Favorite Media"
+  pageTitle="🔥 My Favorite Media"
   heroText="Media"
-  heroSubtext="favorites"
+  heroSubtext="my all-time favorites!"
   {pageMenuLinks}
 >
   <section class="contain">
-    <h2>All-Time Movies</h2>
+    <h2 class="h3">Movies</h2>
     <div class="list grid-default">
       {
         allTimeMovies.map((m) => {
@@ -57,7 +58,7 @@ const allTimeShows = await getCollection("shows", ({ id }) =>
       }
     </div>
 
-    <h2>All-Time Shows</h2>
+    <h2 class="h3">Shows</h2>
     <div class="list grid-default">
       {allTimeShows.map((m) => <TMDBCard itemData={m} />)}
     </div>

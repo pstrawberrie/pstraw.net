@@ -8,15 +8,16 @@ import Pagination from "@components/Pagination.astro";
 
 const pageMenuLinks = getPageMenuLinksFromPath("/media");
 export async function getStaticPaths({ paginate }) {
+  const movies = await getCollection("movies");
   const shows = await getCollection("shows");
-  shows.sort((a, b) => {
+  const allMedia = [...movies, ...shows].sort((a, b) => {
     const nameA = removeArticles(a.data.title);
     const nameB = removeArticles(b.data.title);
 
     return nameA.localeCompare(nameB);
   });
 
-  return paginate(shows, { pageSize: SITE.MOVIES_PER_PAGE });
+  return paginate(allMedia, { pageSize: SITE.MOVIES_PER_PAGE });
 }
 
 const { page } = Astro.props;
@@ -24,32 +25,32 @@ const { total, currentPage, lastPage } = page;
 ---
 
 <CollectionLayout
-  pageTitle={`🖥 Browse Shows${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
+  pageTitle={`📀 Browse Media${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
   heroText="Media"
-  heroSubtext={`browse all shows (${total})`}
+  heroSubtext={`browse all media (${total})`}
   {pageMenuLinks}
   {currentPage}
-  pageDescription="A list of the tv shows I like"
+  pageDescription="A list of the movies I like"
 >
   <section class="contain">
     <Pagination
       {total}
       {currentPage}
       {lastPage}
-      label="shows"
+      label="media"
       nextUrl={page.url.next}
       prevUrl={page.url.prev}
     />
 
     <div class="list grid-default">
-      {page.data.map((show) => <TMDBCard itemData={show} />)}
+      {page.data.map((movie) => <TMDBCard itemData={movie} />)}
     </div>
 
     <Pagination
       {total}
       {currentPage}
       {lastPage}
-      label="shows"
+      label="media"
       nextUrl={page.url.next}
       prevUrl={page.url.prev}
     />

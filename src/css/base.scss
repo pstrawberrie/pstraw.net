@@ -259,15 +259,15 @@ ol ol {
  */
 @include util.themeStyles(dark) {
   *:focus-visible {
-    outline: .2rem solid var(--c-primary);
-    background-color: rgba(255, 0, 255, .1);
+    outline: .2rem solid var(--c-quaternary);
+    background-color: rgba(255, 215, 0, .5);
   }
 }
 
 @include util.themeStyles(light) {
   *:focus-visible {
-    outline: .2rem solid var(--c-primary);
-    background-color: rgba(255, 0, 255, .25);
+    outline: .2rem solid var(--c-quaternary);
+    background-color: rgba(255, 215, 0, .5);
   }
 }
 
@@ -275,7 +275,7 @@ ol ol {
   position: absolute;
   left: 50%;
   top: 0;
-  padding: .4rem 1rem;
+  padding: .5rem 1.15rem;
   font-size: clamp(0.875rem, 3.6vw - 0.25rem, 2rem);
   font-weight: bold;
   color: var(--c-black);
@@ -291,7 +291,7 @@ ol ol {
     transform: translate(-50%, 0);
     opacity: 1;
     outline-width: .1em;
-    background: var(--c-primary) !important;
+    background: var(--c-quaternary) !important;
   }
 }
 

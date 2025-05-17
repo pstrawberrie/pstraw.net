@@ -42,6 +42,15 @@ const pageMenuLinks = getPageMenuLinksFromPath("/notes");
   pageDescription={`Notes by ${author}`}
 >
   <section class="contain">
+    <Pagination
+      {total}
+      {currentPage}
+      {lastPage}
+      label="notes"
+      nextUrl={page.url.next}
+      prevUrl={page.url.prev}
+    />
+
     <div class="list">
       {page.data.map((note) => <NoteCard itemData={note} />)}
     </div>

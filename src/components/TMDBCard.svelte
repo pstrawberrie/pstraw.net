@@ -71,16 +71,13 @@
     background-color: var(--font-color-opposite);
     border: 2px solid var(--background-accent);
     border-radius: 0.15rem;
-    transition:
-      transform 0.15s ease-out,
-      box-shadow 0.18s ease-out;
+    transition: transform 0.15s ease-out;
 
     &::after {
       display: none;
     }
 
     &:hover {
-      // box-shadow: 0px 5px 17px 4px rgba(0, 0, 0, 0.61);
       transform: translateY(-2px);
       z-index: 2;
     }

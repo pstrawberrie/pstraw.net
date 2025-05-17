@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import CollectionLayout from "@layouts/CollectionLayout.astro";
 
 const notes = await getCollection("notes", ({ data }) =>
-  isDevelopment ? true : data.published,
+  isDevelopment ? true : data.published
 );
 const tags = [...new Set(notes.map((k) => k.data.tags).flat())];
 const pageMenuLinks = getPageMenuLinksFromPath("/notes");
@@ -52,16 +52,14 @@ tags.forEach((t) => {
       position: absolute;
       top: 0;
       right: 0;
-      background-color: var(--page-color);
-      color: var(--c-black);
       font-size: 0.9rem;
       font-weight: bold;
       line-height: 1;
       padding: 0.1rem 0.4rem;
-      border: 3px solid var(--font-color);
+      border: 2px solid var(--font-color);
       border-right: 0;
       border-top: 0;
-      border-top-right-radius: 0.1rem;
+      border-bottom-left-radius: 0.15rem;
     }
   }
 
@@ -76,9 +74,10 @@ tags.forEach((t) => {
     position: relative;
     width: 100%;
     padding: 1.4rem 1rem 1rem;
-    border: 3px solid var(--font-color);
+    background-color: var(--font-color-opposite);
+    border: 2px solid var(--font-color);
     text-decoration: none;
-    border-top-right-radius: 0.5rem;
+    border-radius: 0.15rem;
     text-align: center;
     transition: none;
 
@@ -89,7 +88,6 @@ tags.forEach((t) => {
     @include util.mq(sm) {
       width: auto;
       font-size: 1.5rem;
-      border-width: 6px;
     }
   }
 </style>

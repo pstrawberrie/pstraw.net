@@ -49,9 +49,15 @@
     background-color: var(--font-color-opposite);
     border: 2px solid var(--background-accent);
     border-radius: 0.15rem;
+    transition: transform 0.15s ease-out;
 
     &::after {
       display: none;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      z-index: 2;
     }
 
     .top {

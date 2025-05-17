@@ -77,7 +77,7 @@ const { pageTitle, pageDescription, noBreadcrumbs, removeSiteTitle } =
           document.documentElement.classList.add(
             window.matchMedia("(prefers-color-scheme: dark)").matches
               ? "theme-dark"
-              : "theme-light",
+              : "theme-light"
           );
         } else {
           document.documentElement.classList.add("theme-light");
@@ -90,7 +90,7 @@ const { pageTitle, pageDescription, noBreadcrumbs, removeSiteTitle } =
 
   <body>
     <!-- Nav -->
-    <a class="skip-to-content" href="#main">Skip to main content</a>
+    <a class="skip-to-content" href="#main">Skip to content</a>
     <Nav client:load currentPage={Astro.url.pathname} {noBreadcrumbs} />
 
     <!-- Main Content  -->
@@ -105,7 +105,7 @@ const { pageTitle, pageDescription, noBreadcrumbs, removeSiteTitle } =
     <script is:inline>
       console.log(
         "%c.........................\n          Hello          \n      (づ｡◕‿‿◕｡)づ     \n  Welcome to pstraw.net  \n.........................",
-        "background: #151515; color: #FFEE88;",
+        "background: #151515; color: #FFEE88;"
       );
     </script>
   </body>

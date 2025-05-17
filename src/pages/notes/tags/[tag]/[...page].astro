@@ -34,7 +34,7 @@ const pageMenuLinks = getPageMenuLinksFromPath("/notes");
 ---
 
 <CollectionLayout
-  pageTitle={`📋 ${tag} Notes ${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
+  pageTitle={`🏷️ #${tag} Notes ${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
   heroText="Notes"
   heroSubtext={`#${tag}`}
   {pageMenuLinks}
@@ -42,6 +42,15 @@ const pageMenuLinks = getPageMenuLinksFromPath("/notes");
   pageDescription={`${tag} Notes`}
 >
   <section class="contain">
+    <Pagination
+      {total}
+      {currentPage}
+      {lastPage}
+      label="notes"
+      nextUrl={page.url.next}
+      prevUrl={page.url.prev}
+    />
+
     <div class="list">
       {page.data.map((note) => <NoteCard itemData={note} />)}
     </div>

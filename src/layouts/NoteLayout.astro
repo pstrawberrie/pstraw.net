@@ -9,7 +9,7 @@ const searchable =
 ---
 
 <BaseLayout
-  pageTitle={frontmatter.title}
+  pageTitle={`📋 ${frontmatter.title}`}
   pageDescription={frontmatter?.description}
   noBreadcrumbs={true}
 >
@@ -17,19 +17,12 @@ const searchable =
     class="note-layout contain-sm"
     data-note-id={searchable ? slug : undefined}
   >
-    <img src={`/images/notes/${slug}.jpg`} />
+    <img class="note-image" src={`/images/notes/${slug}.jpg`} />
+    <h1>
+      {frontmatter.title}
+    </h1>
     <div class="head">
-      <h1>
-        {frontmatter.title}
-      </h1>
       <div class="subhead">
-        {
-          frontmatter?.updated && (
-            <i class="updated bg-subtle">
-              Updated {formatDate("" + frontmatter.updated)}
-            </i>
-          )
-        }
         {
           frontmatter?.date && (
             <div class="date">
@@ -43,6 +36,8 @@ const searchable =
         {
           frontmatter?.tags && (
             <div class="tags">
+              {" "}
+              Tagged
               {frontmatter?.tags.map((t) => (
                 <a href={`/notes/tags/${t}`}>#{t}</a>
               ))}
@@ -52,8 +47,15 @@ const searchable =
       </div>
     </div>
 
-    <div class="content">
+    <div class="content bordered">
       <div class="inner">
+        {
+          frontmatter?.updated && (
+            <div class="updated">
+              Updated {formatDate("" + frontmatter.updated)}
+            </div>
+          )
+        }
         <slot />
       </div>
     </div>
@@ -63,10 +65,45 @@ const searchable =
 <style lang="scss">
   @use "@css/util";
 
-  .content {
-    padding-bottom: 3rem;
+  .bordered {
+    border: 2px solid var(--background-accent);
   }
 
+  h1 {
+    font-weight: bold;
+  }
+
+  .note-image {
+    display: block;
+    margin: 1rem 0;
+  }
+
+  .head {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    font-weight: bold;
+
+    a {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  }
+
+  .content {
+    padding: 1rem 0.75rem;
+    margin-bottom: 3rem;
+    background-color: var(--font-color-opposite);
+
+    .updated {
+      display: inline-block;
+      padding: 0.1rem 0.5rem;
+      border: 1px solid var(--c-secondary);
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  /* Note Layout Globals */
   // offset for in-page navigation
   :global([id]:before) {
     display: block;

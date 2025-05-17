@@ -226,8 +226,8 @@
       max-height: 90%;
       margin: 4rem auto 0;
       padding-bottom: 1rem;
-      background-color: var(--background);
-      border: 2px solid var(--content-transparent-opposite);
+      background-color: var(--font-color-opposite);
+      border: 2px solid var(--c-quaternary);
       border-radius: 12px;
       overflow-y: auto;
       backdrop-filter: blur(2px);
@@ -249,14 +249,14 @@
       padding: 1rem;
       margin-bottom: 5px;
       z-index: 3;
-      background-color: var(--background);
+      background-color: var(--font-color-opposite);
 
       input {
         width: 100%;
         color: var(--font-color);
-        border: 1px solid var(--content-subtle);
+        border: 0;
+        border-bottom: 1px solid var(--c-quaternary-s1);
         background-color: var(--font-color-opposite);
-        border-radius: 0.25rem;
         font-size: 1.2rem;
 
         &:focus-visible {
@@ -278,7 +278,7 @@
           opacity 0.15s;
 
         &:hover {
-          opacity: 0.6;
+          opacity: 0.8;
         }
 
         &[disabled] {
@@ -312,7 +312,7 @@
       button {
         padding: 3px 6px;
         background-color: var(--content-transparent);
-        border: 1px solid var(--content-subtler);
+        border: 2px solid var(--background);
         border-radius: 2px;
         text-transform: capitalize;
 

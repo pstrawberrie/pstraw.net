@@ -101,6 +101,7 @@
     height: var(--nav-height);
     padding: 0 var(--site-padding);
     background-color: var(--font-color-opposite);
+    border-bottom: 2px solid var(--background-accent);
     @include util.zindex(nav);
   }
 

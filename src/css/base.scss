@@ -14,8 +14,8 @@
   --c-light-accent2: #8b9191;
 
   /* Type */
-  --ff-inter: 'Inter', Tahoma, Verdana, Arial, sans-serif;
-  --ff-bubbleshack: 'KC Bubble Shack', Tahoma, Verdana, Arial, sans-serif;
+  --ff-nunito: 'Nunito', Tahoma, Verdana, Arial, sans-serif;
+  --ff-stonecoldfox: 'KC Stone Cold Fox', Tahoma, Verdana, Arial, sans-serif;
   --ff-monospace: monospace;
 
   /* Spacing */
@@ -24,7 +24,7 @@
 
   --nav-height: 62px;
 
-  /* Definitions */
+  /* Colors */
   --c-primary: #f92740;
   --c-primary-s1: #c71f33;
   --c-primary-s2: #951726;
@@ -46,8 +46,11 @@
   --c-quaternary-t1: #ffdf33;
   --c-quaternary-t2: #ffe766;
 
-  --ff-default: var(--ff-inter);
-  --ff-brand: var(--ff-bubbleshack);
+  --c-code-bg: #1E1E1E;
+
+  /* Fonts */
+  --ff-default: var(--ff-nunito);
+  --ff-brand: var(--ff-stonecoldfox);
   --ff-code: var(--ff-monospace);
 
   /* Rules */
@@ -198,7 +201,7 @@ h3,
 h4,
 .h4 {
   line-height: 1.15;
-  font-weight: 300;
+  font-family: var(--ff-brand);
 
   +p {
     margin-top: .7em;
@@ -236,8 +239,8 @@ small,
 
 code {
   font-size: .8em;
-  background-color: #f0f;
-  padding: 0 .15em;
+  background-color: var(--c-code-bg);
+  padding: .25em .5em;
 }
 
 pre {

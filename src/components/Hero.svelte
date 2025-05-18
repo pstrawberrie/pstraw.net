@@ -7,13 +7,15 @@
   style={`background-color: ${bgcolor ? bgcolor : "transparent"}; color: ${color ? color : "var(--c-black;"};`}
 >
   <div class="contain">
-    <div class="text h1">{text}</div>
+    <h1 class="text">{text}</h1>
     <div class="subtext p">{subtext}</div>
   </div>
   <slot />
 </div>
 
 <style lang="scss">
+  @use "@css/util";
+
   .hero {
     padding-top: 0.8em;
     padding-bottom: 0.6em;
@@ -21,8 +23,18 @@
     text-align: center;
   }
 
+  .text {
+    text-decoration: underline;
+  }
+
   .subtext {
-    line-height: 1.2;
+    text-transform: uppercase;
+    font-size: 0.88rem;
+    margin-top: 0.2rem;
+
+    @include util.mq(sm) {
+      font-size: 1rem;
+    }
   }
 
   :global(.page-menu) {

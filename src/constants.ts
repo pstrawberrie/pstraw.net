@@ -4,7 +4,6 @@ export const SERVER_URL = IS_DEV ?
 
 export const SITE = {
   TITLE: 'pstraw.net',
-  LOGO_TITLE: 'pstraw',
   DESCRIPTION: 'it\'s pstrawberrie\'s web site!',
   NOTES_PER_PAGE: 10,
   MOVIES_PER_PAGE: 20,
@@ -47,24 +46,26 @@ export const FOOTER_LINKS = [
   {
     heading: 'Media',
     links: [
-      { path: '/media', title: 'Favorites' },
-      { path: '/media/movies', title: 'Movies' },
-      { path: '/media/shows', title: 'Shows' },
+      { path: '/media', title: 'All Media' },
+      { path: '/media/movies', title: 'Browse Movies' },
+      { path: '/media/shows', title: 'Browse Shows' },
+      { path: '/media/favorites', title: 'My Favorites' },
     ]
   },
   {
     heading: 'Notes',
     links: [
       { path: '/notes', title: 'All Notes' },
-      { path: '/notes/tags', title: 'Tags' },
-      { path: '/notes/authors', title: 'Authors' },
+      { path: '/notes/tags', title: 'Notes by tag' },
+      { path: '/notes/authors', title: 'Notes by author' },
     ]
   },
   {
-    heading: 'Site',
+    heading: 'General',
     links: [
-      { path: '/', title: 'Home' },
       { path: '/about', title: 'About' },
+      { path: '/friends', title: 'Friends' },
+      { path: '/thanks', title: 'Thanks' },
     ]
   },
 ];

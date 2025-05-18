@@ -77,7 +77,7 @@
     {/each}
     <li class="bottom">bottom is here</li>
   </ul>
-  <a href="/" class="logo" bind:this={logoEl}>{SITE.LOGO_TITLE}</a>
+  <a href="/" class="logo" bind:this={logoEl}>{SITE.TITLE}</a>
   <div class="right">
     <button class="search" title="Search" onclick={toggleSearch}>
       <SVG name="search" />
@@ -113,14 +113,19 @@
 
   .logo {
     position: relative;
-    top: 2px;
-    padding-left: 6px;
+    padding-left: 8px;
     font-family: var(--ff-brand);
     color: var(--c-primary);
-    font-size: 3rem;
+    font-size: 1.5rem;
     line-height: 1;
-    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: var(--font-color);
+
+    @include util.mq(sm) {
+      font-size: 1.88rem;
+      -webkit-text-stroke-width: 2px;
+      padding-left: 12px;
+    }
   }
 
   .right {

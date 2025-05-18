@@ -21,7 +21,7 @@ authors.forEach((t) => {
 <CollectionLayout
   pageTitle="✎ Notes by Author"
   heroText="Notes"
-  heroSubtext={`browse by authors (${authors.length})`}
+  heroSubtext={`✎ browse notes by author (${authors.length})`}
   {pageMenuLinks}
   pageDescription="Notes by Author"
 >
@@ -83,6 +83,8 @@ authors.forEach((t) => {
 
     &:hover {
       text-decoration: underline;
+      background-color: var(--c-quaternary);
+      color: var(--c-black);
     }
 
     @include util.mq(sm) {

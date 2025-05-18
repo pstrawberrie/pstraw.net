@@ -21,7 +21,7 @@ tags.forEach((t) => {
 <CollectionLayout
   pageTitle="🏷️ Notes by Tag"
   heroText="Notes"
-  heroSubtext={`browse by tags (${tags.length})`}
+  heroSubtext={`🏷️ browse notes by tag (${tags.length})`}
   {pageMenuLinks}
   pageDescription="Notes by Tag"
 >
@@ -83,6 +83,8 @@ tags.forEach((t) => {
 
     &:hover {
       text-decoration: underline;
+      background-color: var(--c-quaternary);
+      color: var(--c-black);
     }
 
     @include util.mq(sm) {

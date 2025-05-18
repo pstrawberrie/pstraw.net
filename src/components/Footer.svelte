@@ -50,6 +50,7 @@
 
   li,
   a {
+    list-style: none;
     font-size: 1.1rem;
   }
 

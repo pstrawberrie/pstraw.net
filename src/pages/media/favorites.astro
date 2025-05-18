@@ -18,6 +18,7 @@ const allTimeMoviesIds = [
   "332270", //battle for sevastapol
   "13363", //man from earth
   "24732", // harrison bergeron 1995
+  "766507", //prey
 ];
 const allTimeShowsIds = [
   "64432", //the magicians
@@ -30,20 +31,24 @@ const allTimeShowsIds = [
   "61664", //sense8
   "10545", //true blood
   "39793", //call the midwife
+  "79242", //chilling adventures of sabrina
+  "69050", //riverdale
+  "82591", //goblin slayer
+  "12971", // dbz
 ];
 
 const allTimeMovies = await getCollection("movies", ({ id }) =>
-  allTimeMoviesIds.includes(id),
+  allTimeMoviesIds.includes(id)
 );
 const allTimeShows = await getCollection("shows", ({ id }) =>
-  allTimeShowsIds.includes(id),
+  allTimeShowsIds.includes(id)
 );
 ---
 
 <CollectionLayout
   pageTitle="🔥 My Favorite Media"
   heroText="Media"
-  heroSubtext="my all-time favorites!"
+  heroSubtext="🔥 my all-time favorites!"
   {pageMenuLinks}
 >
   <section class="contain">

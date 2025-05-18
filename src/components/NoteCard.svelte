@@ -31,7 +31,7 @@
 
   <div class="bottom">
     <div>
-      <SVG name="note" /><i>|</i>
+      <SVG name="note" /> Note <i>|</i>
       <span>{data.updated ? "Updated" : "Written"} {date}</span>
     </div>
   </div>

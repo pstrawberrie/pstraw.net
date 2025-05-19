@@ -9,13 +9,6 @@ export const SITE = {
   MOVIES_PER_PAGE: 20,
 };
 
-export const PAGE_COLORS = [
-  { path: '/', },
-  { path: '/media', color: "secondary" },
-  { path: '/notes', color: "quaternary" },
-  { path: '/about', color: "tertiary" },
-];
-
 export const ALL_LINKS = [
   { path: '/', title: 'Home' },
   {

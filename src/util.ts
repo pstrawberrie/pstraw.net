@@ -1,4 +1,4 @@
-import { PAGE_COLORS, ALL_LINKS } from "@constants";
+import { ALL_LINKS } from "@constants";
 
 /**
  * Environment

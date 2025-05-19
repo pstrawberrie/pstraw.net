@@ -25,6 +25,7 @@ export const ALL_LINKS = [
     ]
   },
   { path: '/friends', title: 'Friends' },
+  { path: '/about', title: 'About' },
   { path: '/thanks', title: 'Thanks' },
 ];
 
@@ -33,8 +34,8 @@ export const NAV_LINKS = [
   { path: '/notes', title: '📋 Notes' },
   { path: '/media', title: '📀 Media' },
   { path: '/friends', title: '🍺 Friends' },
-  { path: '/thanks', title: '❤️ Thanks' },
   { path: '/about', title: 'ℹ️ About' },
+  { path: '/thanks', title: '❤️ Thanks' },
 ];
 
 export const FOOTER_LINKS = [
@@ -59,8 +60,8 @@ export const FOOTER_LINKS = [
     heading: 'General',
     links: [
       { path: '/friends', title: 'Friends' },
+      { path: '/about', title: 'About' },
       { path: '/thanks', title: 'Thanks' },
-        { path: '/about', title: 'About' },
     ]
   },
 ];

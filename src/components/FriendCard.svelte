@@ -13,7 +13,7 @@
       <div class="title">{data.title}</div>
       <div class="info">
         {#each data.tags as t}
-          <span>#{t}</span>
+          <span>{t}</span>
         {/each}
       </div>
 

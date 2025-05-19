@@ -16,7 +16,10 @@ const { pageDescription, pageTitle, noindex } = Astro.props;
 <!-- OG -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonicalURL} />
-<meta property="og:image" content={`${Astro.site}joshdplo_og-image.png`} />
+<meta
+  property="og:image"
+  content={`${Astro.site}${SITE.TITLE.toLowerCase()}_og.png`}
+/>
 <meta property="og:description" content={pageDescription || SITE.DESCRIPTION} />
 <meta property="og:title" content={pageTitle || SITE.TITLE} />
 <meta property="og:site_name" content={SITE.TITLE} />
@@ -31,5 +34,5 @@ const { pageDescription, pageTitle, noindex } = Astro.props;
 />
 <meta
   name="twitter:image"
-  content={`${Astro.site}joshdplo_twitter-image.png`}
+  content={`${Astro.site}${SITE.TITLE.toLowerCase()}_twitter.png`}
 />

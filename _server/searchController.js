@@ -12,6 +12,19 @@ const SEARCH_HISTORY_MAX = 20;
 const searchResultsPerPage = 20;
 const allData = [];
 
+/* Remove Articles (copied from src/util.ts) */
+function removeArticles(str) {
+  const articles = ['a ', 'an ', 'the ']; // Note the trailing spaces
+  let lowerStr = str.toLowerCase();
+
+  for (const article of articles) {
+    if (lowerStr.startsWith(article)) {
+      return str.substring(article.length).trim(); // Remove article and trim
+    }
+  }
+  return str;
+}
+
 (async () => {
   // Get DB Data
   const movies = await Movie.findAll({ raw: true });
@@ -56,9 +69,15 @@ const allData = [];
 
   // Sort Data
   allData.sort((a, b) => {
-    const aDate = a?.createdAt || a?.updated || a?.date || a?.title;
-    const bDate = b?.createdAt || b?.updated || b?.date || b?.title;
-    return new Date(bDate) - new Date(aDate);
+    // return most recent first
+    // const aDate = a?.createdAt || a?.updated || a?.date || a?.title;
+    // const bDate = b?.createdAt || b?.updated || b?.date || b?.title;
+    // return new Date(bDate) - new Date(aDate);
+
+    // return title-sorted dates
+    const aTitle = removeArticles(a?.title);
+    const bTitle = removeArticles(b?.title);
+    return aTitle.localeCompare(bTitle);
   });
 
   console.log('-> Search Data in Memory!');
@@ -84,7 +103,9 @@ export const postSearch = async (req, res) => {
     const { query, page = 1 } = req.body;
     if (query.length < 2) return res.json({ info: 'insufficient character length' });
 
-    const lowerQuery = query.trim().toLowerCase();
+    const lowerQuery = '' + query.trim().toLowerCase();
+
+    console.log(`Search received for term "${lowerQuery}" / page ${page}`);
 
     // Filter all matches
     const matchedResults = allData.filter(item => item.title.toLowerCase().includes(lowerQuery));

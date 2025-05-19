@@ -1,20 +1,90 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import TMDBCard from "@components/TMDBCard.svelte";
+import NoteCard from "@components/NoteCard.svelte";
+
+// Excluded Recents
+// - these are movies i haven't watched recently but forgot to add from the past
+const excludedRecents = [
+  "766507", //prey
+  "666277", //past lives
+  "19959", //surrogates
+  "1635", //the island
+  "7345", //there will be blood
+];
+
+// Movies/Shows
+const recentTMDBLimit = 20;
+const recentNotesLimit = 2;
+const movies = await getCollection(
+  "movies",
+  ({ id }) => excludedRecents.indexOf(id) === -1
+);
+const shows = await getCollection(
+  "shows",
+  ({ id }) => excludedRecents.indexOf(id) === -1
+);
+const tmdbItems = [...movies, ...shows];
+tmdbItems.sort((a, b) => {
+  const aDate = a?.data?.createdAt;
+  const bDate = b?.data?.createdAt;
+  return new Date(bDate) - new Date(aDate);
+});
+
+const notes = await getCollection("notes");
+notes.sort((a, b) => {
+  const aDate = a?.data?.updated || a?.data?.date;
+  const bDate = b?.data?.updated || b?.data?.date;
+  return new Date(bDate) - new Date(aDate);
+});
 ---
 
 <BaseLayout pageTitle="🏠 Home">
-  <div class="contain">
-    <p>FRESH <span>honkin</span> <b>START!</b></p>
+  <!-- Head -->
+  <div class="head">
+    <div class="contain">something goes here...but what could it be?!</div>
   </div>
+
+  <section class="contain">
+    <!-- Latest Notes -->
+    <div class="list notes">
+      <h2 class="h3">Latest Notes</h2>
+      <div class="grid-double">
+        {
+          notes.map((i, idx) => {
+            if (idx < recentNotesLimit) return <NoteCard itemData={i} />;
+          })
+        }
+      </div>
+    </div>
+
+    <!-- Recently Watched -->
+    <div class="list watches">
+      <h2 class="h3">Recently Watched</h2>
+      <div class="grid-default">
+        {
+          tmdbItems.map((i, idx) => {
+            if (idx < recentTMDBLimit) return <TMDBCard itemData={i} />;
+          })
+        }
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
-<style>
-  h1 {
-    font-size: 5rem;
-    font-family: var(--ff-brand);
+<style lang="scss">
+  @use "@css/util";
+
+  .head {
+    padding: 3rem 0;
   }
 
-  span {
-    font-weight: 300;
+  .list {
+    padding-bottom: 3rem;
+
+    h2 {
+      margin-bottom: 1rem;
+    }
   }
 </style>

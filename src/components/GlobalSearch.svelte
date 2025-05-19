@@ -65,9 +65,11 @@
       loading = false;
       exactMatches = data?.exactMatches || [];
       history = data.searchHistory;
-      results = data.results;
-
-      console.log(data); //REMOVE
+      if (currentPage > 1) {
+        results = [...results, ...data.results];
+      } else {
+        results = data.results;
+      }
     } else {
       loading = false;
     }
@@ -174,6 +176,12 @@
     {/if}
 
     {#if results.length}
+      <div class="status">
+        {totalResults} result{totalResults > 1 ? "s" : ""} found for "{query}"{totalPages >
+        1
+          ? " (" + totalPages + " pages)"
+          : ""}
+      </div>
       <div class="results">
         {#each results as r (r.id)}
           {#if r.collection === "movies" || r.collection === "shows"}<TMDBCard
@@ -183,6 +191,18 @@
           {#if r.collection === "friends"}<FriendCard itemData={r} />{/if}
         {/each}
       </div>
+      {#if results.length && currentPage < totalPages}
+        <div class="load-more">
+          <button
+            onclick={() => {
+              currentPage++;
+              search();
+            }}
+            >Load {currentPage + 1 === totalPages ? "Final" : "Next"} Page ({currentPage +
+              1} / {totalPages})</button
+          >
+        </div>
+      {/if}
     {/if}
     {#if noResults && query.length > 1 && query !== ""}
       <div class="no-results">
@@ -319,10 +339,17 @@
         text-transform: capitalize;
 
         &:hover {
-          background-color: var(--font-color-opposite);
-          border-color: var(--content-subtle);
+          background-color: var(--background);
+          border-color: var(--background-accent2);
         }
       }
+    }
+
+    .status {
+      margin-bottom: 1rem;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 1rem;
     }
 
     .results {
@@ -332,6 +359,26 @@
 
       @include util.mq(sm) {
         grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .load-more {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+
+      button {
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 0.5rem 2rem;
+        border-radius: 0.15rem;
+        border: 2px solid var(--font-color);
+
+        &:hover {
+          color: var(--c-black);
+          background-color: var(--c-quaternary);
+        }
       }
     }
   }

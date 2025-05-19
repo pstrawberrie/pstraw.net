@@ -9,8 +9,8 @@ const notes = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.date(),
-    published: z.boolean(),
     updated: z.date().optional(),
+    published: z.boolean(),
     description: z.string(),
     authors: z.array(z.string()),
     image: z.object({
@@ -27,6 +27,8 @@ const friends = defineCollection({
   schema: z.object({
     title: z.string(),
     aka: z.string().optional(),
+    date: z.date(),
+    updated: z.date().optional(),
     description: z.string(),
     tags: z.array(z.string()),
     images: z.array(z.string()),

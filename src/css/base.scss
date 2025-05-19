@@ -202,6 +202,7 @@ h4,
 .h4 {
   line-height: 1.15;
   font-family: var(--ff-brand);
+  text-decoration: underline;
 
   +p {
     margin-top: .7em;
@@ -330,6 +331,18 @@ ol ol {
 
   @include util.mq(sm) {
     grid-template-columns: repeat(auto-fill, minmax(328px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.grid-double {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @include util.mq(sm) {
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
   }
 }

@@ -31,15 +31,16 @@ export const ALL_LINKS = [
       { path: '/notes/authors', title: 'Authors' },
     ]
   },
-  { path: '/search', title: 'Search' },
-  { path: '/about', title: 'About' },
-  { path: '/contact', title: 'Contact' },
+  { path: '/friends', title: 'Friends' },
+  { path: '/thanks', title: 'Thanks' },
 ];
 
 export const NAV_LINKS = [
-  { path: '/', title: 'Home' },
-  { path: '/notes', title: 'Notes' },
-  { path: '/media', title: 'Media' },
+  { path: '/', title: '🏠 Home' },
+  { path: '/notes', title: '📋 Notes' },
+  { path: '/media', title: '📀 Media' },
+  { path: '/friends', title: '🫂 Friends' },
+  { path: '/thanks', title: '❤️ Thanks' },
 ];
 
 export const FOOTER_LINKS = [

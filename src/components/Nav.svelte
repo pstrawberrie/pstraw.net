@@ -123,7 +123,6 @@
 
     @include util.mq(sm) {
       font-size: 1.88rem;
-      -webkit-text-stroke-width: 2px;
       padding-left: 12px;
     }
   }

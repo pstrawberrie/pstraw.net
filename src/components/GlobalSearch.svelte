@@ -5,6 +5,7 @@
   import Loader from "@components/Loader.svelte";
   import TMDBCard from "@components/TMDBCard.svelte";
   import NoteCard from "@components/NoteCard.svelte";
+  import FriendCard from "@components/FriendCard.svelte";
 
   /**
    * Setup
@@ -179,6 +180,7 @@
               itemData={r}
             />{/if}
           {#if r.collection === "notes"}<NoteCard itemData={r} />{/if}
+          {#if r.collection === "friends"}<FriendCard itemData={r} />{/if}
         {/each}
       </div>
     {/if}

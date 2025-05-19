@@ -1,0 +1,70 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@components/Hero.svelte";
+const { frontmatter, slug } = Astro.props;
+---
+
+<BaseLayout
+  pageTitle={`🍺 My friend ${frontmatter.title}`}
+  noBreadcrumbs={true}
+>
+  <section class="friend-layout">
+    <div class="head">
+      <Hero
+        text={frontmatter.title}
+        subtext={frontmatter?.aka ? `aka ${frontmatter.aka}` : null}
+      />
+      {
+        frontmatter?.tags && (
+          <div class="tags">
+            {frontmatter?.tags.map((t) => (
+              <span>{t}</span>
+            ))}
+          </div>
+        )
+      }
+    </div>
+    <div class="content">
+      {
+        frontmatter?.images && (
+          <div class="images">
+            {frontmatter?.images.map((i) => (
+              <img src={`/images/friends/${i}`} alt="" />
+            ))}
+          </div>
+        )
+      }
+      <slot />
+    </div>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  @use "@css/util";
+
+  :global(.head .hero) {
+    margin: 0;
+    padding: 0;
+  }
+
+  .head {
+    padding-top: 0.8em;
+    padding-bottom: 0.6em;
+    margin-bottom: 1rem;
+
+    .tags {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      pointer-events: none;
+
+      span {
+        line-height: 1;
+        border: 1px solid var(--background-accent);
+        padding: 5px 10px;
+      }
+    }
+  }
+</style>

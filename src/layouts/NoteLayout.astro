@@ -1,11 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { isDevelopment, formatDate } from "@util";
+import { formatDate } from "@util";
 const { frontmatter, slug } = Astro.props;
-
-const searchable =
-  (isDevelopment && frontmatter.published === false) ||
-  frontmatter.published === true;
 ---
 
 <BaseLayout
@@ -13,10 +9,7 @@ const searchable =
   pageDescription={frontmatter?.description}
   noBreadcrumbs={true}
 >
-  <section
-    class="note-layout contain-sm"
-    data-note-id={searchable ? slug : undefined}
-  >
+  <section class="note-layout contain-sm">
     <img class="note-image" src={`/images/notes/${slug}.jpg`} />
     <h1>
       {frontmatter.title}
@@ -28,7 +21,7 @@ const searchable =
             <div class="date">
               Written: {formatDate("" + frontmatter.date)} by{" "}
               {frontmatter?.authors.map((a) => (
-                <a href={`/notes/authors/${a}`}>{a}</a>
+                <a href={a === "pstraw" ? "/about" : `/friends/${a}`}>{a}</a>
               ))}
             </div>
           )
@@ -91,6 +84,17 @@ const searchable =
     .tags {
       display: flex;
       gap: 0.52rem;
+    }
+
+    .date a {
+      margin-left: 7px;
+      padding: 1px 10px;
+      border: 1px solid var(--background-accent);
+      border-radius: 0.15rem;
+
+      &:first-child {
+        margin-left: 1px;
+      }
     }
   }
 

@@ -1,12 +1,18 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Hero from "@components/Hero.svelte";
+import FriendCard from "@components/FriendCard.svelte";
+
+const friends = await getCollection("friends");
 ---
 
-<BaseLayout pageTitle="Friends">
-  <Hero text="Friends" subtext="these are my awesome friends!" />
+<BaseLayout pageTitle="🍺 Friends">
+  <Hero text="Friends" subtext="🍺 my awesome friends!" />
   <div class="contain">
-    <p>coming soon</p>
+    <div class="list grid-default">
+      {friends && friends.map((f) => <FriendCard itemData={f} />)}
+    </div>
   </div>
 </BaseLayout>
 

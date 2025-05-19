@@ -11,8 +11,8 @@ const {
 ---
 
 <nav>
-  {!prevUrl && <i>&lsaquo; Previous</i>}
-  {prevUrl && <a href={prevUrl}>&lsaquo; Previous</a>}
+  {!prevUrl && <i>&lsaquo; Prev</i>}
+  {prevUrl && <a href={prevUrl}>&lsaquo; Prev</a>}
   <div>
     <span>Page {currentPage}/{lastPage}</span>
     <span class="total">{total} total {label}</span>
@@ -47,8 +47,8 @@ const {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
-    padding: 0.3rem 1.75rem;
+    gap: 0.15rem;
+    padding: 0.3rem 1.25rem;
     border: 2px double var(--content-subtle);
   }
 
@@ -58,5 +58,9 @@ const {
     padding: 0.3rem 0.7rem;
     font-size: 0.9rem;
     border: 2px solid var(--font-color);
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 </style>

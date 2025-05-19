@@ -4,7 +4,7 @@
 
 <div
   class="hero"
-  style={`background-color: ${bgcolor ? bgcolor : "transparent"}; color: ${color ? color : "var(--c-black;"};`}
+  style={`background-color: ${bgcolor ? bgcolor : "transparent"}; color: ${color ? color : "var(--font-color)"};`}
 >
   <div class="contain">
     <h1 class="text">{text}</h1>

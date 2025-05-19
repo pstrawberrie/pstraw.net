@@ -25,7 +25,7 @@ const allData = [];
   const noteFiles = fs.readdirSync(notesDir);
 
   for (let i = 0; i < noteFiles.length; i++) {
-    const filePath = resolveFromRoot(`src/content/notes/${noteFiles[i]}`);
+    const filePath = resolveFromRoot(`${notesDir}/${noteFiles[i]}`);
     const slug = noteFiles[i].replace('.mdx', '');
 
     try {
@@ -37,9 +37,27 @@ const allData = [];
     }
   }
 
+  // Get Friends Data
+  const friendsDir = resolveFromRoot('src/content/friends');
+  const friendFiles = fs.readdirSync(friendsDir);
+
+  for (let i = 0; i < friendFiles.length; i++) {
+    const filePath = resolveFromRoot(`${friendsDir}/${friendFiles[i]}`);
+    const slug = friendFiles[i].replace('.mdx', '');
+
+    try {
+      const markdownContent = fs.readFileSync(filePath, 'utf-8');
+      const { data: metadata } = matter(markdownContent);
+      allData.push({ collection: 'friends', id: slug, slug, ...metadata });
+    } catch (error) {
+      console.error("Error processing Markdown file:", error.message);
+    }
+  }
+
+  // Sort Data
   allData.sort((a, b) => {
-    const aDate = a?.createdAt || a?.updated || a?.date;
-    const bDate = b?.createdAt || b?.updated || b?.date;
+    const aDate = a?.createdAt || a?.updated || a?.date || a?.title;
+    const bDate = b?.createdAt || b?.updated || b?.date || b?.title;
     return new Date(bDate) - new Date(aDate);
   });
 

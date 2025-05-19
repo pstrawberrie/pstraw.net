@@ -26,6 +26,7 @@
       )}
       ({getRelativeTime(SITE_DATA.build_history[0])})
     </div>
+    <div class="copy">&copy; {new Date().getFullYear()} {SITE.TITLE}</div>
   </div>
 </footer>
 
@@ -117,7 +118,8 @@
       }
     }
 
-    .build {
+    .build,
+    .copy {
       font-size: 0.9rem;
     }
 

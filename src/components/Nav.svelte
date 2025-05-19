@@ -75,7 +75,7 @@
         </a>
       </li>
     {/each}
-    <li class="bottom">bottom is here</li>
+    <li class="bottom"></li>
   </ul>
   <a href="/" class="logo" bind:this={logoEl}>{SITE.TITLE}</a>
   <div class="right">
@@ -197,7 +197,7 @@
     z-index: 2;
 
     @include util.mq(sm) {
-      width: 300px;
+      width: 325px;
     }
 
     li {
@@ -216,7 +216,9 @@
 
     .bottom {
       margin-top: auto;
-      padding: 0 var(--site-padding);
+      padding: 0 var(--site-padding) 1rem;
+      font-size: 0.95rem;
+      line-height: 1.2;
     }
   }
 

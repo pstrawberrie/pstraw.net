@@ -24,7 +24,6 @@
       Current Build: {formatDate(
         new Date(SITE_DATA.build_history[0]).toLocaleDateString()
       )}
-      ({getRelativeTime(SITE_DATA.build_history[0])})
     </div>
     <div class="copy">&copy; {new Date().getFullYear()} {SITE.TITLE}</div>
   </div>

@@ -141,7 +141,7 @@
     <div class="searchbar">
       <input
         type="text"
-        placeholder="Search..."
+        placeholder="Search by Title..."
         tabindex={active ? undefined : "-1"}
         bind:this={inputEl}
         bind:value={query}
@@ -359,6 +359,24 @@
 
       @include util.mq(sm) {
         grid-template-columns: 1fr 1fr;
+      }
+
+      :global(.card.friend img) {
+        max-width: 100%;
+        max-height: 80px;
+        object-fit: cover;
+      }
+
+      :global(.card.friend .title) {
+        font-weight: bold;
+        font-size: 1.2rem;
+        line-height: 1.2;
+      }
+
+      :global(.card.friend .overview) {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.1;
       }
     }
 

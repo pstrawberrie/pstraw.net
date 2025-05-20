@@ -103,13 +103,6 @@
       font-weight: bold;
       border-top: 2px solid var(--background-accent);
 
-      i {
-        opacity: 0.2;
-        padding: 0 3px;
-        font-style: normal;
-        font-weight: normal;
-      }
-
       :global(svg) {
         position: relative;
         top: -1px;

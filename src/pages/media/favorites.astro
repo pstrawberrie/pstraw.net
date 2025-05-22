@@ -16,10 +16,12 @@ const allTimeMoviesIds = [
   "19995", //avatar
   "1648", //bill & ted 1
   "332270", //battle for sevastapol
-  "13363", //man from earth
   "24732", // harrison bergeron 1995
   "766507", //prey
   "1635", // the island
+  "10350", //wing commander
+  "1725", //west side story 1961
+  "621", //grease
 ];
 const allTimeShowsIds = [
   "64432", //the magicians
@@ -39,10 +41,10 @@ const allTimeShowsIds = [
 ];
 
 const allTimeMovies = await getCollection("movies", ({ id }) =>
-  allTimeMoviesIds.includes(id)
+  allTimeMoviesIds.includes(id),
 );
 const allTimeShows = await getCollection("shows", ({ id }) =>
-  allTimeShowsIds.includes(id)
+  allTimeShowsIds.includes(id),
 );
 ---
 

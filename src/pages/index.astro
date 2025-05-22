@@ -12,6 +12,7 @@ const excludedRecents = [
   "19959", //surrogates
   "1635", //the island
   "7345", //there will be blood
+  "10350", //wing commander
 ];
 
 // Movies/Shows
@@ -19,11 +20,11 @@ const recentTMDBLimit = 20;
 const recentNotesLimit = 2;
 const movies = await getCollection(
   "movies",
-  ({ id }) => excludedRecents.indexOf(id) === -1
+  ({ id }) => excludedRecents.indexOf(id) === -1,
 );
 const shows = await getCollection(
   "shows",
-  ({ id }) => excludedRecents.indexOf(id) === -1
+  ({ id }) => excludedRecents.indexOf(id) === -1,
 );
 const tmdbItems = [...movies, ...shows];
 tmdbItems.sort((a, b) => {

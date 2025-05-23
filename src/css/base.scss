@@ -179,14 +179,18 @@ h4+ul {
 }
 
 p+h1,
+pre+h1,
 p+.h1,
 p+h2,
+pre+h2,
 ul+h2,
 p+.h2,
 p+h3,
+pre+h3,
 ul+h3,
 p+.h3,
 p+h4,
+pre+h4,
 ul+h4,
 p+.h4 {
   margin-top: 1em;
@@ -241,7 +245,9 @@ small,
 code {
   font-size: .8em;
   background-color: var(--c-code-bg);
-  padding: .25em .5em;
+  color: var(--c-light);
+  padding: 0 .5em .15em;
+  line-height: 1;
 }
 
 pre {

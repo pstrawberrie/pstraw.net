@@ -6,8 +6,38 @@ authors: ['pstraw']
 tags: ["dev", "linux", "swg"]
 published: true
 ---
+Jump To Section: [Docker](#docker-examples) | [SQL](#sql-examples) | [Linux General](#linux-general)
 
-Here's an example of a movie collection item...
-```js
-var poop = 'fart';
+### Docker Examples
+
+Docker compose attach to `swgemu` image:
+```bash
+sudo docker compose attach swgemu
+```
+
+Docker login to db image as user `swgemu`
+```bash
+sudo docker exec -it db mariadb -u swgemu -p
+```
+
+### SQL Examples
+Basic syntax reminders:
+```sql
+use swgemu; -- use the database first
+show tables; -- display existing tables
+select * from tablename; -- show data from table
+```
+
+Set admin level for user `pstraw`:
+```sql
+update accounts set admin_level = 15 where username = 'pstraw';
+```
+
+### Linux General
+Screen syntax:
+```bash
+screen -ls # list all screens
+screen -S hello # start new screen with name 'hello'
+screen -r hello # attach to existing screen 'hello'
+# [CTRL+A, D] detaches from screen
 ```

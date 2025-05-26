@@ -22,6 +22,12 @@ const allTimeMoviesIds = [
   "10350", //wing commander
   "1725", //west side story 1961
   "621", //grease
+  "11778", //deer hunter
+  "682507", //where the crawdads sing
+  "135397", //jurassic world
+  "339964", //valerian
+  "399579", //alita
+  "762975", //purple hearts
 ];
 const allTimeShowsIds = [
   "64432", //the magicians
@@ -38,13 +44,15 @@ const allTimeShowsIds = [
   "69050", //riverdale
   "82591", //goblin slayer
   "12971", // dbz
+  "209867", //frieren
+  "56570", //outlander
 ];
 
 const allTimeMovies = await getCollection("movies", ({ id }) =>
-  allTimeMoviesIds.includes(id),
+  allTimeMoviesIds.includes(id)
 );
 const allTimeShows = await getCollection("shows", ({ id }) =>
-  allTimeShowsIds.includes(id),
+  allTimeShowsIds.includes(id)
 );
 ---
 

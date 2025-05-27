@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { formatDate } from "@util";
+import { emoji, formatDate } from "@util";
 const { frontmatter, slug } = Astro.props;
 ---
 
 <BaseLayout
-  pageTitle={`📋 ${frontmatter.title}`}
+  pageTitle={`${emoji("note")} ${frontmatter.title}`}
   pageDescription={frontmatter?.description}
   noBreadcrumbs={true}
 >

@@ -1,4 +1,5 @@
 ---
+import { emoji } from "@util";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Hero from "@components/Hero.svelte";
@@ -7,8 +8,8 @@ import FriendCard from "@components/FriendCard.svelte";
 const friends = await getCollection("friends");
 ---
 
-<BaseLayout pageTitle="🍺 Friends">
-  <Hero text="Friends" subtext="🍺 my awesome friends!" />
+<BaseLayout pageTitle=`${emoji('friends')} Friends`>
+  <Hero text="Friends" subtext=`${emoji('friends')} my awesome friends!` />
   <div class="contain">
     <div class="list grid-default">
       {friends && friends.map((f) => <FriendCard itemData={f} />)}

@@ -1,9 +1,10 @@
 ---
+import { emoji } from "@util";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Hero from "@components/Hero.svelte";
 ---
 
-<BaseLayout pageTitle="❤️ Thanks">
+<BaseLayout pageTitle=`${emoji('thanks')} Thanks`>
   <Hero text="Thanks" />
   <div class="contain">
     <p>coming soon</p>

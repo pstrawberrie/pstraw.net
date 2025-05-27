@@ -1,11 +1,12 @@
 ---
+import { emoji } from "@util";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Hero from "@components/Hero.svelte";
 const { frontmatter, slug } = Astro.props;
 ---
 
 <BaseLayout
-  pageTitle={`🍺 My friend ${frontmatter.title}`}
+  pageTitle={`${emoji("friend")} My friend ${frontmatter.title}`}
   noBreadcrumbs={true}
 >
   <section class="friend-layout">

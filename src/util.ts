@@ -68,19 +68,48 @@ export function removeArticles(str: string) {
 }
 
 /**
- * Compare Names (for sort)
- */
-export function compareNames(a: string, b: string) {
-  const nameA = removeArticles(a);
-  const nameB = removeArticles(b);
-
-  return nameA.localeCompare(nameB);
-}
-
-/**
  * Get Page Menu Links from Path
  */
 export function getPageMenuLinksFromPath(path: string) {
   const linkParent = [...ALL_LINKS].filter((l) => l.path === path);
   return [{ path, title: linkParent[0].allTitle }, ...linkParent[0].children];
+}
+
+/**
+ * Get Emoji For Category
+ */
+export function emoji(category: string):string {
+  switch(category) {
+    case 'home':
+      return '🏠';
+    case 'notes':
+    case 'note':
+      return '📋';
+    case 'tags':
+    case 'tag':
+      return '🏷️';
+    case 'authors':
+    case 'author':
+      return '✏️';
+    case 'media':
+      return '📀';
+    case 'movies':
+    case 'movie':
+      return '🍿';
+    case 'shows':
+    case 'show':
+    case 'tv':
+      return '📺';
+    case 'favorites':
+      return '🔥';
+    case 'friends':
+    case 'friend':
+      return '🧍';
+    case 'about':
+      return 'ℹ️';
+    case 'thanks':
+      return '❤️';
+    default: 
+      return '';
+  }
 }

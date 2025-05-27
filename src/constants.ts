@@ -1,3 +1,5 @@
+import { emoji } from "@util";
+
 export const IS_DEV = import.meta.env.DEV;
 export const SERVER_URL = IS_DEV ?
   `http://localhost:${import.meta.env.PUBLIC_SERVER_PORT}` : import.meta.env.PUBLIC_SERVER_URL;
@@ -30,12 +32,12 @@ export const ALL_LINKS = [
 ];
 
 export const NAV_LINKS = [
-  { path: '/', title: '🏠 Home' },
-  { path: '/notes', title: '📋 Notes' },
-  { path: '/media', title: '📀 Media' },
-  { path: '/friends', title: '🍺 Friends' },
-  { path: '/about', title: 'ℹ️ About' },
-  { path: '/thanks', title: '❤️ Thanks' },
+  { path: '/', title: `${emoji('home')} Home` },
+  { path: '/notes', title: `${emoji('notes')} Notes` },
+  { path: '/media', title: `${emoji('media')} Media` },
+  { path: '/friends', title: `${emoji('friends')} Friends` },
+  { path: '/about', title: `${emoji('about')} About` },
+  { path: '/thanks', title: `${emoji('thanks')} Thanks` },
 ];
 
 export const FOOTER_LINKS = [

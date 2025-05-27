@@ -23,7 +23,7 @@
 
   <div class="bottom">
     <div>
-      <SVG name="note" /> Friend
+      <SVG name="friend" /> Friend
     </div>
   </div>
 </a>
@@ -56,7 +56,7 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      padding: 1rem;
+      padding: 0.7rem;
     }
 
     .details {
@@ -98,7 +98,7 @@
       justify-content: space-between;
       align-items: center;
       margin-top: auto;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.7rem;
       font-size: 0.8rem;
       font-weight: bold;
       border-top: 2px solid var(--background-accent);

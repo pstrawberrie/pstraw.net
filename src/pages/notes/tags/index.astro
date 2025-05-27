@@ -1,5 +1,5 @@
 ---
-import { isDevelopment, getPageMenuLinksFromPath } from "@util";
+import { emoji, isDevelopment, getPageMenuLinksFromPath } from "@util";
 import { getCollection } from "astro:content";
 import CollectionLayout from "@layouts/CollectionLayout.astro";
 
@@ -19,9 +19,9 @@ tags.forEach((t) => {
 ---
 
 <CollectionLayout
-  pageTitle="🏷️ Notes by Tag"
+  pageTitle=`${emoji('tag')} Notes by Tag`
   heroText="Notes"
-  heroSubtext={`🏷️ browse tags (${tags.length})`}
+  heroSubtext={`${emoji("tag")} browse tags (${tags.length})`}
   {pageMenuLinks}
   pageDescription="Notes by Tag"
 >

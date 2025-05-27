@@ -1,5 +1,5 @@
 ---
-import { isDevelopment, getPageMenuLinksFromPath } from "@util";
+import { emoji, isDevelopment, getPageMenuLinksFromPath } from "@util";
 import { getCollection } from "astro:content";
 import CollectionLayout from "@layouts/CollectionLayout.astro";
 
@@ -19,9 +19,9 @@ authors.forEach((t) => {
 ---
 
 <CollectionLayout
-  pageTitle="✏️ Notes by Author"
+  pageTitle=`${emoji("author")} Notes by Author`
   heroText="Notes"
-  heroSubtext={`✏️ browse authors (${authors.length})`}
+  heroSubtext={`${emoji("author")} browse authors (${authors.length})`}
   {pageMenuLinks}
   pageDescription="Notes by Author"
 >

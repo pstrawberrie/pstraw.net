@@ -1,4 +1,5 @@
 ---
+import { emoji } from "@util";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import TMDBCard from "@components/TMDBCard.svelte";
@@ -20,11 +21,11 @@ const recentTMDBLimit = 20;
 const recentNotesLimit = 2;
 const movies = await getCollection(
   "movies",
-  ({ id }) => excludedRecents.indexOf(id) === -1,
+  ({ id }) => excludedRecents.indexOf(id) === -1
 );
 const shows = await getCollection(
   "shows",
-  ({ id }) => excludedRecents.indexOf(id) === -1,
+  ({ id }) => excludedRecents.indexOf(id) === -1
 );
 const tmdbItems = [...movies, ...shows];
 tmdbItems.sort((a, b) => {
@@ -41,7 +42,7 @@ notes.sort((a, b) => {
 });
 ---
 
-<BaseLayout pageTitle="🏠 Home">
+<BaseLayout pageTitle={`${emoji("home")} Home`}>
   <!-- Head -->
   <div class="head">
     <div class="collage">

@@ -92,7 +92,7 @@ export function emoji(category: string):string {
     case 'author':
       return '✏️';
     case 'media':
-      return '📀';
+      return '💿';
     case 'movies':
     case 'movie':
       return '🍿';
@@ -106,7 +106,7 @@ export function emoji(category: string):string {
     case 'friend':
       return '🧍';
     case 'about':
-      return 'ℹ️';
+      return '❔';
     case 'thanks':
       return '❤️';
     default: 

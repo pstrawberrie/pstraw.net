@@ -5,7 +5,7 @@
   "engines": {
     "node": ">=22.0.0"
   },
-"scripts": {
+  "scripts": {
     "start": "npm run dev",
     "dev:astro": "astro dev",
     "dev:web": "nodemon _server/server.js",
@@ -22,10 +22,10 @@
     "prod:web": "NODE_ENV=production node _server/server.js"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.2.6",
-    "@astrojs/sitemap": "^3.3.1",
-    "@astrojs/svelte": "^7.0.13",
-    "astro": "^5.7.12",
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/sitemap": "^3.4.0",
+    "@astrojs/svelte": "^7.1.0",
+    "astro": "^5.8.1",
     "convert-csv-to-json": "^2.50.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

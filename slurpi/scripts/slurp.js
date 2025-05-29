@@ -9,8 +9,8 @@ import Show from '../db/Show.js';
 import Movie from '../db/Movie.js';
 
 // Credentials
-const accessToken = process.env.TMDB_ACCESS_TOKEN;
-const accountId = process.env.TMDB_ACCOUNT_ID;
+const TMDBaccessToken = process.env.TMDB_ACCESS_TOKEN;
+const TMDBaccountId = process.env.TMDB_ACCOUNT_ID;
 
 // TMDB Fetch Helper
 async function tmdbFetch(path) {
@@ -18,7 +18,7 @@ async function tmdbFetch(path) {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${accessToken}`
+      Authorization: `Bearer ${TMDBaccessToken}`
     }
   };
 
@@ -39,11 +39,11 @@ async function tmdbFetch(path) {
 /**
  * Build Favorites Array
  */
-function buildFavoritesArray(category) {
+function buildTMDBFavoritesArray(category) {
   const cat = category !== 'tv' ? 'movies' : 'tv';
 
   let currentPage = 1;
-  const url = () => `https://api.themoviedb.org/3/account/${accountId}/favorite/${cat}?language=en-US&page=${currentPage}&sort_by=created_at.asc`;
+  const url = () => `https://api.themoviedb.org/3/account/${TMDBaccountId}/favorite/${cat}?language=en-US&page=${currentPage}&sort_by=created_at.asc`;
 
   return new Promise(async (resolve, reject) => {
     try {
@@ -80,7 +80,7 @@ function buildFavoritesArray(category) {
 /**
  * Save Details
  */
-function saveDetails(category, arr) {
+function saveTMDBDetails(category, arr) {
   const cat = category !== 'tv' ? 'movie' : 'tv';
   const append = category !== 'tv' ? 'release_dates' : 'content_ratings';
   const model = category !== 'tv' ? Movie : Show;
@@ -160,14 +160,14 @@ function saveDetails(category, arr) {
 (async () => {
   console.log('------------');
   console.log(`> TMDB tv slurp started...`);
-  let tvFavorites = await buildFavoritesArray('tv');
-  await saveDetails('tv', tvFavorites);
+  let tvFavorites = await buildTMDBFavoritesArray('tv');
+  await saveTMDBDetails('tv', tvFavorites);
   tvFavorites = null;
 
   console.log('------------');
   console.log(`> TMDB movie slurp started...`);
-  let movieFavorites = await buildFavoritesArray('movies');
-  await saveDetails('movie', movieFavorites);
+  let movieFavorites = await buildTMDBFavoritesArray('movies');
+  await saveTMDBDetails('movie', movieFavorites);
   movieFavorites = null;
 
   console.log('------------');

@@ -142,6 +142,7 @@
       <input
         type="text"
         placeholder="Search by Title..."
+        id="global-search-input"
         tabindex={active ? undefined : "-1"}
         bind:this={inputEl}
         bind:value={query}
@@ -177,10 +178,15 @@
 
     {#if results.length}
       <div class="status">
-        {totalResults} result{totalResults > 1 ? "s" : ""} found for "{query}"{totalPages >
-        1
-          ? " (" + totalPages + " pages)"
-          : ""}
+        {#if query.length > 1}
+          {totalResults} result{totalResults > 1 ? "s" : ""} found for "{query}"{totalPages >
+          1
+            ? " (" + totalPages + " pages)"
+            : ""}
+        {/if}
+        {#if query.length < 2}
+          Search term must be at least 2 characters
+        {/if}
       </div>
       <div class="results">
         {#each results as r (r.id)}

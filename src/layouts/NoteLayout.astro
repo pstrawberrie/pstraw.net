@@ -41,16 +41,14 @@ const { frontmatter, slug } = Astro.props;
     </div>
 
     <div class="content bordered">
-      <div class="inner">
-        {
-          frontmatter?.updated && (
-            <div class="updated">
-              Updated {formatDate("" + frontmatter.updated)}
-            </div>
-          )
-        }
-        <slot />
-      </div>
+      {
+        frontmatter?.updated && (
+          <div class="updated">
+            Updated {formatDate("" + frontmatter.updated)}
+          </div>
+        )
+      }
+      <slot />
     </div>
   </section>
 </BaseLayout>

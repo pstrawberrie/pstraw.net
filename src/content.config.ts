@@ -32,6 +32,8 @@ const friends = defineCollection({
     description: z.string(),
     tags: z.array(z.string()),
     images: z.array(z.string()),
+    media: z.array(z.string()).optional(),
+    published: z.boolean().optional(),
   })
 });
 

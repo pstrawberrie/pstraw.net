@@ -16,6 +16,7 @@ const excludedRecents = [
   "10350", //wing commander
   "289123", //fred and rose west british horror story
   "1466938", //deadly american marriage
+  "792", //platoon
 ];
 
 // Movies/Shows
@@ -23,11 +24,11 @@ const recentTMDBLimit = 20;
 const recentNotesLimit = 2;
 const movies = await getCollection(
   "movies",
-  ({ id }) => excludedRecents.indexOf(id) === -1,
+  ({ id }) => excludedRecents.indexOf(id) === -1
 );
 const shows = await getCollection(
   "shows",
-  ({ id }) => excludedRecents.indexOf(id) === -1,
+  ({ id }) => excludedRecents.indexOf(id) === -1
 );
 const tmdbItems = [...movies, ...shows];
 tmdbItems.sort((a, b) => {

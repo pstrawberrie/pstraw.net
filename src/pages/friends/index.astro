@@ -5,12 +5,16 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import Hero from "@components/Hero.svelte";
 import FriendCard from "@components/FriendCard.svelte";
 
-const friends = await getCollection("friends");
+const friends = await getCollection(
+  "friends",
+  ({ data }) => data.published === true
+);
 ---
 
 <BaseLayout pageTitle=`${emoji('friends')} Friends`>
   <Hero text="Friends" subtext=`${emoji('friends')} my awesome friends!` />
   <div class="contain">
+    {friends.length < 1 && <div class="center-full">Coming Soon!</div>}
     <div class="list grid-default">
       {friends && friends.map((f) => <FriendCard itemData={f} />)}
     </div>

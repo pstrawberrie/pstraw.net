@@ -35,8 +35,8 @@ const pageMenuLinks = getPageMenuLinksFromPath("/notes");
 
 <CollectionLayout
   pageTitle={`✎ Notes by ${author} ${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
-  heroText="Notes"
-  heroSubtext={`by ${author}`}
+  heroText={`${author}'s Notes`}
+  heroSubtext={`These are all of the notes that ${author} has written!`}
   {pageMenuLinks}
   {currentPage}
   pageDescription={`Notes by ${author}`}

@@ -1,11 +1,14 @@
 ---
 title: 'SWGEmu Server Reference'
 date: 2025-05-15
+updated: 2025-06-09
 description: 'Notes on setting up the SWGEmu server with docker'
 authors: ['pstraw']
 tags: ["dev", "linux", "swg"]
 published: true
 ---
+<p class="callout warning">This reference is incomplete</p>
+
 Jump To Section: [Docker](#docker-examples) | [SQL](#sql-examples) | [Linux General](#linux-general)
 
 ### Docker Examples
@@ -28,9 +31,9 @@ show tables; -- display existing tables
 select * from tablename; -- show data from table
 ```
 
-Set admin level for user `pstraw`:
+Set admin level for user `johnson`:
 ```sql
-update accounts set admin_level = 15 where username = 'pstraw';
+update accounts set admin_level = 15 where username = 'johnson';
 ```
 
 ### Linux General

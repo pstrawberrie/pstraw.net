@@ -10,7 +10,8 @@
 {#if isYT}
   <iframe
     title=""
-    src={`http://www.youtube.com/embed/${url.replace("https://www.youtube.com/watch?v=", "")}/`}
+    style="border-radius:12px"
+    src={`http://www.youtube-nocookie.com/embed/${url.replace("https://www.youtube.com/watch?v=", "")}/`}
     frameborder="0"
     allowfullscreen
   ></iframe>

@@ -370,7 +370,7 @@
       :global(.card.friend img) {
         max-width: 100%;
         max-height: 80px;
-        object-fit: cover;
+        object-fit: contain;
       }
 
       :global(.card.friend .title) {

@@ -77,7 +77,9 @@
     {/each}
     <li class="bottom"></li>
   </ul>
-  <a href="/" class="logo" bind:this={logoEl}>{SITE.TITLE}</a>
+  <a href="/" class="logo" bind:this={logoEl}
+    ><span class="img"></span><span class="text">{SITE.TITLE}</span></a
+  >
   <div class="right">
     <button class="search" title="Search" onclick={toggleSearch}>
       <SVG name="search" />
@@ -121,10 +123,31 @@
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: var(--font-color);
 
+    .img {
+      background: no-repeat center url("/images/site/logo_dark.png");
+      background-size: contain;
+      height: 69%;
+      width: 30px;
+      margin-right: 0.5rem;
+    }
+
+    .text {
+      display: none;
+      padding-top: 3px;
+    }
+
     @include util.mq(sm) {
       font-size: 1.88rem;
       padding-left: 12px;
+
+      .text {
+        display: inline-block;
+      }
     }
+  }
+
+  :global(html.theme-light nav .logo .img) {
+    background-image: url("/images/site/logo_light.png");
   }
 
   .right {

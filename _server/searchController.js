@@ -44,6 +44,8 @@ function removeArticles(str) {
     try {
       const markdownContent = fs.readFileSync(filePath, 'utf-8');
       const { data: metadata } = matter(markdownContent);
+
+      // only push published stuff (or all if on dev)
       if (isDev || metadata.published) allData.push({ collection: 'notes', id: slug, slug, ...metadata });
     } catch (error) {
       console.error("Error processing Markdown file:", error.message);
@@ -61,8 +63,9 @@ function removeArticles(str) {
     try {
       const markdownContent = fs.readFileSync(filePath, 'utf-8');
       const { data: metadata } = matter(markdownContent);
-      // only push friends results if friend is published
-      if(metadata.published) allData.push({ collection: 'friends', id: slug, slug, ...metadata });
+
+      // only push published stuff (or all if on dev)
+      if (isDev || metadata.published) allData.push({ collection: 'friends', id: slug, slug, ...metadata });
     } catch (error) {
       console.error("Error processing Markdown file:", error.message);
     }

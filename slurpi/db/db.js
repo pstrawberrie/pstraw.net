@@ -1,11 +1,9 @@
 import { Sequelize } from 'sequelize';
 import { resolveFromRoot } from '../../path.js';
 
-const dbFile = process.env.NODE_ENV === 'production' ? 'slurpi/db/prod.sqlite' : 'slurpi/db/db.sqlite';
-
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: resolveFromRoot(dbFile),
+  storage: resolveFromRoot('slurpi/db/db.sqlite'),
   logging: false
 });
 

@@ -12,14 +12,12 @@
     "dev": "npm-run-all -l -p dev:astro dev:web",
     "build:history": "node slurpi/scripts/build-history.js",
     "build:astro": "astro build",
-    "build": "npm-run-all -l -s build:history build:astro",
+    "build": "cross-env NODE_ENV=production npm-run-all -l -s build:history build:astro",
     "preview": "astro preview",
     "astro": "astro",
     "slurpi": "node slurpi/scripts/slurp.js",
     "slurpi-sync": "node slurpi/scripts/sync-db.js",
-    "slurpi-tmdb-dates": "node slurpi/scripts/tmdb-csv-dates.js",
-    "buildprod": "NODE_ENV=production npm run build",
-    "prod:web": "NODE_ENV=production node _server/server.js"
+    "slurpi-tmdb-dates": "node slurpi/scripts/tmdb-csv-dates.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
@@ -28,6 +26,7 @@
     "astro": "^5.9.1",
     "convert-csv-to-json": "^2.50.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "gray-matter": "^4.0.3",

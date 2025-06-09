@@ -28,4 +28,4 @@ slurpi/images/tmdb/*.jpg
 public/images/tmdb/*.webp
 slurpi/data/tmdb-favorites.csv
 slurpi/data/tmdb-favorites.json
-prod.sqlite
+db.sqlite

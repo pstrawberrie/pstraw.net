@@ -73,6 +73,7 @@ notes.sort((a, b) => {
           })
         }
       </div>
+      <a class="all" href="/notes">Browse All Notes &rsaquo;</a>
     </div>
 
     <!-- Recently Watched -->
@@ -85,6 +86,7 @@ notes.sort((a, b) => {
           })
         }
       </div>
+      <a class="all" href="/media">Browse All Media &rsaquo;</a>
     </div>
   </section>
 </BaseLayout>
@@ -123,6 +125,20 @@ notes.sort((a, b) => {
 
     h2 {
       margin-bottom: 1rem;
+    }
+
+    a.all {
+      display: inline-block;
+      font-size: 1.05rem;
+      text-decoration: none;
+      margin: 0.5em 0 0 1px;
+      padding: 0.3em 0.5em;
+      border: 1px solid var(--background-accent);
+      border-radius: 2px;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>

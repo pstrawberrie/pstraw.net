@@ -1,5 +1,5 @@
 ---
-import { emoji } from "@util";
+import { emoji, isDevelopment } from "@util";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import TMDBCard from "@components/TMDBCard.svelte";
@@ -37,7 +37,9 @@ tmdbItems.sort((a, b) => {
   return new Date(bDate) - new Date(aDate);
 });
 
-const notes = await getCollection("notes");
+const notes = await getCollection("notes", ({ data }) =>
+  isDevelopment ? true : data.published
+);
 notes.sort((a, b) => {
   const aDate = a?.data?.updated || a?.data?.date;
   const bDate = b?.data?.updated || b?.data?.date;

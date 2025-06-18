@@ -1,45 +1,160 @@
 ---
-title: 'SWGEmu Server Reference'
+title: 'SWGEmu Server Setup Reference'
 date: 2025-05-15
-updated: 2025-06-09
-description: 'Notes on setting up the SWGEmu server with docker'
+updated: 2025-06-16
+description: 'Notes on setting up a SWGEmu server with WSL and docker on Windows'
 authors: ['pstraw']
 tags: ["dev", "linux", "swg"]
 published: true
 ---
-<p class="callout warning">This reference is incomplete</p>
+import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 
-Jump To Section: [Docker](#docker-examples) | [SQL](#sql-examples) | [Linux General](#linux-general)
+<p class="callout warning">This reference is a little messy</p>
+<NoteJumpMenu client:load links={[
+  {title: 'Windows WSL2 Setup', path: '#windows-wsl2-setup'},
+  {title: 'WSL2 Debian SWGEmu Setup', path: '#wsl2-debian-swgemu-setup'},
+  {title: 'Docker Reference', path: '#docker-reference'},
+  {title: 'SQL Reference', path: '#sql-reference'},
+  {title: 'Linux Reference', path: '#linux-reference'}
+  ]}/>
 
-### Docker Examples
+## Windows WSL2 Setup
+Installing WSL2 on windows *should* be as simple as opening a powershell terminal as admin and typing `wsl --install`. If it's your first time installing, you'll need to restart afterwords. [See this guide](https://learn.microsoft.com/en-us/windows/wsl/install) for more details on installing. Below is a command reference for WSL. You want to open up a powershell console **as admin** and...
+- Install WSL (if not already installed)
+- Install your distro of choice (i'm using debian)
+  - If you already have a distro installed, you can delete/unregister it using the command below
+- Follow the setup for your distro after it finishes installing (usually just creating a username/password)
+<br />
 
-Docker compose attach to `swgemu` image:
+Powershell commands to set up WSL:
+```bash
+# list current distro
+# it will tell you if none are installed
+wsl -l
+
+# install latest debian
+wsl --install -d debian
+
+# delete (unregister) distro
+# get the distro name using wsl -l
+wsl --unregister <distroName>
+```
+
+## WSL2 Debian SWGEmu Setup
+Once the distro is installed successfully, switch over to the WSL console and run that as admin. Once you're inside of WSL, you are just inside of your chosen distro and can begin linuxing! Now we will set up the server inside of our debian distro itself. You can try it with Docker Desktop for Windows, but to me that seemed slower. Also, if you ever want to set this up on a VPS or something, you won't have Docker Desktop for Windows. Here's what the process will be...
+- Update/upgrade debian
+- [Install docker engine + docker compose for debian](https://docs.docker.com/engine/install/debian/)
+- Clone the pSWG repo
+- Copy TRE files from windows
+- Build docker image via docker compose and run the docker image
+- Build the SWGEmu code
+- Test the server is working
+<br />
+
+WSL SWGEmu server setup debian guide:
+```bash
+# update & upgrade debian
+sudo apt update -y && sudo apt upgrade -y
+
+# install docker for debian following the guide:
+# https://docs.docker.com/engine/install/debian/
+# ensure you install docker-compose as well
+
+# clone pSWG repo, checkout the dev branch
+git clone https://github.com/pstrawberrie/pSWG.git
+git checkout dev
+
+# copy tre files from windows into the pSWG folder
+# pSWG is forked from syndicate/aftermath... so you'll need either the syndicate or aftermath tre files
+# on windows, my syndicate install is located at E:\SWGSyndicate - update this accordingly (/mnt/<driveLetter>/<installLocation>/*.tre)
+# this might take a few seconds 
+cd ~/pSWG && mkdir -p tre
+cp /mnt/e/SWGSyndicate/*.tre ~/pSWG/tre
+
+# navigate to the docker folder, and build it with docker-compose
+cd ~/pSWG/docker
+sudo docker compose build
+
+# start up the docker compose for the first time to make sure it's all good
+sudo docker compose up
+
+# if no errors, you can exit the docker compose with CTRL+C and then start it in detached mode
+sudo docker compose up -d
+
+# attach to the swgemu docker container in a new screen (we'll install screen) and build the swgemu code!
+# if you've made it this far, the only reason a build might fail would probably be insufficient RAM or some hardware/docker limitation
+# this will take a little while...
+sudo apt install -y screen
+screen -S swgemu
+sudo docker compose attach swgemu
+cd /build/pSWG/MMOCoreORB
+make -j$(nproc)
+
+# now detach from the swgemu screen with CTRL+A, D
+# we need to get the IP of the WSL so that we can connect to the game
+# make sure you have detached from all screens (CTRL+A, D)
+# copy the ip address of your WSL (should be eth0), something like 172.22.218.115
+ip addr
+
+# finally, let's exec into the db container (default pass is 123456) and ensure that the galaxy address is set to the IP you just copied
+sudo docker compose exec -it db mariadb -u swgemu -p
+use swgemu;
+update galaxy set address = 'IP_YOU_COPIED';
+select * from galaxy; # so you can confirm the change
+exit
+
+# now reattach to your swgemu screen and start the server!
+screen -r swgemu
+cd /build/pSWG/MMOCoreORB/bin
+./core3
+
+# once the server starts, you can login!
+# either set swgemu_login.cfg or configure whichever launcher you're using with the IP you copied from your WSL
+# connect to your server with whichever launcher you're using
+# hopefully everything works for you!
+# To set yourself as admin, create your acocunt by logging in and then exit the game
+# check out the SQL Reference for an example of how to set your account to admin
+# one last thing to make sure: you need to have the following lines in your user.cfg file to be able to use admin commands:
+# [ClientGame]
+# 0fd345d9=true
+
+# HAVE FUN!
+```
+
+## Docker Reference
+Docker compose start in detached mode:
+```bash
+cd ~/pSWG/docker
+sudo docker compose up -d
+```
+
+Docker compose attach to `swgemu` container:
 ```bash
 sudo docker compose attach swgemu
 ```
 
-Docker login to `db` image as user `swgemu`
+Docker login to `db` container as user `swgemu`
 ```bash
-sudo docker exec -it db mariadb -u swgemu -p
+sudo docker compose exec -it db mariadb -u swgemu -p
 ```
 
-### SQL Examples
+## SQL Reference
 Basic syntax reminders:
 ```sql
 use swgemu; -- use the database first
 show tables; -- display existing tables
-select * from tablename; -- show data from table
+select * from tablename; -- show all column data from table
 ```
 
-Set admin level for user `johnson`:
+Set admin level for account `johnson`:
 ```sql
 update accounts set admin_level = 15 where username = 'johnson';
 ```
 
-### Linux General
+## Linux Reference
 Screen syntax:
 ```bash
-screen -ls # list all screens
+screen -ls # list all screens, will also say (Attached) if this is your active screen
 screen -S hello # start new screen with name 'hello'
 screen -r hello # attach to existing screen 'hello'
 # [CTRL+A, D] detaches from screen

@@ -20,8 +20,9 @@ const { frontmatter, slug } = Astro.props;
           frontmatter?.date && (
             <div class="date">
               Written: {formatDate("" + frontmatter.date)} by{" "}
-              {frontmatter?.authors.map((a) => (
+              {frontmatter?.authors.map((a, idx) => (
                 <a href={`/notes/authors/${a}`}>{a}</a>
+                <span>{idx !== frontmatter?.authors.length - 1 ? "," : ""}</span>
               ))}
             </div>
           )
@@ -128,13 +129,15 @@ const { frontmatter, slug } = Astro.props;
       list-style-type: square;
       list-style-position: inside;
     }
-
     :global(ul ul) {
       padding-left: 0.7em;
     }
+    :global(ul + p) {
+      margin-top: 1rem;
+    }
 
     // headers
-    :global(h1, .h1, h2, .h2, h3, .h3, h4, .h4) {
+    :global(.content h1, .content .h1, .content h2, .content .h2, .content h3, .content .h3, .content h4, .content .h4) {
       font-family: var(--ff-default);
     }
     :global(h3 + h4) {
@@ -145,22 +148,39 @@ const { frontmatter, slug } = Astro.props;
     :global(hr) {
       display: block;
       margin: 2rem 0;
-      border-color: var(--content-subtle);
+      border-color: var(--background-accent2);
+    }
+
+    // code blocks
+    :global(p + pre),
+    :global(pre + pre),
+    :global(pre + ul),
+    :global(ul + pre) {
+      margin-top: 1rem;
     }
 
     // callouts
     :global(.callout) {
-      display: inline-flex;
-      flex-direction: column;
+      display: inline-block;
       font-size: 1rem;
       line-height: 1;
-      gap: 0.4em;
       padding: 0.4em;
       border: 2px solid transparent;
     }
 
+    :global(.callout a) {
+      font-size: 1rem;
+      font-weight: normal;
+    }
+
     :global(.warning) {
       border-color: var(--c-quaternary-t2);
+    }
+    :global(.info) {
+      border-color: var(--c-primary-t1);
+    }
+    :global(.good) {
+      border-color: var(--c-secondary-t1);
     }
   }
 </style>

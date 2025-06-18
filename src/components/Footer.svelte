@@ -21,9 +21,11 @@
       ><SVG name="github" /> View code on Github</a
     >
     <div class="build">
-      Current Build: {formatDate(
+      Build Date: {formatDate(
         new Date(SITE_DATA.build_history[0]).toLocaleDateString()
       )}
+      <br />
+      Last Sync: {getRelativeTime(SITE_DATA.build_history[0])}
     </div>
     <div class="copy">&copy; {new Date().getFullYear()} {SITE.TITLE}</div>
   </div>

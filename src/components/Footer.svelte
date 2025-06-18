@@ -1,6 +1,6 @@
 <script>
   import { SITE, FOOTER_LINKS, SITE_DATA } from "@constants";
-  import { formatDate, getRelativeTime } from "@util";
+  import { formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
 </script>
 
@@ -21,11 +21,9 @@
       ><SVG name="github" /> View code on Github</a
     >
     <div class="build">
-      Build Date: {formatDate(
+      Current Build: {formatDate(
         new Date(SITE_DATA.build_history[0]).toLocaleDateString()
       )}
-      <br />
-      Last Sync: {getRelativeTime(SITE_DATA.build_history[0])}
     </div>
     <div class="copy">&copy; {new Date().getFullYear()} {SITE.TITLE}</div>
   </div>

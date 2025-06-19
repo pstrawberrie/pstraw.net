@@ -133,7 +133,7 @@ Docker compose attach to `swgemu` container:
 sudo docker compose attach swgemu
 ```
 
-Docker login to `db` container as user `swgemu`
+Docker exec mariadb cli on `db` container as user mariadb user `swgemu`
 ```bash
 sudo docker compose exec -it db mariadb -u swgemu -p
 ```
@@ -141,11 +141,49 @@ sudo docker compose exec -it db mariadb -u swgemu -p
 ## SQL Reference
 Basic syntax reminders:
 ```sql
-use swgemu; -- use the database first
-show tables; -- display existing tables
+show databases; -- show all databases
+use swgemu; -- use a database
+show tables; -- display existing tables on database
 select * from tablename; -- show all column data from table
+update tablename set columnname = 154; -- update single column
+update tablename set columnname = 'superJohnson' where columnvalue = 'johnson'; -- update a column existing value
 ```
 
+Logging into MariaDB SQL after fresh Install (user with sudo privileges)
+```bash
+sudo mariadb -u root
+```
+
+Creating a new DB
+```sql
+create database 'swgemu';
+```
+
+Creating a new User
+```sql
+create user 'swgemu'@localhost identified by '123456';
+select user from mysql.user; -- check it worked
+```
+
+Granting DB Privileges to User
+```sql
+grant all privileges on swgemu.* to 'swgemu'@localhost;
+flush privileges; -- make sure to do this to ensure the new privileges take effect
+```
+
+Importing a DB from SQL File
+- this is done in linux/outside of the sql cli
+```bash
+mariadb -u john -p dbName < johnImport.sql # import the file 'johnImport.sql' as user 'john' into db 'dbName'
+```
+
+Exporting (dumping) into SQL File
+- this is done in linux/outside of the sql cli
+```bash
+mariadb-dump -u bob -p dbName > bobDump.sql # dump data from db 'dbName' into file 'bobDump.sql' as user 'bob'
+```
+
+## SWG SQL References
 Set admin level for account `johnson`:
 ```sql
 update accounts set admin_level = 15 where username = 'johnson';

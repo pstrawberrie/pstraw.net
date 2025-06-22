@@ -1,0 +1,96 @@
+---
+title: 'pSWG Feature Tracking'
+date: 2025-06-20
+description: 'A note to keep track of the pSWG features in development'
+authors: ['pstraw']
+tags: ["swg", "dev"]
+published: false
+---
+## QOL Changes
+Quality of life changes
+
+### Increase Storage Per Lot
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\building\BuildingObject.idl
+MMOCoreORB\src\server\zone\objects\building\BuildingObjectImplementation.cpp
+```
+- Max player items increased to 5000
+- Item storage increased to 300 per lot for player structures
+
+### Crafting Tool Timers Reduced
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\player\sessions\crafting\CraftingSessionImplementation.cpp
+```
+- Crafting tools timers set to 1 second for prototype + practice
+
+### Factory Timers Reduced
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\installation\factory\FactoryObjectImplementation.cpp
+```
+- Factory time per object set to 1 second
+
+### Factory Crate Sizes Increased
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\factorycrate\FactoryCrate.idl
+MMOCoreORB\src\templates\intangible\DraftSchematicObjectTemplate.cpp
+MMOCoreORB\bin\scripts\object\draft_schematic\**\*.lua
+```
+- Factory crate max capacity set to 1000
+- Note: this change spanned 400+ files (each draft schematic needed to be set)
+
+### Resource Container Size Increased
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\resource\ResourceContainer.idl
+```
+- Resource crate size increased to 10 million
+
+### Travel Waiting Times Removed
+✔️ Tested on Local
+```bash
+MMOCoreORB\bin\scripts\managers\planet\planet_manager.lua
+MMOCoreORB\src\server\zone\managers\planet\PlanetManagerImplementation.cpp
+```
+- Remove starport wait time
+- Remove shuttleport wait time
+
+### Enable JTL
+✔️ Tested on Local
+```bash
+MMOCoreORB\bin\conf\config.lua
+```
+- Set JTL to enabled via config
+
+### Group Size Increased
+⚠️ Partially tested on Local
+```bash
+MMOCoreORB\bin\scripts\managers\planet\planet_manager.lua
+MMOCoreORB\src\server\zone\managers\planet\PlanetManagerImplementation.cpp
+```
+- Increased group size to 50
+
+### Vehicle, Droid, and Pet Call Timers Reduced
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\intangible\VehicleControlDeviceImplementation.cpp
+MMOCoreORB\src\server\zone\objects\intangible\PetControlDeviceImplementation.cpp
+```
+- Call timers for Vehicles, Pets, and Droids reduced to 5 seconds
+
+### Show Resource Names in Inventory
+❌ Untested
+```bash
+todo
+```
+- todo
+
+### Infinity-Style Yaw/Pitch/Roll
+❌ Untested
+```bash
+todo
+```
+- todo

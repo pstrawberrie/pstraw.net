@@ -15,7 +15,8 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
   {title: 'WSL2 Debian SWGEmu Setup', path: '#wsl2-debian-swgemu-setup'},
   {title: 'Docker Reference', path: '#docker-reference'},
   {title: 'SQL Reference', path: '#sql-reference'},
-  {title: 'Linux Reference', path: '#linux-reference'}
+  {title: 'Linux Reference', path: '#linux-reference'},
+  {title: 'Troubleshooting', path: "#troubleshooting"},
   ]}/>
 
 ## Windows WSL2 Setup
@@ -149,6 +150,12 @@ update tablename set columnname = 154; -- update single column
 update tablename set columnname = 'superJohnson' where columnvalue = 'johnson'; -- update a column existing value
 ```
 
+Enable Error logs in MariaDB after fresh install
+```bash
+nano /etc/mysql/mariadb.conf.d/50-server.cnf
+# uncomment the log_error line
+```
+
 Logging into MariaDB SQL after fresh Install (user with sudo privileges)
 ```bash
 sudo mariadb -u root
@@ -197,3 +204,21 @@ screen -S hello # start new screen with name 'hello'
 screen -r hello # attach to existing screen 'hello'
 # [CTRL+A, D] detaches from screen
 ```
+
+## Troubleshooting
+### First Steps
+If the server has been shutdown without the `shutdown` command, this can cause things to break. Be sure to always shut down the server with the `shutdown` command and NOT by killing the process with `ctrl+c`!!
+
+### Nuking
+The easiest way to nuke the server is to simply delete the entire code folder as well as the database ie:
+```bash
+rm -rf ~/ppswg
+mariadb -u swgemu -p
+> drop database swgemu;
+```
+- MAKE SURE YOU BACK UP YOUR TRE FILES!!
+- After that, just follow the install steps again
+
+### Can't Delete Characters
+This seems to be an issue with the SQL setup. As of this guide, the `swgemu.sql` file includes all necessary tables for deleting characters. The issue is most likely the way the database was setup or if the server was shut down without the `shutdown` command. Ensure that you have correctly imported the `swgemu.sql` file.
+- https://modthegalaxy.com/index.php?threads/cannot-delete-characters-after-creating-them.1505/

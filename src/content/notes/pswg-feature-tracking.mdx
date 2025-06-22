@@ -81,6 +81,21 @@ MMOCoreORB\src\server\zone\objects\intangible\PetControlDeviceImplementation.cpp
 ```
 - Call timers for Vehicles, Pets, and Droids reduced to 5 seconds
 
+### Group Mission Payouts
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\mission\MissionObjectiveImplementation.cpp
+```
+- Ensure group mission payouts are only split between players who are in-range
+
+### Travel Boarding Range Increased
+⚠️ Partially tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\creature\commands\BoardShuttleCommand.h
+```
+- Increase boarding range of startports and shuttles
+- Based on [this infinity commit](https://github.com/swginfinity/public/blob/7a105dccac7a6783f263f63c01c8d24388c9ecc9/MMOCoreORB/src/server/zone/objects/creature/commands/BoardShuttleCommand.h)
+
 ### Show Resource Names in Inventory
 ❌ Untested
 ```bash

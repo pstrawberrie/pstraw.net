@@ -96,6 +96,66 @@ MMOCoreORB\src\server\zone\objects\creature\commands\BoardShuttleCommand.h
 - Increase boarding range of startports and shuttles
 - Based on [this infinity commit](https://github.com/swginfinity/public/blob/7a105dccac7a6783f263f63c01c8d24388c9ecc9/MMOCoreORB/src/server/zone/objects/creature/commands/BoardShuttleCommand.h)
 
+### Group Invite Range Restriction Removed
+✔️ Tested on Local
+```bash
+MMOCoreORB\bin\conf\config.lua
+```
+- Removed range restriction on group invites (can invite from anywhere/any planet)
+
+### Enable Wipe Fill on Clone
+❌ Untested
+```bash
+MMOCoreORB\bin\conf\config.lua
+```
+- Enable fill wipe on player clone
+
+### Player Bounty Cooldown Lowered
+❌ Untested
+```bash
+MMOCoreORB\bin\conf\config.lua
+```
+- Lowered player bounty cooldown from 24 hours to 1 hour
+
+### Destroy Missions Quantities and Titles
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\managers\mission\MissionManagerImplementation.cpp
+```
+- Increase number of missions that can be taken to 5
+- Increase number of missions shown on terminal to 18
+- Changed names of destroy missions to creature names
+
+### Destroy Mission Direction and Difficulty Choice
+✔️ Tested on Local
+```bash
+MMOCoreORB\bin\scripts\screenplays\screenplays.lua
+MMOCoreORB\bin\scripts\screenplays\custom_content\tools\mission_direction_choice.lua
+MMOCoreORB\bin\scripts\screenplays\custom_content\tools\mission_level_choice.lua
+
+```
+- Added direction choice to mission terminals for destroy missions
+- Added level (difficulty) choice to mission terminals for destroy missions
+
+### Add Slice Choice to Weapon Slicing
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSession.idl
+MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSessionImplementation.cpp
+MMOCoreORB\src\server\zone\objects\tangible\terminal\mission\MissionTerminalImplementation.cpp
+MMOCoreORB\src\server\zone\managers\mission\MissionManagerImplementation.cpp
+```
+- Add option to choose between damage and speed slice on weapons (from Syndicate code)
+
+-----
+
+### Add Slice Choice to Armor Slicing
+❌ Untested
+```bash
+xx
+```
+- xx
+
 ### Show Resource Names in Inventory
 ❌ Untested
 ```bash

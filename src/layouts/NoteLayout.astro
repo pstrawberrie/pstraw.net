@@ -159,6 +159,15 @@ const { frontmatter, slug } = Astro.props;
       margin-top: 1rem;
     }
 
+    // tables
+    :global(table),
+    :global(table td),
+    :global(table th) {
+      border: 1px solid var(--background-accent);
+      border-collapse: collapse;
+      padding: .4em;
+    }
+
     // callouts
     :global(.callout) {
       display: inline-block;

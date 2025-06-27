@@ -65,6 +65,13 @@ MMOCoreORB\bin\conf\config.lua
 ```
 - Set JTL to enabled via config
 
+### Group Invite Range Restriction Removed
+✔️ Tested on Local
+```bash
+MMOCoreORB\bin\conf\config.lua
+```
+- Removed range restriction on group invites (can invite from anywhere/any planet)
+
 ### Group Size Increased
 ⚠️ Partially tested on Local
 ```bash
@@ -96,15 +103,8 @@ MMOCoreORB\src\server\zone\objects\creature\commands\BoardShuttleCommand.h
 - Increase boarding range of startports and shuttles
 - Based on [this infinity commit](https://github.com/swginfinity/public/blob/7a105dccac7a6783f263f63c01c8d24388c9ecc9/MMOCoreORB/src/server/zone/objects/creature/commands/BoardShuttleCommand.h)
 
-### Group Invite Range Restriction Removed
-✔️ Tested on Local
-```bash
-MMOCoreORB\bin\conf\config.lua
-```
-- Removed range restriction on group invites (can invite from anywhere/any planet)
-
 ### Enable Wipe Fill on Clone
-❌ Untested
+✔️ Tested on Local
 ```bash
 MMOCoreORB\bin\conf\config.lua
 ```
@@ -116,6 +116,13 @@ MMOCoreORB\bin\conf\config.lua
 MMOCoreORB\bin\conf\config.lua
 ```
 - Lowered player bounty cooldown from 24 hours to 1 hour
+
+### Bounty Hunter Mission Titles
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\managers\mission\MissionManagerImplementation.cpp
+```
+- Changed names of BH Missions to show difficulty level and target name
 
 ### Destroy Missions Quantities and Titles
 ✔️ Tested on Local
@@ -146,14 +153,29 @@ MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSessionImplementation.
 ```
 - Add option to choose between damage and speed slice on weapons (from Syndicate code)
 
+### Add Slice Choice to Armor Slicing
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSession.idl
+MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSessionImplementation.cpp
+```
+- Add option to choose between effectiveness and encumbrance slice on armor (modified from Syndicate weapon slice choice code)
+
 -----
 
-### Add Slice Choice to Armor Slicing
+### Update Attachments to have Skill Modifier Name
 ❌ Untested
 ```bash
 xx
 ```
 - xx
+
+### Allow Doctor Buffs in Buildings
+❌ Untested
+```bash
+todo
+```
+- todo
 
 ### Show Resource Names in Inventory
 ❌ Untested
@@ -203,40 +225,17 @@ resists = {
   lightsaber
 }
 
--- example
+-- example (no resist, stun vuln, lightsaber vuln)
 resists = {0,0,0,0,0,0,0,-1,-1}
 ```
 
 ### PVE Bounty Mission Targets
 ```lua
 -- MMOCoreORB\bin\scripts\managers\mission\mission_manager.lua
-level1 = { --level 1 - 20
-		"bh_bodyguard", --level 7
-		"bh_fugitive", --level 7
-		"bh_spice_fiend", --level 8
-		"bh_pirate_privateer", --level 10
-		"bh_gunrunner", --level 10
-		"bh_naboo_pirate_lieutenant", --level 15
-		"bh_dune_stalker_brawler", --level 17
-		"bh_pirate_leader", --level 17
-		"bh_terrorist", --level 17
-		"bh_bodyguard_zabrak_female", --level 18
-		"bh_assassin_twilek_mate", --level 18
-		"bh_pirate_captain", --level 20
-		"bh_brigand_leader" --level 20
-	},
-	level2 = { --level 21 - 50
-		"bh_bounty_hunter_thug", --level 24
-		"bh_sennex_guard", --level 32
-		"bh_scientist", --level 34
-		"bh_canyon_corsair_cutthroat", --level 35
-		"bh_mercenary_warlord", --level 44
-		"bh_ig_assassin_droid", --level 45
-		"bh_canyon_corsair_captain", --level 50
-		"bh_tusken_death_hunter" --level 50
-	},
+level1 = { ... }, --level 1 - 20
+	level2 = { ... }, --level 21 - 50
 	level3 = { --level 51 - 200 (current highest is 120, probe droids will only have a 5% chance to find targets over level 190)
-		"bh_tusken_warlord", --level 62: 55kin resist
+		"bh_tusken_warlord", --level 62
 		"bh_untrained_wielder_of_the_dark_side", --level 65
 		"bh_mercenary_sentry", --level 66
 		"bh_nightsister_outcast", --level 81

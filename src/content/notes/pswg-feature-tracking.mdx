@@ -14,9 +14,12 @@ Quality of life changes
 ```bash
 MMOCoreORB\src\server\zone\objects\building\BuildingObject.idl
 MMOCoreORB\src\server\zone\objects\building\BuildingObjectImplementation.cpp
+MMOCoreORB/src/server/zone/managers/structure/StructureManager.cpp
 ```
 - Max player items increased to 5000
 - Item storage increased to 300 per lot for player structures
+- Item storage increased to 900 for civic structures
+- Updated structure status to include max number of items allowed in structure
 
 ### Crafting Tool Timers Reduced
 ✔️ Tested on Local
@@ -169,8 +172,36 @@ MMOCoreORB\src\server\zone\objects\tangible\attachment\AttachmentImplementation.
 - Name attachments with AA/CA prefix their first skill mod (ie. "[AA] Rescue + 12")
 - Thanks to [this code from SR2](https://github.com/swgsremu/sentinelsrepublic-server/blob/0b3db1fa8df5bf782116924becad5562da713605/MMOCoreORB/src/server/zone/objects/tangible/attachment/AttachmentImplementation.cpp#L93)
 
+### Consolidate City Specializations
+❌ Untested
+```bash
+# Core3 Updates
+MMOCoreORB/bin/scripts/managers/city_manager.lua
+
+# TRE Updates
+x
+```
+- Add surveying, cloning, entertainer, and medical to all city specializations
+- Consolodate city specializations:
+	- Logistics Hub (crafting experimentation & assembly)
+	- Expedition Frontier (s)
+	- 
+
 -----
 ## QOL TODO / Implementation List
+
+DRIVE WORK:
+- qol/house-max-items-display (needs testing)
+	- record this with first change for max items
+- qol/enhanced-rotate (needs testing)
+- qol/city-specs (needs tre work + testing)
+
+### Global Bank
+```bash
+# https://github.com/swgsremu/sentinelsrepublic-server/commit/06a858173e75254dcb5698bf4fffb47db4411f1f
+todo
+```
+- todo
 
 ### Show Resource Names in Inventory
 ❌ Untested
@@ -186,16 +217,12 @@ todo
 ```
 - todo
 
-### Add Multi-specialization to cities
+### Enhanced Rotate
 ❌ Untested
 ```bash
-todo
-```
-- todo
+# first, try enabling it in this file: /Users/j/code/ppswg/MMOCoreORB/src/server/zone/objects/tangible/components/BankTerminalMenuComponent.h
 
-### Infinity-Style Yaw/Pitch/Roll
-❌ Untested
-```bash
+# if that doesn't work, take a look at: https://github.com/swgsremu/sentinelsrepublic-server/commit/83dba604a80c8b7029b65b29208f220bf15e1537
 todo
 ```
 - todo

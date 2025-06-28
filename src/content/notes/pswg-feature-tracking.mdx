@@ -172,36 +172,44 @@ MMOCoreORB\src\server\zone\objects\tangible\attachment\AttachmentImplementation.
 - Name attachments with AA/CA prefix their first skill mod (ie. "[AA] Rescue + 12")
 - Thanks to [this code from SR2](https://github.com/swgsremu/sentinelsrepublic-server/blob/0b3db1fa8df5bf782116924becad5562da713605/MMOCoreORB/src/server/zone/objects/tangible/attachment/AttachmentImplementation.cpp#L93)
 
+### Enhanced Rotate
+✔️ Tested on Local
+```bash
+MMOCoreORB\bin\conf\config.lua
+```
+- Set enhanced rotate to enabled via config
+
+### Global Bank
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\tangible\components\BankTerminalMenuComponent.h
+```
+- Enable global bank
+
 ### Consolidate City Specializations
-❌ Untested
+⚠️ Partially tested on Local / Needs More Work
 ```bash
 # Core3 Updates
 MMOCoreORB/bin/scripts/managers/city_manager.lua
 
 # TRE Updates
-x
+string/en/cmd_d.stf
+string/en/cmd_n.stf
+string/en/skl_d.stf
+string/en/city/city.stf
 ```
 - Add surveying, cloning, entertainer, and medical to all city specializations
 - Consolodate city specializations:
 	- Logistics Hub (crafting experimentation & assembly)
-	- Expedition Frontier (s)
-	- 
+	- Expedition Frontier (mission payouts)
+	- Dynamic Garrison (defense)
+- **Not implemented:**
+	- remove default city specializations from city management terminal
+	- fix hardcoded specialization names in `CityRegionImplementation.cpp`
 
 -----
 ## QOL TODO / Implementation List
-
-DRIVE WORK:
-- qol/house-max-items-display (needs testing)
-	- record this with first change for max items
-- qol/enhanced-rotate (needs testing)
-- qol/city-specs (needs tre work + testing)
-
-### Global Bank
-```bash
-# https://github.com/swgsremu/sentinelsrepublic-server/commit/06a858173e75254dcb5698bf4fffb47db4411f1f
-todo
-```
-- todo
+QOL changes backlog list
 
 ### Show Resource Names in Inventory
 ❌ Untested
@@ -217,15 +225,7 @@ todo
 ```
 - todo
 
-### Enhanced Rotate
-❌ Untested
-```bash
-# first, try enabling it in this file: /Users/j/code/ppswg/MMOCoreORB/src/server/zone/objects/tangible/components/BankTerminalMenuComponent.h
 
-# if that doesn't work, take a look at: https://github.com/swgsremu/sentinelsrepublic-server/commit/83dba604a80c8b7029b65b29208f220bf15e1537
-todo
-```
-- todo
 
 ### Fix Doctor Buff Values in Buildings With Droids (needs more details)
 ❌ Untested

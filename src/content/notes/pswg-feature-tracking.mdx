@@ -1,13 +1,20 @@
 ---
 title: 'pSWG Feature Tracking'
 date: 2025-06-20
-description: 'A note to keep track of the pSWG features in development'
+description: 'Development feature tracking details for the pSWG server'
 authors: ['pstraw']
 tags: ["swg", "dev"]
-published: false
+published: true
 ---
-## QOL Changes
-Quality of life changes
+## Implemented QOL Changes
+Quality of life changes that have been implemented
+
+### Enable JTL
+✔️ Tested on Local
+```bash
+MMOCoreORB\bin\conf\config.lua
+```
+- Set JTL to enabled via config
 
 ### Increase Storage Per Lot
 ✔️ Tested on Local
@@ -20,6 +27,33 @@ MMOCoreORB/src/server/zone/managers/structure/StructureManager.cpp
 - Item storage increased to 300 per lot for player structures
 - Item storage increased to 900 for civic structures
 - Updated structure status to include max number of items allowed in structure
+
+### Show Resource Names on Resource Containers
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\resource\ResourceSpawnImplementation.cpp
+```
+- Added resource names to resource containers
+
+### Sampling and Harvester Rates Increased, Disable Sampling Mini-Game
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\managers\resource\resourcespawner\ResourceSpawner.cpp
+MMOCoreORB\src\server\zone\objects\tangible\deed\structure\StructureDeedImplementation.cpp
+MMOCoreORB\src\server\zone\objects\player\sessions\survey\SurveySessionImplementation.cpp
+```
+- Hand sampling rates increased to 2x
+- Harvester rates increased to 5x
+- Disabled sampling mini-game
+
+### Vendor and Bazaar Sales
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\managers\auction\AuctionManager.idl
+```
+- Increased expiration time to 1 year for vendor sales
+- Increased expiration time to 30 days for bazaar sales
+- Increased max bazaar price to 10 million
 
 ### Crafting Tool Timers Reduced
 ✔️ Tested on Local
@@ -61,12 +95,13 @@ MMOCoreORB\src\server\zone\managers\planet\PlanetManagerImplementation.cpp
 - Remove starport wait time
 - Remove shuttleport wait time
 
-### Enable JTL
+### Travel Boarding Range Increased
 ✔️ Tested on Local
 ```bash
-MMOCoreORB\bin\conf\config.lua
+MMOCoreORB\src\server\zone\objects\creature\commands\BoardShuttleCommand.h
 ```
-- Set JTL to enabled via config
+- Increase boarding range of startports and shuttles
+- Based on [this infinity commit](https://github.com/swginfinity/public/blob/7a105dccac7a6783f263f63c01c8d24388c9ecc9/MMOCoreORB/src/server/zone/objects/creature/commands/BoardShuttleCommand.h)
 
 ### Group Invite Range Restriction Removed
 ✔️ Tested on Local
@@ -83,49 +118,12 @@ MMOCoreORB\src\server\zone\managers\planet\PlanetManagerImplementation.cpp
 ```
 - Increased group size to 50
 
-### Vehicle, Droid, and Pet Call Timers Reduced
-✔️ Tested on Local
-```bash
-MMOCoreORB\src\server\zone\objects\intangible\VehicleControlDeviceImplementation.cpp
-MMOCoreORB\src\server\zone\objects\intangible\PetControlDeviceImplementation.cpp
-```
-- Call timers for Vehicles, Pets, and Droids reduced to 5 seconds
-
 ### Group Mission Payouts
 ✔️ Tested on Local
 ```bash
 MMOCoreORB\src\server\zone\objects\mission\MissionObjectiveImplementation.cpp
 ```
 - Ensure group mission payouts are only split between players who are in-range
-
-### Travel Boarding Range Increased
-⚠️ Partially tested on Local
-```bash
-MMOCoreORB\src\server\zone\objects\creature\commands\BoardShuttleCommand.h
-```
-- Increase boarding range of startports and shuttles
-- Based on [this infinity commit](https://github.com/swginfinity/public/blob/7a105dccac7a6783f263f63c01c8d24388c9ecc9/MMOCoreORB/src/server/zone/objects/creature/commands/BoardShuttleCommand.h)
-
-### Enable Wipe Fill on Clone
-✔️ Tested on Local
-```bash
-MMOCoreORB\bin\conf\config.lua
-```
-- Enable fill wipe on player clone
-
-### Player Bounty Cooldown Lowered
-❌ Untested
-```bash
-MMOCoreORB\bin\conf\config.lua
-```
-- Lowered player bounty cooldown from 24 hours to 1 hour
-
-### Bounty Hunter Mission Titles
-✔️ Tested on Local
-```bash
-MMOCoreORB\src\server\zone\managers\mission\MissionManagerImplementation.cpp
-```
-- Changed names of BH Missions to show difficulty level and target name
 
 ### Destroy Missions Quantities and Titles
 ✔️ Tested on Local
@@ -147,6 +145,38 @@ MMOCoreORB\src\server\zone\managers\mission\MissionManagerImplementation.cpp
 ```
 - Added direction choice to mission terminals for destroy missions
 - Added level (difficulty) choice to mission terminals for destroy missions
+
+### Vehicle and Pet Call Timers Reduced, Allow In-Combat Storage
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\intangible\VehicleControlDeviceImplementation.cpp
+MMOCoreORB\src\server\zone\objects\intangible\PetControlDeviceImplementation.cpp
+```
+- Call timers for Vehicles and Pets reduced to 5 seconds
+- Vehicles and Pets can be stored while in combat
+
+### Entertainer Buff Duration, Tumble Speed, and Single Mastery
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\player\sessions\EntertainingSessionImplementation.cpp
+```
+- Increased entertainer buff duration to 3 hours
+- Reduced cooldown on entertainer effects: entertainers can now tumble action
+- Enabled all buffs for both dancer and musician: only 1 mastery needed
+
+### Enable Wipe Fill on Clone
+✔️ Tested on Local
+```bash
+MMOCoreORB\bin\conf\config.lua
+```
+- Enable fill wipe on player clone
+
+### Bounty Hunter Mission Titles
+✔️ Tested on Local
+```bash
+MMOCoreORB\src\server\zone\managers\mission\MissionManagerImplementation.cpp
+```
+- Changed names of BH Missions to show difficulty level and target name
 
 ### Add Slice Choice to Weapon Slicing
 ✔️ Tested on Local
@@ -184,7 +214,7 @@ MMOCoreORB\bin\conf\config.lua
 ```bash
 MMOCoreORB\src\server\zone\objects\tangible\components\BankTerminalMenuComponent.h
 ```
-- Enable global bank
+- Enabled global bank
 
 ### Consolidate City Specializations
 ⚠️ Partially tested on Local / Needs More Work
@@ -203,36 +233,27 @@ string/en/city/city.stf
 	- Logistics Hub (crafting experimentation & assembly)
 	- Expedition Frontier (mission payouts)
 	- Dynamic Garrison (defense)
-- **Not implemented:**
+- **Needs improvements:**
 	- remove default city specializations from city management terminal
 	- fix hardcoded specialization names in `CityRegionImplementation.cpp`
 
------
-## QOL TODO / Implementation List
-QOL changes backlog list
-
-### Show Resource Names in Inventory
-❌ Untested
-```bash
-todo
-```
-- todo
-
 ### Increase Vehicle Speeds (TRE EDIT)
-❌ Untested
+✔️ Tested on Local
 ```bash
-todo
+object/mobile/vehicle/shared_landspeeder_x31.iff
+object/mobile/vehicle/shared_landspeeder_x34.iff
+object/mobile/vehicle/shared_speederbike.iff
+object/mobile/vehicle/shared_speederbike_swoop.iff
+object/mobile/vehicle/shared_landspeeder_av21.iff
+object/mobile/vehicle/shared_jetpack.iff
 ```
-- todo
+- Increased vehicle speeds for X31, X34, Speederbike, Swoop, AV21, Jetpack
 
+-----
+## QOL Backlog
+List of QOL Changes that still need to be implemented
 
-
-### Fix Doctor Buff Values in Buildings With Droids (needs more details)
-❌ Untested
-```bash
-todo
-```
-- todo
+- Fix Doctor Buff Values in Buildings With Droids (needs more details)
 
 -----
 
@@ -243,7 +264,40 @@ Edits to TRE SWG file(s)
 ```bash
 string/en/newbie_tutorial/newbie_mail.stf
 ```
-- change welcome mail message to ppswg welcome mail message
+
+### Custom City Specialization Names / Politician Skill Descriptions
+```bash
+string/en/cmd_d.stf
+string/en/cmd_n.stf
+string/en/skl_d.stf
+string/en/city/city.stf
+```
+
+### Vehicle Speeds
+```bash
+object/mobile/vehicle/shared_landspeeder_x31.iff
+object/mobile/vehicle/shared_landspeeder_x34.iff
+object/mobile/vehicle/shared_speederbike.iff
+object/mobile/vehicle/shared_speederbike_swoop.iff
+object/mobile/vehicle/shared_landspeeder_av21.iff
+object/mobile/vehicle/shared_jetpack.iff
+```
+
+-----
+
+## Spawns & Loot Updates
+Updates and modifications to the spawners or loot tables
+
+### Starting City Spawns Increased, Reduce Interest Area Spawner Start Delay
+```bash
+MMOCoreORB\bin\scripts\screenplays\spawner\interest_area_spawner.lua
+MMOCoreORB\bin\scripts\screenplays\spawner\corellia_city_spawners.lua
+MMOCoreORB\bin\scripts\screenplays\spawner\tatooine_city_spawners.lua
+```
+- Reduced start delay for interest area spawners to 1 minute
+- Greatly increased low-level spawns outside starting cities:
+	- Coronet
+	- Mos Eisley
 
 -----
 
@@ -270,26 +324,4 @@ resists = {
 
 -- example (no resist, stun vuln, lightsaber vuln)
 resists = {0,0,0,0,0,0,0,-1,-1}
-```
-
-### PVE Bounty Mission Targets
-```lua
--- MMOCoreORB\bin\scripts\managers\mission\mission_manager.lua
-level1 = { ... }, --level 1 - 20
-	level2 = { ... }, --level 21 - 50
-	level3 = { --level 51 - 200 (current highest is 120, probe droids will only have a 5% chance to find targets over level 190)
-		"bh_tusken_warlord", --level 62
-		"bh_untrained_wielder_of_the_dark_side", --level 65
-		"bh_mercenary_sentry", --level 66
-		"bh_nightsister_outcast", --level 81
-		"bh_force_trained_archaist", --level 90
-		"bh_force_sensitive_crypt_crawler", --level 95
-		"bh_nightsister_spell_weaver", --level 107
-		"bh_singing_mountain_clan_arch_witch", --level 107
-		"bh_spiderclan_auspex", --level 107
-		"bh_feral_force_wielder", --level 115
-		"bh_force_crystal_hunter", --level 115
-		"bh_tusken_carnage_champion", --level 116
-		"bh_dark_adept" --level 120
-	}
 ```

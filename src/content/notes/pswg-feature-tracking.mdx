@@ -1,11 +1,23 @@
 ---
 title: 'pSWG Feature Tracking'
 date: 2025-06-20
-description: 'Development feature tracking details for the pSWG server'
+updated: 2025-06-29
+description: 'Development tracking and details for the pSWG server'
 authors: ['pstraw']
 tags: ["swg", "dev"]
 published: true
 ---
+import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
+
+<NoteJumpMenu client:load title="Jump to Profession" links={[
+	{title: 'QOL Changes', path: '#implemented-qol-changes'},
+	{title: 'TRE File Edits', path: '#tre-file-edits'},
+	{title: 'Gameplay Updates', path: '#gameplay-updates'},
+	{title: 'Backlog', path: '#backlog'},
+	{title: 'Code References', path: '#code-references'},
+	{title: 'Credits', path: '#credits'},
+]}/>
+
 ## Implemented QOL Changes
 Quality of life changes that have been implemented
 
@@ -199,7 +211,7 @@ MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSessionImplementation.
 ```bash
 MMOCoreORB\src\server\zone\objects\tangible\attachment\AttachmentImplementation.cpp
 ```
-- Name attachments with AA/CA prefix their first skill mod (ie. "[AA] Rescue + 12")
+- Named attachments with AA/CA prefix and their first skill mod (ie. "[AA] Rescue + 12")
 - Thanks to [this code from SR2](https://github.com/swgsremu/sentinelsrepublic-server/blob/0b3db1fa8df5bf782116924becad5562da713605/MMOCoreORB/src/server/zone/objects/tangible/attachment/AttachmentImplementation.cpp#L93)
 
 ### Enhanced Rotate
@@ -250,11 +262,15 @@ object/mobile/vehicle/shared_jetpack.iff
 ```
 - Increased vehicle speeds for X31, X34, Speederbike, Swoop, AV21, Jetpack
 
------
-## QOL Backlog
-List of QOL Changes that still need to be implemented
-
-- Fix Doctor Buff Values in Buildings With Droids (needs more details)
+### Prevent Wild Lairs From Spawning Immediately After Destruction Of Mission Layer
+⚠️ Partially tested on Local
+```bash
+MMOCoreORB/src/server/zone/managers/creature/LairObserverImplementation.cpp
+MMOCoreORB/src/server/zone/managers/planet/PlanetManager.idl
+MMOCoreORB/src/server/zone/managers/planet/PlanetManagerImplementation.cpp
+```
+- Wild lairs should now wait 1 minute after mission layer is destroyed to spawn
+- thanks to [this SR2 commit](https://github.com/pstrawberrie/ppswg/commit/2ac3196fe3b76dd5d1fc046dc1ba37bf6effca4c)
 
 -----
 
@@ -286,8 +302,8 @@ object/mobile/vehicle/shared_jetpack.iff
 
 -----
 
-## Spawns & Loot Updates
-Updates and modifications to the spawners or loot tables
+## Gameplay Updates
+Updates and modifications to gameplay
 
 ### Starting City Spawns Increased, Reduce Interest Area Spawner Start Delay
 ```bash
@@ -299,6 +315,14 @@ MMOCoreORB\bin\scripts\screenplays\spawner\tatooine_city_spawners.lua
 - Greatly increased low-level spawns outside starting cities:
 	- Coronet
 	- Mos Eisley
+
+-----
+
+## Backlog
+List of Changes that still need to be implemented
+
+- [QOL] Fix Doctor Buff Values in Buildings With Droids (needs more details)
+- [QOL] Core3 default loot needs to be adjusted (based on SR2 feedback)
 
 -----
 
@@ -326,3 +350,16 @@ resists = {
 -- example (no resist, stun vuln, lightsaber vuln)
 resists = {0,0,0,0,0,0,0,-1,-1}
 ```
+
+-----
+
+## Credits
+Thanks to SWGEmu's Core3 and all of the existing servers that share their code!
+
+- [SWGEmu Core3](https://github.com/swgemu/Core3)
+- [SWG Infinity](https://github.com/swginfinity/public)
+- [SWG SR2](https://github.com/swgsremu/sentinelsrepublic-server)
+- [SWG Aftermath](https://github.com/SWGAftermath/Aftermath)
+- [SWG Flurry](https://github.com/Thrax989/SWGFlurry)
+- [Tarkin's Revenge](https://bitbucket.org/tarkinsrevenge/tarkins-revenge/src/master/)
+- [MTG (Mod The Galaxy)](https://modthegalaxy.com/)

@@ -10,7 +10,12 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 
 <p class="callout good"><a href="https://www.eqsanctum.com/topic/47-how-to-grind-everything/">Visit the original guide on EQSanctum</a></p>
 <p class="callout warning">Corrections or additions? <a href="https://github.com/pstrawberrie/pstraw.net">Submit PR on github</a></p>
-<NoteJumpMenu client:load title="Jump to Profession" links={[{title: 'Crafting Macro', path: '#crafting-macro'},{title: 'Sampling Macro', path: '#sampling-macro'},{title: 'Combat Macro', path: '#combat-macro'}, {title: 'Artisan', path: '#artisan'},]}/>
+<NoteJumpMenu client:load title="Jump to Profession" links={[
+  {title: 'Crafting Macro'},
+  {title: 'Sampling Macro'},
+  {title: 'Combat Macro'},
+  {title: 'Artisan'},
+]}/>
 
 # TODO:
 - alphabetize professions

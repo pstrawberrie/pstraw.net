@@ -7,7 +7,12 @@ authors: ['pstraw']
 tags: ["dev"]
 published: true
 ---
-Jump to: [Front-End Web](#front-end-web) | [Linux](#linux)
+import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
+
+<NoteJumpMenu client:load links={[
+  {title: 'Front-End Web'},
+  {title: 'Linux'},
+]}/>
 
 ## Front-End Web
 ### Individual Elements/Components

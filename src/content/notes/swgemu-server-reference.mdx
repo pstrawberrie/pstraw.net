@@ -1,15 +1,15 @@
 ---
 title: 'SWGEmu Server Setup Reference'
 date: 2025-05-15
-updated: 2025-06-16
-description: 'Notes on setting up a SWGEmu server with WSL and docker on Windows'
+updated: 2025-06-26
+description: 'Notes on setting up a SWGEmu server with WSL on Windows'
 authors: ['pstraw']
 tags: ["dev", "linux", "swg"]
 published: true
 ---
 import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 
-<p class="callout warning">This reference is a little messy</p>
+<p class="callout warning">This reference is incomplete (switched from docker back to normal)</p>
 <NoteJumpMenu client:load links={[
   {title: 'Windows WSL2 Setup', path: '#windows-wsl2-setup'},
   {title: 'WSL2 Debian SWGEmu Setup', path: '#wsl2-debian-swgemu-setup'},
@@ -42,12 +42,10 @@ wsl --unregister <distroName>
 ```
 
 ## WSL2 Debian SWGEmu Setup
-Once the distro is installed successfully, switch over to the WSL console and run that as admin. Once you're inside of WSL, you are just inside of your chosen distro and can begin linuxing! Now we will set up the server inside of our debian distro itself. You can try it with Docker Desktop for Windows, but to me that seemed slower. Also, if you ever want to set this up on a VPS or something, you won't have Docker Desktop for Windows. Here's what the process will be...
+Once the distro is installed successfully, switch over to the WSL console and run that as admin. Once you're inside of WSL, you are just inside of your chosen distro and can begin linuxing! Now we will set up the server inside of our debian distro itself. Here's what the process will be...
 - Update/upgrade debian
-- [Install docker engine + docker compose for debian](https://docs.docker.com/engine/install/debian/)
-- Clone the pSWG repo
+- Clone the pswg repo
 - Copy TRE files from windows
-- Build docker image via docker compose and run the docker image
 - Build the SWGEmu code
 - Test the server is working
 <br />
@@ -57,56 +55,38 @@ WSL SWGEmu server setup debian guide:
 # update & upgrade debian
 sudo apt update -y && sudo apt upgrade -y
 
-# install docker for debian following the guide:
-# https://docs.docker.com/engine/install/debian/
-# ensure you install docker-compose as well
-
 # clone pSWG repo, checkout the dev branch
-git clone https://github.com/pstrawberrie/pSWG.git
+cd ~
+git clone https://github.com/pstrawberrie/pswg.git
 git checkout dev
 
-# copy tre files from windows into the pSWG folder
-# pSWG is forked from syndicate/aftermath... so you'll need either the syndicate or aftermath tre files
-# on windows, my syndicate install is located at E:\SWGSyndicate - update this accordingly (/mnt/<driveLetter>/<installLocation>/*.tre)
+# copy tre files from windows into the pswg folder
+# pSWG is forked from core3... so you'll need the default SWGEmu tre (client) files
+# on windows, my syndicate install is located at E:\pSWG - update this accordingly (/mnt/<driveLetter>/<installLocation>/*.tre)
 # this might take a few seconds 
-cd ~/pSWG && mkdir -p tre
-cp /mnt/e/SWGSyndicate/*.tre ~/pSWG/tre
+cd ~/pswg && mkdir -p tre
+cp /mnt/e/pSWG/*.tre ~/tre
 
-# navigate to the docker folder, and build it with docker-compose
-cd ~/pSWG/docker
-sudo docker compose build
+# follow the "linux manual build instructions" from the core3 repo to get debian set up
+# https://github.com/swgemu/Core3?tab=readme-ov-file#linux-manual-build
 
-# start up the docker compose for the first time to make sure it's all good
-sudo docker compose up
-
-# if no errors, you can exit the docker compose with CTRL+C and then start it in detached mode
-sudo docker compose up -d
-
-# attach to the swgemu docker container in a new screen (we'll install screen) and build the swgemu code!
-# if you've made it this far, the only reason a build might fail would probably be insufficient RAM or some hardware/docker limitation
-# this will take a little while...
-sudo apt install -y screen
-screen -S swgemu
-sudo docker compose attach swgemu
-cd /build/pSWG/MMOCoreORB
+# build the code
+cd ~/pswg/MMOCoreORB
 make -j$(nproc)
 
-# now detach from the swgemu screen with CTRL+A, D
 # we need to get the IP of the WSL so that we can connect to the game
-# make sure you have detached from all screens (CTRL+A, D)
 # copy the ip address of your WSL (should be eth0), something like 172.22.218.115
 ip addr
 
-# finally, let's exec into the db container (default pass is 123456) and ensure that the galaxy address is set to the IP you just copied
-sudo docker compose exec -it db mariadb -u swgemu -p
+# ensure that the galaxy address in the DB is set to the IP you just copied
+mariadb -u swgemu -p
 use swgemu;
 update galaxy set address = 'IP_YOU_COPIED';
 select * from galaxy; # so you can confirm the change
 exit
 
-# now reattach to your swgemu screen and start the server!
-screen -r swgemu
-cd /build/pSWG/MMOCoreORB/bin
+# now start the server!
+cd ~/pswg/MMOCoreORB/bin
 ./core3
 
 # once the server starts, you can login!
@@ -120,23 +100,6 @@ cd /build/pSWG/MMOCoreORB/bin
 # 0fd345d9=true
 
 # HAVE FUN!
-```
-
-## Docker Reference
-Docker compose start in detached mode:
-```bash
-cd ~/pSWG/docker
-sudo docker compose up -d
-```
-
-Docker compose attach to `swgemu` container:
-```bash
-sudo docker compose attach swgemu
-```
-
-Docker exec mariadb cli on `db` container as user mariadb user `swgemu`
-```bash
-sudo docker compose exec -it db mariadb -u swgemu -p
 ```
 
 ## SQL Reference
@@ -205,6 +168,23 @@ screen -r hello # attach to existing screen 'hello'
 # [CTRL+A, D] detaches from screen
 ```
 
+## Docker Reference
+Docker compose start in detached mode:
+```bash
+cd ~/swgproject/docker
+sudo docker compose up -d
+```
+
+Docker compose attach to `swgemu` container:
+```bash
+sudo docker compose attach swgemu
+```
+
+Docker exec mariadb cli on `db` container as user mariadb user `swgemu`
+```bash
+sudo docker compose exec -it db mariadb -u swgemu -p
+```
+
 ## Troubleshooting
 ### First Steps
 If the server has been shutdown without the `shutdown` command, this can cause things to break. Be sure to always shut down the server with the `shutdown` command and NOT by killing the process with `ctrl+c`!!
@@ -212,7 +192,7 @@ If the server has been shutdown without the `shutdown` command, this can cause t
 ### Nuking
 The easiest way to nuke the server is to simply delete the entire code folder as well as the database ie:
 ```bash
-rm -rf ~/ppswg
+rm -rf ~/pswg
 mariadb -u swgemu -p
 > drop database swgemu;
 ```

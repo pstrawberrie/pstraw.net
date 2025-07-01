@@ -133,10 +133,11 @@ MMOCoreORB\bin\conf\config.lua
 ### Group Size Increased
 ⚠️ Partially tested on Local
 ```bash
-MMOCoreORB\bin\scripts\managers\planet\planet_manager.lua
-MMOCoreORB\src\server\zone\managers\planet\PlanetManagerImplementation.cpp
+MMOCoreORB\src\server\zone\managers\group\GroupManager.h
+MMOCoreORB\src\server\zone\managers\group\GroupManager.cpp
 ```
 - Increased group size to 50
+- Include fixes from SR2
 
 ### Group Mission Payouts
 ✔️ Tested on Local
@@ -280,6 +281,29 @@ MMOCoreORB/src/server/zone/managers/planet/PlanetManagerImplementation.cpp
 - Wild lairs should now wait 1 minute after mission layer is destroyed to spawn
 - thanks to [this SR2 commit](https://github.com/pstrawberrie/ppswg/commit/2ac3196fe3b76dd5d1fc046dc1ba37bf6effca4c)
 
+### Fix Doctor Buffing (SR2)
+✔️ Tested on Local
+```bash
+## pre-fix test
+## 669 power health buff @ master doc (no tapes/no food)
+# theed med center (no droid): 1339
+# theed med center (with droid): 1339
+# straws cantina (no droid): 1540
+# straws cantina (with droid): 1540
+
+## post-fix test
+## 669 power health buff @ master doc (no tapes/no food)
+# theed med center (no droid): 1339
+# theed med center (with droid): 1473
+# straws cantina (no droid): 1540
+# straws cantina (with droid): 1674
+
+MMOCoreORB\src\server\zone\objects\creature\commands\HealEnhanceCommand.h
+MMOCoreORB\src\server\zone\objects\tangible\pharmaceutical\EnhancePackImplementation.cpp
+MMOCoreORB\src\server\zone\objects\tangible\pharmaceutical\WoundPackImplementation.cpp
+```
+- Implement SR2 doctor buff fixes
+
 -----
 
 ## TRE File Edits
@@ -393,6 +417,16 @@ MMOCoreORB/bin/scripts/loot/items/weapon/polearm_staff_janta.lua
 MMOCoreORB/bin/scripts/loot/groups/npc/dantooine/janta_tribe_tier_1.lua
 MMOCoreORB/bin/scripts/loot/groups/npc/dantooine/janta_tribe_tier_2.lua
 MMOCoreORB/bin/scripts/loot/groups/npc/dantooine/janta_tribe_tier_3.lua
+```
+
+### Acklay Loot Updates (SR2)
+❌ Untested on Local
+```bash
+MMOCoreORB\bin\scripts\loot\items\geonosian_lab\acklay_bones_rare.lua
+MMOCoreORB\bin\scripts\loot\items\geonosian_lab\acklay_venom.lua
+
+MMOCoreORB\bin\scripts\loot\groups\geonosian_lab\acklay.lua
+MMOCoreORB\bin\scripts\mobile\dungeon\geonosian_bio_lab\acklay.lua
 ```
 
 -----

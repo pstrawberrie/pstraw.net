@@ -314,6 +314,7 @@ object/mobile/vehicle/shared_jetpack.iff
 Updates and modifications to gameplay
 
 ### Starting City Spawns Increased, Reduce Interest Area Spawner Start Delay
+✔️ Tested on Local
 ```bash
 MMOCoreORB\bin\scripts\screenplays\spawner\interest_area_spawner.lua
 MMOCoreORB\bin\scripts\screenplays\spawner\corellia_city_spawners.lua
@@ -323,6 +324,76 @@ MMOCoreORB\bin\scripts\screenplays\spawner\tatooine_city_spawners.lua
 - Greatly increased low-level spawns outside starting cities:
 	- Coronet
 	- Mos Eisley
+
+### Increase Creature Pet Mount Speeds
+⚠️ Partially tested on Local
+```bash
+MMOCoreORB\bin\scripts\managers\pet_manager.lua
+```
+- Increased creature pet mount speeds, gallop speeds, and gallop cooldown
+- Based on [This aftermath change](https://github.com/SWGAftermath/Aftermath/commit/7e35cada68d472c6a212fca3ed9ae6f56b3e97d8)
+
+### Updated Attachment Rolls Over Level 150 (SR2)
+❌ Untested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\tangible\attachment\AttachmentImplementation.cpp
+```
+- Improve attachment rolls over level 150 (in place of purely random)
+	- 50% chance to cap max at 22
+	- 30% chance to cap at 23
+	- 20% chance to allow up to 25
+- Taken from [this SR2 commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/7882028404fa16ecd24d90d80d04619b6a9c9999#diff-ca8b3d8346103619850ee1783ce386e91e057fdd23d46645b792c5d1ba6e3904R88)
+
+### Adjusted Armor Break To Work On High-End Mobs
+❌ Untested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\creature\ai\AiAgentImplementation.cpp
+```
+- Taken from [this SR2 commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/0b3db1fa8df5bf782116924becad5562da713605#diff-fbc48ca986e078854d5a1c06b0b0f5be7a382ad2886921fbffbe40fe1c3988ecL4659)
+
+### Krayt Loot, Spawn, and Resist Updates (SR2)
+❌ Untested on Local
+```bash
+MMOCoreORB/bin/scripts/loot/items/creature/krayt_dragon_tissue_common.lua
+MMOCoreORB/bin/scripts/loot/items/creature/krayt_dragon_tissue_rare.lua
+MMOCoreORB/bin/scripts/loot/items/creature/krayt_dragon_tissue_uncommon.lua
+
+MMOCoreORB/bin/scripts/mobile/tatooine/canyon_krayt_dragon.lua
+MMOCoreORB/bin/scripts/mobile/tatooine/giant_canyon_krayt_dragon.lua
+MMOCoreORB/bin/scripts/mobile/tatooine/juvenile_canyon_krayt_dragon.lua
+MMOCoreORB/bin/scripts/mobile/tatooine/krayt_dragon_adolescent.lua
+MMOCoreORB/bin/scripts/mobile/tatooine/krayt_dragon_ancient.lua
+MMOCoreORB/bin/scripts/mobile/tatooine/krayt_dragon_grand.lua
+
+MMOCoreORB/bin/scripts/screenplays/poi/tatooine_krayt_graveyard.lua
+MMOCoreORB/bin/scripts/managers/planet/tatooine_regions.lua
+```
+- Taken from SR2 updates
+
+### Nightsister Loot Updates (SR2)
+❌ Untested on Local
+```bash
+MMOCoreORB/bin/scripts/loot/items/npc/nightsister_vibro_unit.lua
+
+MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_1.lua
+MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_2.lua
+MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_3.lua
+MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_4.lua
+MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_5.lua
+```
+
+### Janta Loot Updates (SR2)
+❌ Untested on Local
+```bash
+MMOCoreORB/bin/scripts/loot/items/npc/janta_blood.lua
+MMOCoreORB/bin/scripts/loot/items/npc/janta_hides.lua
+MMOCoreORB/bin/scripts/loot/items/weapon/knife_janta.lua
+MMOCoreORB/bin/scripts/loot/items/weapon/polearm_staff_janta.lua
+
+MMOCoreORB/bin/scripts/loot/groups/npc/dantooine/janta_tribe_tier_1.lua
+MMOCoreORB/bin/scripts/loot/groups/npc/dantooine/janta_tribe_tier_2.lua
+MMOCoreORB/bin/scripts/loot/groups/npc/dantooine/janta_tribe_tier_3.lua
+```
 
 -----
 

@@ -9,7 +9,7 @@ published: true
 ---
 import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 
-<p class="callout warning">This reference is incomplete (switched from docker back to normal)</p>
+<p class="callout warning">This reference may be missing information</p>
 <NoteJumpMenu client:load links={[
   {title: 'Windows WSL2 Setup', path: '#windows-wsl2-setup'},
   {title: 'WSL2 Debian SWGEmu Setup', path: '#wsl2-debian-swgemu-setup'},
@@ -69,10 +69,26 @@ cp /mnt/e/pSWG/*.tre ~/tre
 
 # follow the "linux manual build instructions" from the core3 repo to get debian set up
 # https://github.com/swgemu/Core3?tab=readme-ov-file#linux-manual-build
+# recommended to set up the db BEFORE building the code/starting the server, or you may not be able to delete characters
 
-# build the code
-cd ~/pswg/MMOCoreORB
-make -j$(nproc)
+# set up the swgemu db user
+sudo mariadb -u root
+create user 'swgemu'@localhost identified by '123456';
+grant all privileges on swgemu.* to 'swgemu'@localhost;
+flush privileges;
+exit
+
+# create the swgemu db
+sudo mariadb -u swgemu -p # default password 123456
+create database swgemu;
+exit
+
+# import the swgemu sql file into the db
+cd ~/pswg/MMOCoreORB/sql
+mariadb -u swgemu -p swgemu < swgemu.sql
+mariadb -u swgemu -p
+use swgemu;
+show tables; # confirm the swgemu tables are populated
 
 # we need to get the IP of the WSL so that we can connect to the game
 # copy the ip address of your WSL (should be eth0), something like 172.22.218.115
@@ -84,6 +100,10 @@ use swgemu;
 update galaxy set address = 'IP_YOU_COPIED';
 select * from galaxy; # so you can confirm the change
 exit
+
+# build the code
+cd ~/pswg/MMOCoreORB
+make -j$(nproc)
 
 # now start the server!
 cd ~/pswg/MMOCoreORB/bin

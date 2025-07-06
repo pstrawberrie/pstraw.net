@@ -1,7 +1,7 @@
 ---
 title: 'pSWG Feature Tracking'
 date: 2025-06-20
-updated: 2025-06-29
+updated: 2025-07-06
 description: 'Development tracking and details for the pSWG server'
 authors: ['pstraw']
 tags: ["swg", "dev"]
@@ -10,6 +10,7 @@ published: true
 import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 
 <NoteJumpMenu client:load links={[
+	{title: 'Launcher'},
 	{title: 'QOL Changes'},
 	{title: 'TRE File Edits'},
 	{title: 'Gameplay Updates'},
@@ -17,6 +18,19 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 	{title: 'Code References'},
 	{title: 'Credits'},
 ]}/>
+
+## Launcher
+[The pSWG electron launcher](https://github.com/pstrawberrie/pswg-launcher)
+
+### V1 Release
+- Allows selection and changing of install directory
+- Verifies files match with md5 hash
+- Downloads files from web server
+- Launches SWGEmu.exe
+- Launches SWGEmu_Setup.exe
+- Options to minimize to tray / minimize on play / disable background animiation
+- Select between live and local servers
+- And it's pretty =]
 
 ## QOL Changes
 Quality of life changes that have been implemented

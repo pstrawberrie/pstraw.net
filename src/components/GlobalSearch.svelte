@@ -5,7 +5,6 @@
   import Loader from "@components/Loader.svelte";
   import TMDBCard from "@components/TMDBCard.svelte";
   import NoteCard from "@components/NoteCard.svelte";
-  import FriendCard from "@components/FriendCard.svelte";
 
   /**
    * Setup
@@ -113,7 +112,7 @@
       (err) => {
         hasError = true;
         loading = false;
-      }
+      },
     );
 
     const searchHistory = await historyReq.json();
@@ -194,7 +193,6 @@
               itemData={r}
             />{/if}
           {#if r.collection === "notes"}<NoteCard itemData={r} />{/if}
-          {#if r.collection === "friends"}<FriendCard itemData={r} />{/if}
         {/each}
       </div>
       {#if results.length && currentPage < totalPages}
@@ -365,24 +363,6 @@
 
       @include util.mq(sm) {
         grid-template-columns: 1fr 1fr;
-      }
-
-      :global(.card.friend img) {
-        max-width: 100%;
-        max-height: 80px;
-        object-fit: contain;
-      }
-
-      :global(.card.friend .title) {
-        font-weight: bold;
-        font-size: 1.2rem;
-        line-height: 1.2;
-      }
-
-      :global(.card.friend .overview) {
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        line-height: 1.1;
       }
     }
 

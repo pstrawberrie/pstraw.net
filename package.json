@@ -23,7 +23,7 @@
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/sitemap": "^3.4.1",
     "@astrojs/svelte": "^7.1.0",
-    "astro": "^5.9.1",
+    "astro": "^5.11.0",
     "convert-csv-to-json": "^2.50.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

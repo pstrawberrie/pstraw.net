@@ -26,7 +26,6 @@ export const ALL_LINKS = [
       { path: '/notes/authors', title: 'Authors' },
     ]
   },
-  // { path: '/friends', title: 'Friends' },
   // { path: '/about', title: 'About' },
   { path: '/notes/thanks', title: 'Thanks' },
 ];
@@ -35,7 +34,6 @@ export const NAV_LINKS = [
   { path: '/', title: `${emoji('home')} Home` },
   { path: '/notes', title: `${emoji('notes')} Notes` },
   { path: '/media', title: `${emoji('media')} Media` },
-  // { path: '/friends', title: `${emoji('friends')} Friends` },
   // { path: '/about', title: `${emoji('about')} About` },
   { path: '/notes/thanks', title: `${emoji('thanks')} Thanks` },
 ];
@@ -61,7 +59,6 @@ export const FOOTER_LINKS = [
   {
     heading: 'General',
     links: [
-      // { path: '/friends', title: 'Friends' },
       // { path: '/about', title: 'About' },
       { path: '/notes/thanks', title: 'Thanks' },
     ]

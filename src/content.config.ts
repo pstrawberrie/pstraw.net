@@ -21,22 +21,6 @@ const notes = defineCollection({
   })
 });
 
-// Friends Collection @ local .md files
-const friends = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/friends" }),
-  schema: z.object({
-    title: z.string(),
-    aka: z.string().optional(),
-    date: z.date(),
-    updated: z.date().optional(),
-    description: z.string(),
-    tags: z.array(z.string()),
-    images: z.array(z.string()),
-    media: z.array(z.string()).optional(),
-    published: z.boolean().optional(),
-  })
-});
-
 /* Movies Collection */
 const movies = defineCollection({
   loader: async () => {
@@ -97,4 +81,4 @@ const shows = defineCollection({
 });
 
 // EXPORT ALL COLLECTIONS
-export const collections = { notes, friends, movies, shows };
+export const collections = { notes, movies, shows };

@@ -78,8 +78,8 @@ export function getPageMenuLinksFromPath(path: string) {
 /**
  * Get Emoji For Category
  */
-export function emoji(category: string):string {
-  switch(category) {
+export function emoji(category: string): string {
+  switch (category) {
     case 'home':
       return '🏠';
     case 'notes':
@@ -102,14 +102,11 @@ export function emoji(category: string):string {
       return '📺';
     case 'favorites':
       return '🔥';
-    case 'friends':
-    case 'friend':
-      return '🧍';
     case 'about':
       return '❔';
     case 'thanks':
       return '❤️';
-    default: 
+    default:
       return '';
   }
 }

@@ -52,25 +52,6 @@ function removeArticles(str) {
     }
   }
 
-  // Get Friends Data
-  const friendsDir = resolveFromRoot('src/content/friends');
-  const friendFiles = fs.readdirSync(friendsDir);
-
-  for (let i = 0; i < friendFiles.length; i++) {
-    const filePath = resolveFromRoot(`${friendsDir}/${friendFiles[i]}`);
-    const slug = friendFiles[i].replace('.mdx', '');
-
-    try {
-      const markdownContent = fs.readFileSync(filePath, 'utf-8');
-      const { data: metadata } = matter(markdownContent);
-
-      // only push published stuff
-      if (metadata.published) allData.push({ collection: 'friends', id: slug, slug, ...metadata });
-    } catch (error) {
-      console.error("Error processing Markdown file:", error.message);
-    }
-  }
-
   // Sort Data
   allData.sort((a, b) => {
     // return most recent first

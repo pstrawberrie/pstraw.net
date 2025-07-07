@@ -231,9 +231,14 @@
       display: block;
       padding: 6px var(--site-padding);
       border-bottom: 1px solid var(--background);
+      font-size: 2rem;
 
       &:hover {
         background-color: var(--background-accent);
+      }
+
+      @include util.mq(sm) {
+        font-size: 1.5rem;
       }
     }
 

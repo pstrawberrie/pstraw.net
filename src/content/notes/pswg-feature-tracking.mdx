@@ -302,21 +302,32 @@ MMOCoreORB/src/server/zone/managers/planet/PlanetManagerImplementation.cpp
 ## 669 power health buff @ master doc (no tapes/no food)
 # theed med center (no droid): 1339
 # theed med center (with droid): 1339
-# straws cantina (no droid): 1540
-# straws cantina (with droid): 1540
+# player city cantina (no droid): 1540
+# player city cantina (with droid): 1540
 
 ## post-fix test
 ## 669 power health buff @ master doc (no tapes/no food)
 # theed med center (no droid): 1339
 # theed med center (with droid): 1473
-# straws cantina (no droid): 1540
-# straws cantina (with droid): 1674
+# player city cantina (no droid): 1540
+# player city cantina (with droid): 1674
 
 MMOCoreORB\src\server\zone\objects\creature\commands\HealEnhanceCommand.h
 MMOCoreORB\src\server\zone\objects\tangible\pharmaceutical\EnhancePackImplementation.cpp
 MMOCoreORB\src\server\zone\objects\tangible\pharmaceutical\WoundPackImplementation.cpp
 ```
 - Implement SR2 doctor buff fixes
+
+### Add Syndicate Buff Terminals
+⚠️ Partially tested on Local
+```bash
+MMOCoreORB\bin\scripts\object\tangible\beta\beta_terminal_wound.lua
+MMOCoreORB\bin\scripts\managers\planet\planet_manager.lua
+MMOCoreORB\src\server\zone\managers\sui\SuiManager.cpp
+MMOCoreORB\src\server\zone\objects\player\sui\characterbuilderbox\SuiCharacterBuilderBox.idl
+```
+- Implement Syndicate's buff terminals with some minor modifications
+- Note: CharacterBuilderEnabled = "true" must be set for this to work
 
 -----
 
@@ -327,6 +338,14 @@ Edits to TRE SWG file(s)
 ```bash
 string/en/newbie_tutorial/newbie_mail.stf
 ```
+
+### Skill Customizations
+```bash
+datatables/skill/skills.iff
+```
+- Entertainer, Dancer, Musician, Image Designer and Politician require 0 skill points
+- Novice Artisan and Artisan Surveying Line require 0 skill points
+- Merchant Boxes require 0 skill points (Artisan pre-requisite skills still require skill points)
 
 ### Custom City Specialization Names / Politician Skill Descriptions
 ```bash

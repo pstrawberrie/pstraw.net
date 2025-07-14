@@ -329,6 +329,14 @@ MMOCoreORB\src\server\zone\objects\player\sui\characterbuilderbox\SuiCharacterBu
 - Implement Syndicate's buff terminals with some minor modifications
 - Note: CharacterBuilderEnabled = "true" must be set for this to work
 
+### Add Infinty Area Loot
+⚠️ Partially tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\creature\commands\LootCommand.h
+MMOCoreORB\src\server\zone\objects\creature\commands\TransferItemMiscCommand.h
+```
+- Implement Infinity's `/loot area` command
+
 -----
 
 ## TRE File Edits
@@ -390,88 +398,35 @@ MMOCoreORB\bin\scripts\managers\pet_manager.lua
 - Increased creature pet mount speeds, gallop speeds, and gallop cooldown
 - Based on [This aftermath change](https://github.com/SWGAftermath/Aftermath/commit/7e35cada68d472c6a212fca3ed9ae6f56b3e97d8)
 
-### Updated Attachment Rolls Over Level 150 (SR2)
-❌ Untested on Local
-```bash
-MMOCoreORB\src\server\zone\objects\tangible\attachment\AttachmentImplementation.cpp
-```
-- Improve attachment rolls over level 150 (in place of purely random)
-	- 50% chance to cap max at 22
-	- 30% chance to cap at 23
-	- 20% chance to allow up to 25
-- Taken from [this SR2 commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/7882028404fa16ecd24d90d80d04619b6a9c9999#diff-ca8b3d8346103619850ee1783ce386e91e057fdd23d46645b792c5d1ba6e3904R88)
-
-### Adjusted Armor Break To Work On High-End Mobs
-❌ Untested on Local
-```bash
-MMOCoreORB\src\server\zone\objects\creature\ai\AiAgentImplementation.cpp
-```
-- Taken from [this SR2 commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/0b3db1fa8df5bf782116924becad5562da713605#diff-fbc48ca986e078854d5a1c06b0b0f5be7a382ad2886921fbffbe40fe1c3988ecL4659)
-
-### Krayt Loot, Spawn, and Resist Updates (SR2)
-❌ Untested on Local
-```bash
-MMOCoreORB/bin/scripts/loot/items/creature/krayt_dragon_tissue_common.lua
-MMOCoreORB/bin/scripts/loot/items/creature/krayt_dragon_tissue_rare.lua
-MMOCoreORB/bin/scripts/loot/items/creature/krayt_dragon_tissue_uncommon.lua
-
-MMOCoreORB/bin/scripts/mobile/tatooine/canyon_krayt_dragon.lua
-MMOCoreORB/bin/scripts/mobile/tatooine/giant_canyon_krayt_dragon.lua
-MMOCoreORB/bin/scripts/mobile/tatooine/juvenile_canyon_krayt_dragon.lua
-MMOCoreORB/bin/scripts/mobile/tatooine/krayt_dragon_adolescent.lua
-MMOCoreORB/bin/scripts/mobile/tatooine/krayt_dragon_ancient.lua
-MMOCoreORB/bin/scripts/mobile/tatooine/krayt_dragon_grand.lua
-
-MMOCoreORB/bin/scripts/screenplays/poi/tatooine_krayt_graveyard.lua
-MMOCoreORB/bin/scripts/managers/planet/tatooine_regions.lua
-```
-- Taken from SR2 updates
-
-### Nightsister Loot Updates (SR2)
-❌ Untested on Local
-```bash
-MMOCoreORB/bin/scripts/loot/items/npc/nightsister_vibro_unit.lua
-
-MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_1.lua
-MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_2.lua
-MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_3.lua
-MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_4.lua
-MMOCoreORB/bin/scripts/loot/groups/npc/dathomir/nightsister_tier_5.lua
-```
-- Taken from SR2 updates
-
-### Janta Loot Updates (SR2)
-❌ Untested on Local
-```bash
-MMOCoreORB/bin/scripts/loot/items/npc/janta_blood.lua
-MMOCoreORB/bin/scripts/loot/items/npc/janta_hides.lua
-MMOCoreORB/bin/scripts/loot/items/weapon/knife_janta.lua
-MMOCoreORB/bin/scripts/loot/items/weapon/polearm_staff_janta.lua
-
-MMOCoreORB/bin/scripts/loot/groups/npc/dantooine/janta_tribe_tier_1.lua
-MMOCoreORB/bin/scripts/loot/groups/npc/dantooine/janta_tribe_tier_2.lua
-MMOCoreORB/bin/scripts/loot/groups/npc/dantooine/janta_tribe_tier_3.lua
-```
-- Taken from SR2 updates
-
-### Acklay Loot Updates (SR2)
-❌ Untested on Local
-```bash
-MMOCoreORB\bin\scripts\loot\items\geonosian_lab\acklay_bones_rare.lua
-MMOCoreORB\bin\scripts\loot\items\geonosian_lab\acklay_venom.lua
-
-MMOCoreORB\bin\scripts\loot\groups\geonosian_lab\acklay.lua
-MMOCoreORB\bin\scripts\mobile\dungeon\geonosian_bio_lab\acklay.lua
-```
-- Taken from SR2 updates
-
 -----
 
 ## Backlog
 List of Changes that still need to be implemented
 
-- [QOL] Continue loot improvements/sync loot changes with SR2
-- [Feature] Add NPCS: Galactic Wellfare Commission Agents (next to buff terminals)
+### QOL Backlog
+- [QOL/Combat] Fix creature aggro when lair is attacked
+- [QOL/Combat] Lower respawn timers for dungeon bosses
+- [QOL/Performance] Investigate FPS dropping to 30 when examining creature(s) (noticed while examining juvenile krayt during combat)
+
+### Feature Backlog
+- [Feature] Player bounties
+- [Feature] Modified jedi unlock system
+
+### Custom Content Backlog
+- [Content] Add Galactic Wellfare Commission NPCs and City
+
+### MTG Content
+MTG content additions
+- [MTG] Armor color changing
+- [MTG/NGE] Player houses
+- [MTG/NGE] Vehicles
+- [MTG] Multi-passenger vehicles
+
+### Need Help Backlog
+Tasks that I don't know enough to complete
+- [QOL/Loot] Revert Core3 2024 loot overhaul to previous loot system
+	- tricky because future JTL updates may be touching the same files
+	- the best path forward is probably to keep all core3 changes and write as little new code as possible to adjust the loot system
 
 -----
 

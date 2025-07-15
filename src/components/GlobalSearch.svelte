@@ -1,7 +1,6 @@
 <script>
   import { SERVER_URL } from "@constants";
   import { debounce } from "lodash-es";
-  import { onMount } from "svelte";
   import Loader from "@components/Loader.svelte";
   import TMDBCard from "@components/TMDBCard.svelte";
   import NoteCard from "@components/NoteCard.svelte";
@@ -22,7 +21,6 @@
   let lastQuery = $state("");
 
   let results = $state([]);
-  let history = $state([]);
   let noResults = $state(false);
   let exactMatches = $state([]);
 
@@ -63,7 +61,7 @@
       hasError = false;
       loading = false;
       exactMatches = data?.exactMatches || [];
-      history = data.searchHistory;
+
       if (currentPage > 1) {
         results = [...results, ...data.results];
       } else {
@@ -105,22 +103,6 @@
   export function toggle() {
     toggleActive();
   }
-
-  // On Mount
-  onMount(async () => {
-    const historyReq = await fetch(`${SERVER_URL}/search-history`).catch(
-      (err) => {
-        hasError = true;
-        loading = false;
-      },
-    );
-
-    const searchHistory = await historyReq.json();
-    history =
-      typeof searchHistory === "string"
-        ? JSON.parse(searchHistory)
-        : searchHistory;
-  });
 </script>
 
 <svelte:document
@@ -140,7 +122,7 @@
     <div class="searchbar">
       <input
         type="text"
-        placeholder="Search by Title..."
+        placeholder="Enter a title..."
         id="global-search-input"
         tabindex={active ? undefined : "-1"}
         bind:this={inputEl}
@@ -156,20 +138,8 @@
     {#if loading}
       <Loader />
     {/if}
-    {#if history.length && !hasError && !results.length && (query.length < 2 || query.trim() === "")}
-      <div class="recent">
-        <span>Recent searches</span>
-        <div class="inner">
-          {#each history as h}
-            <button
-              onclick={() => {
-                query = h.query;
-                search();
-              }}>{h.query} ({h.results})</button
-            >
-          {/each}
-        </div>
-      </div>
+    {#if !hasError && !results.length && (query.length < 2 || query.trim() === "")}
+      <div class="info">Search all Movies, Shows, and Notes by title</div>
     {/if}
     {#if hasError}
       <div class="error">{errorMessage}</div>
@@ -316,37 +286,6 @@
 
     :global(.loader) {
       margin-top: 1.6rem;
-    }
-
-    .recent {
-      font-weight: bold;
-
-      span {
-        display: block;
-        margin-bottom: 0.7rem;
-      }
-
-      .inner {
-        position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        font-size: 0.9rem;
-        font-weight: normal;
-      }
-
-      button {
-        padding: 3px 6px;
-        background-color: var(--content-transparent);
-        border: 2px solid var(--background);
-        border-radius: 2px;
-        text-transform: capitalize;
-
-        &:hover {
-          background-color: var(--background);
-          border-color: var(--background-accent2);
-        }
-      }
     }
 
     .status {

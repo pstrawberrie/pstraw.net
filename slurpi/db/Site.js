@@ -6,10 +6,6 @@ const Movie = sequelize.define('Site', {
     type: DataTypes.JSON,
     allowNull: true,
   },
-  search_history: {
-    type: DataTypes.JSON,
-    allowNull: true,
-  },
   messages: {
     type: DataTypes.JSON,
     allowNull: true,

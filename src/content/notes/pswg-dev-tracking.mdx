@@ -288,38 +288,41 @@ object/mobile/vehicle/shared_jetpack.iff
 ```
 - Increased vehicle speeds for X31, X34, Speederbike, Swoop, AV21, Jetpack
 
-### Prevent Wild Lairs From Spawning Immediately After Destruction Of Mission Layer
+### Prevent Wild Lairs From Spawning Immediately After Destruction Of Mission Layer (SR2)
 ⚠️ Partially tested on Local
 ```bash
+MMOCoreORB\src\server\zone\managers\creature\LairSpawnAreaUtils.h
+MMOCoreORB\src\server\zone\managers\creature\LairSpawnAreaUtils.cpp
 MMOCoreORB/src/server/zone/managers/creature/LairObserverImplementation.cpp
-MMOCoreORB/src/server/zone/managers/planet/PlanetManager.idl
-MMOCoreORB/src/server/zone/managers/planet/PlanetManagerImplementation.cpp
+MMOCoreORB\src\server\zone\objects\mission\DestroyMissionObjectiveImplementation.cpp
 ```
-- Wild lairs should now wait 1 minute after mission layer is destroyed to spawn
-- thanks to [this SR2 commit](https://github.com/pstrawberrie/ppswg/commit/2ac3196fe3b76dd5d1fc046dc1ba37bf6effca4c)
+- Wild lairs should now wait 30 seconds after mission layer is destroyed to spawn
+- thanks to [this SR2 commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/534eb453cc643ed906962d50ae8b5aec5b0c6e9d)
 
-### Fix Doctor Buffing (SR2)
-✔️ Tested on Local
+### Fix Doctor Buffing & Wound Treatment (SR2)
+⚠️ Partially tested on Local (wound fixes need testing)
 ```bash
-## pre-fix test
+## pre-fix buff test
 ## 669 power health buff @ master doc (no tapes/no food)
 # theed med center (no droid): 1339
 # theed med center (with droid): 1339
-# player city cantina (no droid): 1540
-# player city cantina (with droid): 1540
+# player city w/ med specialization (no droid): 1540
+# player city w/ med specialization (with droid): 1540
 
-## post-fix test
+## post-fix buff test
 ## 669 power health buff @ master doc (no tapes/no food)
 # theed med center (no droid): 1339
 # theed med center (with droid): 1473
-# player city cantina (no droid): 1540
-# player city cantina (with droid): 1674
+# player city w/ med specialization (no droid): 1540
+# player city w/ med specialization (with droid): 1674
 
 MMOCoreORB\src\server\zone\objects\creature\commands\HealEnhanceCommand.h
+MMOCoreORB\src\server\zone\objects\creature\commands\HealWoundCommand.h
 MMOCoreORB\src\server\zone\objects\tangible\pharmaceutical\EnhancePackImplementation.cpp
 MMOCoreORB\src\server\zone\objects\tangible\pharmaceutical\WoundPackImplementation.cpp
 ```
 - Implement SR2 doctor buff fixes
+- Implement SR2 doctor wound fixes
 
 ### Add Syndicate Buff Terminals
 ⚠️ Partially tested on Local
@@ -339,6 +342,15 @@ MMOCoreORB\src\server\zone\objects\creature\commands\LootCommand.h
 MMOCoreORB\src\server\zone\objects\creature\commands\TransferItemMiscCommand.h
 ```
 - Implement Infinity's `/loot area` command
+
+### Lair Aggro Fixes (SR2)
+⚠️ Partially tested on Local
+```bash
+MMOCoreORB\src\server\zone\objects\tangible\threat\ThreatMap.h
+MMOCoreORB\src\server\zone\objects\tangible\threat\ThreatMap.cpp
+MMOCoreORB\src\server\zone\managers\creature\LairObserverImplementation.cpp
+```
+- Implement SR2 mob aggro fixes from [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/67cb7aa001db14002bda40a9cd7c3a6716ada37d#diff-404ddd27d5ab64bcc24a095408f3a57888e5033e2821019debf2a1f473bd6ec8)
 
 -----
 
@@ -400,6 +412,8 @@ MMOCoreORB\bin\scripts\managers\pet_manager.lua
 ```
 - Increased creature pet mount speeds, gallop speeds, and gallop cooldown
 - Based on [This aftermath change](https://github.com/SWGAftermath/Aftermath/commit/7e35cada68d472c6a212fca3ed9ae6f56b3e97d8)
+
+
 
 -----
 

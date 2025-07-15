@@ -1,15 +1,11 @@
 import fs from 'node:fs';
 import matter from 'gray-matter';
 import { resolveFromRoot } from '../path.js';
-import Site from '../slurpi/db/Site.js';
 import Movie from '../slurpi/db/Movie.js';
 import Show from '../slurpi/db/Show.js';
 
-const isDev = process.env.NODE_ENV !== 'production';
-const SEARCH_HISTORY_MAX = 20;
-
 /* Search Data Setup */
-const searchResultsPerPage = 20;
+const searchResultsPerPage = 10;
 const allData = [];
 
 /* Remove Articles (copied from src/util.ts) */
@@ -71,17 +67,6 @@ function removeArticles(str) {
 /* GET Search Status */
 export const getSearchStatus = (req, res) => res.json({ online: true, items: allData.length, allData });
 
-/* GET Search History */
-export const getSearchHistory = async (req, res) => {
-  try {
-    const siteData = await Site.findByPk(1, { raw: true });
-    res.json(siteData.search_history || []);
-  } catch (err) {
-    console.error(err);
-    res.json({ error: 'Error Getting Search History' });
-  }
-};
-
 /* POST Search */
 export const postSearch = async (req, res) => {
   try {
@@ -110,24 +95,8 @@ export const postSearch = async (req, res) => {
       .slice((page - 1) * searchResultsPerPage, page * searchResultsPerPage)
       .map(r => r);
 
-    // Update search history if results were found
-    const siteData = await Site.findByPk(1);
-    let searchHistory = siteData.search_history || [];
-
-    if (total) {
-      let exists = false;
-      searchHistory.forEach(h => { if (h.query === lowerQuery) exists = true; });
-
-      if (!exists) {
-        if (searchHistory.length > SEARCH_HISTORY_MAX - 1) searchHistory.pop();
-        searchHistory = [{ query: lowerQuery, results: total }, ...searchHistory];
-        siteData.search_history = searchHistory;
-        await siteData.save();
-      }
-    }
-
     // Send JSON
-    const finalJson = { results, total, totalPages, searchHistory };
+    const finalJson = { results, total, totalPages };
     if (exactMatches.length) finalJson.exactMatches = exactMatches;
 
     res.json(finalJson);

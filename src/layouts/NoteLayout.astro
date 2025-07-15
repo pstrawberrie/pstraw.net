@@ -137,8 +137,12 @@ const { frontmatter, slug } = Astro.props;
     }
 
     // headers
-    :global(.content h1, .content .h1, .content h2, .content .h2, .content h3, .content .h3, .content h4, .content .h4) {
+    :global(h1, .h1, h2, .h2, h3, .h3, h4, .h4) {
       font-family: var(--ff-default);
+      text-decoration: none;
+    }
+    :global(h2, .h2) {
+      text-decoration: underline;
     }
     :global(h3 + h4) {
       margin-top: 0.4em;

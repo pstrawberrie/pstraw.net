@@ -232,13 +232,16 @@ MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSessionImplementation.
 ```
 - Add option to choose between effectiveness and encumbrance slice on armor (modified from Syndicate weapon slice choice code)
 
-### Update Attachments to have Skill Modifier Name
+### Update Attachments to have Skill Modifier Name, Limit Attachments to 1 Skill Mod, Remove Skill Mods From Weapons
 ✔️ Tested on Local
 ```bash
 MMOCoreORB\src\server\zone\objects\tangible\attachment\AttachmentImplementation.cpp
+MMOCoreORB\src\server\zone\managers\loot\LootManagerImplementation.cpp
 ```
 - Named attachments with AA/CA prefix and their first skill mod (ie. "[AA] Rescue + 12")
-- Thanks to [this code from SR2](https://github.com/swgsremu/sentinelsrepublic-server/blob/0b3db1fa8df5bf782116924becad5562da713605/MMOCoreORB/src/server/zone/objects/tangible/attachment/AttachmentImplementation.cpp#L93)
+- Limited skill mods to only 1 per AA/CA
+- Removed skill mods from weapons
+- Thanks to [this code from SR2](https://github.com/swgsremu/sentinelsrepublic-server/blob/0b3db1fa8df5bf782116924becad5562da713605/MMOCoreORB/src/server/zone/objects/tangible/attachment/AttachmentImplementation.cpp#L93) and [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/310899bbebce5d1baeccb731c294fcfe04780982)
 
 ### Enhanced Rotate
 ✔️ Tested on Local
@@ -325,7 +328,7 @@ MMOCoreORB\src\server\zone\objects\tangible\pharmaceutical\WoundPackImplementati
 - Implement SR2 doctor wound fixes
 
 ### Add Syndicate Buff Terminals
-⚠️ Partially tested on Local
+✔️ Tested on Local
 ```bash
 MMOCoreORB\bin\scripts\object\tangible\beta\beta_terminal_wound.lua
 MMOCoreORB\bin\scripts\managers\planet\planet_manager.lua
@@ -336,7 +339,7 @@ MMOCoreORB\src\server\zone\objects\player\sui\characterbuilderbox\SuiCharacterBu
 - Note: CharacterBuilderEnabled = "true" must be set for this to work
 
 ### Add Infinty Area Loot
-⚠️ Partially tested on Local
+⚠️ Partially tested on Local (needs group testing)
 ```bash
 MMOCoreORB\src\server\zone\objects\creature\commands\LootCommand.h
 MMOCoreORB\src\server\zone\objects\creature\commands\TransferItemMiscCommand.h
@@ -344,13 +347,14 @@ MMOCoreORB\src\server\zone\objects\creature\commands\TransferItemMiscCommand.h
 - Implement Infinity's `/loot area` command
 
 ### Lair Aggro Fixes (SR2)
-⚠️ Partially tested on Local
+⚠️ Partially tested on Local (needs group testing)
 ```bash
 MMOCoreORB\src\server\zone\objects\tangible\threat\ThreatMap.h
 MMOCoreORB\src\server\zone\objects\tangible\threat\ThreatMap.cpp
 MMOCoreORB\src\server\zone\managers\creature\LairObserverImplementation.cpp
 ```
 - Implement SR2 mob aggro fixes from [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/67cb7aa001db14002bda40a9cd7c3a6716ada37d#diff-404ddd27d5ab64bcc24a095408f3a57888e5033e2821019debf2a1f473bd6ec8)
+	- hotfix follow-up in [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/797dec7784597b504aed0c7902724b7c1da64a0a)
 
 -----
 
@@ -413,17 +417,13 @@ MMOCoreORB\bin\scripts\managers\pet_manager.lua
 - Increased creature pet mount speeds, gallop speeds, and gallop cooldown
 - Based on [This aftermath change](https://github.com/SWGAftermath/Aftermath/commit/7e35cada68d472c6a212fca3ed9ae6f56b3e97d8)
 
-
-
 -----
 
 ## Backlog
 List of Changes that still need to be implemented
 
 ### QOL Backlog
-- [QOL/Combat] Fix creature aggro when lair is attacked
 - [QOL/Combat] Lower respawn timers for dungeon bosses
-- [QOL/Performance] Investigate FPS dropping to 30 when examining creature(s) (noticed while examining juvenile krayt during combat)
 
 ### Feature Backlog
 - [Feature] Player bounties
@@ -441,6 +441,11 @@ MTG content additions
 
 ### Need Help Backlog
 Tasks that I don't know enough to complete
+- [QOL/Combat] Fix lair aggro (creatures do not aggro lair attacker)
+	- this one seems to come with performance issues
+	- i gave a go at fixing this with claude but crashed the server =[
+	- SR2 tried to fix this but ran into server crashes as well =[
+- [QOL/Performance] Investigate FPS dropping to 30 when examining creature(s) (noticed while examining juvenile krayt during combat)
 - [QOL/Loot] Revert Core3 2024 loot overhaul to previous loot system
 	- tricky because future JTL updates may be touching the same files
 	- the best path forward is probably to keep all core3 changes and write as little new code as possible to adjust the loot system

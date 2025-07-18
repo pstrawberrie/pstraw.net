@@ -356,6 +356,24 @@ MMOCoreORB\src\server\zone\managers\creature\LairObserverImplementation.cpp
 - Implement SR2 mob aggro fixes from [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/67cb7aa001db14002bda40a9cd7c3a6716ada37d#diff-404ddd27d5ab64bcc24a095408f3a57888e5033e2821019debf2a1f473bd6ec8)
 	- hotfix follow-up in [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/797dec7784597b504aed0c7902724b7c1da64a0a)
 
+### Armor Color Changing
+⚠️ Partially tested on Local (need to craft + test every type)
+```bash
+MMOCoreORB\src\server\zone\objects\tangible\components\ArmorObjectMenuComponent.cpp
+MMOCoreORB\bin\scripts\object\tangible\wearables\armor\**\*.lua
+```
+- Implement grok-4 change for merging aftermath-era code with current-era code (3x color change boxes)
+- Implement armor color changing for the following armor types:
+	- Bone
+	- Composite (was already implemented)
+	- Chitin
+	- Ithorian (defender, guardian, sentinel)
+	- Kashyyykian (black mountian, ceremonial, hunting)
+	- Padded
+	- RIS
+	- Tantel
+	- Ubese
+
 -----
 
 ## TRE File Edits

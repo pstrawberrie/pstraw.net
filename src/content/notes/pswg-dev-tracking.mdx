@@ -19,9 +19,6 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 	{title: 'Credits'},
 ]}/>
 
-## Discontinued
-After about a month of working on this project, I've decided to discontinue it. The decision to work with the latest SWGEmu/Core3 code was inspired by trying to learn more about the latest server at the time which decided to use the latest Core3 code as its base in order to enable JTL (SR2). While the SWGEmu/Core3 project is great and the code is very stable, it's just not very fun to play on. There are so many changes that need to be put into place, and the major ones (ie. 2024 loot rework) require cpp knowledge that I don't have right now. The best popular server references are using older versions of Core3 code, and have been stable for a long time now. If I decide to try again with a SWG server, that's where I'm going to start rather than  Core3 vanilla. It's been fun, and I've learned a lot! As of 07/04/2025 the pSWG `dev` branch is working just fine and can be used as a starting point for anybody who wants to go down this path and continue to merge in the latest Core3 upstream changes. There's also an electron launcher if you're into that sort of thing. Good luck!
-
 ## Launcher
 [The pSWG electron launcher](https://github.com/pstrawberrie/pswg-launcher)
 
@@ -357,22 +354,33 @@ MMOCoreORB\src\server\zone\managers\creature\LairObserverImplementation.cpp
 	- hotfix follow-up in [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/797dec7784597b504aed0c7902724b7c1da64a0a)
 
 ### Armor Color Changing
-⚠️ Partially tested on Local (need to craft + test every type)
+⚠️ Partially tested on Local (need to craft + test every type - some system generated armors are corrupted)
 ```bash
+MMOCoreORB\src\server\zone\objects\player\sui\colorbox\SuiColorBoxImplementation.cpp
 MMOCoreORB\src\server\zone\objects\tangible\components\ArmorObjectMenuComponent.cpp
 MMOCoreORB\bin\scripts\object\tangible\wearables\armor\**\*.lua
 ```
 - Implement grok-4 change for merging aftermath-era code with current-era code (3x color change boxes)
 - Implement armor color changing for the following armor types:
 	- Bone
-	- Composite (was already implemented)
 	- Chitin
+	- Composite (was already implemented)
 	- Ithorian (defender, guardian, sentinel)
 	- Kashyyykian (black mountian, ceremonial, hunting)
+	- Mandalorian
+	- Marine (rebel)
 	- Padded
 	- RIS
+	- Stormtrooper
 	- Tantel
 	- Ubese
+
+### Increased Wearable Socket Chance (Infinity)
+⚠️ Partially tested on Local (needs more crafting testing)
+```bash
+MMOCoreORB\src\server\zone\objects\tangible\wearables\WearableObjectImplementation.cpp
+```
+- Added [infinity's socket chance calculation](https://github.com/swginfinity/public/blob/7a105dccac7a6783f263f63c01c8d24388c9ecc9/MMOCoreORB/src/server/zone/objects/tangible/wearables/WearableObjectImplementation.cpp#L72)
 
 -----
 
@@ -410,6 +418,12 @@ object/mobile/vehicle/shared_landspeeder_av21.iff
 object/mobile/vehicle/shared_jetpack.iff
 ```
 
+### Color Palettes
+```bash
+palette/*.pal
+```
+- Thanks to [this tarkin's revenge commit](https://bitbucket.org/tarkinsrevenge/tarkins-revenge/commits/01e8e9b4455ed8d8fb9f01f3c32c7dc9c6f48981)
+
 -----
 
 ## Gameplay Updates
@@ -438,24 +452,25 @@ MMOCoreORB\bin\scripts\managers\pet_manager.lua
 -----
 
 ## Backlog
-List of Changes that still need to be implemented
+List of Changes planned for future implementation
 
 ### QOL Backlog
+- [QOL/Crafting] Implement infinity's synth cloth/RFP BE system (any BE tissue can be added to either)
+	- i think this is a .tre file change? still need to confirm...i think it is already included in MTG tres?
+- [QOL/Guild] Implement guild status command from [aftermath code](https://github.com/SWGAftermath/Aftermath/commit/e0f72f9f99113924ab8813baff6511fd011b7bf7?w=1)
 - [QOL/Combat] Lower respawn timers for dungeon bosses
-
-### Feature Backlog
-- [Feature] Player bounties
-- [Feature] Modified jedi unlock system
 
 ### Custom Content Backlog
 - [Content] Add Galactic Wellfare Commission NPCs and City
 
 ### MTG Content
 MTG content additions
-- [MTG] Armor color changing
 - [MTG/NGE] Player houses
 - [MTG/NGE] Vehicles
-- [MTG] Multi-passenger vehicles
+
+### Feature Backlog
+- [Feature] Player bounties
+- [Feature] Jedi decisions/unlock
 
 ### Need Help Backlog
 Tasks that I don't know enough to complete

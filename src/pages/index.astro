@@ -1,12 +1,12 @@
 ---
-import { emoji, isDevelopment } from "@util";
+import { isDevelopment } from "@util";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import TMDBCard from "@components/TMDBCard.svelte";
 import NoteCard from "@components/NoteCard.svelte";
 
 // Excluded Recents
-// - these are movies i haven't watched recently but forgot to add from the past
+// - these are movies/shows i haven't watched recently but forgot to add from the past
 const excludedRecents = [
   "766507", //prey
   "666277", //past lives
@@ -20,8 +20,8 @@ const excludedRecents = [
 ];
 
 // Movies/Shows
-const recentTMDBLimit = 20;
-const recentNotesLimit = 2;
+const recentTMDBLimit = 12;
+const recentNotesLimit = 6;
 const movies = await getCollection(
   "movies",
   ({ id }) => excludedRecents.indexOf(id) === -1
@@ -47,38 +47,27 @@ notes.sort((a, b) => {
 });
 ---
 
-<BaseLayout pageTitle={`${emoji("home")} Home`}>
-  <!-- Head -->
-  <div class="head">
-    <div class="collage">
-      <div class="bg"></div>
-      <picture>
-        <source
-          media="(max-width: 900px)"
-          srcset="/images/site/home_collage-mobile.png"
-        />
-        <img src="/images/site/home_collage.png" alt="pstraw.net collage" />
-      </picture>
-    </div>
-  </div>
-
-  <section class="contain">
-    <!-- Latest Notes -->
-    <div class="list notes">
-      <h2 class="h3">Latest Notes</h2>
-      <div class="grid-double">
-        {
-          notes.map((i, idx) => {
-            if (idx < recentNotesLimit) return <NoteCard itemData={i} />;
-          })
-        }
+<BaseLayout
+  pageTitle="Home"
+  fullHeroTitle="Welcome to pstraw.net"
+  fullHeroSubtitle="Hello. You've landed on my cozy little internet planet. This is a personal archive created to keep track of media interests and store notes."
+  fullHeroImage="/images/site/hero_default.png"
+  fullHeroFeature="stars"
+  fullHeroButtons={[
+    { title: "Recent Watches", href: "#media", class: "cta" },
+    { title: "Latest Notes", href: "#notes" },
+  ]}
+>
+  <!-- Recently Watched -->
+  <section id="media">
+    <div class="container box">
+      <div class="section-header">
+        <h2 class="header-tertiary text-gradient">Recently Watched</h2>
+        <p>
+          New stuff, old stuff, hot stuff, cold stuff. These are the latest
+          eye-gluers.
+        </p>
       </div>
-      <a class="all" href="/notes">Browse All Notes &rsaquo;</a>
-    </div>
-
-    <!-- Recently Watched -->
-    <div class="list watches">
-      <h2 class="h3">Recently Watched</h2>
       <div class="grid-default">
         {
           tmdbItems.map((i, idx) => {
@@ -86,7 +75,30 @@ notes.sort((a, b) => {
           })
         }
       </div>
-      <a class="all" href="/media">Browse All Media &rsaquo;</a>
+      <div class="grid-cta">
+        <a class="btn" href="/media">Browse All Media →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Notes -->
+  <section id="notes">
+    <div class="container box">
+      <div class="section-header">
+        <h2 class="header-primary text-gradient">Latest Notes</h2>
+        <p>Records of various references, resources, and remembrances.</p>
+      </div>
+      <div class="grid-default">
+        {
+          notes.map((i, idx) => {
+            if (idx < recentNotesLimit)
+              return <NoteCard itemData={i} featured={idx === 0} />;
+          })
+        }
+      </div>
+      <div class="grid-cta">
+        <a class="btn" href="/notes">Browse All Notes →</a>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -94,51 +106,7 @@ notes.sort((a, b) => {
 <style lang="scss">
   @use "@css/util";
 
-  .head {
-    padding: 0 0 2.5rem 0;
-
-    .collage {
-      position: relative;
-      max-width: 100%;
-      height: auto;
-
-      .bg {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: url(/images/site/stars.gif) repeat top left;
-      }
-
-      img {
-        position: relative;
-        display: block;
-        max-width: 100%;
-        height: auto;
-        object-fit: contain;
-        margin: auto;
-      }
-    }
-  }
-
-  .list {
-    padding-bottom: 3rem;
-
-    h2 {
-      margin-bottom: 1rem;
-    }
-
-    a.all {
-      display: inline-block;
-      font-size: 1.05rem;
-      text-decoration: none;
-      margin: 0.5em 0 0 1px;
-      padding: 0.3em 0.5em;
-      border: 1px solid var(--font-color);
-      border-radius: 2px;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+  #media {
+    background: var(--c-background-gradient);
   }
 </style>

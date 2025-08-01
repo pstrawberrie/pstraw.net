@@ -74,39 +74,3 @@ export function getPageMenuLinksFromPath(path: string) {
   const linkParent = [...ALL_LINKS].filter((l) => l.path === path);
   return [{ path, title: linkParent[0].allTitle }, ...linkParent[0].children];
 }
-
-/**
- * Get Emoji For Category
- */
-export function emoji(category: string): string {
-  switch (category) {
-    case 'home':
-      return '🏠';
-    case 'notes':
-    case 'note':
-      return '📋';
-    case 'tags':
-    case 'tag':
-      return '🏷️';
-    case 'authors':
-    case 'author':
-      return '✏️';
-    case 'media':
-      return '💿';
-    case 'movies':
-    case 'movie':
-      return '🍿';
-    case 'shows':
-    case 'show':
-    case 'tv':
-      return '📺';
-    case 'favorites':
-      return '🔥';
-    case 'about':
-      return '❔';
-    case 'thanks':
-      return '❤️';
-    default:
-      return '';
-  }
-}

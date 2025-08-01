@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { emoji, getPageMenuLinksFromPath } from "@util";
+import { getPageMenuLinksFromPath } from "@util";
 import CollectionLayout from "@layouts/CollectionLayout.astro";
 import TMDBCard from "@components/TMDBCard.svelte";
 
@@ -57,9 +57,9 @@ const allTimeShows = await getCollection("shows", ({ id }) =>
 ---
 
 <CollectionLayout
-  pageTitle=`${emoji('favorites')} My Favorite Media`
-  heroText="Media"
-  heroSubtext=`${emoji('favorites')} my all-time favorites!`
+  pageTitle="My Favorite Media"
+  heroTitle="My Favorites"
+  heroSubtitle="A working list of my all-time favorites!"
   {pageMenuLinks}
 >
   <section class="contain">

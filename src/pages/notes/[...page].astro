@@ -1,6 +1,6 @@
 ---
 import { SITE } from "@constants";
-import { emoji, getPageMenuLinksFromPath, isDevelopment } from "@util";
+import { getPageMenuLinksFromPath, isDevelopment } from "@util";
 import { getCollection } from "astro:content";
 import CollectionLayout from "@layouts/CollectionLayout.astro";
 import NoteCard from "@components/NoteCard.svelte";
@@ -25,9 +25,9 @@ const { total, currentPage, lastPage } = page;
 ---
 
 <CollectionLayout
-  pageTitle={`${emoji("note")} Browse Notes${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
-  heroText="Notes"
-  heroSubtext={`${emoji("note")} browse all notes (${total})`}
+  pageTitle={`Browse Notes${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
+  heroTitle="All Notes"
+  heroSubtitle={`Browse all notes (${total})`}
   {pageMenuLinks}
   {currentPage}
 >

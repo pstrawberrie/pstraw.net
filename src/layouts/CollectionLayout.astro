@@ -5,34 +5,21 @@ import PageMenu from "@components/PageMenu.astro";
 
 const {
   pageTitle = "EMPTY",
-  heroText,
-  heroSubtext,
-  heroBgColor,
-  heroColor,
+  heroTitle,
+  heroSubtitle,
   pageMenuLinks = [],
   currentPage = null,
 } = Astro.props;
 ---
 
 <BaseLayout {pageTitle}>
-  <Hero
-    text={heroText}
-    bgcolor={heroBgColor}
-    color={heroColor}
-    subtext={heroSubtext}
-  >
+  <Hero title={heroTitle} subtitle={heroSubtitle}>
     {
       pageMenuLinks.length > 0 && (
         <PageMenu links={pageMenuLinks} {currentPage} />
       )
     }
   </Hero>
-  <!-- <section class="contain">
-    {
-      pageMenuLinks.length > 0 && (
-        <PageMenu links={pageMenuLinks} {currentPage} />
-      )
-    }
-  </section> -->
+
   <slot />
 </BaseLayout>

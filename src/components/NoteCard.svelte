@@ -1,5 +1,4 @@
 <script>
-  import SVG from "@components/SVG.svelte";
   let { itemData, featured = false } = $props();
 
   const id = itemData.id;
@@ -14,117 +13,111 @@
   });
 </script>
 
-<a class={`card note${featured ? "featured" : ""}`} href={`/notes/${id}`}>
-  <img src={`/images/notes/${id}.jpg`} alt="" />
+<a class={`card note-card ${featured ? "featured" : ""}`} href={`/notes/${id}`}>
   <div class="top">
-    <div class="details">
-      <div class="title">{data.title}</div>
-      <div class="info">
-        {#each data.tags as t}
-          <span>#{t}</span>
-        {/each}
-      </div>
-
-      <div class="overview truncate-2">{data.description}</div>
-    </div>
+    <div class="date">{data.updated ? "Updated" : "Written"} {date}</div>
   </div>
-
-  <div class="bottom">
-    <div>
-      <SVG name="note" /> Note <i>|</i>
-      <span>{data.updated ? "Updated" : "Written"} {date}</span>
-    </div>
+  <h3 class="title">{data.title}</h3>
+  <p class="description">{data.description}</p>
+  <div class="tags">
+    {#each data.tags as t}
+      <div class="tag">#{t}</div>
+    {/each}
   </div>
 </a>
 
 <style lang="scss">
   @use "@css/util";
 
-  .card.note {
-    position: relative;
-    display: flex;
+  .note-card {
     flex-direction: column;
-    justify-content: space-between;
-    text-decoration: none;
-    background-color: var(--font-color-opposite);
-    border: 2px solid var(--background-accent);
-    border-radius: 0.15rem;
-    transition: transform 0.15s ease-out;
+    border-color: var(--c-card-border);
+    background-color: var(--c-card-background);
+    backdrop-filter: blur(10px);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0) 0%,
+        var(--c-primary) 10%,
+        var(--c-secondary) 50%,
+        var(--c-primary) 90%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
 
     &::after {
-      display: none;
+      box-shadow: 0 20px 60px rgba(var(--secondary-rgb), 0.2);
     }
 
     &:hover {
-      transform: translateY(-2px);
-      z-index: 2;
-    }
-
-    .top {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      padding: 1rem;
-    }
-
-    .details {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .title {
-      font-weight: bold;
-      font-size: 1.75rem;
-      line-height: 1.2;
-    }
-
-    .info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 5px;
-      font-size: 0.75rem;
-      opacity: 0.75;
-      pointer-events: none;
-
-      span {
-        padding: 2px 4px;
-        border: 1px solid var(--background-accent);
-        border-radius: 2px;
+      &::before {
+        transform: scaleX(1);
       }
     }
 
-    .overview {
-      margin-top: 1rem;
-      line-height: 1.1;
-    }
+    &.featured {
+      border-color: rgba(var(--primary-rgb), 0.11);
+      background: linear-gradient(
+        135deg,
+        rgba(var(--primary-rgb), 0.075),
+        rgba(var(--secondary-rgb), 0.075)
+      );
 
-    .bottom {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-      padding: 0.5rem 1rem;
-      font-size: 0.8rem;
-      font-weight: bold;
-      border-top: 2px solid var(--background-accent);
-
-      i {
-        opacity: 0.2;
-        padding: 0 3px;
-        font-style: normal;
-        font-weight: normal;
-      }
-
-      :global(svg) {
-        position: relative;
-        top: -1px;
-        width: 14px;
-        fill: var(--font-color);
+      @include util.mq(md) {
+        grid-column: span 2;
       }
     }
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .date {
+    font-family: var(--font-family-mono);
+    color: var(--c-text-muted);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: var(--c-text-secondary);
+    padding-bottom: 0.5rem;
+  }
+
+  .tags {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    @include util.mq(md) {
+      justify-content: flex-start;
+    }
+  }
+
+  .tag {
+    background-color: var(--c-card-content-background);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--c-card-content-background-text);
   }
 </style>

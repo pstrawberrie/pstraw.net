@@ -4,128 +4,98 @@
   import SVG from "@components/SVG.svelte";
 </script>
 
-<footer class="contain">
-  <div class="left">
-    {#each FOOTER_LINKS as parent}
-      <ul>
-        <li class="title">{parent.heading}</li>
-        {#each parent.links as link}
-          <li><a href={link.path}>{link.title}</a></li>
-        {/each}
-      </ul>
-    {/each}
-  </div>
-  <div class="right">
-    <a href="/" class="logo">{SITE.TITLE}</a>
-    <a class="github" href="https://github.com/pstrawberrie/pstraw.net"
-      ><SVG name="github" /> View code on Github</a
-    >
-    <div class="build">
-      Current Build: {formatDate(
-        new Date(SITE_DATA.build_history[0]).toLocaleDateString()
-      )}
+<footer>
+  <div class="container">
+    <div class="top">
+      <div class="left">
+        <a href="/" class="logo text-gradient">{SITE.TITLE}</a>
+        <p>
+          {SITE.DESCRIPTION}
+        </p>
+      </div>
+      <div class="right">
+        <a class="github" href="https://github.com/pstrawberrie/pstraw.net"
+          ><SVG name="github" /> View code on Github</a
+        >
+      </div>
     </div>
-    <div class="copy">&copy; {new Date().getFullYear()} {SITE.TITLE}</div>
+    <div class="bottom">
+      <p>
+        &copy; {new Date().getFullYear()}
+        {SITE.TITLE} • v2 <em>Chill Space</em> • Synced on {formatDate(
+          new Date(SITE_DATA.build_history[0]).toLocaleDateString()
+        )}
+      </p>
+    </div>
   </div>
 </footer>
 
+<!-- {#each FOOTER_LINKS as parent}
+  <ul>
+    <li class="title">{parent.heading}</li>
+    {#each parent.links as link}
+      <li><a href={link.path}>{link.title}</a></li>
+    {/each}
+  </ul>
+{/each} -->
+
 <style lang="scss">
   @use "@css/util";
-
   footer {
     position: relative;
-    display: flex;
-    flex-direction: column-reverse;
-    margin-top: 3rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    border-top: 2px solid var(--background-accent);
-    background-color: var(--font-color-opposite);
-    font-size: 1.1rem;
-
-    @include util.mq(md) {
-      flex-direction: row;
-    }
+    background: linear-gradient(135deg, var(--c-background) 0%, black 100%);
+    border-top: 1px solid rgba(var(--background-accent-rgb), 0.2);
+    margin-top: var(--space-page-v);
+    padding: 3rem 0 1rem;
   }
 
-  li,
-  a {
-    list-style: none;
-    font-size: 1.1rem;
+  .top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--c-text-muted);
+
+    @include util.mq(md) {
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      text-align: left;
+    }
   }
 
   .left {
-    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    text-align: center;
+    flex-wrap: wrap;
 
-    @include util.mq(md) {
-      flex-direction: row;
-      text-align: left;
-    }
+    p {
+      font-size: 1rem;
 
-    .title {
-      font-weight: bold;
-      border-bottom: 2px solid var(--background-accent);
-      margin-bottom: 0.5rem;
+      @include util.mq(md) {
+        max-width: 300px;
+      }
     }
   }
 
-  .right {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem;
-    text-align: center;
-
-    .logo {
-      text-decoration: none;
-      font-family: var(--ff-brand);
-      padding-bottom: 0.5rem;
-      margin-bottom: 0.5rem;
-      font-size: 2rem;
-      line-height: 1;
-      border-bottom: 2px solid var(--background-accent);
-      color: var(--c-primary);
-      -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: var(--font-color);
-    }
-
-    .github {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      margin: auto;
-      font-size: 0.95rem;
-      font-weight: bold;
-
-      &:after {
-        font-weight: normal;
-      }
-
-      :global(svg) {
-        position: relative;
-        top: -1px;
-        width: 1rem;
-        margin-right: 4px;
-      }
-
-      @include util.mq(md) {
-        margin: 0;
-      }
-    }
-
-    .build,
-    .copy {
-      font-size: 0.9rem;
-    }
+  .logo {
+    display: block;
+    margin-bottom: 0.5rem;
 
     @include util.mq(md) {
-      margin-left: auto;
-      margin-bottom: 0;
-      text-align: left;
+      margin-right: auto;
+    }
+  }
+
+  .bottom {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(var(--background-accent-rgb), 0.2);
+    color: var(--c-text-muted);
+    text-align: center;
+
+    p {
+      font-size: 0.875rem;
     }
   }
 </style>

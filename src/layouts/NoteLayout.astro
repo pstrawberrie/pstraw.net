@@ -1,199 +1,173 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { emoji, formatDate } from "@util";
+import { formatDate } from "@util";
 const { frontmatter, slug } = Astro.props;
 ---
 
 <BaseLayout
-  pageTitle={`${emoji("note")} ${frontmatter.title}`}
+  pageTitle={`${frontmatter.title}`}
   pageDescription={frontmatter?.description}
   noBreadcrumbs={true}
 >
-  <section class="note-layout contain-sm">
-    <img class="note-image" src={`/images/notes/${slug}.jpg`} />
-    <h1>
-      {frontmatter.title}
-    </h1>
-    <div class="head">
-      <div class="subhead">
-        {
-          frontmatter?.date && (
-            <div class="date">
-              Written: {formatDate("" + frontmatter.date)} by{" "}
-              {frontmatter?.authors.map((a, idx) => (
-                <a href={`/notes/authors/${a}`}>{a}</a>
-                <span>{idx !== frontmatter?.authors.length - 1 ? "," : ""}</span>
-              ))}
-            </div>
-          )
-        }
-        {
-          frontmatter?.tags && (
-            <div class="tags">
-              {" "}
-              Tagged:
-              {frontmatter?.tags.map((t) => (
-                <a href={`/notes/tags/${t}`}>#{t}</a>
-              ))}
-            </div>
-          )
-        }
-      </div>
-    </div>
-
-    <div class="content bordered">
+  <div class="container">
+    <article class="note container-sm box">
       {
-        frontmatter?.updated && (
-          <div class="updated">
-            Updated {formatDate("" + frontmatter.updated)}
+        frontmatter?.date && (
+          <div class="dates">
+            Written: {formatDate("" + frontmatter.date)} by{" "}
+            {frontmatter?.authors.map((a, idx) => (
+              <a href={`/notes/authors/${a}`}>{a}</a>
+              <span>{idx !== frontmatter?.authors.length - 1 ? "," : ""}</span>
+            ))}
           </div>
         )
       }
-      <slot />
-    </div>
-  </section>
+      <h1 class="text-gradient">
+        {frontmatter.title}
+      </h1>
+      {
+        frontmatter?.tags && (
+          <div class="tags">
+            {frontmatter?.tags.map((t) => (
+              <a class="tag btn-content" href={`/notes/tags/${t}`}>#{t}</a>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="note-content">
+        <slot />
+      </div>
+
+      <div class="note-footer">
+        <a href="/notes" class="btn">← Back to Notes</a>
+      </div>
+    </article>
+  </div>
 </BaseLayout>
 
 <style lang="scss">
-  @use "@css/util";
+  @use '@css/util';
 
-  .bordered {
-    border: 2px solid var(--background-accent);
-  }
-
-  h1 {
-    font-weight: bold;
-  }
-
-  .note-image {
-    display: block;
-    margin: 1rem 0;
-  }
-
-  .head {
-    padding: 0.5rem 0;
-    font-size: 1rem;
-    font-weight: bold;
-
-    a {
+  article.note {
+    // In-Layout Elements
+    .dates {
+      font-family: var(--font-family-mono);
       font-size: 1rem;
-      font-weight: bold;
+      color: var(--c-text-tertiary);
+      text-align: center;
+      margin-bottom: 2rem;
     }
 
     .tags {
       display: flex;
-      gap: 0.52rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 3rem;
     }
 
-    .date a {
-      margin-left: 7px;
-      padding: 1px 10px;
-      border: 1px solid var(--background-accent);
-      border-radius: 0.15rem;
+    .note-footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(var(--background-accent-rgb), 0.15);
+      text-align: center;
 
-      &:first-child {
-        margin-left: 1px;
+      a {
+        display: inline-block;
       }
     }
-  }
 
-  .content {
-    padding: 1rem 0.75rem 2rem;
-    background-color: var(--font-color-opposite);
-
-    .updated {
-      display: inline-block;
-      padding: 0.1rem 0.5rem;
-      border: 2px solid var(--c-secondary);
-      margin-bottom: 0.5rem;
-      font-size: 1rem;
+    // Global Elements (Dynamic Content)
+    :global(h1) {
+      text-align: center;
+      font-size: var(--font-size-h1-sm);
+      line-height: var(--line-height-h1-sm);
+      background-image: var(--c-text-gradient-default);
+      margin-bottom: 2rem;
     }
 
-    /* Note Layout Globals */
-    // paragraphs
-    :global(pre + p) {
-      margin-top: 0.75em;
+    :global(h2, h3, h4) {
+      line-height: 1.2;
     }
 
-    // offset for in-page navigation
-    :global([id]:before) {
-      display: block;
-      content: " ";
-      margin-top: -65px;
-      height: 65px;
-      visibility: hidden;
+    :global(h2) {
+      font-size: 1.75rem;
+      margin: 3rem 0 1.5rem;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -0.5rem;
+        width: 3rem;
+        height: 2px;
+        background: var(--c-text-gradient-decoration);
+      }
     }
 
-    // lists
-    :global(ul) {
-      list-style-type: square;
+    :global(h3) {
+      font-size: 1.4rem;
+      margin: 2rem 0 1rem 0;
+    }
+
+    :global(h4) {
+      margin-bottom: 1rem;
+    }
+
+    
+
+    :global(p),
+    :global(li) {
+      line-height: 1.8;
+      color: var(--c-text-secondary);
+
+      a {
+        color: var(--c-text-secondary);
+        text-decoration: underline;
+
+        &:hover {
+          color: var(--c-quinary);
+        }
+      }
+    }
+
+    :global(p),
+    :global(ul),
+    :global(ol) {
+      margin-bottom: 1.5rem;
+    }
+
+    :global(ul),
+    :global(ol) {
+      padding-left: 0.75rem;
       list-style-position: inside;
     }
-    :global(ul ul) {
-      padding-left: 0.7em;
-    }
-    :global(ul + p) {
-      margin-top: 1rem;
+    :global(ul) {
+      list-style-type: circle;
     }
 
-    // headers
-    :global(h1, .h1, h2, .h2, h3, .h3, h4, .h4) {
-      font-family: var(--ff-default);
-      text-decoration: none;
-    }
-    :global(h2, .h2) {
-      text-decoration: underline;
-    }
-    :global(h3 + h4) {
-      margin-top: 0.4em;
+    :global(ol) {
+      list-style-type: lower-roman;
     }
 
-    // markdown hr
-    :global(hr) {
-      display: block;
-      margin: 2rem 0;
-      border-color: var(--background-accent2);
-    }
+    :global(blockquote)  {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      border-left: 4px solid var(--c-text-muted);
+      margin-left: 0.5rem;
+      padding-left: 1.5rem;
 
-    // code blocks
-    :global(p + pre),
-    :global(pre + pre),
-    :global(pre + ul),
-    :global(ul + pre) {
-      margin-top: 1rem;
-    }
+      p {
+        color: var(--c-text-muted);
+      }
 
-    // tables
-    :global(table),
-    :global(table td),
-    :global(table th) {
-      border: 1px solid var(--background-accent);
-      border-collapse: collapse;
-      padding: .4em;
-    }
-
-    // callouts
-    :global(.callout) {
-      display: inline-block;
-      font-size: 1rem;
-      line-height: 1;
-      padding: 0.4em;
-      border: 2px solid transparent;
-    }
-
-    :global(.callout a) {
-      font-size: 1rem;
-      font-weight: normal;
-    }
-
-    :global(.warning) {
-      border-color: var(--c-quaternary-t2);
-    }
-    :global(.info) {
-      border-color: var(--c-primary-t1);
-    }
-    :global(.good) {
-      border-color: var(--c-secondary-t1);
+      cite {
+        color: var(--c-text-muted);
+        font-style: italic;
+      }
     }
   }
 </style>

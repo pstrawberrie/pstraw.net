@@ -37,7 +37,7 @@ const isActive = (path) => {
 ---
 
 <div class="page-menu">
-  <ul class="contain">
+  <ul class="container">
     {
       links.map((l) => (
         <li>
@@ -56,10 +56,7 @@ const isActive = (path) => {
   .page-menu {
     position: relative;
     display: flex;
-    padding: 0.85rem 0;
-    background-color: var(--font-color-opposite);
-    border-top: 2px solid var(--background-accent);
-    border-bottom: 2px solid var(--background-accent);
+    margin-top: 2rem;
   }
 
   .page-menu ul {
@@ -68,34 +65,61 @@ const isActive = (path) => {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 1rem;
   }
 
-  li,
   a {
-    display: flex;
-    justify-content: center;
+    position: relative;
+    display: inline-flex;
     align-items: center;
-  }
-
-  a {
-    font-size: 1rem;
+    font-size: var(--page-menu-text-size);
     font-weight: bold;
     text-decoration: none;
-    padding: 0 1rem;
-    border: 2px solid var(--font-color);
-    border-radius: 1em;
-    color: var(--font-color);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--page-menu-border-color);
+    border-radius: 2rem;
+    background: var(--page-menu-background-color);
+    color: var(--page-menu-text-color);
+    transition: 0.3s ease;
 
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 2rem;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.08);
+      opacity: 0;
+      transition: 0.3s ease;
+    }
     &:not(.active):hover,
     &:focus-within {
-      text-decoration: underline;
-      z-index: 2;
+      color: var(--c-text);
+      border-color: var(--c-text-tertiary);
+      transform: translateY(-2px);
+
+      &::after {
+        opacity: 1;
+      }
     }
   }
 
   .active {
-    background-color: var(--font-color);
-    color: var(--font-color-opposite);
+    position: relative;
+    border: 0;
+    background: var(--c-button-gradient);
+    color: var(--page-menu-text-color-active);
+    box-shadow: 0 0 20px rgba(var(--tertiary-rgb), 0.5);
+    cursor: default;
+
+    &::after {
+      box-shadow: 0 6px 40px rgba(var(--tertiary-rgb), 0.6);
+    }
+
+    &:hover::after {
+      opacity: 0.5;
+    }
   }
 </style>

@@ -12,10 +12,12 @@ $space-v: 4rem;
   // --c-secondary
   // --c-tertiary
   // --c-quaternary
+  // --c-quinary
   // --c-background
   // --c-text
   // --c-text-secondary
   // --c-text-muted
+  // etc...
 
   // Spacing
   --space-max-width: #{$max-width};
@@ -48,6 +50,11 @@ $space-v: 4rem;
   --shadow-direction-x: -4px;
   --shadow-direction-y: 4px;
   --shadow-direction: var(--shadow-direction-x) var(--shadow-direction-y);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Global Defaults */
@@ -63,11 +70,9 @@ body {
   font-size: var(--font-size-base);
 }
 
-button,
 .btn {
   position: relative;
   padding: var(--space-button-v) var(--space-button-h);
-  border-radius: 0.375rem;
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
@@ -79,6 +84,16 @@ button,
 p {
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
+}
+
+i,
+em {
+  font-style: italic;
+}
+
+strong,
+b {
+  font-weight: bold;
 }
 
 h1,
@@ -99,6 +114,21 @@ h2 {
 }
 
 /* Layout Defaults */
+.skip-to-content {
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  left: 50%;
+  margin: auto;
+  padding: 0.5rem 1rem;
+  transform: translate(-50%, -200%);
+  transition: transform 0.3s ease;
+
+  &:focus-visible {
+    transform: translate(-50%, 0);
+  }
+}
+
 .box,
 .container,
 .container-sm {

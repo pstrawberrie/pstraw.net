@@ -41,9 +41,7 @@
     rgba(0, 0, 0, 0.9) 100%
   );
 
-  --c-button-border: rgba(var(--background-accent-rgb), 0.3);
-  --c-button-gradient: linear-gradient(135deg, var(--c-tertiary), var(--c-quaternary));
-
+  // Text Colors
   --c-text: #e2e8f0;
   --c-text-secondary: #94a3b8;
   --c-text-tertiary: #475569;
@@ -55,12 +53,6 @@
     var(--c-text) 60%,
     var(--c-quaternary) 100%
   );
-
-  --c-card-background: rgba(var(--background-rgb), 0.85);
-  --c-card-content-background: rgba(var(--background-accent-rgb), 0.2);
-  --c-card-content-background-text: rgb(112, 130, 155);
-  --c-card-border: rgba(var(--background-accent-rgb), 0.15);
-  --c-card-separator: rgba(var(--background-accent-rgb), 0.1);
 
   // Fonts
   --font-family-primary:
@@ -74,7 +66,18 @@
     'Bitcount Prop Single', 'Inter', 'Roboto', 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial,
     sans-serif;
 
-  // Logo
+  // Button Colors
+  --c-button-border: rgba(var(--background-accent-rgb), 0.3);
+  --c-button-gradient: linear-gradient(135deg, var(--c-tertiary), var(--c-quaternary));
+
+  // Card Colors
+  --c-card-background: rgba(var(--background-rgb), 0.85);
+  --c-card-content-background: rgba(var(--background-accent-rgb), 0.2);
+  --c-card-content-background-text: rgb(112, 130, 155);
+  --c-card-border: rgba(var(--background-accent-rgb), 0.15);
+  --c-card-separator: rgba(var(--background-accent-rgb), 0.1);
+
+  // Logo Colors
   --c-logo-gradient: linear-gradient(
     135deg,
     var(--c-tertiary) 0%,
@@ -82,17 +85,28 @@
     var(--c-primary) 100%
   );
 
-  // Hero
-  --hero-text-size: #{util.px-to-rem(20px)};
-  --hero-gradient: linear-gradient(
+  // Full Hero
+  --full-hero-text-size: #{util.px-to-rem(20px)};
+  --full-hero-gradient: linear-gradient(
     135deg,
     rgba(var(--background-rgb), 0.9) 0%,
     rgba(124, 58, 237, 0.03) 50%,
     rgba(0, 0, 0, 0.95) 100%
   );
-  --hero-text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  --full-hero-text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 
-  // Headers
+  // Standard Hero
+  --hero-text-size: #{util.px-to-rem(20px)};
+  --hero-gradient: linear-gradient(135deg, rgba(var(--background-rgb), 0.4) 0%, rgba(0, 0, 0, 0.9) 100%);
+
+  // Page Menu
+  --page-menu-text-size: 0.9rem;
+  --page-menu-text-color: var(--c-text-secondary);
+  --page-menu-text-color-active: var(--c-text);
+  --page-menu-border-color: var(--c-card-border);
+  --page-menu-background-color: rgba(var(--background-rgb), 0.85);
+
+  // Header Colors
   --c-text-gradient-default: linear-gradient(
     135deg,
     var(--c-primary) 0%,
@@ -100,12 +114,6 @@
     var(--c-text) 40%,
     var(--c-tertiary) 70%,
     var(--c-quaternary) 100%
-  );
-
-  --c-text-gradient-decoration: linear-gradient(
-    135deg,
-    var(--c-text-muted) 0%,
-    var(--c-quinary) 100%
   );
 
   --c-primary-header-gradient: linear-gradient(
@@ -120,6 +128,12 @@
     var(--c-quaternary) 20%,
     var(--c-tertiary) 49%,
     var(--c-text) 62%
+  );
+
+  --c-text-gradient-decoration: linear-gradient(
+    135deg,
+    var(--c-text-muted) 0%,
+    var(--c-quinary) 100%
   );
 }
 
@@ -145,29 +159,60 @@ footer {
   background: var(--c-background-gradient-2);
 }
 
-button,
 .btn {
+  position: relative;
   background: transparent;
   color: var(--c-text);
   border: 2px solid var(--c-button-border);
+  border-radius: 0.375rem;
   backdrop-filter: blur(10px);
+  overflow: visible;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
   &:hover {
     background: rgba(var(--background-rgb), 0.6);
     border-color: var(--c-text-tertiary);
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.08);
+
+    &::after {
+      opacity: 1;
+    }
   }
 }
 
-button.cta,
 .btn.cta {
   border: 0;
   background: var(--c-button-gradient);
   box-shadow: 0 0 20px rgba(var(--tertiary-rgb), 0.5);
+  overflow: visible;
 
-  &:hover {
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.375rem;
     box-shadow: 0 6px 40px rgba(var(--tertiary-rgb), 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::after {
+    opacity: .5;
   }
 }
 
@@ -190,18 +235,6 @@ button.cta,
   }
 }
 
-p {
-  i,
-  em {
-    font-style: italic;
-  }
-
-  strong,
-  b {
-    font-weight: bold;
-  }
-}
-
 h2,
 h3 {
   animation: shimmer 3s ease-in-out infinite alternate;
@@ -221,6 +254,31 @@ h3 {
 .section-header {
   p {
     color: var(--c-text-muted);
+  }
+}
+
+.grid-default {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  @include util.mq(md) {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+}
+
+.grid-cta {
+  display: block;
+  padding-top: 2.75rem;
+  text-align: center;
+
+  .btn {
+    display: inline-block;
+  }
+
+  @include util.mq(md) {
+    padding-top: var(--space-page-v);
   }
 }
 
@@ -298,6 +356,7 @@ h3 {
 }
 
 // Bitcount Prop Single Light
+// note: this is a subset with only the characters "pstraw.net"
 @font-face {
   font-family: 'Bitcount Prop Single';
   src: url('/fonts/BitcountPropSingle-Light.woff2') format('woff2');

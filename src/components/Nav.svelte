@@ -5,27 +5,35 @@
   import GlobalSearch from "@components/GlobalSearch.svelte";
 
   let { currentPage, noBreadcrumbs } = $props();
+  let navEl: HTMLElement;
+  let navGhostEl: HTMLElement;
   let hamburgerEl: HTMLElement;
   let logoEl: HTMLElement;
   let isOpen = $state(false);
-
-  // Theme Switching
-  // theme is set up through a small script in BaseLayout.astro
-  // we just update the class + localStorage value here
-  function themeClick() {
-    const htmlEl = document.documentElement;
-    const newTheme = htmlEl.classList.contains("theme-dark") ? "light" : "dark";
-    localStorage.setItem("theme", newTheme);
-
-    htmlEl.classList.remove("theme-dark", "theme-light");
-    htmlEl.classList.add(`theme-${newTheme}`);
-  }
 
   // Global Search Toggle
   let searchbarEl: SvelteComponent;
   function toggleSearch() {
     searchbarEl?.toggle();
   }
+
+  // onMount
+  $effect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navEl.classList.remove("sticky");
+          } else {
+            navEl.classList.add("sticky");
+          }
+        });
+      },
+      { root: null, threshold: 0 }
+    );
+
+    observer.observe(navGhostEl);
+  });
 </script>
 
 <svelte:document
@@ -42,216 +50,130 @@
   }}
 />
 
-<nav>
-  <button
-    id="hamburger"
-    title="Menu"
-    aria-label="toggle visual navigation or continue tabbing"
-    aria-controls="float-menu"
-    aria-expanded={isOpen}
-    bind:this={hamburgerEl}
-    onclick={() => (isOpen = !isOpen)}
-    onfocus={() => (isOpen ? (isOpen = false) : null)}
-  >
-    <SVG name="hamburger" />
-  </button>
-  <ul id="popout-menu">
-    {#each NAV_LINKS as l, i}
-      {@const active =
-        currentPage === l.path ||
-        currentPage.split("/")[1] === l.path.split("/")[1]}
-      <li>
-        <a
-          href={l.path}
-          class:active
-          onclick={() => {
-            if (!active) isOpen = false;
-          }}
-          onfocus={() => (isOpen = true)}
-          onblur={() => {
-            i + 1 === NAV_LINKS.length ? (isOpen = false) : null;
-          }}
-          >{l.title}
-        </a>
-      </li>
-    {/each}
-    <li class="bottom"></li>
-  </ul>
-  <a href="/" class="logo" bind:this={logoEl}
-    ><span class="img"></span><span class="text">{SITE.TITLE}</span></a
-  >
-  <div class="right">
-    <button class="search" title="Search" onclick={toggleSearch}>
-      <SVG name="search" />
-    </button>
-    <button class="theme" title="Switch Theme" onclick={themeClick}>
-      <SVG name="sun" />
-      <SVG name="moon" />
-    </button>
+<div class="nav-ghost" bind:this={navGhostEl}></div>
+<nav class="container" bind:this={navEl}>
+  <div class="nav_content">
+    <div class="nav_left">
+      <a href="/" class="logo text-gradient" bind:this={logoEl}>{SITE.TITLE}</a>
+    </div>
+    <div class="nav_right">
+      <button class="search" title="Search" onclick={toggleSearch}>
+        <SVG name="search" />
+      </button>
+      <button
+        id="hamburger"
+        title="Menu"
+        aria-label="toggle visual navigation or continue tabbing"
+        aria-controls="float-menu"
+        aria-expanded={isOpen}
+        bind:this={hamburgerEl}
+        onclick={() => (isOpen = !isOpen)}
+        onfocus={() => (isOpen ? (isOpen = false) : null)}
+      >
+        <SVG name="hamburger" />
+      </button>
+      <ul id="nav-menu">
+        {#each NAV_LINKS as l, i}
+          {@const active =
+            currentPage === l.path ||
+            currentPage.split("/")[1] === l.path.split("/")[1]}
+          <li>
+            <a
+              href={l.path}
+              class:active
+              onclick={() => {
+                if (!active) isOpen = false;
+              }}
+              onfocus={() => (isOpen = true)}
+              onblur={() => {
+                i + 1 === NAV_LINKS.length ? (isOpen = false) : null;
+              }}
+              >{l.title}
+            </a>
+          </li>
+        {/each}
+        <li class="bottom"></li>
+      </ul>
+    </div>
   </div>
 </nav>
 <GlobalSearch bind:this={searchbarEl} />
 
 <style lang="scss">
-  @use "@css/util";
-
   nav {
-    position: sticky;
-    display: flex;
+    --nav-gap: 1rem;
+
+    position: fixed;
     top: 0;
-    width: 100%;
-    height: var(--nav-height);
-    padding: 0 var(--site-padding);
-    background-color: var(--font-color-opposite);
-    border-bottom: 2px solid var(--background-accent);
+    left: 0;
+    right: 0;
+    z-index: 100;
   }
 
-  a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-  }
-
-  .logo {
-    position: relative;
-    padding-left: 8px;
-    font-family: var(--ff-brand);
-    color: var(--c-primary);
-    font-size: 1.5rem;
-    line-height: 1;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: var(--font-color);
-
-    .img {
-      background: no-repeat center url("/images/site/logo_dark.png");
-      background-size: contain;
-      height: 69%;
-      width: 30px;
-      margin-right: 0.5rem;
-    }
-
-    .text {
-      display: none;
-      padding-top: 3px;
-    }
-
-    @include util.mq(sm) {
-      font-size: 1.88rem;
-      padding-left: 12px;
-
-      .text {
-        display: inline-block;
-      }
-    }
-  }
-
-  :global(html.theme-light nav .logo .img) {
-    background-image: url("/images/site/logo_light.png");
-  }
-
-  .right {
+  .nav_content {
     position: relative;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-left: auto;
-    gap: 12px;
+    border-bottom: 1px solid transparent;
+    border-radius: 2rem;
+    transition: 0.15s ease;
+    padding: 0.48rem 0;
   }
 
-  button {
+  :global(nav.sticky .nav_content) {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-color: rgba(var(--background-accent-rgb), 0.25);
+    backdrop-filter: blur(10px);
+    transform: translateY(8px);
+    padding: 0 1.5rem;
+  }
+
+  .nav_right {
     position: relative;
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
-    justify-content: center;
-    height: 100%;
+    gap: var(--nav-gap);
   }
 
-  #hamburger {
-    left: -3px;
-
-    :global(svg) {
-      width: 35px;
-      height: 35px;
-      fill: var(--font-color);
-      pointer-events: none;
-    }
+  :global(#hamburger, .search) {
+    display: flex;
+    align-items: center;
   }
 
-  :global(svg.show-dark, svg.show-light) {
-    width: 24px;
-    height: 24px;
-  }
-
-  :global(svg.show-dark path, svg.show-light path) {
-    fill: var(--font-color);
+  :global(#hamburger svg) {
+    height: 30px;
+    width: auto;
+    fill: var(--c-text-secondary);
   }
 
   :global(.search svg) {
-    position: relative;
-    top: 1px;
-    width: 24px;
-    height: 24px;
+    height: 22px;
+    width: auto;
   }
 
   :global(.search svg path) {
-    fill: var(--font-color);
+    fill: var(--c-text-secondary);
   }
 
-  // Popout Menu
-  #popout-menu {
-    position: fixed;
+  ul {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    left: 0;
-    top: var(--nav-height);
-    width: 100%;
-    height: calc(100% - var(--nav-height));
-    // color: var(--c-black);
-    background-color: var(--font-color-opposite);
-    border-top: 1px solid var(--background);
-    opacity: 0;
-    transform: translateX(-25px);
-    transform-origin: left;
-    transition:
-      transform 0.2s ease-in-out,
-      opacity 0.2s ease-in-out;
-    pointer-events: none;
-    overflow-y: auto;
-    z-index: 2;
-
-    @include util.mq(sm) {
-      width: 325px;
-    }
-
-    li {
-      list-style-type: none;
-    }
-
-    a {
-      display: block;
-      padding: 6px var(--site-padding);
-      border-bottom: 1px solid var(--background);
-      font-size: 2rem;
-
-      &:hover {
-        background-color: var(--background-accent);
-      }
-
-      @include util.mq(sm) {
-        font-size: 1.5rem;
-      }
-    }
-
-    .bottom {
-      margin-top: auto;
-      padding: 0 var(--site-padding) 1rem;
-      font-size: 0.95rem;
-      line-height: 1.2;
-    }
+    flex-wrap: nowrap;
+    gap: var(--nav-gap);
   }
 
-  #hamburger[aria-expanded="true"] + #popout-menu {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: all;
+  ul a {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--c-text-secondary);
+    transition: 0.3s ease;
+    padding: 0.69rem 0;
+
+    &:hover {
+      color: var(--c-text);
+    }
   }
 </style>

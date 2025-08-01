@@ -17,147 +17,218 @@
 </script>
 
 <a
-  class="card tmdb"
+  class="card tmdb-card"
   href={tmdbUrl}
   data-movie-id={isMovie ? id : undefined}
   data-show-id={isMovie ? undefined : id}
 >
   <div class="top">
-    <img src={`/images/tmdb/${id}.webp`} alt="" loading="lazy" />
-    <div class="details">
-      <div class="title">{data.title}</div>
-      <div class="info">
+    <div class="poster">
+      <img src={`/images/tmdb/${id}.webp`} alt="" loading="lazy" />
+    </div>
+    <div class="info">
+      <h3 class="title">{data.title}</h3>
+      <div class="genres">
         {#each JSON.parse(data.genres) as g}
-          <span>{g.name}</span>
+          <span class="genre">{g.name}</span>
         {/each}
       </div>
-
-      <div class="overview truncate-3">{data.overview}</div>
+      <p class="overview">{data.overview}</p>
     </div>
   </div>
 
   <div class="bottom">
-    <div>
-      <SVG name={isMovie ? "movie" : "tv"} /> &nbsp;{isMovie ? "Movie" : "Show"}
-      <i>|</i>
-      <span
-        ><b
-          >{new Date(
-            isMovie ? data.release_date : data.first_air_date
-          ).getFullYear()}</b
-        ></span
-      >
-      <i>|</i>
-      {data.original_language.toUpperCase()}
+    <div class="left">
+      <div class="type">
+        <SVG name={isMovie ? "movie" : "tv"} /> &nbsp;{isMovie
+          ? "Movie"
+          : "Show"}
+      </div>
+      <div class="year">
+        {new Date(
+          isMovie ? data.release_date : data.first_air_date
+        ).getFullYear()}
+      </div>
+      <div class="language">
+        {data.original_language.toUpperCase()}
+      </div>
     </div>
 
-    <div>
-      {#if runtime.length > 1}{runtime}{/if}
-      {#if data.rating !== "Unknown" && runtime.length > 1}<i>|</i>{/if}
-      {#if data.rating !== "Unknown"}<span>{data.rating}</span>{/if}
-    </div>
+    {#if runtime.length > 1 || data.rating !== "Unknown"}
+      <div class="right">
+        {#if runtime.length > 1}
+          <div class="length">
+            {runtime}
+          </div>
+        {/if}
+
+        {#if data.rating !== "Unknown"}
+          <div class="rating">
+            <span>{data.rating}</span>
+          </div>
+        {/if}
+      </div>
+    {/if}
   </div>
 </a>
 
 <style lang="scss">
   @use "@css/util";
 
-  .card.tmdb {
+  .tmdb-card {
     position: relative;
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    text-decoration: none;
-    background-color: var(--font-color-opposite);
-    border: 2px solid var(--background-accent);
-    border-radius: 0.15rem;
-    transition: transform 0.15s ease-out;
+    gap: 1rem;
+    border-color: var(--c-card-border);
+    background-color: var(--c-card-background);
+    backdrop-filter: blur(10px);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0) 0%,
+        var(--c-quaternary) 10%,
+        var(--c-tertiary) 50%,
+        var(--c-quaternary) 90%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
 
     &::after {
-      display: none;
+      box-shadow: 0 20px 60px rgba(var(--tertiary-rgb), 0.2);
     }
 
     &:hover {
-      transform: translateY(-2px);
-      z-index: 2;
-    }
+      img {
+        transform: scale(1.05);
+      }
 
-    img {
-      align-self: center;
-      min-width: 80px;
-
-      @include util.mq(sm) {
-        min-width: 100px;
+      &::before {
+        transform: scaleX(1);
       }
     }
+  }
 
-    .top {
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+
+    @include util.mq(md) {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .poster {
+    position: relative;
+    width: 150px;
+    height: 225px;
+    flex-shrink: 0;
+    margin: 0 auto;
+    border-radius: 0.375rem;
+    overflow: hidden;
+
+    @include util.mq(md) {
+      width: 120px;
+      height: 180px;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .overview {
+    display: -webkit-box;
+    color: var(--c-text-secondary);
+    line-height: 1.4;
+    font-size: 0.9rem;
+    margin: 0;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    line-clamp: 5;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+
+  .genres {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    @include util.mq(md) {
+      justify-content: flex-start;
+    }
+  }
+
+  .genre {
+    background-color: var(--c-card-content-background);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-family: var(--font-family-mono);
+    color: var(--c-card-content-background-text);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .bottom {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--c-card-separator);
+    margin-top: auto;
+    font-size: 0.8rem;
+    font-family: var(--font-family-mono);
+    color: var(--c-text-muted);
+
+    .left,
+    .right {
+      display: flex;
+      gap: 0.75rem;
+    }
+  }
+
+  .type {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: var(--c-tertiary);
+
+    :global(svg) {
       position: relative;
-      display: flex;
-      flex-wrap: nowrap;
-      height: 100%;
-      padding: 0.7rem;
-      gap: 1rem;
+      height: 12px;
+      width: auto;
+      fill: var(--c-tertiary);
     }
+  }
 
-    .details {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .title {
-      font-weight: bold;
-      font-size: 1.2rem;
-      line-height: 1.2;
-    }
-
-    .info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 5px;
-      font-size: 0.75rem;
-      opacity: 0.75;
-      pointer-events: none;
-
-      span {
-        padding: 2px 4px;
-        border: 1px solid var(--background-accent);
-        border-radius: 2px;
-      }
-    }
-
-    .overview {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      line-height: 1.1;
-    }
-
-    .bottom {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-      padding: 0.5rem 0.7rem 0.3rem 0.7rem;
-      font-size: 0.8rem;
-      font-weight: bold;
-      border-top: 2px solid var(--background-accent);
-
-      i {
-        position: relative;
-        opacity: 0.4;
-        margin: 0 3px;
-        font-style: normal;
-      }
-
-      :global(svg) {
-        position: relative;
-        top: -2px;
-        width: 14px;
-        fill: var(--font-color);
-      }
-    }
+  .language {
+    text-transform: uppercase;
   }
 </style>

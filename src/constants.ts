@@ -1,14 +1,12 @@
-import { emoji } from "@util";
-
 export const IS_DEV = import.meta.env.DEV;
 export const SERVER_URL = IS_DEV ?
   `http://localhost:${import.meta.env.PUBLIC_SERVER_PORT}` : import.meta.env.PUBLIC_SERVER_URL;
 
 export const SITE = {
   TITLE: 'pstraw.net',
-  DESCRIPTION: 'it\'s pstrawberrie\'s web site!',
-  NOTES_PER_PAGE: 10,
-  MOVIES_PER_PAGE: 20,
+  DESCRIPTION: 'A personal archive created to keep track of media interests and store notes.',
+  NOTES_PER_PAGE: 8,
+  MOVIES_PER_PAGE: 18,
 };
 
 export const ALL_LINKS = [
@@ -31,11 +29,10 @@ export const ALL_LINKS = [
 ];
 
 export const NAV_LINKS = [
-  { path: '/', title: `${emoji('home')} Home` },
-  { path: '/notes', title: `${emoji('notes')} Notes` },
-  { path: '/media', title: `${emoji('media')} Media` },
-  // { path: '/about', title: `${emoji('about')} About` },
-  { path: '/notes/thanks', title: `${emoji('thanks')} Thanks` },
+  // { path: '/', title: 'Home' },
+  { path: '/notes', title: 'Notes' },
+  { path: '/media', title: 'Media' },
+  // { path: '/notes/thanks', title: 'Thanks' },
 ];
 
 export const FOOTER_LINKS = [

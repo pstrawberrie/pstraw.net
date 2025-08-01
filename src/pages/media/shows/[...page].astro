@@ -1,6 +1,6 @@
 ---
 import { SITE } from "@constants";
-import { emoji, removeArticles, getPageMenuLinksFromPath } from "@util";
+import { removeArticles, getPageMenuLinksFromPath } from "@util";
 import { getCollection } from "astro:content";
 import CollectionLayout from "@layouts/CollectionLayout.astro";
 import TMDBCard from "@components/TMDBCard.svelte";
@@ -24,9 +24,9 @@ const { total, currentPage, lastPage } = page;
 ---
 
 <CollectionLayout
-  pageTitle={`${emoji("shows")} Browse Shows${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
-  heroText="Media"
-  heroSubtext={`${emoji("shows")} browse shows (${total})`}
+  pageTitle={`Browse Shows${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
+  heroTitle="Shows"
+  heroSubtitle={`Browse shows (${total})`}
   {pageMenuLinks}
   {currentPage}
   pageDescription="A list of the tv shows I like"

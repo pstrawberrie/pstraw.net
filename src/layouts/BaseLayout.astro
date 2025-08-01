@@ -3,21 +3,31 @@ import { SITE } from "@constants";
 import HeadMeta from "@components/HeadMeta.astro";
 import Nav from "@components/Nav.svelte";
 import Footer from "@components/Footer.svelte";
+import FullHero from "@components/FullHero.svelte";
 
 import "@css/reset.scss";
 import "@css/base.scss";
 import "@css/themes/chill-space/chill-space.scss";
 
-const { pageTitle, pageDescription, noBreadcrumbs, removeSiteTitle } =
-  Astro.props;
+const {
+  pageTitle,
+  pageDescription,
+  noBreadcrumbs,
+  removeSiteTitle,
+  fullHeroTitle,
+  fullHeroSubtitle = undefined,
+  fullHeroImage = undefined,
+  fullHeroButtons = [],
+  fullHeroFeature = undefined,
+} = Astro.props;
 ---
 
-<html lang="en" class="theme-light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <!-- Title  -->
+    <!-- Title -->
     <title>
       {pageTitle && `${pageTitle}${removeSiteTitle ? "" : " • "}`}{
         !removeSiteTitle ? SITE.TITLE : ""
@@ -27,64 +37,53 @@ const { pageTitle, pageDescription, noBreadcrumbs, removeSiteTitle } =
     <!-- Preload Font -->
     <link
       rel="preload"
-      href="/fonts/KCStoneColdFoxRegular.woff2"
+      href="/fonts/SpaceGrotesk-Regular.woff2"
       as="font"
       type="font/woff2"
       crossorigin
-      transition:persist
     />
     <link
       rel="preload"
-      href="/fonts/Nunito-Regular.woff2"
+      href="/fonts/Oxanium-SemiBold.woff2"
       as="font"
       type="font/woff2"
       crossorigin
-      transition:persist
     />
     <link
       rel="preload"
-      href="/fonts/Nunito-Bold.woff2"
+      href="/fonts/BitcountPropSingle-Light.woff2"
       as="font"
       type="font/woff2"
       crossorigin
-      transition:persist
     />
 
-    <!-- Meta  -->
+    <!-- Meta -->
     <HeadMeta
       pageTitle={`${pageTitle ? `${removeSiteTitle ? pageTitle : pageTitle + " • "}` : ""}${!removeSiteTitle ? SITE.TITLE : ""}`}
       {pageDescription}
     />
-
-    <!-- Theme Support -->
-    <script is:inline>
-      document.documentElement.classList.remove("theme-light");
-
-      function theme() {
-        const LSTheme = window?.localStorage?.getItem("theme");
-        if (LSTheme) {
-          document.documentElement.classList.add(`theme-${LSTheme}`);
-        } else if (window.matchMedia) {
-          document.documentElement.classList.add(
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "theme-dark"
-              : "theme-light"
-          );
-        } else {
-          document.documentElement.classList.add("theme-light");
-        }
-      }
-
-      theme();
-    </script>
   </head>
 
   <body>
     <!-- Nav -->
-    <a class="skip-to-content" href="#main">Skip to content</a>
+    <a class="btn cta skip-to-content" href="#main">Skip to content</a>
     <Nav client:load currentPage={Astro.url.pathname} {noBreadcrumbs} />
 
-    <!-- Main Content  -->
+    <!-- Full Hero -->
+    {
+      fullHeroTitle && (
+        <FullHero
+          client:load
+          title={fullHeroTitle}
+          subtitle={fullHeroSubtitle}
+          image={fullHeroImage}
+          buttons={fullHeroButtons}
+          feature={fullHeroFeature}
+        />
+      )
+    }
+
+    <!-- Main Content -->
     <main id="main">
       <slot />
     </main>

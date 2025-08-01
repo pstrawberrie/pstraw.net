@@ -1,0 +1,285 @@
+// Color Variables (customize these for your theme)
+$star-purple: #7c3aed;
+$star-teal: #0f766e;
+$star-cyan: #0891b2;
+$star-gold: #fcd34d;
+$star-white: #fff;
+
+.hero-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glow-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: $star-white;
+  border-radius: 50%;
+  box-shadow:
+    0 0 8px $star-purple,
+    0 0 16px $star-purple,
+    0 0 24px $star-purple;
+  animation: gentleTwinkle 6s ease-in-out infinite;
+}
+
+// Star Positioning & Colors
+// Purple stars (dominant color)
+.star-1 {
+  top: 15%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.star-4 {
+  top: 45%;
+  left: 25%;
+  animation-delay: 2.4s;
+}
+
+.star-6 {
+  top: 25%;
+  right: 35%;
+  animation-delay: 1.2s;
+}
+
+.star-11 {
+  top: 65%;
+  left: 5%;
+  animation-delay: 4.8s;
+}
+
+.star-16 {
+  top: 35%;
+  right: 15%;
+  animation-delay: 7.2s;
+}
+
+.star-5 {
+  top: 75%;
+  left: 40%;
+  animation-delay: 3.2s;
+  box-shadow:
+    0 0 8px $star-purple,
+    0 0 16px $star-purple,
+    0 0 24px $star-purple;
+}
+
+.star-9 {
+  top: 50%;
+  left: 60%;
+  animation-delay: 3.6s;
+  box-shadow:
+    0 0 8px $star-purple,
+    0 0 16px $star-purple,
+    0 0 24px $star-purple;
+}
+
+.star-17 {
+  top: 20%;
+  left: 35%;
+  animation-delay: 7.6s;
+  box-shadow:
+    0 0 8px $star-purple,
+    0 0 16px $star-purple,
+    0 0 24px $star-purple;
+}
+
+// Teal/Cyan stars
+.star-2 {
+  top: 30%;
+  right: 25%;
+  animation-delay: 0.8s;
+  box-shadow:
+    0 0 8px $star-teal,
+    0 0 16px $star-teal,
+    0 0 24px $star-teal;
+}
+
+.star-12 {
+  top: 55%;
+  right: 45%;
+  animation-delay: 5.2s;
+  box-shadow:
+    0 0 8px $star-cyan,
+    0 0 16px $star-cyan,
+    0 0 24px $star-cyan;
+}
+
+.star-20 {
+  top: 15%;
+  right: 60%;
+  animation-delay: 8.8s;
+  box-shadow:
+    0 0 8px $star-teal,
+    0 0 16px $star-teal,
+    0 0 24px $star-teal;
+}
+
+// Gold stars
+.star-3 {
+  top: 60%;
+  left: 15%;
+  animation-delay: 1.6s;
+  box-shadow:
+    0 0 8px $star-gold,
+    0 0 16px $star-gold,
+    0 0 24px $star-gold;
+}
+
+.star-8 {
+  top: 10%;
+  right: 45%;
+  animation-delay: 0.4s;
+  box-shadow:
+    0 0 8px $star-gold,
+    0 0 16px $star-gold,
+    0 0 24px $star-gold;
+}
+
+.star-13 {
+  top: 75%;
+  left: 30%;
+  animation-delay: 5.6s;
+  box-shadow:
+    0 0 8px $star-gold,
+    0 0 16px $star-gold,
+    0 0 24px $star-gold;
+}
+
+.star-18 {
+  top: 40%;
+  left: 45%;
+  animation-delay: 8s;
+  box-shadow:
+    0 0 8px $star-gold,
+    0 0 16px $star-gold,
+    0 0 24px $star-gold;
+}
+
+// White stars
+.star-10 {
+  top: 35%;
+  left: 70%;
+  animation-delay: 4s;
+}
+
+.star-15 {
+  top: 70%;
+  right: 10%;
+  animation-delay: 6.4s;
+}
+
+.star-19 {
+  top: 25%;
+  left: 55%;
+  animation-delay: 8.4s;
+}
+
+// Size variations for visual interest
+.star-2,
+.star-5,
+.star-8,
+.star-12,
+.star-15 {
+  width: 4px;
+  height: 4px;
+}
+
+// Extra large focal stars
+.star-3,
+.star-7,
+.star-11 {
+  width: 5px;
+  height: 5px;
+}
+
+// Animations
+@keyframes gentleTwinkle {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+    filter: brightness(0.8);
+  }
+
+  25% {
+    opacity: 0.8;
+    transform: scale(1.05);
+    filter: brightness(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: brightness(1.2);
+  }
+
+  75% {
+    opacity: 0.9;
+    transform: scale(1.03);
+    filter: brightness(1.1);
+  }
+}
+
+// Subtle pulse effect for larger stars
+.star-3::after,
+.star-7::after,
+.star-11::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: inherit;
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: gentlePulse 4s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 0.05;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 1024px) {
+
+  // Slightly smaller stars on tablets
+  .glow-star {
+    width: 2px;
+    height: 2px;
+  }
+
+  .star-2,
+  .star-5,
+  .star-8,
+  .star-12,
+  .star-15 {
+    width: 3px;
+    height: 3px;
+  }
+
+  .star-3,
+  .star-7,
+  .star-11 {
+    width: 4px;
+    height: 4px;
+  }
+}

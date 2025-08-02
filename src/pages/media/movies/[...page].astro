@@ -27,11 +27,12 @@ const { total, currentPage, lastPage } = page;
   pageTitle={`Browse Movies${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
   heroTitle="Movies"
   heroSubtitle={`Browse movies (${total})`}
+  heroColor="tertiary"
   {pageMenuLinks}
   {currentPage}
   pageDescription="A list of the movies I like"
 >
-  <section class="contain">
+  <section class="container-full">
     <Pagination
       {total}
       {currentPage}
@@ -41,10 +42,8 @@ const { total, currentPage, lastPage } = page;
       prevUrl={page.url.prev}
     />
 
-    <div class="container">
-      <div class="list grid-default">
-        {page.data.map((movie) => <TMDBCard itemData={movie} />)}
-      </div>
+    <div class="grid-default">
+      {page.data.map((movie) => <TMDBCard itemData={movie} />)}
     </div>
 
     <Pagination
@@ -57,12 +56,3 @@ const { total, currentPage, lastPage } = page;
     />
   </section>
 </CollectionLayout>
-
-<style lang="scss">
-  @use "@css/util";
-
-  .list {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-</style>

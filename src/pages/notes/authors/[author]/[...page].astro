@@ -34,14 +34,15 @@ const pageMenuLinks = getPageMenuLinksFromPath("/notes");
 ---
 
 <CollectionLayout
-  pageTitle={`✎ Notes by ${author} ${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
-  heroTitle={`${author}'s Notes`}
-  heroSubtitle={`These are all of the notes that ${author} has written!`}
+  pageTitle={`Browse Notes by ${author} ${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
+  heroTitle={`Notes by ${author}`}
+  heroSubtitle={`Browse notes by ${author} (${total})`}
+  heroColor="primary"
   {pageMenuLinks}
   {currentPage}
   pageDescription={`Notes by ${author}`}
 >
-  <section class="contain">
+  <section class="container">
     <Pagination
       {total}
       {currentPage}
@@ -51,7 +52,7 @@ const pageMenuLinks = getPageMenuLinksFromPath("/notes");
       prevUrl={page.url.prev}
     />
 
-    <div class="list">
+    <div class="grid-default">
       {page.data.map((note) => <NoteCard itemData={note} />)}
     </div>
 
@@ -65,20 +66,3 @@ const pageMenuLinks = getPageMenuLinksFromPath("/notes");
     />
   </section>
 </CollectionLayout>
-
-<style lang="scss">
-  @use "@css/util";
-
-  .list {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    margin: 2rem 0 2.5rem;
-
-    @include util.mq(md) {
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem 1.2rem;
-    }
-  }
-</style>

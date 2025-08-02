@@ -17,6 +17,7 @@ export function optimizeImages(inputDir, outputDir) {
           try {
             1
             await sharp(inputPath)
+              .resize(150, 225)
               .webp({ quality: 50 })
               .toFile(outputPath);
           } catch (error) {

@@ -15,7 +15,9 @@
       </div>
       <div class="right">
         <a class="github" href="https://github.com/pstrawberrie/pstraw.net"
-          ><SVG name="github" /> View code on Github</a
+          ><span class="sr-only">View code on Github</span><SVG
+            name="github"
+          /></a
         >
       </div>
     </div>
@@ -76,6 +78,37 @@
       @include util.mq(md) {
         max-width: 300px;
       }
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: var(--c-text-muted);
+
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1rem;
+      gap: 0.2rem;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    :global(svg) {
+      height: 2rem;
+      width: auto;
+      fill: var(--c-text-muted);
+    }
+
+    :global(svg path) {
+      fill: var(--c-text-muted);
     }
   }
 

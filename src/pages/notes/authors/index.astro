@@ -19,14 +19,15 @@ authors.forEach((t) => {
 ---
 
 <CollectionLayout
-  pageTitle=`Notes by Author`
+  pageTitle=`Browse Notes by Author`
   heroTitle="Notes by Author"
   heroSubtitle={`Browse note authors (${authors.length})`}
+  heroColor="primary"
   {pageMenuLinks}
   pageDescription="Notes by Author"
 >
-  <section class="contain">
-    <div class="list">
+  <section class="container box">
+    <div class="grid-default">
       {
         authors.map((t) => (
           <a class="card" href={`/notes/authors/${t}`}>
@@ -38,58 +39,3 @@ authors.forEach((t) => {
     </div>
   </section>
 </CollectionLayout>
-
-<style lang="scss">
-  @use "@css/util";
-
-  .list {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-
-    span {
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: 0.9rem;
-      font-weight: bold;
-      line-height: 1;
-      padding: 0.1rem 0.4rem;
-      border: 2px solid var(--font-color);
-      border-right: 0;
-      border-top: 0;
-      border-bottom-left-radius: 0.15rem;
-    }
-  }
-
-  i {
-    position: relative;
-    display: inline-block;
-    transform: scale(1.5);
-    color: var(--page-color);
-  }
-
-  .card {
-    position: relative;
-    width: 100%;
-    padding: 1.4rem 1rem 1rem;
-    background-color: var(--font-color-opposite);
-    border: 2px solid var(--font-color);
-    text-decoration: none;
-    border-radius: 0.15rem;
-    text-align: center;
-    transition: none;
-
-    &:hover {
-      text-decoration: underline;
-      background-color: var(--c-quaternary);
-      color: var(--c-black);
-    }
-
-    @include util.mq(sm) {
-      width: auto;
-      font-size: 1.5rem;
-    }
-  }
-</style>

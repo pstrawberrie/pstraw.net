@@ -7,13 +7,14 @@ const {
   pageTitle = "EMPTY",
   heroTitle,
   heroSubtitle,
+  heroColor,
   pageMenuLinks = [],
   currentPage = null,
 } = Astro.props;
 ---
 
 <BaseLayout {pageTitle}>
-  <Hero title={heroTitle} subtitle={heroSubtitle}>
+  <Hero title={heroTitle} subtitle={heroSubtitle} color={heroColor}>
     {
       pageMenuLinks.length > 0 && (
         <PageMenu links={pageMenuLinks} {currentPage} />

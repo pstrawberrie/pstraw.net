@@ -27,6 +27,7 @@ $space-v: 4rem;
   --space-page-v: #{$space-v};
 
   --space-box-v: 6rem;
+  --space-box-v-sm: 3rem;
 
   --space-button-h: 2rem;
   --space-button-v: 1rem;
@@ -100,6 +101,7 @@ h1,
 h2,
 h3,
 h4 {
+  position: relative;
   font-family: var(--font-family-title);
 }
 
@@ -112,8 +114,11 @@ h2 {
   font-size: var(--font-size-h2);
   line-height: var(--line-height-h2);
 }
+/* Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--c-primary);
+}
 
-/* Layout Defaults */
 .skip-to-content {
   position: fixed;
   z-index: 200;
@@ -129,16 +134,20 @@ h2 {
   }
 }
 
+/* Layout Defaults */
 .box,
+.box-full,
 .container,
-.container-sm {
+.container-sm,
+.container-full {
   position: relative;
   margin-left: auto;
   margin-right: auto;
   max-width: var(--space-max-width);
 }
 
-.box {
+.box,
+.box-full {
   padding-top: var(--space-box-v);
   padding-bottom: var(--space-box-v);
 }
@@ -155,6 +164,16 @@ h2 {
 
 .container-sm {
   max-width: var(--space-max-width-sm);
+}
+
+.container-full {
+  padding-left: var(--space-page-h);
+  padding-right: var(--space-page-h);
+}
+
+.container-full,
+.box-full {
+  max-width: 100%;
 }
 
 .section-header {
@@ -187,4 +206,8 @@ h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.sr-only {
+  @include util.sr-only;
 }

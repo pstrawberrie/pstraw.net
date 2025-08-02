@@ -28,11 +28,12 @@ const { total, currentPage, lastPage } = page;
   pageTitle={`Browse All Media${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
   heroTitle="All Media"
   heroSubtitle={`Browse all media (${total})`}
+  heroColor="tertiary"
   {pageMenuLinks}
   {currentPage}
   pageDescription="A list of the movies I like"
 >
-  <section class="contain">
+  <section class="container-full">
     <Pagination
       {total}
       {currentPage}
@@ -42,7 +43,7 @@ const { total, currentPage, lastPage } = page;
       prevUrl={page.url.prev}
     />
 
-    <div class="list grid-default">
+    <div class="grid-default">
       {page.data.map((movie) => <TMDBCard itemData={movie} />)}
     </div>
 
@@ -56,12 +57,3 @@ const { total, currentPage, lastPage } = page;
     />
   </section>
 </CollectionLayout>
-
-<style lang="scss">
-  @use "@css/util";
-
-  .list {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-</style>

@@ -60,39 +60,48 @@ const allTimeShows = await getCollection("shows", ({ id }) =>
   pageTitle="My Favorite Media"
   heroTitle="My Favorites"
   heroSubtitle="A working list of my all-time favorites!"
+  heroColor="tertiary"
   {pageMenuLinks}
 >
-  <section class="contain">
-    <h2 class="h3">Movies</h2>
-    <div class="list grid-default">
-      {
-        allTimeMovies.map((m) => {
-          const link = "";
+  <section class="container-full">
+    <div class="box-full movies">
+      <div class="section-header">
+        <h2>Movies I Love</h2>
+        <p>These are all of my favorite movies in alphabetical order.</p>
+      </div>
+      <div class="grid-default">
+        {
+          allTimeMovies.map((m) => {
+            const link = "";
 
-          return <TMDBCard itemData={m} />;
-        })
-      }
+            return <TMDBCard itemData={m} />;
+          })
+        }
+      </div>
+      <div class="grid-cta">
+        <a class="btn" href="/media/movies">Browse All Movies →</a>
+      </div>
     </div>
 
-    <h2 class="h3">Shows</h2>
-    <div class="list grid-default">
-      {allTimeShows.map((m) => <TMDBCard itemData={m} />)}
+    <div class="box-full shows">
+      <div class="section-header">
+        <h2>Shows I Love</h2>
+        <p>These are all of my favorite shows in alphabetical order.</p>
+      </div>
+      <div class="grid-default">
+        {allTimeShows.map((m) => <TMDBCard itemData={m} />)}
+      </div>
+      <div class="grid-cta">
+        <a class="btn" href="/media/shows">Browse All Shows →</a>
+      </div>
     </div>
   </section>
-</CollectionLayout>
 
-<style lang="scss">
-  @use "@css/util";
+  <style lang="scss">
+    @use "@css/util";
 
-  h2 {
-    margin-bottom: 0.8rem;
-  }
-
-  .list {
-    margin-bottom: 3rem;
-
-    &:last-child {
-      margin-bottom: 0;
+    .movies {
+      background: var(--c-background-gradient-2);
     }
-  }
-</style>
+  </style>
+</CollectionLayout>

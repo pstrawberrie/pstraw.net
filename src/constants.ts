@@ -5,8 +5,8 @@ export const SERVER_URL = IS_DEV ?
 export const SITE = {
   TITLE: 'pstraw.net',
   DESCRIPTION: 'A personal archive created to keep track of media interests and store notes.',
-  NOTES_PER_PAGE: 8,
-  MOVIES_PER_PAGE: 18,
+  NOTES_PER_PAGE: 10,
+  MOVIES_PER_PAGE: 20,
 };
 
 export const ALL_LINKS = [
@@ -15,7 +15,7 @@ export const ALL_LINKS = [
     path: '/media', title: 'Media', allTitle: 'All Media', children: [
       { path: '/media/movies', title: 'Movies' },
       { path: '/media/shows', title: 'Shows' },
-      { path: '/media/favorites', title: 'Favorites' },
+      { path: '/media/favorites', title: 'My Favorites' },
     ]
   },
   {

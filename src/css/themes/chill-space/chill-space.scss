@@ -118,16 +118,16 @@
 
   --c-primary-header-gradient: linear-gradient(
     135deg,
-    var(--c-secondary) 40%,
-    var(--c-primary) 49%,
-    var(--c-text) 62%
+    var(--c-primary) 40%,
+    var(--c-text) 49%,
+    var(--c-secondary) 62%
   );
 
   --c-tertiary-header-gradient: linear-gradient(
     135deg,
-    var(--c-quaternary) 20%,
-    var(--c-tertiary) 49%,
-    var(--c-text) 62%
+    var(--c-tertiary) 35%,
+    var(--c-text) 49%,
+    var(--c-quaternary) 62%
   );
 
   --c-text-gradient-decoration: linear-gradient(
@@ -237,7 +237,10 @@ footer {
 
 h2,
 h3 {
-  animation: shimmer 3s ease-in-out infinite alternate;
+
+  &.shimmer {
+    animation: shimmer 3s ease-in-out infinite alternate;
+  }
 }
 
 .header-primary {
@@ -246,6 +249,23 @@ h3 {
 
 .header-tertiary {
   background-image: var(--c-tertiary-header-gradient);
+}
+
+/* Accessibility */
+*:focus-visible {
+  outline-color: var(--c-quinary);
+}
+
+.skip-to-content {
+  position: absolute;
+  color: var(--c-quinary);
+  border-bottom-left-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  transition: transform 0.3s ease;
+  overflow: visible;
 }
 
 /**

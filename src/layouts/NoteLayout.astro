@@ -9,46 +9,61 @@ const { frontmatter, slug } = Astro.props;
   pageDescription={frontmatter?.description}
   noBreadcrumbs={true}
 >
-  <div class="container">
-    <article class="note container-sm box">
-      {
-        frontmatter?.date && (
-          <div class="dates">
-            Written: {formatDate("" + frontmatter.date)} by{" "}
-            {frontmatter?.authors.map((a, idx) => (
-              <a href={`/notes/authors/${a}`}>{a}</a>
-              <span>{idx !== frontmatter?.authors.length - 1 ? "," : ""}</span>
-            ))}
-          </div>
-        )
-      }
-      <h1 class="text-gradient">
-        {frontmatter.title}
-      </h1>
-      {
-        frontmatter?.tags && (
-          <div class="tags">
-            {frontmatter?.tags.map((t) => (
-              <a class="tag btn-content" href={`/notes/tags/${t}`}>#{t}</a>
-            ))}
-          </div>
-        )
-      }
 
-      <div class="note-content">
-        <slot />
+  <article class="note">
+    <div class="note-header">
+      <div class="container-sm">
+    {
+      frontmatter?.date && (
+        <div class="dates">
+          Written: {formatDate("" + frontmatter.date)} by{" "}
+          {frontmatter?.authors.map((a, idx) => (
+            <a href={`/notes/authors/${a}`}>{a}</a>
+            <span>{idx !== frontmatter?.authors.length - 1 ? "," : ""}</span>
+          ))}
+        </div>
+      )
+    }
+    <h1 class="text-gradient">
+      {frontmatter.title}
+    </h1>
+    {
+      frontmatter?.tags && (
+        <div class="tags">
+          {frontmatter?.tags.map((t) => (
+            <a class="tag btn-content" href={`/notes/tags/${t}`}>#{t}</a>
+          ))}
+        </div>
+      )
+    }
       </div>
+    </div>
 
-      <div class="note-footer">
-        <a href="/notes" class="btn">← Back to Notes</a>
-      </div>
-    </article>
-  </div>
+    <div class="note-content container-sm">
+      <slot />
+    </div>
+
+    <div class="note-footer container-sm">
+      <a href="/notes" class="btn">← Back to Notes</a>
+    </div>
+  </article>
 </BaseLayout>
 
 <style lang="scss">
   @use '@css/util';
 
+  .note-header {
+    padding-top: var(--space-box-v);
+    padding-bottom: 2rem;
+    background: var(--hero-gradient);
+    border-bottom: 1px solid rgba(var(--background-accent-rgb), 0.15);
+  }
+
+  .note-content {
+    position: relative;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
   article.note {
     // In-Layout Elements
     .dates {
@@ -149,6 +164,20 @@ const { frontmatter, slug } = Astro.props;
 
     :global(ol) {
       list-style-type: lower-roman;
+    }
+
+
+    :global(hr) {
+      border: 0;
+      border-top: 1px solid var(--c-text-muted);
+      margin: 2rem 0;
+    }
+
+    :global(pre) {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--c-text-tertiary);
+      background: var(--c-background) !important;
     }
 
     :global(blockquote)  {

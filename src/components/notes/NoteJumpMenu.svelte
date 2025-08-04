@@ -28,14 +28,11 @@
 
   .note-jump-wrapper {
     position: sticky;
-    display: block;
-    top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    top: calc(var(--nav-height) + 1rem);
+    left: 0;
     z-index: 3;
-    text-align: right;
-  }
-
-  :global(.callout + [client] .note-jump-wrapper) {
-    margin-top: 1rem;
   }
 
   .note-jump-menu {

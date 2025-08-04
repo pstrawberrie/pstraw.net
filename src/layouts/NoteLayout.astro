@@ -100,10 +100,12 @@ const { frontmatter, slug } = Astro.props;
       line-height: var(--line-height-h1-sm);
       background-image: var(--c-text-gradient-default);
       margin-bottom: 2rem;
+      scroll-margin-top: calc(var(--nav-height) + 1rem);
     }
 
     :global(h2, h3, h4) {
       line-height: 1.2;
+      scroll-margin-top: calc(var(--nav-height) + 1rem);
     }
 
     :global(h2) {
@@ -131,22 +133,19 @@ const { frontmatter, slug } = Astro.props;
     }
 
     :global(p a, ul a, ol a, blockquote a) {
+      color: var(--c-text-secondary);
       text-decoration: underline;
+      word-break: break-all;
+    }
+
+    :global(p a:hover, ul a:hover, ol a:hover, blockquote a:hover) {
+      color: var(--c-quinary);
     }
 
     :global(p),
     :global(li) {
       line-height: 1.8;
       color: var(--c-text-secondary);
-
-      a {
-        color: var(--c-text-secondary);
-        text-decoration: underline;
-
-        &:hover {
-          color: var(--c-quinary);
-        }
-      }
     }
 
     :global(p),

@@ -9,7 +9,6 @@ published: true
 ---
 import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 
-<p class="callout warning">This reference may be missing information</p>
 <NoteJumpMenu client:load links={[
   {title: 'Windows WSL2 Setup', path: '#windows-wsl2-setup'},
   {title: 'WSL2 Debian SWGEmu Setup', path: '#wsl2-debian-swgemu-setup'},
@@ -18,6 +17,8 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
   {title: 'Linux Reference', path: '#linux-reference'},
   {title: 'Troubleshooting', path: "#troubleshooting"},
   ]}/>
+  
+<p class="callout warning">This reference may be missing information</p>
 
 ## Windows WSL2 Setup
 Installing WSL2 on windows *should* be as simple as opening a powershell terminal as admin and typing `wsl --install`. If it's your first time installing, you'll need to restart afterwords. [See this guide](https://learn.microsoft.com/en-us/windows/wsl/install) for more details on installing. Below is a command reference for WSL. You want to open up a powershell console **as admin** and...

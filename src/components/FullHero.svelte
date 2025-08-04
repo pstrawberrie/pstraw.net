@@ -204,7 +204,7 @@
   img {
     position: relative;
     top: -10px;
-    max-width: 40%;
+    max-width: 70%;
     animation: float 6s ease-in-out infinite;
     z-index: 2;
 

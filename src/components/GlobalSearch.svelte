@@ -172,9 +172,8 @@
       {#if results.length}
         {#if exactMatches.length}
           <div class="status">
-            {exactMatches.length} exact match{exactMatches.length > 1
-              ? "es"
-              : ""} found
+            {exactMatches.length}
+            <strong>exact match</strong>{exactMatches.length > 1 ? "es" : ""} found
           </div>
           <div
             class={`results exact ${exactMatches.length === 1 ? "single" : ""}`}
@@ -189,7 +188,8 @@
 
         <div class="status">
           {#if query.length > 1 && exactMatches.length !== results.length}
-            {totalResults} result{totalResults > 1 ? "s" : ""} found for "{query}"
+            {totalResults} result{totalResults > 1 ? "s" : ""} found for
+            <strong>"{query}"</strong>
           {/if}
         </div>
         <div class={`results ${results.length === 1 ? "single" : ""}`}>
@@ -271,6 +271,10 @@
     background: var(--c-card-background);
     border: 1px solid var(--c-card-border);
     border-radius: 1rem;
+
+    @include util.mq(md) {
+      max-width: 70vw;
+    }
   }
 
   .searchbar {
@@ -395,7 +399,7 @@
       margin-bottom: 2rem;
     }
 
-    @include util.mq(sm) {
+    @include util.mq(md) {
       grid-template-columns: 1fr 1fr;
     }
   }

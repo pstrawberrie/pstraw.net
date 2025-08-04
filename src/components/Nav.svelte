@@ -23,8 +23,10 @@
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            document.body.classList.remove("sticky");
             navEl.classList.remove("sticky");
           } else {
+            document.body.classList.add("sticky");
             navEl.classList.add("sticky");
           }
         });
@@ -57,7 +59,7 @@
     </div>
     <div class="nav_right">
       <button class="search" title="Search" onclick={toggleSearch}>
-        <SVG name="search" /> Search
+        <SVG name="search" /><span>Search</span>
       </button>
       <button
         id="hamburger"
@@ -159,6 +161,16 @@
       color: var(--c-text-tertiary);
       transform: translateY(-1px);
     }
+
+    span {
+      display: none;
+    }
+
+    @include util.mq(sm) {
+      span {
+        display: inline;
+      }
+    }
   }
 
   #hamburger {
@@ -189,7 +201,10 @@
     height: 18px;
     width: auto;
     left: -1px;
-    margin-right: 0.5rem;
+
+    @include util.mq(sm) {
+      margin-right: 0.5rem;
+    }
   }
 
   :global(.search svg path) {

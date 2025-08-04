@@ -52,7 +52,7 @@ $breakpoints: (
 @function fluid(
   $min-size,
   $max-size,
-  $min-breakpoint: map.get($breakpoints, md),
+  $min-breakpoint: map.get($breakpoints, sm),
   $max-breakpoint: map.get($breakpoints, xl),
   $unit: vw
 ) {

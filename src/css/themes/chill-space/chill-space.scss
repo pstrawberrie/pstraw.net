@@ -45,6 +45,7 @@
   --c-text: #e2e8f0;
   --c-text-secondary: #94a3b8;
   --c-text-tertiary: #475569;
+  --c-text-quaternary: #272f3a;
   --c-text-muted: #64748b;
   --c-text-gradient: linear-gradient(
     135deg,
@@ -68,6 +69,7 @@
 
   // Button Colors
   --c-button-border: rgba(var(--background-accent-rgb), 0.3);
+  --c-button-background-hover: rgba(var(--background-rgb), 0.6);
   --c-button-gradient: linear-gradient(135deg, var(--c-tertiary), var(--c-quaternary));
 
   // Card Colors
@@ -132,8 +134,9 @@
 
   --c-text-gradient-decoration: linear-gradient(
     135deg,
-    var(--c-text-muted) 0%,
-    var(--c-quinary) 100%
+    rgba(0,0,0,0) 0%,
+    var(--c-tertiary) 50%,
+    rgba(0,0,0,0) 100%
   );
 }
 

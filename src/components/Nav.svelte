@@ -40,7 +40,6 @@
   onkeydown={(e) => {
     if (e.key === "Escape" && isOpen) {
       isOpen = false;
-      logoEl.focus();
     }
   }}
   onclick={(e) => {
@@ -51,14 +50,14 @@
 />
 
 <div class="nav-ghost" bind:this={navGhostEl}></div>
-<nav class="container" bind:this={navEl}>
-  <div class="nav_content">
+<nav bind:this={navEl}>
+  <div class="nav_content container">
     <div class="nav_left">
       <a href="/" class="logo text-gradient" bind:this={logoEl}>{SITE.TITLE}</a>
     </div>
     <div class="nav_right">
       <button class="search" title="Search" onclick={toggleSearch}>
-        <SVG name="search" />
+        <SVG name="search" /> Search
       </button>
       <button
         id="hamburger"
@@ -92,7 +91,6 @@
             </a>
           </li>
         {/each}
-        <li class="bottom"></li>
       </ul>
     </div>
   </div>
@@ -100,6 +98,8 @@
 <GlobalSearch bind:this={searchbarEl} />
 
 <style lang="scss">
+  @use "@css/util";
+
   nav {
     --nav-gap: 1rem;
 
@@ -107,7 +107,14 @@
     top: 0;
     left: 0;
     right: 0;
+    height: var(--nav-height);
+    padding: 0.5rem 0;
     z-index: 100;
+    transition: 0.15s ease;
+
+    a {
+      text-decoration: none;
+    }
   }
 
   .nav_content {
@@ -115,18 +122,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid transparent;
-    border-radius: 2rem;
-    transition: 0.15s ease;
-    padding: 0.48rem 0;
+    height: 100%;
   }
 
-  :global(nav.sticky .nav_content) {
+  :global(nav.sticky) {
     background-color: rgba(0, 0, 0, 0.85);
-    border-color: rgba(var(--background-accent-rgb), 0.25);
     backdrop-filter: blur(10px);
-    transform: translateY(8px);
-    padding: 0 1.5rem;
   }
 
   .nav_right {
@@ -137,43 +138,141 @@
     gap: var(--nav-gap);
   }
 
-  :global(#hamburger, .search) {
+  #hamburger,
+  .search {
     display: flex;
     align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid var(--c-button-border);
+    background-color: transparent;
+    border-radius: 0.25rem;
+    width: 2rem;
+    min-height: 2rem;
+    font-size: 0.9rem;
+    color: var(--c-text-secondary);
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: var(--c-button-background-hover);
+      border-color: var(--c-text-tertiary);
+      color: var(--c-text-tertiary);
+      transform: translateY(-1px);
+    }
+  }
+
+  #hamburger {
+    @include util.mq(md) {
+      display: none;
+    }
+  }
+
+  .search {
+    width: auto;
+    padding: 0 0.5rem;
+  }
+
+  :global(svg),
+  :global(svg path) {
+    pointer-events: none;
+    transition: 0.3s ease;
   }
 
   :global(#hamburger svg) {
-    height: 30px;
+    height: 24px;
     width: auto;
     fill: var(--c-text-secondary);
   }
 
   :global(.search svg) {
-    height: 22px;
+    position: relative;
+    height: 18px;
     width: auto;
+    left: -1px;
+    margin-right: 0.5rem;
   }
 
   :global(.search svg path) {
     fill: var(--c-text-secondary);
   }
 
+  :global(#hamburger:hover svg, .search:hover svg path) {
+    fill: var(--c-text-tertiary);
+  }
+
   ul {
-    position: relative;
+    position: absolute;
     display: flex;
+    flex-direction: column;
+    top: var(--nav-height);
+    right: 0;
     flex-wrap: nowrap;
-    gap: var(--nav-gap);
+    border: 1px solid var(--c-card-border);
+    background-color: var(--c-card-background);
+    border-radius: 0.5rem;
+    padding: 0.25rem 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+
+    @include util.mq(md) {
+      position: relative;
+      flex-direction: row;
+      top: auto;
+      right: auto;
+      min-width: auto;
+      gap: var(--nav-gap);
+      padding: 1rem 1rem 1rem 0;
+      background: transparent;
+      border: 0;
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+  }
+
+  #hamburger[aria-expanded="true"] + ul {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   ul a {
+    position: relative;
     display: inline-block;
     font-size: 1rem;
     font-weight: 500;
     color: var(--c-text-secondary);
     transition: 0.3s ease;
-    padding: 0.69rem 0;
+    padding: 0.5rem 1.5rem;
 
     &:hover {
-      color: var(--c-text);
+      color: var(--c-text-tertiary);
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    @include util.mq(md) {
+      display: flex;
+      padding: 0.69rem 0;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0.45rem;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        transform: scaleX(0);
+        background: var(--c-text-gradient-decoration);
+        transform-origin: center;
+        transition: transform 0.3s ease;
+      }
     }
   }
 </style>

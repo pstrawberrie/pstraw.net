@@ -1,5 +1,6 @@
 @use 'util';
 
+$nav-height: 3.75rem; // 60px
 $max-width: 1200px;
 $max-width-sm: 800px;
 $space-h: 2rem;
@@ -18,6 +19,9 @@ $space-v: 4rem;
   // --c-text-secondary
   // --c-text-muted
   // etc...
+
+  // Layout
+  --nav-height: #{$nav-height};
 
   // Spacing
   --space-max-width: #{$max-width};
@@ -163,7 +167,14 @@ h2 {
 }
 
 .container-sm {
+  padding-left: var(--space-page-h);
+  padding-right: var(--space-page-h);
   max-width: var(--space-max-width-sm);
+
+  @media (min-width: calc($max-width-sm + ($space-h * 2))) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .container-full {

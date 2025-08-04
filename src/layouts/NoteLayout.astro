@@ -130,7 +130,9 @@ const { frontmatter, slug } = Astro.props;
       margin-bottom: 1rem;
     }
 
-    
+    :global(p a, ul a, ol a, blockquote a) {
+      text-decoration: underline;
+    }
 
     :global(p),
     :global(li) {

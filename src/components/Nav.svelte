@@ -267,10 +267,10 @@
         bottom: 0.45rem;
         left: 0;
         width: 100%;
-        height: 1px;
+        height: 2px;
         transform: scaleX(0);
         background: var(--c-text-gradient-decoration);
-        transform-origin: center;
+        transform-origin: left;
         transition: transform 0.3s ease;
       }
     }

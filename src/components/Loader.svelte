@@ -8,14 +8,16 @@
   .loader {
     position: relative;
     display: flex;
+    align-items: center;
     justify-content: center;
+    padding: 1rem;
   }
 
   .inner {
-    border: 4px solid var(--font-color);
-    border-left-color: transparent;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--c-card-border);
+    border-top: 2px solid var(--c-text-tertiary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }

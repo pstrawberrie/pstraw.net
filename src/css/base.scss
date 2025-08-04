@@ -73,6 +73,20 @@ body {
   background: var(--c-background);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-base);
+
+  &.fixed {
+    overflow: hidden;
+  }
+}
+
+input, textarea {
+  font-family: var(--font-family-primary);
+  border: none;
+  background-color: transparent;
+}
+
+button {
+  cursor: pointer;
 }
 
 .btn {

@@ -1,16 +1,13 @@
 <script>
+  import SVG from "@components/SVG.svelte";
+  import { formatDate } from "@util";
+
   let { itemData, featured = false } = $props();
 
   const id = itemData.id;
   const data = itemData.data ? itemData.data : itemData;
 
-  const date = new Date(
-    data?.updated ? "" + data.updated : "" + data.date
-  ).toLocaleString(undefined, {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  const date = formatDate(data?.updated ? "" + data.updated : "" + data.date);
 </script>
 
 <a class={`card note-card ${featured ? "featured" : ""}`} href={`/notes/${id}`}>
@@ -19,10 +16,15 @@
   </div>
   <h3 class="title">{data.title}</h3>
   <p class="description">{data.description}</p>
-  <div class="tags">
-    {#each data.tags as t}
-      <div class="tag">#{t}</div>
-    {/each}
+  <div class="bottom">
+    <div class="type">
+      <SVG name="note" /> &nbsp;Note
+    </div>
+    <div class="tags">
+      {#each data.tags as t}
+        <div class="tag">#{t}</div>
+      {/each}
+    </div>
   </div>
 </a>
 
@@ -99,6 +101,33 @@
     font-size: 1rem;
     color: var(--c-text-secondary);
     padding-bottom: 0.5rem;
+  }
+
+  .bottom {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid var(--c-card-separator);
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
+    font-family: var(--font-family-mono);
+    color: var(--c-text-muted);
+  }
+
+  .type {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: var(--c-primary);
+
+    :global(svg) {
+      position: relative;
+      height: 12px;
+      width: auto;
+      fill: var(--c-primary);
+    }
   }
 
   .tags {

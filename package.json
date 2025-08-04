@@ -20,10 +20,10 @@
     "slurpi-tmdb-dates": "node slurpi/scripts/tmdb-csv-dates.js"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.0",
-    "@astrojs/sitemap": "^3.4.1",
+    "@astrojs/mdx": "^4.3.3",
+    "@astrojs/sitemap": "^3.4.2",
     "@astrojs/svelte": "^7.1.0",
-    "astro": "^5.11.0",
+    "astro": "^5.12.8",
     "convert-csv-to-json": "^2.50.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

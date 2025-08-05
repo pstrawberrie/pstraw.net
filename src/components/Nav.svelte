@@ -74,6 +74,7 @@
         <SVG name="hamburger" />
       </button>
       <ul id="nav-menu">
+        <li class="mobile text-gradient">Where To?</li>
         {#each NAV_LINKS as l, i}
           {@const active =
             currentPage === l.path ||
@@ -89,7 +90,7 @@
               onblur={() => {
                 i + 1 === NAV_LINKS.length ? (isOpen = false) : null;
               }}
-              >{l.title}
+              >{l.title}<i>&nbsp;→</i>
             </a>
           </li>
         {/each}
@@ -155,7 +156,8 @@
     color: var(--c-text-secondary);
     transition: 0.3s ease;
 
-    &:hover {
+    &:hover,
+    &[aria-expanded="true"] {
       background-color: var(--c-button-background-hover);
       border-color: var(--c-text-tertiary);
       color: var(--c-text-tertiary);
@@ -219,11 +221,12 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: var(--nav-height);
+    top: calc(var(--nav-height) - 0.5rem);
     right: 0;
     flex-wrap: nowrap;
-    border: 1px solid var(--c-card-border);
-    background-color: var(--c-card-background);
+    min-width: 250px;
+    border: 1px solid var(--c-text-tertiary);
+    background-color: var(--c-background);
     border-radius: 0.5rem;
     padding: 0.25rem 0;
     opacity: 0;
@@ -255,14 +258,28 @@
     pointer-events: auto;
   }
 
+  ul li.mobile {
+    display: block;
+    text-align: center;
+    font-family: var(--font-family-title);
+    font-size: 1.25rem;
+    padding: 0.69rem 1.5rem;
+    background-image: var(--c-text-gradient-default);
+
+    @include util.mq(md) {
+      display: none;
+    }
+  }
   ul a {
     position: relative;
-    display: inline-block;
-    font-size: 1rem;
-    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
     color: var(--c-text-secondary);
     transition: 0.3s ease;
-    padding: 0.5rem 1.5rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--c-card-border);
 
     &:hover {
       color: var(--c-text-tertiary);
@@ -273,8 +290,14 @@
     }
 
     @include util.mq(md) {
-      display: flex;
       padding: 0.69rem 0;
+      border: 0;
+      font-size: 1rem;
+      font-weight: 500;
+
+      i {
+        display: none;
+      }
 
       &::after {
         content: "";

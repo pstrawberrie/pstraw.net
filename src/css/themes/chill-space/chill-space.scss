@@ -19,6 +19,15 @@
   --quinary-rgb: 252, 211, 77;
   --p: rgb(252, 211, 77); // ide preview
 
+  --state-success-rgb: 72, 201, 176;
+  --p: rgb(72, 201, 176); // ide preview
+
+  --state-info-rgb: 241, 196, 15;
+  --p: rgb(241, 196, 15); // ide preview
+
+  --state-error-rgb: 192, 57, 43;
+  --p: rgb(192, 57, 43); // ide preview
+
   --background-rgb: 10, 10, 15;
   --p: rgb(10, 10, 15); // ide preview
 
@@ -31,6 +40,10 @@
   --c-tertiary: rgb(var(--tertiary-rgb));
   --c-quaternary: rgb(var(--quaternary-rgb));
   --c-quinary: rgb(var(--quinary-rgb));
+  --c-state-success: rgba(var(--state-success-rgb), .25);
+  --c-state-info: rgba(var(--state-info-rgb), .25);
+  --c-state-error: rgba(var(--state-error-rgb), .25);
+
   --c-background: rgb(var(--background-rgb));
   --c-background-accent: rgb(var(--background-accent-rgb));
 

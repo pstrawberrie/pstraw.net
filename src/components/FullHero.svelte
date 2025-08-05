@@ -8,15 +8,15 @@
   } = $props();
 </script>
 
-<div class="hero">
-  <div class="container hero_content">
-    <div class="hero_text">
+<div class="fullhero">
+  <div class="container fullhero_content">
+    <div class="fullhero_text">
       <h1>{title}</h1>
       {#if subtitle}
         <p>{subtitle}</p>
       {/if}
       {#if buttons.length > 0 && buttons[0].title && buttons[0].href}
-        <div class="hero_buttons">
+        <div class="fullhero_buttons">
           {#each buttons as button}
             <a class="btn {button.class || ''}" href={button.href}
               >{button.title}</a
@@ -26,7 +26,7 @@
       {/if}
     </div>
     {#if image}
-      <div class="hero_image">
+      <div class="fullhero_image">
         <img src={image} alt={title} />
       </div>
     {/if}
@@ -143,17 +143,17 @@
 <style lang="scss">
   @use "@css/util";
 
-  .hero {
+  .fullhero {
     position: relative;
     display: flex;
     align-items: center;
     min-height: 100vh;
     background: var(--full-hero-gradient);
-    padding: var(--space-page-v) 0;
+    padding: var(--space-box-v) 0;
     overflow: hidden;
   }
 
-  .hero_content {
+  .fullhero_content {
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
@@ -167,13 +167,13 @@
     }
   }
 
-  .hero_text {
+  .fullhero_text {
     display: flex;
     flex-direction: column;
     gap: var(--space-page-h);
   }
 
-  .hero_buttons {
+  .fullhero_buttons {
     position: relative;
     display: flex;
     flex-direction: column;

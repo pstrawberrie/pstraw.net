@@ -44,12 +44,12 @@ $space-v: 4rem;
 
   --font-size-base: #{util.px-to-rem(18px)};
   --line-height-base: 1.6;
-  --font-size-h1: #{util.fluid(32px, 90px)};
-  --line-height-h1: #{util.fluid(42px, 100px)};
+  --font-size-h1: #{util.fluid(40px, 90px)};
+  --line-height-h1: #{util.fluid(50px, 100px)};
   --font-size-h1-sm: #{util.fluid(32px, 64px)};
   --line-height-h1-sm: #{util.fluid(32px, 70px)};
-  --font-size-h2: #{util.fluid(28px, 48px)};
-  --line-height-h2: #{util.fluid(38px, 58px)};
+  --font-size-h2: #{util.fluid(30px, 48px)};
+  --line-height-h2: #{util.fluid(40px, 58px)};
 
   // Shadows
   --shadow-direction-x: -4px;

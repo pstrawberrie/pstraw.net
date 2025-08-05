@@ -1,5 +1,5 @@
 ---
-title: '(Discontinued) pSWG Development Tracking'
+title: 'pSWG Development Tracking (Discontinued)'
 date: 2025-06-20
 updated: 2025-07-14
 description: 'Development tracking and details for the pSWG server'
@@ -8,6 +8,7 @@ tags: ["swg", "dev"]
 published: true
 ---
 import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
+import NoteCallouts from '@components/notes/NoteCallouts.svelte';
 
 <NoteJumpMenu client:load links={[
 	{title: 'Launcher'},
@@ -17,6 +18,10 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 	{title: 'Backlog'},
 	{title: 'Code References'},
 	{title: 'Credits'},
+]}/>
+
+<NoteCallouts data={[
+  {type: 'error', text: 'This project is no longer maintained'},
 ]}/>
 
 ## Launcher
@@ -342,16 +347,6 @@ MMOCoreORB\src\server\zone\objects\creature\commands\LootCommand.h
 MMOCoreORB\src\server\zone\objects\creature\commands\TransferItemMiscCommand.h
 ```
 - Implement Infinity's `/loot area` command
-
-### Lair Aggro Fixes (SR2)
-⚠️ Partially tested on Local (needs group testing)
-```bash
-MMOCoreORB\src\server\zone\objects\tangible\threat\ThreatMap.h
-MMOCoreORB\src\server\zone\objects\tangible\threat\ThreatMap.cpp
-MMOCoreORB\src\server\zone\managers\creature\LairObserverImplementation.cpp
-```
-- Implement SR2 mob aggro fixes from [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/67cb7aa001db14002bda40a9cd7c3a6716ada37d#diff-404ddd27d5ab64bcc24a095408f3a57888e5033e2821019debf2a1f473bd6ec8)
-	- hotfix follow-up in [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/797dec7784597b504aed0c7902724b7c1da64a0a)
 
 ### Armor Color Changing
 ⚠️ Partially tested on Local (need to craft + test every type - some system generated armors are corrupted)

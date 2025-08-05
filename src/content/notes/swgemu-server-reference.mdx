@@ -8,17 +8,20 @@ tags: ["dev", "linux", "swg"]
 published: true
 ---
 import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
+import NoteCallouts from '@components/notes/NoteCallouts.svelte';
 
 <NoteJumpMenu client:load links={[
   {title: 'Windows WSL2 Setup', path: '#windows-wsl2-setup'},
-  {title: 'WSL2 Debian SWGEmu Setup', path: '#wsl2-debian-swgemu-setup'},
-  {title: 'Docker Reference', path: '#docker-reference'},
+  {title: 'Debian SWGEmu Setup', path: '#debian-swgemu-setup'},
   {title: 'SQL Reference', path: '#sql-reference'},
   {title: 'Linux Reference', path: '#linux-reference'},
+  {title: 'Docker Reference', path: '#docker-reference'},
   {title: 'Troubleshooting', path: "#troubleshooting"},
   ]}/>
-  
-<p class="callout warning">This reference may be missing information</p>
+
+<NoteCallouts data={[
+  {type: 'info', text: 'This reference may be missing information'},
+]}/>
 
 ## Windows WSL2 Setup
 Installing WSL2 on windows *should* be as simple as opening a powershell terminal as admin and typing `wsl --install`. If it's your first time installing, you'll need to restart afterwords. [See this guide](https://learn.microsoft.com/en-us/windows/wsl/install) for more details on installing. Below is a command reference for WSL. You want to open up a powershell console **as admin** and...
@@ -42,7 +45,7 @@ wsl --install -d debian
 wsl --unregister <distroName>
 ```
 
-## WSL2 Debian SWGEmu Setup
+## Debian SWGEmu Setup
 Once the distro is installed successfully, switch over to the WSL console and run that as admin. Once you're inside of WSL, you are just inside of your chosen distro and can begin linuxing! Now we will set up the server inside of our debian distro itself. Here's what the process will be...
 - Update/upgrade debian
 - Clone the pswg repo

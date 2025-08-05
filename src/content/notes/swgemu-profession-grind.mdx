@@ -7,6 +7,7 @@ tags: ["swg"]
 published: false
 ---
 import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
+import NoteCallouts from '@components/notes/NoteCallouts.svelte';
 
 <NoteJumpMenu client:load title="Jump to Profession" links={[
   {title: 'Crafting Macro'},
@@ -15,10 +16,12 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
   {title: 'Artisan'},
 ]}/>
 
-<p class="callout good"><a href="https://www.eqsanctum.com/topic/47-how-to-grind-everything/">Visit the original guide on EQSanctum</a></p>
-<p class="callout warning">Corrections or additions? <a href="https://github.com/pstrawberrie/pstraw.net">Submit PR on github</a></p>
+<NoteCallouts data={[
+  {type: 'success', text: 'Visit the original guide on EQSanctum →', link: 'https://www.eqsanctum.com/topic/47-how-to-grind-everything/'},
+  {type: 'info', text: 'Submit PR on github →', link: 'https://github.com/pstrawberrie/pstraw.net'},
+]}/>
 
-# TODO:
+## TODO:
 - alphabetize professions
 - remove copied characters from guide: ’ “ ” –
 

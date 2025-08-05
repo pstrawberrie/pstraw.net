@@ -18,8 +18,7 @@ const { frontmatter, slug } = Astro.props;
         <div class="dates">
           Written: {formatDate("" + frontmatter.date)} by{" "}
           {frontmatter?.authors.map((a, idx) => (
-            <a href={`/notes/authors/${a}`}>{a}</a>
-            <span>{idx !== frontmatter?.authors.length - 1 ? "," : ""}</span>
+            <a class="author" href={`/notes/authors/${a}`}>{a}</a><span>{idx !== frontmatter?.authors.length - 1 ? ", " : ""}</span>
           ))}
         </div>
       )
@@ -59,6 +58,10 @@ const { frontmatter, slug } = Astro.props;
     border-bottom: 1px solid rgba(var(--background-accent-rgb), 0.15);
   }
 
+  a.author {
+    text-decoration: underline;
+  }
+
   .note-content {
     position: relative;
     padding-top: 2rem;
@@ -94,6 +97,10 @@ const { frontmatter, slug } = Astro.props;
     }
 
     // Global Elements (Dynamic Content)
+    :global(.callouts + [client] .note-jump-wrapper) {
+      margin-top: 1rem;
+    }
+
     :global(h1) {
       text-align: center;
       font-size: var(--font-size-h1-sm);

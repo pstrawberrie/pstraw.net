@@ -13,19 +13,26 @@
           {SITE.DESCRIPTION}
         </p>
       </div>
+      <div class="middle">
+        <div class="contact">
+          <button class="btn"><SVG name="mail" /> Say Hi</button>
+        </div>
+      </div>
       <div class="right">
-        <a class="github" href="https://github.com/pstrawberrie/pstraw.net"
-          ><span class="sr-only">View code on Github</span><SVG
-            name="github"
-          /></a
-        >
+        <div class="externals">
+          <a class="github" href="https://github.com/pstrawberrie/pstraw.net"
+            ><span class="sr-only">View code on Github</span><SVG
+              name="github"
+            /></a
+          >
+        </div>
       </div>
     </div>
     <div class="bottom">
       <p>
         &copy; {new Date().getFullYear()}
         {SITE.TITLE} • v2 <em>Chill Space</em> • Synced on {formatDate(
-          new Date(SITE_DATA.build_history[0]).toLocaleDateString()
+          new Date(SITE_DATA.build_history[0]).toLocaleDateString(),
         )}
       </p>
     </div>
@@ -52,8 +59,9 @@
   }
 
   .top {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     gap: 1.5rem;
     align-items: center;
     margin-bottom: 2rem;
@@ -61,7 +69,8 @@
     color: var(--c-text-muted);
 
     @include util.mq(md) {
-      grid-template-columns: 1fr auto;
+      flex-direction: row;
+      flex-wrap: nowrap;
       gap: 2rem;
       text-align: left;
     }
@@ -81,6 +90,32 @@
     }
   }
 
+  .middle {
+    display: flex;
+    margin-left: auto;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--c-text-muted);
+
+      :global(svg) {
+        height: 20px;
+        width: auto;
+        fill: var(--c-text-muted);
+      }
+
+      &:hover {
+        color: var(--c-text);
+
+        :global(svg) {
+          fill: var(--c-text);
+        }
+      }
+    }
+  }
+
   .right {
     display: flex;
     flex-direction: column;
@@ -94,17 +129,20 @@
       align-items: center;
       font-size: 1rem;
       gap: 0.2rem;
-      transition: opacity 0.2s ease;
+      transition: transform 0.2s ease;
 
       &:hover {
-        opacity: 0.5;
+        transform: translateY(-2px);
+
+        :global(svg path) {
+          fill: var(--c-text);
+        }
       }
     }
 
     :global(svg) {
       height: 2rem;
       width: auto;
-      fill: var(--c-text-muted);
     }
 
     :global(svg path) {

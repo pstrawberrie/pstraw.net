@@ -244,7 +244,7 @@
     opacity: 0;
     background-color: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(10px);
-    padding: var(--space-box-v) var(--space-page-h);
+    padding: var(--space-page-v) var(--space-page-h);
     color: var(--c-text-secondary);
     transition:
       opacity 0.3s ease,

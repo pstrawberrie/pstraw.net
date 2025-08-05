@@ -107,12 +107,12 @@ const { frontmatter, slug } = Astro.props;
       line-height: var(--line-height-h1-sm);
       background-image: var(--c-text-gradient-default);
       margin-bottom: 2rem;
-      scroll-margin-top: calc(var(--nav-height) + 1rem);
+      scroll-margin-top: calc(var(--nav-height) + 6rem);
     }
 
     :global(h2, h3, h4) {
       line-height: 1.2;
-      scroll-margin-top: calc(var(--nav-height) + 1rem);
+      scroll-margin-top: calc(var(--nav-height) + 6rem);
     }
 
     :global(h2) {
@@ -177,7 +177,7 @@ const { frontmatter, slug } = Astro.props;
 
     :global(hr) {
       border: 0;
-      border-top: 1px solid var(--c-text-muted);
+      border-top: 1px solid var(--c-button-border);
       margin: 2rem 0;
     }
 

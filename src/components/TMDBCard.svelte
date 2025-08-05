@@ -1,7 +1,7 @@
 <script>
   import { minutesToHours } from "@util";
   import SVG from "@components/SVG.svelte";
-  let { itemData } = $props();
+  let { itemData, exact = undefined } = $props();
   const id = itemData.id;
   const data = itemData.data ? itemData.data : itemData;
   const isMovie = itemData.collection === "movies";
@@ -12,12 +12,13 @@
   const runtime = isMovie
     ? minutesToHours(data.runtime)
     : minutesToHours(
-        parseInt(episodeRuntimeArr[episodeRuntimeArr.length - 1], 10)
+        parseInt(episodeRuntimeArr[episodeRuntimeArr.length - 1], 10),
       );
 </script>
 
 <a
   class="card tmdb-card"
+  data-exact={exact}
   href={tmdbUrl}
   data-movie-id={isMovie ? id : undefined}
   data-show-id={isMovie ? undefined : id}
@@ -46,7 +47,7 @@
       </div>
       <div class="year">
         {new Date(
-          isMovie ? data.release_date : data.first_air_date
+          isMovie ? data.release_date : data.first_air_date,
         ).getFullYear()}
       </div>
       <div class="language">
@@ -90,20 +91,13 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(
-        135deg,
-        rgba(0, 0, 0, 0) 0%,
-        var(--c-quaternary) 10%,
-        var(--c-tertiary) 50%,
-        var(--c-quaternary) 90%,
-        rgba(0, 0, 0, 0) 100%
-      );
+      background: var(--c-card-tertiary-highlight);
       transform: scaleX(0);
       transition: transform 0.3s ease;
     }
 
     &::after {
-      box-shadow: 0 20px 60px rgba(var(--tertiary-rgb), 0.2);
+      box-shadow: var(--c-card-tertiary-boxshadow);
     }
 
     &:hover {
@@ -114,6 +108,10 @@
       &::before {
         transform: scaleX(1);
       }
+    }
+
+    &[data-exact] {
+      border-color: var(--c-tertiary);
     }
   }
 

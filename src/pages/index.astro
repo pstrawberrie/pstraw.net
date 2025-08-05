@@ -1,4 +1,5 @@
 ---
+import { SITE } from "@constants";
 import { isDevelopment } from "@util";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -25,11 +26,11 @@ const recentTMDBLimit = 12;
 const recentNotesLimit = 6;
 const movies = await getCollection(
   "movies",
-  ({ id }) => excludedRecents.indexOf(id) === -1
+  ({ id }) => excludedRecents.indexOf(id) === -1,
 );
 const shows = await getCollection(
   "shows",
-  ({ id }) => excludedRecents.indexOf(id) === -1
+  ({ id }) => excludedRecents.indexOf(id) === -1,
 );
 const tmdbItems = [...movies, ...shows];
 tmdbItems.sort((a, b) => {
@@ -39,7 +40,7 @@ tmdbItems.sort((a, b) => {
 });
 
 const notes = await getCollection("notes", ({ data }) =>
-  isDevelopment ? true : data.published
+  isDevelopment ? true : data.published,
 );
 notes.sort((a, b) => {
   const aDate = a?.data?.updated || a?.data?.date;
@@ -51,7 +52,7 @@ notes.sort((a, b) => {
 <BaseLayout
   pageTitle="Home"
   fullHeroTitle="Welcome to pstraw.net"
-  fullHeroSubtitle="Hello. You've landed on my cozy little internet planet. This is a personal archive created to keep track of media interests and store notes."
+  fullHeroSubtitle={`Hello. You've landed on my cozy little internet planet. This is ${SITE.DESCRIPTION.charAt(0).toLowerCase() + SITE.DESCRIPTION.slice(1)}`}
   fullHeroImage="/images/site/hero_default.png"
   fullHeroFeature="stars"
   fullHeroButtons={[

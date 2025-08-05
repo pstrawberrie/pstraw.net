@@ -179,9 +179,12 @@
             class={`results exact ${exactMatches.length === 1 ? "single" : ""}`}
           >
             {#each exactMatches as m (m.id)}
-              {#if m.collection === "movies" || m.collection === "shows"}<TMDBCard
-                  itemData={m}
-                />{/if}
+              {#if m.collection === "movies" || m.collection === "shows"}
+                <TMDBCard itemData={m} exact={true} />
+              {/if}
+              {#if m.collection === "notes"}
+                <NoteCard itemData={m} exact={true} />
+              {/if}
             {/each}
           </div>
         {/if}
@@ -408,7 +411,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 3rem 01rem;
+    padding: 3rem 1rem 1.5rem;
     font-size: 1rem;
     color: var(--c-text-muted);
   }

@@ -1,10 +1,15 @@
 ---
-import { isDevelopment, getPageMenuLinksFromPath } from "@util";
+import {
+  isDevelopment,
+  getPageMenuLinksFromPath,
+  getTagDescription,
+} from "@util";
 import { getCollection } from "astro:content";
 import CollectionLayout from "@layouts/CollectionLayout.astro";
+import GenericCard from "@components/GenericCard.svelte";
 
 const notes = await getCollection("notes", ({ data }) =>
-  isDevelopment ? true : data.published
+  isDevelopment ? true : data.published,
 );
 const tags = [...new Set(notes.map((k) => k.data.tags).flat())];
 const pageMenuLinks = getPageMenuLinksFromPath("/notes");
@@ -30,10 +35,12 @@ tags.forEach((t) => {
     <div class="grid-default">
       {
         tags.map((t) => (
-          <a class="card" href={`/notes/tags/${t}`}>
-            <i>#</i>
-            {t} <span>{tagsCount[t]}</span>
-          </a>
+          <GenericCard
+            link={`/notes/tags/${t}`}
+            title={`#${t}`}
+            subtitle={`${tagsCount[t]} Notes`}
+            description={getTagDescription(t)}
+          />
         ))
       }
     </div>

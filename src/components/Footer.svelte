@@ -10,7 +10,7 @@
       <div class="left">
         <a href="/" class="logo text-gradient">{SITE.TITLE}</a>
         <p>
-          {SITE.DESCRIPTION}
+          {SITE.DESCRIPTION_PARTIAL}
         </p>
       </div>
       <div class="right">
@@ -25,7 +25,7 @@
       <p>
         &copy; {new Date().getFullYear()}
         {SITE.TITLE} • v2 <em>Chill Space</em> • Synced on {formatDate(
-          new Date(SITE_DATA.build_history[0]).toLocaleDateString()
+          new Date(SITE_DATA.build_history[0]).toLocaleDateString(),
         )}
       </p>
     </div>

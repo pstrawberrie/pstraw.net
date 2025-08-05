@@ -2,13 +2,33 @@ export const IS_DEV = import.meta.env.DEV;
 export const SERVER_URL = IS_DEV ?
   `http://localhost:${import.meta.env.PUBLIC_SERVER_PORT}` : import.meta.env.PUBLIC_SERVER_URL;
 
+// Site Data
 export const SITE = {
   TITLE: 'pstraw.net',
-  DESCRIPTION: 'A personal archive created to keep track of media interests and store notes.',
+  DESCRIPTION_PARTIAL: 'A personal web playground created for inspiration and exploration',
+  DESCRIPTION: 'A personal web playground created for inspiration and exploration. It\'s also an archive to keep track of my media interests and store notes.',
   NOTES_PER_PAGE: 10,
   MOVIES_PER_PAGE: 20,
 };
 
+// Tag Descriptions
+// - working list of tag descriptions
+export const TAG_DESCRIPTIONS = {
+  DEV: 'References, resources, and helpful information for general web development',
+  SWG: 'Star Wars Galaxies gameplay and development information',
+  LINUX: 'Info, guides, and resources for using linux',
+  GENERAL: 'Info about this site and other miscellaneous topics'
+}
+
+// Author Descriptions
+// - working list of author descriptions
+export const AUTHOR_DESCRIPTIONS = {
+  PSTRAW: 'The person who made this site! He likes watching movies and shows, listening to music, playing games with friends, and making web stuff.',
+  EQSANCTUM: 'EQSanctum from eqsanctum.com'
+}
+
+// All Links
+// - used for utility functions ie. getPageMenuLinksFromPath
 export const ALL_LINKS = [
   { path: '/', title: 'Home' },
   {
@@ -24,17 +44,18 @@ export const ALL_LINKS = [
       { path: '/notes/authors', title: 'Authors' },
     ]
   },
-  // { path: '/about', title: 'About' },
   { path: '/notes/thanks', title: 'Thanks' },
 ];
 
+// Nav Links
+// - defines top navigation rendering
 export const NAV_LINKS = [
-  // { path: '/', title: 'Home' },
   { path: '/notes', title: 'Notes' },
   { path: '/media', title: 'Media' },
-  // { path: '/notes/thanks', title: 'Thanks' },
 ];
 
+// Footer Links
+// - defines footer navigation rendering
 export const FOOTER_LINKS = [
   {
     heading: 'Media',
@@ -56,7 +77,6 @@ export const FOOTER_LINKS = [
   {
     heading: 'General',
     links: [
-      // { path: '/about', title: 'About' },
       { path: '/notes/thanks', title: 'Thanks' },
     ]
   },

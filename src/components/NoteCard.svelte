@@ -2,7 +2,7 @@
   import SVG from "@components/SVG.svelte";
   import { formatDate } from "@util";
 
-  let { itemData, featured = false } = $props();
+  let { itemData, featured = false, exact = undefined } = $props();
 
   const id = itemData.id;
   const data = itemData.data ? itemData.data : itemData;
@@ -10,7 +10,11 @@
   const date = formatDate(data?.updated ? "" + data.updated : "" + data.date);
 </script>
 
-<a class={`card note-card ${featured ? "featured" : ""}`} href={`/notes/${id}`}>
+<a
+  class={`card note-card ${featured ? "featured" : ""}`}
+  href={`/notes/${id}`}
+  data-exact={exact}
+>
   <div class="top">
     <div class="date">{data.updated ? "Updated" : "Written"} {date}</div>
   </div>
@@ -44,20 +48,13 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(
-        135deg,
-        rgba(0, 0, 0, 0) 0%,
-        var(--c-primary) 10%,
-        var(--c-secondary) 50%,
-        var(--c-primary) 90%,
-        rgba(0, 0, 0, 0) 100%
-      );
+      background: var(--c-card-primary-highlight);
       transform: scaleX(0);
       transition: transform 0.3s ease;
     }
 
     &::after {
-      box-shadow: 0 20px 60px rgba(var(--secondary-rgb), 0.2);
+      box-shadow: var(--c-card-primary-boxshadow);
     }
 
     &:hover {
@@ -77,6 +74,10 @@
       @include util.mq(md) {
         grid-column: span 2;
       }
+    }
+
+    &[data-exact] {
+      border-color: var(--c-primary);
     }
   }
 

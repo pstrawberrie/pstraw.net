@@ -1,4 +1,4 @@
-import { ALL_LINKS } from "@constants";
+import { ALL_LINKS, TAG_DESCRIPTIONS, AUTHOR_DESCRIPTIONS } from "@constants";
 
 /**
  * Environment
@@ -73,4 +73,18 @@ export function removeArticles(str: string) {
 export function getPageMenuLinksFromPath(path: string) {
   const linkParent = [...ALL_LINKS].filter((l) => l.path === path);
   return [{ path, title: linkParent[0].allTitle }, ...linkParent[0].children];
+}
+
+/**
+ * Get Tag Descriptions
+ */
+export function getTagDescription(name: string): string {
+  return TAG_DESCRIPTIONS[name.toUpperCase()];
+}
+
+/**
+ * Get Author Descriptions
+ */
+export function getAuthorDescription(name: string): string {
+  return AUTHOR_DESCRIPTIONS[name.toUpperCase()];
 }

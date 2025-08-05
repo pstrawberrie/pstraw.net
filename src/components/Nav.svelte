@@ -74,7 +74,7 @@
         <SVG name="hamburger" />
       </button>
       <ul id="nav-menu">
-        <li class="mobile text-gradient">Where To?</li>
+        <li class="mobile"><span class="text-gradient">Where To?</span></li>
         {#each NAV_LINKS as l, i}
           {@const active =
             currentPage === l.path ||
@@ -156,8 +156,7 @@
     color: var(--c-text-secondary);
     transition: 0.3s ease;
 
-    &:hover,
-    &[aria-expanded="true"] {
+    &:hover {
       background-color: var(--c-button-background-hover);
       border-color: var(--c-text-tertiary);
       color: var(--c-text-tertiary);
@@ -166,6 +165,13 @@
   }
 
   #hamburger {
+    &[aria-expanded="true"] {
+      background-color: var(--c-button-background-hover);
+      border-color: var(--c-text-tertiary);
+      color: var(--c-text-tertiary);
+      transform: translateY(-1px);
+    }
+
     @include util.mq(md) {
       display: none;
     }
@@ -264,7 +270,10 @@
     font-family: var(--font-family-title);
     font-size: 1.25rem;
     padding: 0.69rem 1.5rem;
-    background-image: var(--c-text-gradient-default);
+
+    span {
+      background-image: var(--c-logo-gradient);
+    }
 
     @include util.mq(md) {
       display: none;

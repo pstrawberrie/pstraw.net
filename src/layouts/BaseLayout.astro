@@ -15,6 +15,7 @@ const {
   noBreadcrumbs,
   removeSiteTitle,
   fullHeroTitle,
+  fullHeroColorTitle = undefined,
   fullHeroSubtitle = undefined,
   fullHeroImage = undefined,
   fullHeroButtons = [],
@@ -75,6 +76,7 @@ const {
         <FullHero
           client:load
           title={fullHeroTitle}
+          colorTitle={fullHeroColorTitle}
           subtitle={fullHeroSubtitle}
           image={fullHeroImage}
           buttons={fullHeroButtons}

@@ -5,8 +5,7 @@ export const SERVER_URL = IS_DEV ?
 // Site Data
 export const SITE = {
   TITLE: 'pstraw.net',
-  DESCRIPTION_PARTIAL: 'A personal web playground created for inspiration and exploration',
-  DESCRIPTION: 'A personal web playground created for inspiration and exploration. It\'s also an archive to keep track of my media interests and store notes.',
+  DESCRIPTION: 'A personal web playground and archive created for inspiration and exploration.',
   NOTES_PER_PAGE: 10,
   MOVIES_PER_PAGE: 20,
 };

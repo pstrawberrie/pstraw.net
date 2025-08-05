@@ -60,39 +60,43 @@ const allTimeShows = await getCollection("shows", ({ id }) =>
   pageTitle="My Favorite Media"
   heroTitle="My Favorites"
   heroSubtitle="A working list of my all-time favorites!"
-  heroColor="tertiary"
+  heroColor="logo"
   {pageMenuLinks}
 >
-  <section class="container-full">
+  <section>
     <div class="box-full movies">
-      <div class="section-header">
-        <h2>Movies I Love</h2>
-        <p>These are all of my favorite movies in alphabetical order.</p>
-      </div>
-      <div class="grid-default">
-        {
-          allTimeMovies.map((m) => {
-            const link = "";
+      <div class="container-full">
+        <div class="section-header">
+          <h2 class="text-gradient header-tertiary">Movies I Love</h2>
+          <p>These are all of my favorite movies in alphabetical order.</p>
+        </div>
+        <div class="grid-default">
+          {
+            allTimeMovies.map((m) => {
+              const link = "";
 
-            return <TMDBCard itemData={m} />;
-          })
-        }
-      </div>
-      <div class="grid-cta">
-        <a class="btn" href="/media/movies">Browse All Movies →</a>
+              return <TMDBCard itemData={m} />;
+            })
+          }
+        </div>
+        <div class="grid-cta">
+          <a class="btn" href="/media/movies">Browse All Movies →</a>
+        </div>
       </div>
     </div>
 
     <div class="box-full shows">
-      <div class="section-header">
-        <h2>Shows I Love</h2>
-        <p>These are all of my favorite shows in alphabetical order.</p>
-      </div>
-      <div class="grid-default">
-        {allTimeShows.map((m) => <TMDBCard itemData={m} />)}
-      </div>
-      <div class="grid-cta">
-        <a class="btn" href="/media/shows">Browse All Shows →</a>
+      <div class="container-full">
+        <div class="section-header">
+          <h2 class="text-gradient header-tertiary">Shows I Love</h2>
+          <p>These are all of my favorite shows in alphabetical order.</p>
+        </div>
+        <div class="grid-default">
+          {allTimeShows.map((m) => <TMDBCard itemData={m} />)}
+        </div>
+        <div class="grid-cta">
+          <a class="btn" href="/media/shows">Browse All Shows →</a>
+        </div>
       </div>
     </div>
   </section>

@@ -1,6 +1,7 @@
 <script lang="ts">
   let {
     title,
+    colorTitle = undefined,
     subtitle = undefined,
     image = undefined,
     buttons = [],
@@ -11,7 +12,12 @@
 <div class="fullhero">
   <div class="container fullhero_content">
     <div class="fullhero_text">
-      <h1>{title}</h1>
+      <h1>
+        {title}
+        {#if colorTitle}
+          <span class="text-gradient">{colorTitle}</span>
+        {/if}
+      </h1>
       {#if subtitle}
         <p>{subtitle}</p>
       {/if}
@@ -193,6 +199,10 @@
     font-family: var(--font-family-title);
     font-weight: 600;
     text-shadow: var(--full-hero-text-shadow);
+
+    span {
+      background-image: var(--c-logo-gradient);
+    }
   }
 
   p {

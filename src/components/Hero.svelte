@@ -6,7 +6,7 @@
 <div class="hero">
   <div class="container">
     <div class="hero_text">
-      <h1 class={colorClass}>{title}</h1>
+      <h1><span class={colorClass}>{title}</span></h1>
       <p>{subtitle}</p>
     </div>
   </div>

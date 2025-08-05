@@ -163,16 +163,6 @@
       color: var(--c-text-tertiary);
       transform: translateY(-1px);
     }
-
-    span {
-      display: none;
-    }
-
-    @include util.mq(sm) {
-      span {
-        display: inline;
-      }
-    }
   }
 
   #hamburger {
@@ -184,6 +174,16 @@
   .search {
     width: auto;
     padding: 0 0.5rem;
+
+    span {
+      display: none;
+    }
+
+    @include util.mq(sm) {
+      span {
+        display: inline;
+      }
+    }
   }
 
   :global(svg),

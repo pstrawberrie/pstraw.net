@@ -4,7 +4,6 @@
 
   let contactFormButtonEl;
   let formEl;
-  let errorEl;
 
   let active = $state(false);
   let errors = $state([]);
@@ -100,7 +99,7 @@
   bind:this={contactFormButtonEl}
   onclick={() => (active = !active)}
 >
-  <SVG name="message" /> Say Howdy
+  <SVG name="message" /> Contact
 </button>
 <div id="contact-form">
   <div class="title">
@@ -147,7 +146,7 @@
       tabindex="-1"
     />
     {#if errors.length}
-      <div bind:this={errorEl} class="error">
+      <div class="error">
         {#each errors as error}
           <i>{error}</i>
         {/each}
@@ -158,7 +157,7 @@
       type="submit"
       value="Send"
       tabindex={active ? "0" : "-1"}
-      disabled={errors.length}
+      disabled={!message.length || errors.length}
     />
   </form>
 </div>
@@ -171,29 +170,15 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    border: 0;
-    border-radius: 2rem;
-    background: var(--c-logo-gradient);
-    color: black;
-    box-shadow: 0 1px 20px rgba(var(--quinary-rgb), 0.24);
 
     &::after {
       border-radius: 2rem;
-      box-shadow: 0 6px 40px rgba(var(--quinary-rgb), 0.3);
     }
 
     :global(svg) {
       height: 20px;
       width: auto;
-      fill: black;
-    }
-
-    &:hover {
-      background: var(--c-logo-gradient);
-
-      &::after {
-        opacity: 0.5;
-      }
+      fill: var(--c-text);
     }
   }
 
@@ -304,8 +289,8 @@
     cursor: pointer;
 
     &:disabled {
-      cursor: not-allowed;
       opacity: 0.4;
+      cursor: not-allowed;
 
       &:hover {
         transform: none;
@@ -333,8 +318,9 @@
       position: relative;
       display: block;
       color: var(--c-text);
+      text-align: center;
       font-weight: 500;
-      padding: 0.25rem 0.5rem;
+      padding: 0.5rem;
       border-radius: 0.25rem;
       border: 1px solid rgba(var(--state-error-rgb), 0.2);
       box-shadow: 0 0 10px rgba(var(--state-error-rgb), 0.05);

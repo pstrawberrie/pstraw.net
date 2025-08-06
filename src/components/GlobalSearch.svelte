@@ -134,13 +134,17 @@
           type="text"
           placeholder="Search Media and Notes..."
           id="global-search-input"
-          tabindex={active ? undefined : "-1"}
+          tabindex={active ? "0" : "-1"}
           bind:this={inputEl}
           bind:value={query}
           onkeyup={debounce((e) => search(), 300)}
         />
       </div>
-      <button class="close" onclick={toggleActive}>&times;</button>
+      <button
+        class="close"
+        onclick={toggleActive}
+        tabindex={active ? "0" : "-1"}>&times;</button
+      >
     </div>
     <div class="search-body">
       {#if loading}

@@ -2,6 +2,7 @@
   import { SITE, FOOTER_LINKS, SITE_DATA } from "@constants";
   import { formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
+  import FooterContact from "@components/FooterContact.svelte";
 </script>
 
 <footer>
@@ -15,7 +16,7 @@
       </div>
       <div class="middle">
         <div class="contact">
-          <button class="btn"><SVG name="mail" /> Say Hi</button>
+          <FooterContact />
         </div>
       </div>
       <div class="right">
@@ -32,7 +33,7 @@
       <p>
         &copy; {new Date().getFullYear()}
         {SITE.TITLE} • v2 <em>Chill Space</em> • Synced on {formatDate(
-          new Date(SITE_DATA.build_history[0]).toLocaleDateString(),
+          new Date(SITE_DATA.build_history[0]).toLocaleDateString()
         )}
       </p>
     </div>
@@ -91,28 +92,16 @@
   }
 
   .middle {
+    position: relative;
     display: flex;
-    margin-left: auto;
+    margin: 1rem 0 1.5rem;
 
-    button {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--c-text-muted);
+    .contact {
+      position: relative;
+    }
 
-      :global(svg) {
-        height: 20px;
-        width: auto;
-        fill: var(--c-text-muted);
-      }
-
-      &:hover {
-        color: var(--c-text);
-
-        :global(svg) {
-          fill: var(--c-text);
-        }
-      }
+    @include util.mq(md) {
+      margin: 0 0 0 auto;
     }
   }
 
@@ -152,10 +141,10 @@
 
   .logo {
     display: block;
-    margin-bottom: 0.5rem;
+    margin: 0 auto 0.5rem;
 
     @include util.mq(md) {
-      margin-right: auto;
+      margin: 0 auto 0.5rem 0;
     }
   }
 

@@ -7,14 +7,14 @@ import Show from '../db/Show.js';
 function convertCSV() {
   return new Promise((resolve, reject) => {
     try {
-      let json = csvToJson.fieldDelimiter(',').supportQuotedField(true).getJsonFromCsv(resolveFromRoot('slurpi/data/tmdb-favorites.csv'));
+      let json = csvToJson.fieldDelimiter(',').supportQuotedField(true).getJsonFromCsv(resolveFromRoot('_slurpi/data/tmdb-favorites.csv'));
       const output = [];
 
       for (let i = 0; i < json.length; i++) {
         output.push(json[i]);
       }
 
-      fs.writeFileSync(resolveFromRoot('slurpi/data/tmdb-favorites.json'), JSON.stringify(output));
+      fs.writeFileSync(resolveFromRoot('_slurpi/data/tmdb-favorites.json'), JSON.stringify(output));
       resolve();
     } catch (err) {
       reject(err);
@@ -26,7 +26,7 @@ function convertCSV() {
 (async () => {
   await convertCSV();
 
-  const dateData = JSON.parse(fs.readFileSync(resolveFromRoot('slurpi/data/tmdb-favorites.json'), 'utf8'));
+  const dateData = JSON.parse(fs.readFileSync(resolveFromRoot('_slurpi/data/tmdb-favorites.json'), 'utf8'));
   const movies = await Movie.findAll();
   const shows = await Show.findAll();
   const total = movies.length + shows.length;

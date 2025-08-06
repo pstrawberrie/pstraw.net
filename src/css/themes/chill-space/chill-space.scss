@@ -284,6 +284,7 @@ h3 {
 
 /* Accessibility */
 *:focus-visible {
+  outline-width: 4px;
   outline-color: var(--c-quinary);
 }
 

@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import matter from 'gray-matter';
 import { resolveFromRoot } from '../path.js';
-import Movie from '../slurpi/db/Movie.js';
-import Show from '../slurpi/db/Show.js';
+import Movie from '../_slurpi/db/Movie.js';
+import Show from '../_slurpi/db/Show.js';
 
 /* Search Data Setup */
 const searchResultsPerPage = 10;

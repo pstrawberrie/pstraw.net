@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
-import Site from "./slurpi/db/Site.js";
+import Site from "./_slurpi/db/Site.js";
 
 const siteData = await Site.findByPk(1);
 

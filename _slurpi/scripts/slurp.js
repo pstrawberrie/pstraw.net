@@ -98,7 +98,7 @@ function saveTMDBDetails(category, arr) {
 
       for (let i = 0; i < arr.length; i++) {
         const dbItem = await model.findByPk(arr[i]);
-        const imagePath = joinFromRoot(`slurpi/images/tmdb/${arr[i]}.jpg`);
+        const imagePath = joinFromRoot(`_slurpi/images/tmdb/${arr[i]}.jpg`);
         const imageExists = await existsSync(imagePath);
 
         if (!dbItem) {
@@ -171,5 +171,5 @@ function saveTMDBDetails(category, arr) {
   movieFavorites = null;
 
   console.log('------------');
-  await optimizeImages('slurpi/images/tmdb', 'public/images/tmdb');
+  await optimizeImages('_slurpi/images/tmdb', 'public/images/tmdb');
 })();

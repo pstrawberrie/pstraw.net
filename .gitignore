@@ -24,8 +24,8 @@ pnpm-debug.log*
 .idea/
 
 # SLURPI
-slurpi/images/tmdb/*.jpg
+_slurpi/images/tmdb/*.jpg
 public/images/tmdb/*.webp
-slurpi/data/tmdb-favorites.csv
-slurpi/data/tmdb-favorites.json
+_slurpi/data/tmdb-favorites.csv
+_slurpi/data/tmdb-favorites.json
 db.sqlite

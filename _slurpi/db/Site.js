@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from './db.js';
 
-const Movie = sequelize.define('Site', {
+const Site = sequelize.define('Site', {
   build_history: {
     type: DataTypes.JSON,
     allowNull: true,
@@ -12,4 +12,4 @@ const Movie = sequelize.define('Site', {
   },
 }, { timestamps: true });
 
-export default Movie;
+export default Site;

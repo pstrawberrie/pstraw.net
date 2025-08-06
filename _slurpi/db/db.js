@@ -3,7 +3,7 @@ import { resolveFromRoot } from '../../path.js';
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: resolveFromRoot('slurpi/db/db.sqlite'),
+  storage: resolveFromRoot('_slurpi/db/db.sqlite'),
   logging: false
 });
 

@@ -1,8 +1,8 @@
 import express from 'express';
-import { getAdminHome } from './adminController.js';
+import { getAdminDashboard } from './adminController.js';
 const router = express.Router();
 
 // Admin Routes
-router.get('/', getAdminHome);
+router.get('/', getAdminDashboard);
 
 export default router;

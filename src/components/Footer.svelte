@@ -1,5 +1,6 @@
 <script>
-  import { SITE, FOOTER_LINKS, SITE_DATA } from "@constants";
+  import { SITE, FOOTER_LINKS } from "@constants";
+  import { SITE_DATA } from "@env";
   import { formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
   import FooterContact from "@components/FooterContact.svelte";

@@ -1,5 +1,5 @@
 <script>
-  import { SERVER_URL } from "@constants";
+  import { SERVER_URL } from "@env";
   import { debounce } from "lodash-es";
   import Loader from "@components/Loader.svelte";
   import SVG from "@components/SVG.svelte";

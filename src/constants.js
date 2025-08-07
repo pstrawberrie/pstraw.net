@@ -1,7 +1,3 @@
-export const IS_DEV = import.meta.env.DEV;
-export const SERVER_URL = IS_DEV ?
-  `http://localhost:${import.meta.env.PUBLIC_SERVER_PORT}` : import.meta.env.PUBLIC_SERVER_URL;
-
 // Site Data
 export const SITE = {
   TITLE: 'pstraw.net',
@@ -80,6 +76,3 @@ export const FOOTER_LINKS = [
     ]
   },
 ];
-
-// From DB
-export const SITE_DATA = _SITE_DATA;

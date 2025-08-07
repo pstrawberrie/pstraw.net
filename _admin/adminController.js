@@ -9,5 +9,5 @@ export const getAdminHome = async (req, res) => {
   const movies = await Movie.findAll({ raw: true });
   const shows = await Show.findAll({ raw: true });
 
-  res.json({ site, messages, movies, shows });
+  res.render('home', { site, messages, movies, shows });
 }

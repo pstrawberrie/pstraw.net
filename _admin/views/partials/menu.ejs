@@ -1,0 +1,51 @@
+<nav id="menu">
+  <div class="menu_container">
+    <div class="menu_logo">
+      <a href="/">
+        <img src="/favicon.png" alt="" />
+        <span><%= SITE.TITLE %> Admin</span>
+      </a>
+    </div>
+
+    <div class="menu_links">
+      <a href="/messages">Messages</a>
+      <a href="/tmdb">TMDB</a>
+    </div>
+
+    <div class="menu_footer">
+      Footer
+    </div>
+  </div>
+</nav>
+
+<style>
+/* Menu */
+#menu {
+  position: relative;
+  width: var(--menu-width);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--c-dark-accent);
+  border-right: 1px solid var(--c-dark-accent-border);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.menu_container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+}
+
+.menu_logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.menu_footer {
+  margin-top: auto;
+}
+</style>

@@ -23,7 +23,10 @@
         "src/layouts/*"
       ],
       "@constants": [
-        "src/constants.ts"
+        "src/constants.js"
+      ],
+      "@env": [
+        "src/env.ts"
       ],
       "@util": [
         "src/util.ts"

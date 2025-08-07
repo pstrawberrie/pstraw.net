@@ -1,5 +1,5 @@
 <script>
-  import { SERVER_URL } from "@constants";
+  import { SERVER_URL } from "@env";
   import SVG from "@components/SVG.svelte";
 
   let contactFormButtonEl;
@@ -16,6 +16,12 @@
   function onFormSubmit(e) {
     e.preventDefault();
     validateForm();
+  }
+
+  function clearForm() {
+    name = "";
+    email = "";
+    message = "";
   }
 
   function validateForm() {
@@ -71,6 +77,7 @@
     } else {
       const json = await response.json();
       console.log(json);
+      clearForm();
     }
   }
 </script>

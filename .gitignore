@@ -29,3 +29,7 @@ public/images/tmdb/*.webp
 _slurpi/data/tmdb-favorites.csv
 _slurpi/data/tmdb-favorites.json
 db.sqlite
+
+# WEB SERVER
+src/pages/admin.astro
+src/pages/admin/

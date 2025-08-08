@@ -7,7 +7,7 @@
 
   --c-text: #efefef;
   --c-text-secondary: #ccc;
-  --c-text-muted: #aaa;
+  --c-text-muted: #888;
 
   /* Spacing */
   --space-content-h: 1.5rem;
@@ -179,4 +179,65 @@ main {
   background-color: var(--c-dark-accent-2);
   color: var(--c-text-secondary);
   cursor: default;
+}
+
+.grid-auto {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+
+  @media screen and (max-width: 770px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-2 {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media screen and (max-width: 770px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border: 1px solid var(--c-dark-accent-2);
+  border-radius: 0.25rem;
+  color: var(--c-text-secondary);
+}
+
+.card .top {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 1rem;
+}
+
+.card .top div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.card span {
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+}
+
+.card .message {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
 }

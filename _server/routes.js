@@ -1,7 +1,7 @@
 import express from "express";
 import { getSearchStatus, postSearch } from "./searchController.js";
 import { postMessage } from "./messageController.js";
-import { getMessages } from "./testController.js"; // REMOVE TESTING
+import { getAdminDashboard } from "./adminController.js";
 const router = express.Router();
 
 // Search Routes
@@ -11,7 +11,7 @@ router.post("/search", postSearch);
 // Message Routes
 router.post("/contact", postMessage);
 
-// Test Routes
-router.get("/messages", getMessages);
+// Admin Routes
+router.get("/", getAdminDashboard);
 
 export default router;

@@ -117,7 +117,7 @@
       <label for="name">Name</label>
       <input
         bind:value={name}
-        placeholder="Optional..."
+        placeholder="Optional"
         type="text"
         id="name"
         name="name"
@@ -128,7 +128,7 @@
       <label for="email">Email</label>
       <input
         bind:value={email}
-        placeholder="Optional..."
+        placeholder="Optional"
         type="email"
         id="email"
         name="email"
@@ -139,7 +139,7 @@
       <label for="message">Message *</label>
       <textarea
         bind:value={message}
-        placeholder="Required - enter an email if you'd like a response..."
+        placeholder="Required - enter an email if you'd like a response"
         id="message"
         name="message"
         tabindex={active ? "0" : "-1"}
@@ -177,10 +177,6 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-
-    &::after {
-      border-radius: 2rem;
-    }
 
     :global(svg) {
       height: 20px;
@@ -296,7 +292,7 @@
     cursor: pointer;
 
     &:disabled {
-      opacity: 0.4;
+      opacity: 0.3;
       cursor: not-allowed;
 
       &:hover {

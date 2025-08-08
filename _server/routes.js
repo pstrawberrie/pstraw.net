@@ -11,7 +11,4 @@ router.post("/search", postSearch);
 // Message Routes
 router.post("/contact", postMessage);
 
-// Admin Routes
-router.get("/", getAdminDashboard);
-
 export default router;

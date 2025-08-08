@@ -9,7 +9,8 @@
     "start": "npm run dev",
     "dev:astro": "astro dev",
     "dev:web": "nodemon _server/server.js",
-    "dev": "npm-run-all -l -p dev:astro dev:web",
+    "dev:admin": "nodemon _server/admin.js",
+    "dev": "npm-run-all -l -p dev:astro dev:web dev:admin",
     "build:history": "node _slurpi/scripts/build-history.js",
     "build:astro": "astro build",
     "build": "npm-run-all -l -s build:history build:astro",
@@ -25,7 +26,9 @@
     "ext": "js,ejs,css,json,env",
     "ignore": [
       "node_modules",
-      "dist"
+      "dist",
+      ".astro",
+      ".vscode"
     ]
   },
   "dependencies": {

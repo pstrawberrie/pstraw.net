@@ -17,6 +17,6 @@ const { note } = Astro.props;
 const { Content } = await render(note);
 ---
 
-<NoteLayout frontmatter={note.data} , slug={note.id}>
+<NoteLayout frontmatter={note.data} slug={note.id}>
   <Content />
 </NoteLayout>

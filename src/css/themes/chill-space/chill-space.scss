@@ -1,7 +1,7 @@
 /**
  * Chill Space Theme
  */
-@use '@css/util';
+@use "@css/util";
 
 :root {
   --primary-rgb: 21, 189, 247;
@@ -40,17 +40,23 @@
   --c-tertiary: rgb(var(--tertiary-rgb));
   --c-quaternary: rgb(var(--quaternary-rgb));
   --c-quinary: rgb(var(--quinary-rgb));
-  --c-state-success: rgba(var(--state-success-rgb), .25);
-  --c-state-info: rgba(var(--state-info-rgb), .25);
-  --c-state-error: rgba(var(--state-error-rgb), .25);
+  --c-state-success: rgba(var(--state-success-rgb), 0.25);
+  --c-state-info: rgba(var(--state-info-rgb), 0.25);
+  --c-state-error: rgba(var(--state-error-rgb), 0.25);
 
   --c-background: rgb(var(--background-rgb));
   --c-background-accent: rgb(var(--background-accent-rgb));
 
-  --c-background-gradient: radial-gradient(ellipse at center, var(--c-background) 0%, black 70%);
-  --c-background-gradient-2: linear-gradient(135deg,
-      rgba(var(--background-rgb), 0.4) 0%,
-      rgba(0, 0, 0, 0.9) 100%);
+  --c-background-gradient: radial-gradient(
+    ellipse at center,
+    var(--c-background) 0%,
+    black 70%
+  );
+  --c-background-gradient-2: linear-gradient(
+    135deg,
+    rgba(var(--background-rgb), 0.4) 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
 
   // Text Colors
   --c-text: #e2e8f0;
@@ -58,28 +64,36 @@
   --c-text-tertiary: #475569;
   --c-text-quaternary: #272f3a;
   --c-text-muted: #64748b;
-  --c-text-gradient: linear-gradient(135deg,
-      var(--c-tertiary) 0%,
-      var(--c-secondary) 30%,
-      var(--c-text) 60%,
-      var(--c-quaternary) 100%);
+  --c-text-gradient: linear-gradient(
+    135deg,
+    var(--c-tertiary) 0%,
+    var(--c-secondary) 30%,
+    var(--c-text) 60%,
+    var(--c-quaternary) 100%
+  );
 
   // Fonts
   --font-family-primary:
-    'Space Grotesk', 'Inter', 'Roboto', 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial,
-    sans-serif;
+    "Space Grotesk", "Inter", "Roboto", "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
   --font-family-title:
-    'Oxanium', 'Inter', 'Roboto', 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+    "Oxanium", "Inter", "Roboto", "Helvetica Neue", "Arial Nova", "Nimbus Sans",
+    Arial, sans-serif;
   --font-family-mono:
-    'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
+    monospace;
   --font-family-brand:
-    'Bitcount Prop Single', 'Inter', 'Roboto', 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial,
-    sans-serif;
+    "Bitcount Prop Single", "Inter", "Roboto", "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
 
   // Button Colors
   --c-button-border: rgba(var(--background-accent-rgb), 0.3);
   --c-button-background-hover: rgba(var(--background-rgb), 0.6);
-  --c-button-gradient: linear-gradient(135deg, var(--c-tertiary), var(--c-quaternary));
+  --c-button-gradient: linear-gradient(
+    135deg,
+    var(--c-tertiary),
+    var(--c-quaternary)
+  );
   --c-button-boxshadow: 0 4px 20px rgba(255, 255, 255, 0.08);
 
   // Card Colors
@@ -93,42 +107,56 @@
   --c-card-primary-boxshadow: 0 20px 60px rgba(var(--secondary-rgb), 0.2);
   --c-card-tertiary-boxshadow: 0 20px 60px rgba(var(--tertiary-rgb), 0.2);
 
-  --c-card-primary-highlight: linear-gradient(135deg,
-      rgba(0, 0, 0, 0) 0%,
-      var(--c-primary) 10%,
-      var(--c-secondary) 50%,
-      var(--c-primary) 90%,
-      rgba(0, 0, 0, 0) 100%);
+  --c-card-primary-highlight: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0) 0%,
+    var(--c-primary) 10%,
+    var(--c-secondary) 50%,
+    var(--c-primary) 90%,
+    rgba(0, 0, 0, 0) 100%
+  );
 
-  --c-card-tertiary-highlight: linear-gradient(135deg,
-      rgba(0, 0, 0, 0) 0%,
-      var(--c-quaternary) 10%,
-      var(--c-tertiary) 50%,
-      var(--c-quaternary) 90%,
-      rgba(0, 0, 0, 0) 100%);
+  --c-card-tertiary-highlight: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0) 0%,
+    var(--c-quaternary) 10%,
+    var(--c-tertiary) 50%,
+    var(--c-quaternary) 90%,
+    rgba(0, 0, 0, 0) 100%
+  );
 
   // Logo Colors
-  --c-logo-gradient: linear-gradient(135deg,
-      var(--c-primary) 0%,
-      var(--c-quinary) 50%,
-      var(--c-tertiary) 100%);
+  --c-logo-gradient: linear-gradient(
+    135deg,
+    var(--c-primary) 0%,
+    var(--c-quinary) 50%,
+    var(--c-tertiary) 100%
+  );
 
-  --c-logo-gradient-2: linear-gradient(135deg,
-      var(--c-tertiary) 0%,
-      white 50%,
-      var(--c-primary) 100%);
+  --c-logo-gradient-2: linear-gradient(
+    135deg,
+    var(--c-tertiary) 0%,
+    white 50%,
+    var(--c-primary) 100%
+  );
 
   // Full Hero
   --full-hero-text-size: #{util.px-to-rem(20px)};
-  --full-hero-gradient: linear-gradient(135deg,
-      rgba(var(--background-rgb), 0.9) 0%,
-      rgba(124, 58, 237, 0.03) 50%,
-      rgba(0, 0, 0, 0.95) 100%);
+  --full-hero-gradient: linear-gradient(
+    135deg,
+    rgba(var(--background-rgb), 0.9) 0%,
+    rgba(124, 58, 237, 0.03) 50%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
   --full-hero-text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 
   // Standard Hero
   --hero-text-size: #{util.px-to-rem(20px)};
-  --hero-gradient: linear-gradient(135deg, rgba(var(--background-rgb), 0.4) 0%, rgba(0, 0, 0, 0.9) 100%);
+  --hero-gradient: linear-gradient(
+    135deg,
+    rgba(var(--background-rgb), 0.4) 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
 
   // Page Menu
   --page-menu-text-size: 0.9rem;
@@ -138,26 +166,34 @@
   --page-menu-background-color: rgba(var(--background-rgb), 0.85);
 
   // Header Colors
-  --c-text-gradient-default: linear-gradient(135deg,
-      var(--c-primary) 0%,
-      var(--c-secondary) 20%,
-      var(--c-text) 40%,
-      var(--c-tertiary) 70%,
-      var(--c-quaternary) 100%);
+  --c-text-gradient-default: linear-gradient(
+    135deg,
+    var(--c-primary) 0%,
+    var(--c-secondary) 20%,
+    var(--c-text) 40%,
+    var(--c-tertiary) 70%,
+    var(--c-quaternary) 100%
+  );
 
-  --c-primary-header-gradient: linear-gradient(135deg,
-      var(--c-primary) 40%,
-      var(--c-text) 49%,
-      var(--c-secondary) 62%);
+  --c-primary-header-gradient: linear-gradient(
+    135deg,
+    var(--c-primary) 40%,
+    var(--c-text) 49%,
+    var(--c-secondary) 62%
+  );
 
-  --c-tertiary-header-gradient: linear-gradient(135deg,
-      var(--c-tertiary) 35%,
-      var(--c-text) 49%,
-      var(--c-quaternary) 62%);
+  --c-tertiary-header-gradient: linear-gradient(
+    135deg,
+    var(--c-tertiary) 35%,
+    var(--c-text) 49%,
+    var(--c-quaternary) 62%
+  );
 
-  --c-text-gradient-decoration: linear-gradient(135deg,
-      var(--c-quinary) 0%,
-      rgba(0, 0, 0, 0) 100%);
+  --c-text-gradient-decoration: linear-gradient(
+    135deg,
+    var(--c-quinary) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 /**
@@ -196,7 +232,7 @@ footer {
   overflow: visible;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -226,7 +262,7 @@ footer {
   overflow: visible;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -239,7 +275,7 @@ footer {
   }
 
   &:hover::after {
-    opacity: .5;
+    opacity: 0.5;
   }
 }
 
@@ -264,7 +300,6 @@ footer {
 
 h2,
 h3 {
-
   &.shimmer {
     animation: shimmer 3s ease-in-out infinite alternate;
   }
@@ -337,7 +372,7 @@ h3 {
 .card {
   &::after {
     // box shadows should be in ::after and opacity-animated for performance
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -373,8 +408,8 @@ h3 {
  */
 // Space Grotesk Regular
 @font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/SpaceGrotesk-Regular.woff2') format('woff2');
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -382,8 +417,8 @@ h3 {
 
 // Space Grotesk Medium
 @font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/SpaceGrotesk-Medium.woff2') format('woff2');
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -391,8 +426,8 @@ h3 {
 
 // Space Grotesk Bold
 @font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/SpaceGrotesk-Bold.woff2') format('woff2');
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -400,8 +435,8 @@ h3 {
 
 // Oxanium SemiBold
 @font-face {
-  font-family: 'Oxanium';
-  src: url('/fonts/Oxanium-SemiBold.woff2') format('woff2');
+  font-family: "Oxanium";
+  src: url("/fonts/Oxanium-SemiBold.woff2") format("woff2");
   font-weight: normal; // actually 600
   font-style: normal;
   font-display: swap;
@@ -410,8 +445,8 @@ h3 {
 // Bitcount Prop Single Light
 // note: this is a subset with only the characters "pstraw.net"
 @font-face {
-  font-family: 'Bitcount Prop Single';
-  src: url('/fonts/BitcountPropSingle-Light.woff2') format('woff2');
+  font-family: "Bitcount Prop Single";
+  src: url("/fonts/BitcountPropSingle-Light.woff2") format("woff2");
   font-weight: normal; // actually 300
   font-style: normal;
   font-display: swap;

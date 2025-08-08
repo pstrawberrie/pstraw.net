@@ -1,20 +1,24 @@
 ---
 title: 'V2 Release - "Chill Space"'
 date: 2025-08-05
-description: 'The version 2 release of pstraw.net is live!'
-authors: ['pstraw']
+description: "The version 2 release of pstraw.net is live!"
+authors: ["pstraw"]
 tags: ["general"]
 published: true
 ---
+
 ## V2 Release
+
 After a month of work, the new version of pstraw.net is live and well. Version 2 is the first design update to hit the site, and I'm happy with the results. Of course there will be ongoing tweaks, but overall I think it's a big improvement. The spacing is more modern and the site now has a unified theme with more consistent UI elements, colors, and fonts.
 
 ## Looking back at V0
+
 The initial version of this codebase was released around December 2024. It had a different domain, with the original purpose being a professional portfolio-style site for job applications. After learning the basics of [Astro](https://astro.build/) and [Svelte](https://svelte.dev/), setting up the VPS, configuring the email service, adding a contact form, and releasing it, I didn't feel satisfied with the result. I wasn't motivated to continue working on it, but I still really wanted to have a site out there for my own personal use.
 
 Version 0's saving grace was "slurpi" - the code I built to pull down all of my media data from [TMDB](https://www.themoviedb.org/), [Spotify](https://spotify.com/), and [Steam](https://steampowered.com/). For whatever reason, I've been obsessed with gathering all of my favorite stuff into one place for a while, and slurpi was super fun to build and see come to life. It would eventually, itself, be slurped up into the website codebase, however the original release is still available [here](https://github.com/pstrawberrie/slurpi).
 
 ## From V1 to V2
+
 After a brief break, I decided to keep the core Astro work I'd completed and go in a different direction. The mantra of version 1 was **"create something you would love to use"**. I didn't want the weight that came with trying to appease prospective employers - I just wanted something cool that was mine. Version 1 certainly accomplished that - the site became more of a playground that fueled and inspired the other projects I was working on.
 
 I collapsed the slurpi code into the website codebase and removed Spotify and Steam data because I wasn't able to automate them as well as I could automate TMDB. I made a silly design that was fun and just ran with it. I figured out how to make a cron script on the vps after a bunch of trial and error, and that was a huge win. That meant that slurpi pulls and astro builds were fully automated, which freed me up to focus on starting to create some content. Version 1 actually started to be something that I really liked using - I started updating the site with new notes more frequently, and was able to dig into figuring out some SWG server basics.
@@ -22,6 +26,7 @@ I collapsed the slurpi code into the website codebase and removed Spotify and St
 After a month of working on SWG server stuff, I wanted to shift gears to another project. Before I did that, however, I wanted to give myself a boost of inspiration, so I started playing around with a new repo that focused on theming. The goal was to create a standalone theme that I would eventually use on the site. After I got to a good place with the "Chill Space" theme, I ditched the theme repo and added the theme into the website codebase. The rest is history!
 
 ## Starting to use AI
+
 Back in January of 2024 I used the ChatGPT web client as a learning refresher. I wanted to build [a fake e-commerce express MVC project](https://github.com/pstrawberrie/cubesdirect-vanilla) to get my head back into involved web coding. It was a long road, but after all was said and done, I found that it was a refreshing approach to learning. Aside from generating some images, I hadn't gone back to using AI since that project.
 
 During my time developing the [pSWG](https://github.com/pstrawberrie/pswg) project, I started using AI again to help me with the code. The [SWGEmu](https://swgemu.com/) project is written in C++, and I'm not a C++ developer, so I had no clue where to begin. I downloaded cursor and started exploring implementing changes in the C++ codebase. After a while, I started getting used to the flow and was able to implement basic features using examples from other popular SWG server codebases.
@@ -29,6 +34,7 @@ During my time developing the [pSWG](https://github.com/pstrawberrie/pswg) proje
 For pstraw.net V2, I knew I wanted a more modern design. I don't frequently do design work, so I knew I'd need some help starting out. I used [bolt.new](https://bolt.new/) to nail down the theme, and ran from there. I purposefully avoided using cursor AI while coding the design so I could have better control over everything. Over the past few months, it's definitely been interesting to see the benefits and drawbacks of using AI.
 
 ## What's next?
+
 Who knows! I tend to tweak this site regularly, and I know I want to add a contact form in. Aside from that we'll see what happens. I recently prompted my way into [a basic javascript game codebase](https://github.com/pstrawberrie/game/tree/littlejs1-proto1). It uses the [LittleJS engine](https://github.com/KilledByAPixel/LittleJS), which I have been wanting to learn forever - I think that's the next project.
 
 That's all for now - I hope you enjoy the new design!

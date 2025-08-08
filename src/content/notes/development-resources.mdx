@@ -1,25 +1,29 @@
 ---
-title: 'Development Resources'
+title: "Development Resources"
 updated: 2025-08-03
 date: 2025-01-07
-description: 'A working list containing links for various areas of development'
-authors: ['pstraw']
+description: "A working list containing links for various areas of development"
+authors: ["pstraw"]
 tags: ["dev"]
 published: true
 ---
-import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 
-<NoteJumpMenu client:load links={[
-  {title: 'Front-End Web'},
-  {title: 'Linux'},
-]}/>
+import NoteJumpMenu from "@components/notes/NoteJumpMenu.svelte";
+
+<NoteJumpMenu
+  client:load
+  links={[{ title: "Front-End Web" }, { title: "Linux" }]}
+/>
 
 ## Front-End Web
+
 ### Individual Elements/Components
+
 - [CSS Loaders](https://css-loaders.com/)
 - [UI Verse](https://uiverse.io/)
 
 ### Image Tools
+
 - [Aspect Ratio Calculator (find dynamic ratio via base ratio)](https://andrew.hedges.name/experiments/aspect_ratio/)
 - [SpriteCow (loose spritesheet generator)](http://www.spritecow.com/)
 - [PNG Pixel (transparent base64 pixel generator)](https://png-pixel.com/)
@@ -28,12 +32,14 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 - [svgomg SVG optimizer](https://svgomg.net/)
 
 ### Colors
+
 - [Color Hunt (palettes)](https://colorhunt.co/)
 - [Coolors (palettes)](https://coolors.co/)
 - [UI Gradients](https://uigradients.com/#ManofSteel)
 - [CSS HD Gradients](https://gradient.style/)
 
 ### Fonts/Type
+
 - [Modern Font Stacks (system font stacks)](https://modernfontstacks.com/)
 - [DaFont](https://www.dafont.com/)
 - [FontSource (npm package for fonts)](https://fontsource.org/)
@@ -41,6 +47,7 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 - [CSS Clamp Generator](https://clamp-generator.netlify.app/)
 
 ### Icons
+
 - [Iconmonstr](https://iconmonstr.com/)
 - [Game Icons](https://game-icons.net/)
 - [Iconify (lots of icon sets)](https://icon-sets.iconify.design/)
@@ -49,36 +56,45 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 - [typicons](https://www.s-ings.com/typicons/)
 
 ### Meta
+
 - [Opengraph.xyz (preview/generate og meta tags)](https://www.opengraph.xyz/)
 
 ## Javascript Games
+
 ### Engines
+
 - [LittleJS by Frank Force](https://github.com/KilledByAPixel/LittleJS)
 - [Kaplay (Kaboom community successor)](https://kaplayjs.com/)
 
 ### Sprite Tools
+
 - [Piskel online sprite creator](https://www.piskelapp.com/p/create/sprite)
 
------
+---
 
 ## AI
 
 ### General Use
+
 - [ChatGPT](https://chatgpt.com/)
 - [Cursor](https://www.cursor.com/)
 
 ### Researching
+
 - [Perplexity](https://www.perplexity.ai/)
 
 ### UI Design
+
 - [bolt.new](https://bolt.new/)
 
------
+---
 
 ## Linux
+
 ### Ubuntu Server Setup
+
 - [Initial Server Setup (DO)](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu)
-- **SSH Check `/etc/ssh/sshd_config.d/` for pre-installed/  host configs and remove as necessary**
+- **SSH Check `/etc/ssh/sshd_config.d/` for pre-installed/ host configs and remove as necessary**
 - [SSH Config Change Port (Ubuntu v22+)](https://askubuntu.com/questions/1439461/ssh-default-port-not-changing-ubuntu-22-10-and-later/1439482#1439482)
 - [NGINX Setup (DO)](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04)
 - [NGINX LetsEncrypt Certs (DO)](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04)
@@ -91,7 +107,9 @@ import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
 - [Node PM2 Setup (DO)](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-22-04)
 
 ### Git Hooks
+
 - [Git Hooks (DO)](https://www.digitalocean.com/community/tutorials/how-to-use-git-hooks-to-automate-development-and-deployment-tasks)
 
 ### Game Servers
+
 - [Linux GSM](https://linuxgsm.com/)

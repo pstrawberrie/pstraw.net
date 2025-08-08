@@ -1,5 +1,5 @@
-@use 'sass:map';
-@use 'sass:math';
+@use "sass:map";
+@use "sass:math";
 
 /**
  * General Helpers
@@ -61,7 +61,11 @@ $breakpoints: (
   $intercept-rem: round(px-to-rem($min-size - $slope * $min-breakpoint), 2);
   $min-size-rem: round(px-to-rem($min-size), 2);
   $max-size-rem: round(px-to-rem($max-size), 2);
-  @return clamp(#{$min-size-rem}, #{$slope-to-unit}#{$unit} + #{$intercept-rem}, #{$max-size-rem});
+  @return clamp(
+    #{$min-size-rem},
+    #{$slope-to-unit}#{$unit} + #{$intercept-rem},
+    #{$max-size-rem}
+  );
 }
 
 /**

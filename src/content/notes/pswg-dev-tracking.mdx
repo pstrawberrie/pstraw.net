@@ -1,36 +1,43 @@
 ---
-title: 'pSWG Development Tracking'
+title: "pSWG Development Tracking"
 date: 2025-06-20
 updated: 2025-07-22
-description: 'Development tracking and details for the pSWG server'
-authors: ['pstraw']
+description: "Development tracking and details for the pSWG server"
+authors: ["pstraw"]
 tags: ["swg", "dev"]
 published: true
 ---
-import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
-import NoteCallouts from '@components/notes/NoteCallouts.svelte';
 
-<NoteJumpMenu client:load links={[
-	{title: 'Launcher'},
-	{title: 'QOL Changes'},
-	{title: 'TRE File Edits'},
-	{title: 'Gameplay Updates'},
-	{title: 'Backlog'},
-	{title: 'Code References'},
-	{title: 'Credits'},
-]}/>
+import NoteJumpMenu from "@components/notes/NoteJumpMenu.svelte";
+import NoteCallouts from "@components/notes/NoteCallouts.svelte";
 
-<NoteCallouts data={[
-  {type: 'error', text: 'This project is no longer maintained'},
-]}/>
+<NoteJumpMenu
+  client:load
+  links={[
+    { title: "Launcher" },
+    { title: "QOL Changes" },
+    { title: "TRE File Edits" },
+    { title: "Gameplay Updates" },
+    { title: "Backlog" },
+    { title: "Code References" },
+    { title: "Credits" },
+  ]}
+/>
+
+<NoteCallouts
+  data={[{ type: "error", text: "This project is no longer maintained" }]}
+/>
 
 ## No Longer Maintained
+
 As of late July 2025 I've decided to stop working on this project. It was fun to implement popular servers' code changes into the latest swgemu code with the help of AI. After a while, I just lost steam and wanted to move on to other projects. Maybe one day I'll pick it back up ;]
 
 ## Launcher
+
 [The pSWG electron launcher](https://github.com/pstrawberrie/pswg-launcher)
 
 ### V1 Release
+
 - Allows selection and changing of install directory
 - Verifies files match with md5 hash
 - Downloads files from web server
@@ -41,144 +48,195 @@ As of late July 2025 I've decided to stop working on this project. It was fun to
 - And it's pretty =]
 
 ## QOL Changes
+
 Quality of life changes that have been implemented
 
 ### Enable JTL
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\bin\conf\config.lua
 ```
+
 - Set JTL to enabled via config
 
 ### Increase Storage Per Lot
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\building\BuildingObject.idl
 MMOCoreORB\src\server\zone\objects\building\BuildingObjectImplementation.cpp
 MMOCoreORB/src/server/zone/managers/structure/StructureManager.cpp
 ```
+
 - Max player items increased to 5000
 - Item storage increased to 300 per lot for player structures
 - Item storage increased to 900 for civic structures
 - Updated structure status to include max number of items allowed in structure
 
 ### Show Resource Names on Resource Containers
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\resource\ResourceSpawnImplementation.cpp
 ```
+
 - Added resource names to resource containers
 
 ### Sampling and Harvester Rates Increased, Disable Sampling Mini-Game
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\managers\resource\resourcespawner\ResourceSpawner.cpp
 MMOCoreORB\src\server\zone\objects\tangible\deed\structure\StructureDeedImplementation.cpp
 MMOCoreORB\src\server\zone\objects\player\sessions\survey\SurveySessionImplementation.cpp
 ```
+
 - Hand sampling rates increased to 2x
 - Harvester rates increased to 5x
 - Disabled sampling mini-game
 
 ### Vendor and Bazaar Sales
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\managers\auction\AuctionManager.idl
 ```
+
 - Increased expiration time to 1 year for vendor sales
 - Increased expiration time to 30 days for bazaar sales
 - Increased max bazaar price to 10 million
 
 ### Crafting Tool Timers Reduced
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\player\sessions\crafting\CraftingSessionImplementation.cpp
 ```
+
 - Crafting tools timers set to 1 second for prototype + practice
 
 ### Factory Timers Reduced
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\installation\factory\FactoryObjectImplementation.cpp
 ```
+
 - Factory time per object set to 1 second
 
 ### Factory Crate Sizes Increased
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\factorycrate\FactoryCrate.idl
 MMOCoreORB\src\templates\intangible\DraftSchematicObjectTemplate.cpp
 MMOCoreORB\bin\scripts\object\draft_schematic\**\*.lua
 ```
+
 - Factory crate max capacity set to 1000
 - Note: this change spanned 400+ files (each draft schematic needed to be set)
 
 ### Resource Container Size Increased
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\resource\ResourceContainer.idl
 ```
+
 - Resource crate size increased to 10 million
 
 ### Travel Waiting Times Removed
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\bin\scripts\managers\planet\planet_manager.lua
 MMOCoreORB\src\server\zone\managers\planet\PlanetManagerImplementation.cpp
 ```
+
 - Remove starport wait time
 - Remove shuttleport wait time
 
 ### Travel Boarding Range Increased
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\creature\commands\BoardShuttleCommand.h
 ```
+
 - Increase boarding range of startports and shuttles
 - Based on [this infinity commit](https://github.com/swginfinity/public/blob/7a105dccac7a6783f263f63c01c8d24388c9ecc9/MMOCoreORB/src/server/zone/objects/creature/commands/BoardShuttleCommand.h)
 
 ### Guild Sponsor Range Restriction Removed
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\managers\guild\GuildManagerImplementation.cpp
 MMOCoreORB\src\server\zone\objects\guild\sui\GuildSponsorVerifySuiCallback.h
 ```
+
 - Removed range restriction for sponsoring players to join a guild
 
 ### Group Invite Range Restriction Removed
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\bin\conf\config.lua
 ```
+
 - Removed range restriction on group invites (can invite from anywhere/any planet)
 
 ### Group Size Increased
+
 ⚠️ Partially tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\managers\group\GroupManager.h
 MMOCoreORB\src\server\zone\managers\group\GroupManager.cpp
 ```
+
 - Increased group size to 50
 - Include fixes from SR2
 
 ### Group Mission Payouts
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\mission\MissionObjectiveImplementation.cpp
 ```
+
 - Ensure group mission payouts are only split between players who are in-range
 
 ### Destroy Missions Quantities and Titles
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\managers\mission\MissionManagerImplementation.cpp
 ```
+
 - Increase number of missions that can be taken to 5
 - Increase number of missions shown on terminal to 18
 - Changed names of destroy missions to show creature level and creature names
 
 ### Destroy Mission Direction and Difficulty Choice
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\bin\scripts\screenplays\screenplays.lua
 MMOCoreORB\bin\scripts\screenplays\custom_content\tools\mission_direction_choice.lua
@@ -186,84 +244,114 @@ MMOCoreORB\bin\scripts\screenplays\custom_content\tools\mission_level_choice.lua
 MMOCoreORB\src\server\zone\objects\tangible\terminal\mission\MissionTerminalImplementation.cpp
 MMOCoreORB\src\server\zone\managers\mission\MissionManagerImplementation.cpp
 ```
+
 - Added direction choice to mission terminals for destroy missions
 - Added level (difficulty) choice to mission terminals for destroy missions
 
 ### Vehicle and Pet Call Timers Reduced, Allow In-Combat Storage
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\intangible\VehicleControlDeviceImplementation.cpp
 MMOCoreORB\src\server\zone\objects\intangible\PetControlDeviceImplementation.cpp
 ```
+
 - Call timers for Vehicles and Pets reduced to 5 seconds
 - Vehicles and Pets can be stored while in combat
 
 ### Entertainer Buff Duration, Tumble Speed, and Single Mastery
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\player\sessions\EntertainingSessionImplementation.cpp
 ```
+
 - Increased entertainer buff duration to 3 hours
 - Reduced cooldown on entertainer effects: entertainers can now tumble action
 - Enabled all buffs for both dancer and musician: only 1 mastery needed
 
 ### Enable Wipe Fill on Clone
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\bin\conf\config.lua
 ```
+
 - Enable fill wipe on player clone
 
 ### Bounty Hunter Mission Titles
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\managers\mission\MissionManagerImplementation.cpp
 ```
+
 - Changed names of BH Missions to show difficulty level and target name
 
 ### Add Slice Choice to Weapon Slicing
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSession.idl
 MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSessionImplementation.cpp
 ```
+
 - Add option to choose between damage and speed slice on weapons (from Syndicate code)
 
 ### Add Slice Choice to Armor Slicing
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSession.idl
 MMOCoreORB\src\server\zone\objects\player\sessions\SlicingSessionImplementation.cpp
 ```
+
 - Add option to choose between effectiveness and encumbrance slice on armor (modified from Syndicate weapon slice choice code)
 
 ### Update Attachments to have Skill Modifier Name, Limit Attachments to 1 Skill Mod, Remove Skill Mods From Weapons
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\tangible\attachment\AttachmentImplementation.cpp
 MMOCoreORB\src\server\zone\managers\loot\LootManagerImplementation.cpp
 ```
+
 - Named attachments with AA/CA prefix and their first skill mod (ie. "[AA] Rescue + 12")
 - Limited skill mods to only 1 per AA/CA
 - Removed skill mods from weapons
 - Thanks to [this code from SR2](https://github.com/swgsremu/sentinelsrepublic-server/blob/0b3db1fa8df5bf782116924becad5562da713605/MMOCoreORB/src/server/zone/objects/tangible/attachment/AttachmentImplementation.cpp#L93) and [this commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/310899bbebce5d1baeccb731c294fcfe04780982)
 
 ### Enhanced Rotate
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\bin\conf\config.lua
 ```
+
 - Set enhanced rotate to enabled via config
 
 ### Global Bank
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\objects\tangible\components\BankTerminalMenuComponent.h
 ```
+
 - Enabled global bank
 
 ### Consolidate City Specializations
+
 ⚠️ Partially tested on Local / Needs More Work
+
 ```bash
 # Core3 Updates
 MMOCoreORB/bin/scripts/managers/city_manager.lua
@@ -274,17 +362,20 @@ string/en/cmd_n.stf
 string/en/skl_d.stf
 string/en/city/city.stf
 ```
+
 - Add surveying, cloning, entertainer, and medical to all city specializations
 - Consolodate city specializations:
-	- Logistics Hub (crafting experimentation & assembly)
-	- Expedition Frontier (mission payouts)
-	- Dynamic Garrison (defense)
+  - Logistics Hub (crafting experimentation & assembly)
+  - Expedition Frontier (mission payouts)
+  - Dynamic Garrison (defense)
 - **Needs improvements:**
-	- remove default city specializations from city management terminal
-	- fix hardcoded specialization names in `CityRegionImplementation.cpp`
+  - remove default city specializations from city management terminal
+  - fix hardcoded specialization names in `CityRegionImplementation.cpp`
 
 ### Increase Vehicle Speeds
+
 ✔️ Tested on Local
+
 ```bash
 # TRE Updates
 object/mobile/vehicle/shared_landspeeder_x31.iff
@@ -294,21 +385,27 @@ object/mobile/vehicle/shared_speederbike_swoop.iff
 object/mobile/vehicle/shared_landspeeder_av21.iff
 object/mobile/vehicle/shared_jetpack.iff
 ```
+
 - Increased vehicle speeds for X31, X34, Speederbike, Swoop, AV21, Jetpack
 
 ### Prevent Wild Lairs From Spawning Immediately After Destruction Of Mission Layer (SR2)
+
 ⚠️ Partially tested on Local
+
 ```bash
 MMOCoreORB\src\server\zone\managers\creature\LairSpawnAreaUtils.h
 MMOCoreORB\src\server\zone\managers\creature\LairSpawnAreaUtils.cpp
 MMOCoreORB/src/server/zone/managers/creature/LairObserverImplementation.cpp
 MMOCoreORB\src\server\zone\objects\mission\DestroyMissionObjectiveImplementation.cpp
 ```
+
 - Wild lairs should now wait 30 seconds after mission layer is destroyed to spawn
 - thanks to [this SR2 commit](https://github.com/swgsremu/sentinelsrepublic-server/commit/534eb453cc643ed906962d50ae8b5aec5b0c6e9d)
 
 ### Fix Doctor Buffing & Wound Treatment (SR2)
+
 ⚠️ Partially tested on Local (wound fixes need testing)
+
 ```bash
 ## pre-fix buff test
 ## 669 power health buff @ master doc (no tapes/no food)
@@ -329,76 +426,94 @@ MMOCoreORB\src\server\zone\objects\creature\commands\HealWoundCommand.h
 MMOCoreORB\src\server\zone\objects\tangible\pharmaceutical\EnhancePackImplementation.cpp
 MMOCoreORB\src\server\zone\objects\tangible\pharmaceutical\WoundPackImplementation.cpp
 ```
+
 - Implement SR2 doctor buff fixes
 - Implement SR2 doctor wound fixes
 
 ### Add Syndicate Buff Terminals
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\bin\scripts\object\tangible\beta\beta_terminal_wound.lua
 MMOCoreORB\bin\scripts\managers\planet\planet_manager.lua
 MMOCoreORB\src\server\zone\managers\sui\SuiManager.cpp
 MMOCoreORB\src\server\zone\objects\player\sui\characterbuilderbox\SuiCharacterBuilderBox.idl
 ```
+
 - Implement Syndicate's buff terminals with some minor modifications
 - Note: CharacterBuilderEnabled = "true" must be set for this to work
 
 ### Add Infinty Area Loot
+
 ⚠️ Partially tested on Local (needs group testing)
+
 ```bash
 MMOCoreORB\src\server\zone\objects\creature\commands\LootCommand.h
 MMOCoreORB\src\server\zone\objects\creature\commands\TransferItemMiscCommand.h
 ```
+
 - Implement Infinity's `/loot area` command
 
 ### Armor Color Changing
+
 ⚠️ Partially tested on Local (need to craft + test every type - some system generated armors are corrupted)
+
 ```bash
 MMOCoreORB\src\server\zone\objects\player\sui\colorbox\SuiColorBoxImplementation.cpp
 MMOCoreORB\src\server\zone\objects\tangible\components\ArmorObjectMenuComponent.cpp
 MMOCoreORB\bin\scripts\object\tangible\wearables\armor\**\*.lua
 ```
+
 - Implement grok-4 change for merging aftermath-era code with current-era code (3x color change boxes)
 - Implement armor color changing for the following armor types:
-	- Bone
-	- Chitin
-	- Composite (was already implemented)
-	- Ithorian (defender, guardian, sentinel)
-	- Kashyyykian (black mountian, ceremonial, hunting)
-	- Mandalorian
-	- Marine (rebel)
-	- Padded
-	- RIS
-	- Stormtrooper
-	- Tantel
-	- Ubese
+  - Bone
+  - Chitin
+  - Composite (was already implemented)
+  - Ithorian (defender, guardian, sentinel)
+  - Kashyyykian (black mountian, ceremonial, hunting)
+  - Mandalorian
+  - Marine (rebel)
+  - Padded
+  - RIS
+  - Stormtrooper
+  - Tantel
+  - Ubese
 
 ### Increased Wearable Socket Chance (Infinity)
+
 ⚠️ Partially tested on Local (needs more crafting testing)
+
 ```bash
 MMOCoreORB\src\server\zone\objects\tangible\wearables\WearableObjectImplementation.cpp
 ```
+
 - Added [infinity's socket chance calculation](https://github.com/swginfinity/public/blob/7a105dccac7a6783f263f63c01c8d24388c9ecc9/MMOCoreORB/src/server/zone/objects/tangible/wearables/WearableObjectImplementation.cpp#L72)
 
------
+---
 
 ## TRE File Edits
+
 Edits to TRE SWG file(s)
 
 ### New Character Welcome Mail
+
 ```bash
 string/en/newbie_tutorial/newbie_mail.stf
 ```
 
 ### Skill Customizations
+
 ```bash
 datatables/skill/skills.iff
 ```
+
 - Entertainer, Dancer, Musician, Image Designer and Politician require 0 skill points
 - Novice Artisan, Artisan Surveying Line, and Artisan Merchant Line require 0 skill points
 - Merchant Boxes require 0 skill points
 
 ### Custom City Specialization Names / Politician Skill Descriptions
+
 ```bash
 string/en/cmd_d.stf
 string/en/cmd_n.stf
@@ -407,6 +522,7 @@ string/en/city/city.stf
 ```
 
 ### Vehicle Speeds
+
 ```bash
 object/mobile/vehicle/shared_landspeeder_x31.iff
 object/mobile/vehicle/shared_landspeeder_x34.iff
@@ -417,76 +533,95 @@ object/mobile/vehicle/shared_jetpack.iff
 ```
 
 ### Color Palettes
+
 ```bash
 palette/*.pal
 ```
+
 - Thanks to [this tarkin's revenge commit](https://bitbucket.org/tarkinsrevenge/tarkins-revenge/commits/01e8e9b4455ed8d8fb9f01f3c32c7dc9c6f48981)
 
------
+---
 
 ## Gameplay Updates
+
 Updates and modifications to gameplay
 
 ### Starting City Spawns Increased, Reduce Interest Area Spawner Start Delay
+
 ✔️ Tested on Local
+
 ```bash
 MMOCoreORB\bin\scripts\screenplays\spawner\interest_area_spawner.lua
 MMOCoreORB\bin\scripts\screenplays\spawner\corellia_city_spawners.lua
 MMOCoreORB\bin\scripts\screenplays\spawner\tatooine_city_spawners.lua
 ```
+
 - Reduced start delay for interest area spawners to 1 minute
 - Greatly increased low-level spawns outside starting cities:
-	- Coronet
-	- Mos Eisley
+  - Coronet
+  - Mos Eisley
 
 ### Increase Creature Pet Mount Speeds
+
 ⚠️ Partially tested on Local
+
 ```bash
 MMOCoreORB\bin\scripts\managers\pet_manager.lua
 ```
+
 - Increased creature pet mount speeds, gallop speeds, and gallop cooldown
 - Based on [This aftermath change](https://github.com/SWGAftermath/Aftermath/commit/7e35cada68d472c6a212fca3ed9ae6f56b3e97d8)
 
------
+---
 
 ## Backlog
+
 List of Changes planned for future implementation
 
 ### QOL Backlog
+
 - [QOL/Crafting] Implement infinity's synth cloth/RFP BE system (any BE tissue can be added to either)
-	- i think this is a .tre file change? still need to confirm...i think it is already included in MTG tres?
+  - i think this is a .tre file change? still need to confirm...i think it is already included in MTG tres?
 - [QOL/Guild] Implement guild status command from [aftermath code](https://github.com/SWGAftermath/Aftermath/commit/e0f72f9f99113924ab8813baff6511fd011b7bf7?w=1)
 - [QOL/Combat] Lower respawn timers for dungeon bosses
 
 ### Custom Content Backlog
+
 - [Content] Add Galactic Wellfare Commission NPCs and City
 
 ### MTG Content
+
 MTG content additions
+
 - [MTG/NGE] Player houses
 - [MTG/NGE] Vehicles
 
 ### Feature Backlog
+
 - [Feature] Player bounties
 - [Feature] Jedi decisions/unlock
 
 ### Need Help Backlog
+
 Tasks that I don't know enough to complete
+
 - [QOL/Combat] Fix lair aggro (creatures do not aggro lair attacker)
-	- this one seems to come with performance issues
-	- i gave a go at fixing this with claude but crashed the server =[
-	- SR2 tried to fix this but ran into server crashes as well =[
+  - this one seems to come with performance issues
+  - i gave a go at fixing this with claude but crashed the server =[
+  - SR2 tried to fix this but ran into server crashes as well =[
 - [QOL/Performance] Investigate FPS dropping to 30 when examining creature(s) (noticed while examining juvenile krayt during combat)
 - [QOL/Loot] Revert Core3 2024 loot overhaul to previous loot system
-	- tricky because future JTL updates may be touching the same files
-	- the best path forward is probably to keep all core3 changes and write as little new code as possible to adjust the loot system
+  - tricky because future JTL updates may be touching the same files
+  - the best path forward is probably to keep all core3 changes and write as little new code as possible to adjust the loot system
 
------
+---
 
 ## Code References
+
 Common code references, helpers & utilities
 
 ### Resists Map
+
 ```lua
 -- short form
 resists = {kinetic, energy, blast, heat, cold, electricity, acid, stun, lightsaber}
@@ -509,12 +644,13 @@ resists = {0,0,0,0,0,0,0,-1,-1}
 ```
 
 ### Loot Table Weights
-Loot table weights need to equal 10 million (10000000)
-	- more to come on this...Vincent said he would send over a write-up ♥️
 
------
+Loot table weights need to equal 10 million (10000000) - more to come on this...Vincent said he would send over a write-up ♥️
+
+---
 
 ## Credits
+
 Thanks to SWGEmu's Core3 and all of the servers that made their code public
 
 - [SWGEmu Core3](https://github.com/swgemu/Core3)

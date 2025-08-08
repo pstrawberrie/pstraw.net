@@ -9,32 +9,40 @@ const { frontmatter, slug } = Astro.props;
   pageDescription={frontmatter?.description}
   noBreadcrumbs={true}
 >
-
   <article class="note">
     <div class="note-header">
       <div class="container-sm">
-    {
-      frontmatter?.date && (
-        <div class="dates">
-          Written: {formatDate("" + frontmatter.date)} by{" "}
-          {frontmatter?.authors.map((a, idx) => (
-            <a class="author" href={`/notes/authors/${a}`}>{a}</a><span>{idx !== frontmatter?.authors.length - 1 ? ", " : ""}</span>
-          ))}
-        </div>
-      )
-    }
-    <h1 class="text-gradient">
-      {frontmatter.title}
-    </h1>
-    {
-      frontmatter?.tags && (
-        <div class="tags">
-          {frontmatter?.tags.map((t) => (
-            <a class="tag btn-content" href={`/notes/tags/${t}`}>#{t}</a>
-          ))}
-        </div>
-      )
-    }
+        {
+          frontmatter?.date && (
+            <div class="dates">
+              Written: {formatDate("" + frontmatter.date)} by{" "}
+              {frontmatter?.authors.map((a, idx) => (
+                <>
+                  <a class="author" href={`/notes/authors/${a}`}>
+                    {a}
+                  </a>
+                  <span>
+                    {idx !== frontmatter?.authors.length - 1 ? ", " : ""}
+                  </span>
+                </>
+              ))}
+            </div>
+          )
+        }
+        <h1 class="text-gradient">
+          {frontmatter.title}
+        </h1>
+        {
+          frontmatter?.tags && (
+            <div class="tags">
+              {frontmatter?.tags.map((t) => (
+                <a class="tag btn-content" href={`/notes/tags/${t}`}>
+                  #{t}
+                </a>
+              ))}
+            </div>
+          )
+        }
       </div>
     </div>
 
@@ -49,7 +57,7 @@ const { frontmatter, slug } = Astro.props;
 </BaseLayout>
 
 <style lang="scss">
-  @use '@css/util';
+  @use "@css/util";
 
   .note-header {
     padding-top: var(--space-box-v);
@@ -120,7 +128,7 @@ const { frontmatter, slug } = Astro.props;
       margin: 3rem 0 1.5rem;
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         bottom: -0.5rem;
@@ -174,7 +182,6 @@ const { frontmatter, slug } = Astro.props;
       list-style-type: lower-roman;
     }
 
-
     :global(hr) {
       border: 0;
       border-top: 1px solid var(--c-button-border);
@@ -188,7 +195,7 @@ const { frontmatter, slug } = Astro.props;
       background: var(--c-background) !important;
     }
 
-    :global(blockquote)  {
+    :global(blockquote) {
       position: relative;
       display: flex;
       flex-direction: column;

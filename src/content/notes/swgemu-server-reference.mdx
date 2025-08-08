@@ -1,37 +1,44 @@
 ---
-title: 'SWGEmu Server Setup Reference'
+title: "SWGEmu Server Setup Reference"
 date: 2025-05-15
 updated: 2025-06-26
-description: 'Notes on setting up a SWGEmu server with WSL on Windows'
-authors: ['pstraw']
+description: "Notes on setting up a SWGEmu server with WSL on Windows"
+authors: ["pstraw"]
 tags: ["dev", "linux", "swg"]
 published: true
 ---
-import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
-import NoteCallouts from '@components/notes/NoteCallouts.svelte';
 
-<NoteJumpMenu client:load links={[
-  {title: 'Windows WSL2 Setup', path: '#windows-wsl2-setup'},
-  {title: 'Debian SWGEmu Setup', path: '#debian-swgemu-setup'},
-  {title: 'SQL Reference', path: '#sql-reference'},
-  {title: 'Linux Reference', path: '#linux-reference'},
-  {title: 'Docker Reference', path: '#docker-reference'},
-  {title: 'Troubleshooting', path: "#troubleshooting"},
-  ]}/>
+import NoteJumpMenu from "@components/notes/NoteJumpMenu.svelte";
+import NoteCallouts from "@components/notes/NoteCallouts.svelte";
 
-<NoteCallouts data={[
-  {type: 'info', text: 'This reference may be missing information'},
-]}/>
+<NoteJumpMenu
+  client:load
+  links={[
+    { title: "Windows WSL2 Setup", path: "#windows-wsl2-setup" },
+    { title: "Debian SWGEmu Setup", path: "#debian-swgemu-setup" },
+    { title: "SQL Reference", path: "#sql-reference" },
+    { title: "Linux Reference", path: "#linux-reference" },
+    { title: "Docker Reference", path: "#docker-reference" },
+    { title: "Troubleshooting", path: "#troubleshooting" },
+  ]}
+/>
+
+<NoteCallouts
+  data={[{ type: "info", text: "This reference may be missing information" }]}
+/>
 
 ## Windows WSL2 Setup
-Installing WSL2 on windows *should* be as simple as opening a powershell terminal as admin and typing `wsl --install`. If it's your first time installing, you'll need to restart afterwords. [See this guide](https://learn.microsoft.com/en-us/windows/wsl/install) for more details on installing. Below is a command reference for WSL. You want to open up a powershell console **as admin** and...
+
+Installing WSL2 on windows _should_ be as simple as opening a powershell terminal as admin and typing `wsl --install`. If it's your first time installing, you'll need to restart afterwords. [See this guide](https://learn.microsoft.com/en-us/windows/wsl/install) for more details on installing. Below is a command reference for WSL. You want to open up a powershell console **as admin** and...
+
 - Install WSL (if not already installed)
 - Install your distro of choice (i'm using debian)
   - If you already have a distro installed, you can delete/unregister it using the command below
 - Follow the setup for your distro after it finishes installing (usually just creating a username/password)
-<br />
+  <br />
 
 Powershell commands to set up WSL:
+
 ```bash
 # list current distro
 # it will tell you if none are installed
@@ -46,15 +53,18 @@ wsl --unregister <distroName>
 ```
 
 ## Debian SWGEmu Setup
+
 Once the distro is installed successfully, switch over to the WSL console and run that as admin. Once you're inside of WSL, you are just inside of your chosen distro and can begin linuxing! Now we will set up the server inside of our debian distro itself. Here's what the process will be...
+
 - Update/upgrade debian
 - Clone the pswg repo
 - Copy TRE files from windows
 - Build the SWGEmu code
 - Test the server is working
-<br />
+  <br />
 
 WSL SWGEmu server setup debian guide:
+
 ```bash
 # update & upgrade debian
 sudo apt update -y && sudo apt upgrade -y
@@ -67,7 +77,7 @@ git checkout dev
 # copy tre files from windows into the pswg folder
 # pSWG is forked from core3... so you'll need the default SWGEmu tre (client) files
 # on windows, my syndicate install is located at E:\pSWG - update this accordingly (/mnt/<driveLetter>/<installLocation>/*.tre)
-# this might take a few seconds 
+# this might take a few seconds
 cd ~/pswg && mkdir -p tre
 cp /mnt/e/pSWG/*.tre ~/tre
 
@@ -127,7 +137,9 @@ cd ~/pswg/MMOCoreORB/bin
 ```
 
 ## SQL Reference
+
 Basic syntax reminders:
+
 ```sql
 show databases; -- show all databases
 use swgemu; -- use a database
@@ -138,53 +150,66 @@ update tablename set columnname = 'superJohnson' where columnvalue = 'johnson'; 
 ```
 
 Enable Error logs in MariaDB after fresh install
+
 ```bash
 nano /etc/mysql/mariadb.conf.d/50-server.cnf
 # uncomment the log_error line
 ```
 
 Logging into MariaDB SQL after fresh Install (user with sudo privileges)
+
 ```bash
 sudo mariadb -u root
 ```
 
 Creating a new DB
+
 ```sql
 create database 'swgemu';
 ```
 
 Creating a new User
+
 ```sql
 create user 'swgemu'@localhost identified by '123456';
 select user from mysql.user; -- check it worked
 ```
 
 Granting DB Privileges to User
+
 ```sql
 grant all privileges on swgemu.* to 'swgemu'@localhost;
 flush privileges; -- make sure to do this to ensure the new privileges take effect
 ```
 
 Importing a DB from SQL File
+
 - this is done in linux/outside of the sql cli
+
 ```bash
 mariadb -u john -p dbName < johnImport.sql # import the file 'johnImport.sql' as user 'john' into db 'dbName'
 ```
 
 Exporting (dumping) into SQL File
+
 - this is done in linux/outside of the sql cli
+
 ```bash
 mariadb-dump -u bob -p dbName > bobDump.sql # dump data from db 'dbName' into file 'bobDump.sql' as user 'bob'
 ```
 
 ## SWG SQL References
+
 Set admin level for account `johnson`:
+
 ```sql
 update accounts set admin_level = 15 where username = 'johnson';
 ```
 
 ## Linux Reference
+
 Screen syntax:
+
 ```bash
 screen -ls # list all screens, will also say (Attached) if this is your active screen
 screen -S hello # start new screen with name 'hello'
@@ -193,36 +218,47 @@ screen -r hello # attach to existing screen 'hello'
 ```
 
 ## Docker Reference
+
 Docker compose start in detached mode:
+
 ```bash
 cd ~/swgproject/docker
 sudo docker compose up -d
 ```
 
 Docker compose attach to `swgemu` container:
+
 ```bash
 sudo docker compose attach swgemu
 ```
 
 Docker exec mariadb cli on `db` container as user mariadb user `swgemu`
+
 ```bash
 sudo docker compose exec -it db mariadb -u swgemu -p
 ```
 
 ## Troubleshooting
+
 ### First Steps
+
 If the server has been shutdown without the `shutdown` command, this can cause things to break. Be sure to always shut down the server with the `shutdown` command and NOT by killing the process with `ctrl+c`!!
 
 ### Nuking
+
 The easiest way to nuke the server is to simply delete the entire code folder as well as the database ie:
+
 ```bash
 rm -rf ~/pswg
 mariadb -u swgemu -p
 > drop database swgemu;
 ```
+
 - MAKE SURE YOU BACK UP YOUR TRE FILES!!
 - After that, just follow the install steps again
 
 ### Can't Delete Characters
+
 This seems to be an issue with the SQL setup. As of this guide, the `swgemu.sql` file includes all necessary tables for deleting characters. The issue is most likely the way the database was setup or if the server was shut down without the `shutdown` command. Ensure that you have correctly imported the `swgemu.sql` file.
+
 - https://modthegalaxy.com/index.php?threads/cannot-delete-characters-after-creating-them.1505/

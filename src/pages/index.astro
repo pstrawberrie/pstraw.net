@@ -26,11 +26,11 @@ const recentTMDBLimit = 12;
 const recentNotesLimit = 6;
 const movies = await getCollection(
   "movies",
-  ({ id }) => excludedRecents.indexOf(id) === -1
+  ({ id }) => excludedRecents.indexOf(id) === -1,
 );
 const shows = await getCollection(
   "shows",
-  ({ id }) => excludedRecents.indexOf(id) === -1
+  ({ id }) => excludedRecents.indexOf(id) === -1,
 );
 const tmdbItems = [...movies, ...shows];
 tmdbItems.sort((a, b) => {
@@ -40,7 +40,7 @@ tmdbItems.sort((a, b) => {
 });
 
 const notes = await getCollection("notes", ({ data }) =>
-  isDevelopment ? true : data.published
+  isDevelopment ? true : data.published,
 );
 notes.sort((a, b) => {
   const aDate = a?.data?.updated || a?.data?.date;

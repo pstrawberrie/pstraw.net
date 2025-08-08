@@ -19,22 +19,24 @@
 
   /* Fonts */
   --font-family-primary:
-    'Space Grotesk', 'Inter', 'Roboto', 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial,
-    sans-serif;
+    "Space Grotesk", "Inter", "Roboto", "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
   --font-family-title:
-    'Oxanium', 'Inter', 'Roboto', 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+    "Oxanium", "Inter", "Roboto", "Helvetica Neue", "Arial Nova", "Nimbus Sans",
+    Arial, sans-serif;
   --font-family-mono:
-    'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
+    monospace;
   --font-family-brand:
-    'Bitcount Prop Single', 'Inter', 'Roboto', 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial,
-    sans-serif;
+    "Bitcount Prop Single", "Inter", "Roboto", "Helvetica Neue", "Arial Nova",
+    "Nimbus Sans", Arial, sans-serif;
 }
 
 /* Fonts */
 /* Space Grotesk */
 @font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/SpaceGrotesk-Regular.woff2') format('woff2');
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -42,8 +44,8 @@
 
 /* Space Grotesk Medium */
 @font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/SpaceGrotesk-Medium.woff2') format('woff2');
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -51,8 +53,8 @@
 
 /* Space Grotesk Bold */
 @font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/SpaceGrotesk-Bold.woff2') format('woff2');
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -60,8 +62,8 @@
 
 /* Oxanium SemiBold */
 @font-face {
-  font-family: 'Oxanium';
-  src: url('/fonts/Oxanium-SemiBold.woff2') format('woff2');
+  font-family: "Oxanium";
+  src: url("/fonts/Oxanium-SemiBold.woff2") format("woff2");
   font-weight: normal; /* actually 600 */
   font-style: normal;
   font-display: swap;
@@ -70,8 +72,8 @@
 /* Bitcount Prop Single Light */
 /* note: this is a subset with only the characters "pstraw.net" */
 @font-face {
-  font-family: 'Bitcount Prop Single';
-  src: url('/fonts/BitcountPropSingle-Light.woff2') format('woff2');
+  font-family: "Bitcount Prop Single";
+  src: url("/fonts/BitcountPropSingle-Light.woff2") format("woff2");
   font-weight: normal; /* actually 300 */
   font-style: normal;
   font-display: swap;
@@ -102,7 +104,9 @@ a {
   text-decoration: none;
 }
 
-i, b, em {
+i,
+b,
+em {
   font-family: var(--font-family-primary);
 }
 
@@ -110,7 +114,12 @@ p {
   line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-family-title);
   line-height: 1.2;
 }
@@ -133,7 +142,7 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: .25rem;
+  gap: 0.25rem;
   padding: var(--space-content-v) var(--space-content-h);
 }
 
@@ -148,7 +157,7 @@ main {
   padding: var(--space-content-v) var(--space-content-h);
   border-top: 1px solid var(--c-dark-accent-border);
   border-bottom: 1px solid var(--c-dark-accent-border);
-  gap: .25rem;
+  gap: 0.25rem;
 }
 
 .section + .section {
@@ -159,14 +168,14 @@ main {
 .stats {
   display: flex;
   flex-wrap: wrap;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .stats span {
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  padding: .25rem .5rem;
-  border-radius: .25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
   background-color: var(--c-dark-accent-2);
   color: var(--c-text-secondary);
   cursor: default;

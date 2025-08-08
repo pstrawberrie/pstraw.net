@@ -3,14 +3,18 @@ import { ALL_LINKS, TAG_DESCRIPTIONS, AUTHOR_DESCRIPTIONS } from "@constants";
 /**
  * Environment
  */
-export const isDevelopment = process.env.NODE_ENV !== 'production';
+export const isDevelopment = process.env.NODE_ENV !== "production";
 
 /**
  * Format Date
  */
-type DateStyle = Intl.DateTimeFormatOptions['dateStyle'];
+type DateStyle = Intl.DateTimeFormatOptions["dateStyle"];
 
-export function formatDate(date: string, dateStyle: DateStyle = 'long', locales = 'en') {
+export function formatDate(
+  date: string,
+  dateStyle: DateStyle = "long",
+  locales = "en",
+) {
   // Safari is mad about dashes in the date
   const dateToFormat = new Date(date);
   const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle });
@@ -21,15 +25,25 @@ export function formatDate(date: string, dateStyle: DateStyle = 'long', locales 
  * Date Relative Time
  */
 export function getRelativeTime(date: Date) {
-  const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
   const timeMs = new Date(date).getTime();
   const deltaSeconds = Math.round((timeMs - Date.now()) / 1000);
 
-  const cutoffs = [60, 3600, 86400, 86400 * 7, 86400 * 30, 86400 * 365, Infinity];
-  const units = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'];
+  const cutoffs = [
+    60,
+    3600,
+    86400,
+    86400 * 7,
+    86400 * 30,
+    86400 * 365,
+    Infinity,
+  ];
+  const units = ["second", "minute", "hour", "day", "week", "month", "year"];
 
-  const unitIndex = cutoffs.findIndex((cutoff) => cutoff > Math.abs(deltaSeconds));
+  const unitIndex = cutoffs.findIndex(
+    (cutoff) => cutoff > Math.abs(deltaSeconds),
+  );
   const divisor = unitIndex ? cutoffs[unitIndex - 1] : 1;
 
   return rtf.format(Math.floor(deltaSeconds / divisor), units[unitIndex]);
@@ -41,22 +55,41 @@ export function getRelativeTime(date: Date) {
 export function minutesToHours(minutes: number) {
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
-  return `${hours ? hours + 'h' : ''} ${remainingMinutes ? String(remainingMinutes).padStart(2, '0') + 'm' : ''}`;
+  return `${hours ? hours + "h" : ""} ${remainingMinutes ? String(remainingMinutes).padStart(2, "0") + "m" : ""}`;
 }
 
 export function capitalizeRomanNumerals(s: string) {
-  const matches = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x', 'xi', 'xii', 'xiii', 'xiv', 'xv'];
-  const matchesWithColons = matches.map(m => `${m}:`);
+  const matches = [
+    "i",
+    "ii",
+    "iii",
+    "iv",
+    "v",
+    "vi",
+    "vii",
+    "viii",
+    "ix",
+    "x",
+    "xi",
+    "xii",
+    "xiii",
+    "xiv",
+    "xv",
+  ];
+  const matchesWithColons = matches.map((m) => `${m}:`);
   const allMatches = [...matches, ...matchesWithColons];
 
-  return s.split(' ').map(word => allMatches.includes(word) ? word.toUpperCase() : word).join(' ');
+  return s
+    .split(" ")
+    .map((word) => (allMatches.includes(word) ? word.toUpperCase() : word))
+    .join(" ");
 }
 
 /**
  * Remove Articles from String
  */
 export function removeArticles(str: string) {
-  const articles = ['a ', 'an ', 'the ']; // Note the trailing spaces
+  const articles = ["a ", "an ", "the "]; // Note the trailing spaces
   let lowerStr = str.toLowerCase();
 
   for (const article of articles) {

@@ -8,7 +8,7 @@ import Pagination from "@components/Pagination.astro";
 
 export async function getStaticPaths({ paginate }) {
   const notes = await getCollection("notes", ({ data }) =>
-    isDevelopment ? true : data.published
+    isDevelopment ? true : data.published,
   );
   const authors = [...new Set(notes.map((n) => n.data.authors).flat())];
 
@@ -17,7 +17,7 @@ export async function getStaticPaths({ paginate }) {
     const sortedNotes = authorNotes.sort(
       (a, b) =>
         new Date(b.data.updated || b.data.date) -
-        new Date(a.data.updated || a.data.date)
+        new Date(a.data.updated || a.data.date),
     );
 
     return paginate(sortedNotes, {

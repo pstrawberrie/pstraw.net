@@ -1,31 +1,48 @@
 ---
-title: 'SWGEmu How to Grind Everything'
+title: "SWGEmu How to Grind Everything"
 date: 2025-06-17
-description: 'Profession grind guide copied from EQSanctum'
-authors: ['EQSanctum', 'pstraw']
+description: "Profession grind guide copied from EQSanctum"
+authors: ["EQSanctum", "pstraw"]
 tags: ["swg"]
 published: false
 ---
-import NoteJumpMenu from '@components/notes/NoteJumpMenu.svelte';
-import NoteCallouts from '@components/notes/NoteCallouts.svelte';
 
-<NoteJumpMenu client:load title="Jump to Profession" links={[
-  {title: 'Crafting Macro'},
-  {title: 'Sampling Macro'},
-  {title: 'Combat Macro'},
-  {title: 'Artisan'},
-]}/>
+import NoteJumpMenu from "@components/notes/NoteJumpMenu.svelte";
+import NoteCallouts from "@components/notes/NoteCallouts.svelte";
 
-<NoteCallouts data={[
-  {type: 'success', text: 'Visit the original guide on EQSanctum →', link: 'https://www.eqsanctum.com/topic/47-how-to-grind-everything/'},
-  {type: 'info', text: 'Submit PR on github →', link: 'https://github.com/pstrawberrie/pstraw.net'},
-]}/>
+<NoteJumpMenu
+  client:load
+  title="Jump to Profession"
+  links={[
+    { title: "Crafting Macro" },
+    { title: "Sampling Macro" },
+    { title: "Combat Macro" },
+    { title: "Artisan" },
+  ]}
+/>
+
+<NoteCallouts
+  data={[
+    {
+      type: "success",
+      text: "Visit the original guide on EQSanctum →",
+      link: "https://www.eqsanctum.com/topic/47-how-to-grind-everything/",
+    },
+    {
+      type: "info",
+      text: "Submit PR on github →",
+      link: "https://github.com/pstrawberrie/pstraw.net",
+    },
+  ]}
+/>
 
 ## TODO:
+
 - alphabetize professions
 - remove copied characters from guide: ’ “ ” –
 
 ## Crafting Macro
+
 This is the all-purpose crafting macro Tuna shared - it is a 2-parter. Name the first looping macro `gg` and the second prototype craft macro `c`. You can adapt the number of tools used and pause times. This example includes 2 tools placed in the first and second toolbar slots (F1 and F2). **You don't need to worry about selecting the schematic within the macro**; simply start crafting, select the schematic you want, hit next, and then close the crafting tool. This will auto-select the same schematic every time the tool starts.
 
 ```bash
@@ -44,6 +61,7 @@ This is the all-purpose crafting macro Tuna shared - it is a 2-parter. Name the 
 /pause 3;
 /macro gg;
 ```
+
 ```bash
 # c macro
 /nextCraftingStage;
@@ -55,6 +73,7 @@ This is the all-purpose crafting macro Tuna shared - it is a 2-parter. Name the 
 ---
 
 ## Sampling Macro
+
 This is a basic sampling macro named `samp`. It has the defaultButton click in it as well to clear the sampling popup.
 
 ```bash
@@ -69,7 +88,9 @@ This is a basic sampling macro named `samp`. It has the defaultButton click in i
 ---
 
 ## Combat Macro
+
 This is a basic combat macro named `spin` which cycles targets. Replace the skills and pauses as needed.
+
 ```bash
 # spin macro
 /pause 0.25;
@@ -87,43 +108,51 @@ This is a basic combat macro named `spin` which cycles targets. Replace the skil
 ---
 
 ## Artisan
+
 Use the supplied [crafting](#crafting-macro) and [sampling](#sampling-macro) macros above.
 
 ### Artisan Crafting
+
 - Craft `Grips` to **Engineering 3**: `6 metal, 4 chemical`
 - Craft `Wind Power Generators` to **Master**: `145 Metal, 45 Steel, 40 Low Grade Ore, 20 Non-Ferrous Metal, 10 Aluminum`
 
 ### Artisan Surveying
+
 - At novice, you may not be able to sample low-density resources, so make sure to sample anything with 80%+
 
 ---
 
 ## Brawler
+
 Use the provided [combat macro](#combat-macro) above if needed.
 
 - Kill MOBs around starting cities (Mos Eisley is great) for levels 1-3 for all the weapon trees.
 - For level 4, get some Doc buffs (and Dancer/Musician buffs if you can find them) and head to the Tusken Fort on Tatooine or do Quenker missions on Dantooine. Another great place is the Singing Mountain Clan Cave on Dathomir, just kill the quick-spawn Slaves in the bottom to level quickly with little danger.
 - Berserk 1 is good to use at lower levels.
 - Optional: Get some clothes with Bio-Engineer enhancements for Stun/Melee Defense and Intimidation/Warcry bonuses. Be aware that the highest that each of these bonuses can accumulate is +25 (even though it will add up higher, it will only count up to the +25).
-<br />
+  <br />
 
 ### Unarmed Combat XP:
+
 - Gained by killing MOBs with your bare fists or Vibro Knuckles.
 - Get some Vibro Knuckles speed sliced (around 1.7-1.5 should be good for speed). Use them instead of your fists, your damage will be slightly reduced, but you'll attack much quicker!
 - Use Unarmed Hit 1, Unarmed Lunge 1 (posture down), Warcry 1 (delay), and Intimidate 1.
 - Optional: You may also want to consider taking some Rakririan Burnout Sauce (Chef food) to increase your Unarmed Damage to counter the damage reduction from equipping the uncertified VKs.
 
 ### Onehanded Weapons XP:
+
 - Gained by killing MOBs with a One-handed melee weapon.
 - Use a Dagger or a Survival Knife to get level 1, a Curved Sword until level 2, and then either the Curved Sword or a Vibroblade for the rest.
 - Use One-Hand Hit 1, One-Hand Body Hit 1 (hit Health bar), One-Hand Lunge 1 (posture down), Warcry 1 (delay), and Intimidate 1.
 
 ### Twohanded Weapons XP:
+
 - Gained by killing MOBs with a Two-handed melee weapon.
 - Use an Axe to get level 1, a Two-Handed Axe until level 2, and then a Two-Handed Cleaver for the rest.
 - Use Two-Hand Hit 1, Two-Hand Head Hit 1 (hit Mind bar), Two-Hand Lunge 1 (posture down), Warcry 1 (delay), and Intimidate 1.
 
 ### Polearm Weapons XP:
+
 - Gained by killing MOBs with a Polearm melee weapon.
 - Use a Staff to get level 1, a Reinforced Combat Staff until level 2, and then a Lance for the rest.
 - Use Polearm Hit 1, Polearm Leg Hit 1 (hit Action bar), Polearm Lunge 1 (posture down), Warcry 1 (delay), and Intimidate 1.
@@ -131,39 +160,46 @@ Use the provided [combat macro](#combat-macro) above if needed.
 ---
 
 ## Entertainer
+
 **Entertainment Healing:**
+
 - Gained by healing others' Mind/Focus/Willpower Wounds and Battle Fatigue through music or dancing.
 - The XP is gained in 10 second “ticks”. The more damage healed during that time the more XP gained.
 - Join a group of other entertainers to form a band. You will get XP for any wounds/BF healed by the band as well.
 - Optional: Get some clothes with Bio-Engineer enhancements for Wound Healing. Max for bonus is +25.
 
 ### Image Designer:
+
 - Gained by completing an imaging session.
 - You can gain one-third the XP by working on yourself.
 - You **DO** have to actually change a feature to gain the XP
-<br />
-**Grind:**
+  <br />
+  **Grind:**
 - Novice: Hair Color [hair_color] (50xp) --> Hairstyle 2
 - Hairstyle 2: Eye Color [eye_color] (75xp) --> Hairstyle 4
 
 **ID Macro:**
+
 ```bash
 /image;
 /imagedesignSetValue eye_color 1; # DOES NOT WORK CURRENTLY
 /pause 1;
 /ui action toolbarSlot##;
 ```
+
 - The “##” in the line, “/ui action toolbarSlot##;”, references the spot on your toolbar where this macro is located minus 1 (the number is zero-based) in order to loop the macro.
 - Every time you initiate a change a dialog will come up for your target to confirm the change, this needs to be clicked to complete the session. Note that the image design dialog that pops up for you does not need to be closed, in fact it needs to be open for you to gain XP.
 - Image designing will drain your Mind, to circumvent this you can migrate your stats, eat some food/drink, take some spices, or get a Musician Buff to increase your Focus and Willpower.
 
 ### Musician
+
 - Gained by playing a musical instrument.
 - The XP is gained in 10 second “ticks”. Doing flourishes during this time will increase the amount of XP gained per tick (usually 2 is enough).
 - Playing the top instrument and song available to you will also increase the XP gained.
 - Join a group of other entertainers to form a band. The more people in the band the higher the XP gain as well. It also seems that if there are more musician-type people in the band the gain is increased even more.
 
 **Music Macro:**
+
 ```bash
 /join;
 /startmusic $;
@@ -172,18 +208,21 @@ Use the provided [combat macro](#combat-macro) above if needed.
 /pause 7;
 /ui action toolbarSlot##;
 ```
+
 - The “$” in the line, “/startmusic $;”, references the name of the song you want to play. For example, “/startmusic starwars2”.
 - The “##” in the line, “/ui action toolbarSlot##;”, references the spot on your toolbar where this macro is located minus 1 (the number is zero-based) in order to loop the macro.
 - The “/join” will have you automatically accept any group offers while you're AFK.
 - Playing an instrument will drain your Action, to circumvent this you can migrate your stats, eat some food/drink, take some spices, or get a Doctor Buff to increase your Quickness and Stamina.
 
 ### Dancer
+
 - Gained by dancing (not the emote kind).
 - The XP is gained in 10 second “ticks”. Doing flourishes during this time will increase the amount of XP gained per tick (usually 2 is enough).
 - Doing the top dance available to you will also increase the XP gained. (THIS IS NO LONGER TRUE)
 - Join a group of other entertainers to form a band. The more people in the band the higher the XP gain as well. It also seems that if there are more dancer-type people in the band the gain is increased even more.
 
 **Dance Macro:**
+
 ```bash
 # @TODO: NEED IMPROVED MACRO
 /join;
@@ -193,6 +232,7 @@ Use the provided [combat macro](#combat-macro) above if needed.
 /pause 7;
 /ui action toolbarSlot##;
 ```
+
 - The “$” in the line, “/startdance $;”, references the name of the dance that you want to perform. For example, “/startdance basic”.
 - The “##” in the line, “/ui action toolbarSlot##;”, references the spot on your toolbar where this macro is located minus 1 (the number is zero-based) in order to loop the macro.
 - The “/join” will have you automatically accept any group offers while you're AFK.
@@ -201,6 +241,7 @@ Use the provided [combat macro](#combat-macro) above if needed.
 ---
 
 ## Marksman
+
 Use the provided [combat macro](#combat-macro) above if needed.
 
 - Kill MOBs around starting cities (Mos Eisley is great) for levels 1-3 for all the weapon trees.
@@ -210,21 +251,25 @@ Use the provided [combat macro](#combat-macro) above if needed.
 - Optional: Get some clothes with Bio-Engineer enhancements for Stun/Melee Defense. Be aware that the highest that this bonus can accumulate is +25 (even though it will add up higher, it will only count up to the +25).
 
 ### Rifle Weapon XP:
+
 - Gained by killing MOBs with a Rifle ranged weapon.
 - Use a DLT20 to get level 1, a DLT20a until level 2, a Laser Rifle until Level 3, and then either the Laser Rifle or a Spraystick for the rest.
 - Use just regular shots or Head Shot 1 then 2 (hit Mind bar).
 
 ### Pistol Weapon XP:
+
 - Gained by killing MOBs with a Pistol ranged weapon.
 - Use a D18 to get level 1, a DL44 until level 2, then a Scout Blaster for the rest.
 - Use just regular shots or Body Shot 1 then 2 (hit Health bar).
 
 ### Carbine Weapon XP:
+
 - Gained by killing MOBs with a Carbine ranged weapon.
 - Use a DH17 to get level 1, a DH17 Short until level 2, an E11 Carbine until Level 3, and then a Laser Carbine for the rest.
 - Use just regular shots or Leg Shot 1 then 2 (hit Action bar).
 
 ### Ranged Weapon Support XP:
+
 - Combat XP is gained by killing MOBs by any means. It's 10% of the weapons XP gained.
 - As you go up the other 3 trees you should have enough Combat XP to advance in this line.
 - If you're having problems raising it, remember that it's a percentage of the XP gained for killing things. Just get some buffs and kill higher end MOBs. For example, Quenkers will give you around 300 Combat XP each!
@@ -232,9 +277,11 @@ Use the provided [combat macro](#combat-macro) above if needed.
 ---
 
 ## Medic
+
 For the medical lines, go up Pharmacology first so you can use some Stim Cs, then Diagnostics for speed, and finally First Aid (the higher stims will let you heal more anyway, so this line isn’t as important). Organic Chemistry can be done at any point, unless you want to produce your own medial supplies (not recommended for the grinder).
 
 ### Medical XP:
+
 - Gained by healing damage and wounds, based on the amount healed.
 - More XP is gained from healing large amounts of both Health and Action.
 - Buy a crate of Small Stimpack Bs and a crate of Small Stimpack Cs with low Medical Usage. Use the Bs until you get high enough in Pharmacology to use the Cs (around level 3 or 4).
@@ -251,18 +298,22 @@ There is a much better way, but it requires a second player devoted to your heal
 Healing will drain your Mind, to circumvent this you can migrate your stats, eat some food/drink, take some spices, or get some Musician Buffs to increase your Focus and Willpower.
 
 ### Medical Crafting XP:
+
 Use the provided [crafting macro](#crafting-macro) above if needed.
 Gained by crafting items from the Medic Organic Chemistry line.
 
 **Grind:**
+
 - Novice: Biological Effect Controller (36xp – 6 Organic, 6 Inorganic) --> Organic Chemistry 4
 
 ---
 
 ## Scout
+
 Get the Exploration line first, as it makes getting around much easier. The rest can be done in any order, but I’d recommend doing Hunting next so you can better harvest creatures to get the resources needed for the Trapping and Wilderness Survival lines.
 
 ### Scouting XP:
+
 - Gained primarily by harvesting resources from defeated creatures (Meat/Hide/Bone).
 - The amount of XP earned is based on the amount of resources harvested.
 - Scouting XP is also gained from using Mask Scent and successfully avoiding detection from aggressive creatures, where the creature’s level determines the XP gained.
@@ -273,6 +324,7 @@ Get the Exploration line first, as it makes getting around much easier. The rest
 - Optional: Get some clothes with Bio-Engineer enhancements for Mask Scent/Camoflage bonuses. Be aware that the highest that this bonus can accumulate is +25 (even though it will add up higher, it will only count up to the +25).
 
 ### Trapping XP:
+
 - Gained by using traps on creatures. Based on the creature’s level.
 - Effective range on traps is about 45 meters.
 - Some traps (such as Glow Juice) can be used over and over on a creature, others can’t.
@@ -281,10 +333,12 @@ Get the Exploration line first, as it makes getting around much easier. The rest
 - Throwing traps will drain your Action, to circumvent this you can migrate your stats, eat some food/drink, take some spices, or get some Doctor Buffs to increase your Quickness and Stamina.
 
 **Trapping XP Grind:**
+
 - Novice: Wire Mesh Trap (3 Hides, 3 Bone) --> Trapping 1
 - Trapping 1: Glow-Juice Trap (6 Organic, 2 Bone) --> Trapping 4
 
 ### Wilderness Survival XP:
+
 Use the provided [crafting macro](#crafting-macro) above if needed.
 
 - Gained by setting or crafting camps. Can also be earned by catching fish.
@@ -295,33 +349,40 @@ Use the provided [crafting macro](#crafting-macro) above if needed.
 - However, the best way is to combine all of the above tips. Have a medic-type healing a Tumbler in your camps outside Theed while you constantly craft camps!
 
 **Wilderness Survival XP Grind:**
+
 - Novice: Basic Camp (31xp – 10 Hides, 5 Bone) --> Survival 2
 - Survival 2: Multiperson Camp (58xp – 20 Hides, 8 Bone) --> Survival 4
 
 ---
 
 ## Architect
+
 Use the provided [crafting macro](#crafting-macro) above if needed.
 Architect XP is gained by crafting items from the Architect profession.
 
 **Architect Grind:**
+
 - Novice Architect: Structural Module (525xp – 200 Low Grade Ore, 50 Metal) --> Construction 1
 - Construction 1: Gungan Head Statue (5250xp – 2000 Low Grade Ore, 1000 Gemstone) --> Master
 
 ---
 
 ## Armorsmith
+
 Use the provided [crafting macro](#crafting-macro) above if needed.
 Armorsmith XP is gained by crafting items from the Armorsmith profession.
 
 **Armorsmith Grind:**
+
 - Novice: Armor Upgrade Kits (63xp – 20 Metal, 10 Chemical) --> Personal Armor 3
 - Personal Armor 3: Ubese Armor Shirt (126xp – 30 Steel, 20 Iron, 10 Fiberplast) --> Master
 
 ---
 
 ## Bio-Engineer
+
 **DNA Sampling:**
+
 - Gained by sampling DNA from creatures. The amount of XP earned is based on the creature’s level.
 - Can also be earned for successfully supplying the DNA sequencing for a GCW base's Override Terminal.
 - Taking a sample takes 10 seconds and the creature cannot be attacked during the process (except by other wild creatures).
@@ -338,6 +399,7 @@ You fail to get a DNA Sample and the creature begins attacking you.
 ```
 
 **Bio-Engineer Creature Levels for DNA Sampling** (your chances are very slim of sampling creatures higher than your current limit)
+
 ```
 Novice: <= CL10
 DNA Sampling 1: <= CL20
@@ -348,6 +410,7 @@ Master: <= CL75
 ```
 
 **DNA Sample Macro:**
+
 ```
 /peace;
 /sampledna;
@@ -362,6 +425,7 @@ Master: <= CL75
 - Optional: Get some clothes with Bio-Engineer enhancements for Mask Scent/Camoflage bonuses. Be aware that the highest that this bonus can accumulate is +25 (even though it will add up higher, it will only count up to the +25).
 
 ### Bio-Engineer DNA Sampling Grind
+
 - Novice: Sample the trash outside starting cities (such as around Mos Eisley).
 - DNA Sampling 1: Continue sampling the trash.
 - DNA Sampling 2: Either continue sampling the trash or move on to higher level creatures.
@@ -369,6 +433,7 @@ Master: <= CL75
 - DNA Sampling 4: Either continue sampling Pikets or go to Dathomir/Endor and sample everything you see.
 
 ### Bio-Engineer Crafting
+
 - Gained primarily by crafting creatures, generic templates, tissues, and pet stims.
 - Optional: Get a Droid with a Food and Chemical Crafting Station built in. This will allow you to craft and experiment on DNA Samples when you get them out in the field. This is a very nice alternative to destroying samples or running back to store them (seeing as they don’t stack in your inventory).
 - When you start out as a Novice Bio-Engineer you can either craft Multisaccharide Dimate or create creatures (Kaadu is best at Novice) from the DNA Samples you get while grinding DNA Sampling.
@@ -376,6 +441,7 @@ Master: <= CL75
   - However, as soon as you get to Tissue Engineering 1 craft Micronutirent Supplements all the way for the rest.
 
 **Bio-Engineer Crafting Grind:**
+
 - Novice: Generic Template (21xp – 5 DNA Samples)
 - Novice: Kaadu Clone (105xp – 1 Generic Template, 35 Creature Food, 20 Flora Food)
 - Novice: Multisaccharide Dimate (136xp – 25 Flora Food , 20 Organic, 20 Milk) --> Tissue Engineering 1
@@ -384,16 +450,19 @@ Master: <= CL75
 ---
 
 ## Bounty Hunter
+
 - The “marks” for Bounty Hunter missions can be pretty tough (10K+ HAM), so unless you have other high level combat skills, it’s recommended that you complete some of the BH weapon lines before tackling Investigation. However, you will get a lot of weapon XP while doing the Investigation line so you may not want to max all the lines first so you don’t “throw away” the XP.
 - Most “marks” are vulnerable to Electricity, so it’s a good idea to get at least LLC 1, but LLC 3 or even 4 will be very beneficial. However, Fire Knockdown from Carbine 3 is almost a must. When it hits, the target will get knocked down and possibly dizzied, keeping them from ever getting up again. Bleeding Shot from Pistol 1 is handy if you prefer the “bleed and run” strategy. So, the best progression would be to get 0/3/1/3 before starting the Investigation line.
 
 ### Bounty Hunter Investigation XP:
+
 - Gained by successfully completing a Bounty Hunter mission. Based on 2% of the mission pay out.
 - Player Jedi Bounty missions will grant 1500 BH XP, but are only available to those with Investigation 3+.
 - Can earn 1000 XP for successfully jamming a GCW base's Uplink Terminal. Investigation 2+ is required.
 - To complete a Bounty Hunter mission you simply have to track down the target (the “mark”) and kill them.
 
 ### BH Investigation XP
+
 - For Investigation 0 (Difficulty 1) you just have to get a mission from a BH Terminal and talk to the corresponding Spec-Ops Agent. This will get you an exact waypoint to the target. The best place to do this level is in Tyrena on Corellia. There is a BH Terminal and a level 1 Spec-Ops Agent right near the Bank/Bazaar area. Simply keep grabbing missions and getting waypoints until you get one within 2000 meters.
 - For Investigation 1+ (Difficulty 2 and 3) you have to get a mission like normal, except now you only get a Bio Signature of the mark from the corresponding Spec-Ops Agent. Now you need to purchase Seeker Droids and Probe Droids from a Droid Engineer to be able to track your targets. Once you have the Bio Sig and a Probe Droid head outside the city limits and use a Probe Droid. After a few seconds, it will land somewhere near you. Go up to the droid and use its radial menu to give it the Bio Sig. It will take off to identify which planet the mark is on. Now head to the closest Starport and wait at the Ticket Terminal for it to report the planet (takes a few minutes). As soon as it reports back buy a ticket to the planet (or the intermediate planet to get there) and head there immediately (the mark will leave the planet if you wait too long). Once you arrive on the planet launch a Seeker Droid. While you’re waiting open up the planetary map and make note of the mark’s current location (this is from the Probe Droid and is no longer correct, but it is important). After a few minutes the droid will report back the approximate current location of the mark. Now line up the mark’s previous location with their current location and you should be able to determine which city’s Starport/Shuttle Port they are headed for. The mark will continue along this path, so either chase them down or shuttle to the city and head them off. You should launch Seeker Droids occasionally to update the mark’s current location. Good luck, these missions can take from 10-120 minutes to complete, depending on your luck and skills. The best location to get Difficulty 2/3 missions is Kaadara on Naboo. It has a Starport and there are Spec-Ops Agents for both level 2 (near the Bank/Bazaar area) and level 3 (on the side of the Starport).
 - Since the difficulty 1 BH missions are so much easier, a **good tip in the beginning is to not learn Investigation 1 until you have earned 10,000 BH XP doing these missions**. That way you can learn Investigation 1 and 2 at the same time and bypass Investigation 1 completely, saving a lot of time.
@@ -409,16 +478,19 @@ Master: <= CL75
 Okay, so the Seeker reports that the mark is no longer on this planet, should I launch another Probe Droid? Well, yes and no. You can launch another droid and track him down again, however, when you get to his location he’ll likely not be there. This is also known as the invisible mark bug and seems to happen any time that they make it to another planet. Do yourself a favor and delete the mission.
 
 ### Bounty Hunter Carbine XP:
+
 - Gained by killing MOBs with a Carbine ranged weapon.
 - Use a Laser Carbine for the best results.
 - Use just regular shots or Leg Shot 2 (hit Action bar), Action Shot 1 (bleed Action bar), Underhand Shot (knockdown), and Fire Knockdown (knockdown + dizzy).
 
 ### Bounty Hunter Pistol XP:
+
 - Gained by killing MOBs with a Pistol ranged weapon.
 - Use a Scatter Pistol primarily to level, but keep a FWG5 around for when something has high Acid resists.
 - Use just regular shots or Body Shot 2 (hit Health bar), Health Shot 1 (bleed Health bar), Bleeding Shot (bleed a random bar), and Torso Shot (fire DoT). Eye Shot is also a great special for PvP because it hits the target’s Mind pool.
 
 ## Bounty Hunter Light Lightning Cannon XP:
+
 - Gained by killing MOBs with a Light Lightning Cannon (LLC) ranged weapon.
 - Recommend getting 2 LLCs, one speed sliced and the other damage sliced. Use the speed sliced one at lower levels until your accuracy improves.
 - Use just Lightning Single 1, then 2 when you get it. The cone attacks don’t work all that well.
@@ -426,16 +498,19 @@ Okay, so the Seeker reports that the mark is no longer on this planet, should I 
 ---
 
 ## Carbineer
+
 - Go up the speed (Assault Tactics) or accuracy (Marksmanship) lines first, then the Counterinsurgency line. The Carbine Special Abilities line will come as you get the others.
 - Get some Doc buffs (and Dancer/Musician buffs if you can find them) and head to the Tusken Fort on Tatooine or do Quenker missions on Dantooine.
 - Optional: Get some clothes with Bio-Engineer enhancements for Stun/Melee Defense. Be aware that the highest that this bonus can accumulate is +25 (even though it will add up higher, it will only count up to the +25).
 
 **Carbine Weapons XP:**
+
 - Gained by killing MOBs with a Carbine ranged weapon.
 - Use a Laser Carbine, Nym Slug Thrower, or Elite Carbine to level.
 - Use Leg Shot (hit Action bar), Action Shot (bleed Action bar), Crippling Shot (good damage), Full Auto Single 2 (stun, blind, dizzy, and good damage), Wild Shot (stuns single/cone), Charge Shot (knockdown single/cone), Burst Shot (high damage), and Full Auto Area (stun, blind, dizzy cone).
 
 **Carbine Special Abilities:**
+
 - Combat XP is gained by killing MOBs by any means. It’s 10% of the weapons XP gained.
 - As you go up the other 3 trees you should have enough Combat XP to advance in this line.
 - If you’re having problems raising it, remember that it’s a percentage of the XP gained for killing things. Just get some buffs and kill higher end MOBs. For example, Quenkers will give you around 300 Combat XP each!
@@ -443,6 +518,7 @@ Okay, so the Seeker reports that the mark is no longer on this planet, should I 
 ---
 
 ## Chef
+
 XP Gained by crafting items from the Chef profession.
 
 ```bash
@@ -451,6 +527,7 @@ Don’t practice on the Soypro, make it and eat it instead for usage XP. Because
 ```
 
 **Chef Grind:**
+
 - Novice: Soypro (120xp – 10 Cereal, 10 Vegetables) --> Deserts 1
 - Deserts 1: Pastebread (168xp – 20 Wheat, 10 Oats, 10 Water) --> Deserts 3
 - Deserts 3: Kiwik Clusjo Swirl (278xp – 40 Berries, 20 Fruits, 20 Water) --> Master
@@ -458,9 +535,11 @@ Don’t practice on the Soypro, make it and eat it instead for usage XP. Because
 ---
 
 ## Combat Medic
+
 The path you follow depends on how you want to grind. Ranged Healing Distance will allow you to heal from greater distances with more potency, Ranged Healing Speed will let you heal faster, and Combat Medic Support allows you to use more powerful CM stims. If you take the Stimpack C route then it truly doesn’t matter which line you go up. However, if you plan on healing groups of people then you’ll want effectiveness and the more powerful stims before speed. Get support over distance if you’re healing stationary people (ie. entertainers in cantinas).
 
 **Medical XP:**
+
 - Gained by healing damage and wounds, based on the amount healed. Using area stims you get XP for everyone you heal in the area-of-effect.
 - Use the same tips from the Medic guide.
 - Seeing as CM Medical XP is the same as Medic/Doc Medical XP you can use the same methods to gain the XP here. Just be sure to use Stim Cs or Ds to heal the most damage possible and maximize your XP gains.
@@ -469,10 +548,12 @@ The path you follow depends on how you want to grind. Ranged Healing Distance wi
   - Heal entertainers in cantinas. They will constantly be draining their Action bars, plus there are usually a large number of them in a small concentrated area. Try the Coronet or Theed cantinas for this.
 
 **Medical Crafting XP:**
+
 - Gained by crafting items from the Medic Organic Chemistry line or the Combat Medic Combat Medicine Crafting line.
 - Use the same tips from the Artisan General Crafting guide.
 
 **Medical Crafting Grind:**
+
 - You should make Advanced BECs for more XP, however if you don’t have the resources the regular BECs will do as well.
 - Novice Medic: Biological Effect Controller (36xp – 6 Organic, 6 Inorganic) --> Combat Medicine Crafting 4
 - Organic Chemistry IV: Advanced Biological Effect Controller (84xp – 18 Lokian Wild Wheat, 18 Tatooine Fiberplast) --> Combat Medicine Crafting 4
@@ -480,16 +561,19 @@ The path you follow depends on how you want to grind. Ranged Healing Distance wi
 ---
 
 ## Commando
+
 - Go up the Flamethrower line first, then the Acid Rifle line, and finally the Heavy Weapons Support line. Field Tactics will come as you get the others.
 - Get some Doc buffs (and Dancer/Musician buffs if you can find them) and head to the Tusken Fort on Tatooine or do Quenker missions on Dantooine.
 - Optional: Get some clothes with Bio-Engineer enhancements for Stun/Melee Defense. Be aware that the highest that this bonus can accumulate is +25 (even though it will add up higher, it will only count up to the +25).
 
 **Heavy Weapons XP:**
+
 - Gained by killing MOBs with a Heavy Weapon.
 - Use a speed sliced Flamethrower to level. Only use the Acid Rifle when you absolutely have to, it sucks (atm).
 - Use Flame Single for a single target and Flame Cone for crowds. Remember that Flame DoTs no longer stack.
 
 **Field Tactics:**
+
 - Combat XP is gained by killing MOBs by any means. It’s 10% of the weapons XP gained.
 - Commandos are unique in that they can gain 100% XP for Combat when doing damage with Grenades. However Grenades are slow, miss a lot, drain action fast, and cannot be used indoors. Besides, you should earn enough Combat XP as you go up the other 3 trees to advance in this line.
 - If you’re having problems raising it, remember that it’s a percentage of the XP gained for killing things. Just get some buffs and kill higher end MOBs. For example, Quenkers will give you around 300 Combat XP each!
@@ -497,7 +581,9 @@ The path you follow depends on how you want to grind. Ranged Healing Distance wi
 ---
 
 ## Creature Handler
+
 XP Gained by taming a wild creature, training pets new commands, and by having your pets kill MOBs. The following macro will help immensely when taming wild creatures. Basically, if the target begins attacking, you will not attack back, giving you the chance to run away and try again. Also, if you were to attack the target all of its social friends around would begin attacking you too, leading to a messy situations and potentially a lost future pet:
+
 ```
 /peace;
 /tame;
@@ -512,4 +598,4 @@ XP Gained by taming a wild creature, training pets new commands, and by having y
 - To have your pets effectively track and attack a target don’t just use the “Attack” command, use the “Follow Other” command first and then the “Attack” command when they reach their target.
 - Optional: Get some clothes with Bio-Engineer enhancements for Taming Wild/Vicious Creatures and Mask Scent. Be aware that the highest that each of these bonuses can accumulate is +25 (even though it will add up higher, it will only count up to the +25).
 
-# LEFT OFF AT CH - KEEP IT GOIN 
+# LEFT OFF AT CH - KEEP IT GOIN

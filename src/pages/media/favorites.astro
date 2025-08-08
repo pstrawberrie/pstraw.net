@@ -49,10 +49,10 @@ const allTimeShowsIds = [
 ];
 
 const allTimeMovies = await getCollection("movies", ({ id }) =>
-  allTimeMoviesIds.includes(id)
+  allTimeMoviesIds.includes(id),
 );
 const allTimeShows = await getCollection("shows", ({ id }) =>
-  allTimeShowsIds.includes(id)
+  allTimeShowsIds.includes(id),
 );
 ---
 

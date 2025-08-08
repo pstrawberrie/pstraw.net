@@ -1,4 +1,4 @@
-@use 'util';
+@use "util";
 
 $nav-height: 3.75rem; // 60px
 $max-width: 1200px;
@@ -79,7 +79,8 @@ body {
   }
 }
 
-input, textarea {
+input,
+textarea {
   font-family: var(--font-family-primary);
   border: none;
   background-color: transparent;

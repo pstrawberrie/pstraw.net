@@ -121,3 +121,19 @@ export function getTagDescription(name: string): string {
 export function getAuthorDescription(name: string): string {
   return AUTHOR_DESCRIPTIONS[name.toUpperCase()];
 }
+
+/**
+ * Check localStorage availability
+ */
+export function isLocalStorageAvailable() {
+  if (typeof localStorage === "undefined") return false;
+
+  const hi = "hi";
+  try {
+    localStorage.setItem(hi, hi);
+    localStorage.removeItem(hi);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}

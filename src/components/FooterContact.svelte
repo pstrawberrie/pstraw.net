@@ -1,5 +1,6 @@
 <script>
   import { SERVER_URL } from "@env";
+  import { isLocalStorageAvailable } from "@util";
   import SVG from "@components/SVG.svelte";
 
   let contactFormButtonEl;
@@ -7,11 +8,16 @@
 
   let active = $state(false);
   let errors = $state([]);
+  let messageSent = $state(false);
 
   let name = $state("");
   let email = $state("");
   let message = $state("");
   let naughty = $state("");
+
+  function saveMessageSentLS() {
+  if (!isLocalStorageAvailable) return;
+  }
 
   function onFormSubmit(e) {
     e.preventDefault();
@@ -30,7 +36,7 @@
       errors.push("Message is required");
     }
 
-    // low-hanging fruit for bots
+    // low-hanging fruit for bots?
     if (naughty.length) errors.push("Hmmm...");
 
     // clear errors after a few seconds
@@ -167,6 +173,9 @@
       disabled={!message.length || errors.length}
     />
   </form>
+  <div class="status">
+    {#if true}{/if}
+  </div>
 </div>
 
 <style lang="scss">

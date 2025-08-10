@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { joinFromRoot } from "../path.js";
 import { SITE } from "../src/constants.js";
+import { formatDate } from "../_slurpi/util.js";
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
@@ -30,6 +31,7 @@ app.set("views", joinFromRoot("_server/views"));
 // Global Middlewares
 app.locals.isDev = isDev;
 app.locals.SITE = SITE;
+app.locals.formatDate = formatDate;
 
 // Debug Middleware
 if (isDev) app.use(debugMiddleware);

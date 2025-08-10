@@ -31,7 +31,7 @@
       <h3 class="title">{data.title}</h3>
       <div class="genres">
         {#each JSON.parse(data.genres) as g}
-          <span class="genre">{g.name}</span>
+          <span class="genre" data-test={data.genres}>{g.name}</span>
         {/each}
       </div>
       <p class="overview">{data.overview}</p>

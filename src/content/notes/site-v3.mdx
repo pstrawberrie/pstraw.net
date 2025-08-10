@@ -1,23 +1,37 @@
 ---
-title: 'V2 Release - "Chill Space"'
-date: 2025-08-05
-description: "The version 2 release of pstraw.net is live!"
+title: 'V3 Release - "Chill Space"'
+date: 2025-08-10
+description: "The version 3 release of pstraw.net is live!"
 authors: ["pstraw"]
 tags: ["general"]
 published: true
 ---
 
-## V2 Release
+## V3 Release
 
 After a month of work, the new version of pstraw.net is live and well. Version 2 is the first design update to hit the site, and I'm happy with the results. Of course there will be ongoing tweaks, but overall I think it's a big improvement. The spacing is more modern and the site now has a unified theme with more consistent UI elements, colors, and fonts.
 
-## Looking back at V0
+### V3 Changelog
 
-The initial version of this codebase was released around December 2024. It had a different domain, with the original purpose being a professional portfolio-style site for job applications. After learning the basics of [Astro](https://astro.build/) and [Svelte](https://svelte.dev/), setting up the VPS, configuring the email service, adding a contact form, and releasing it, I didn't feel satisfied with the result. I wasn't motivated to continue working on it, but I still really wanted to have a site out there for my own personal use.
+A list of all major changes since the release of V3.
+
+#### V3.1 - Aug 10, 2025
+
+Version 2.1 introduced contact functionality and the admin server
+
+- Added contact component `FooterContact.svelte` to handle contact functionality on the front-end
+- Added contact POST logic to the existing web server
+- Added a new server at `_server/admin.js` to view database content (just messages for now). This will be built upon in a future update.
+
+## Looking back at V1
+
+The initial version of this codebase was released around December 2024. It had a different domain, with the original purpose being a professional portfolio-style site to showcase my code for job applications. I also created a fake e-commerce site called Cubes Direct After learning the basics of [Astro](https://astro.build/) and [Svelte](https://svelte.dev/), setting up the VPS, configuring the email service, adding a contact form, and releasing it, I launched the site.
+
+> ![v2's goofy collage](/images/site/home_collage.png "V2's Goofy Collage") My super awesome "favorites" collage from v2 xD
 
 Version 0's saving grace was "slurpi" - the code I built to pull down all of my media data from [TMDB](https://www.themoviedb.org/), [Spotify](https://spotify.com/), and [Steam](https://steampowered.com/). For whatever reason, I've been obsessed with gathering all of my favorite stuff into one place for a while, and slurpi was super fun to build and see come to life. It would eventually, itself, be slurped up into the website codebase, however the original release is still available [here](https://github.com/pstrawberrie/slurpi).
 
-## From V1 to V2
+## From V2 to V3
 
 After a brief break, I decided to keep the core Astro work I'd completed and go in a different direction. The mantra of version 1 was **"create something you would love to use"**. I didn't want the weight that came with trying to appease prospective employers - I just wanted something cool that was mine. Version 1 certainly accomplished that - the site became more of a playground that fueled and inspired the other projects I was working on.
 
@@ -31,7 +45,7 @@ Back in January of 2024 I used the ChatGPT web client as a learning refresher. I
 
 During my time developing the [pSWG](https://github.com/pstrawberrie/pswg) project, I started using AI again to help me with the code. The [SWGEmu](https://swgemu.com/) project is written in C++, and I'm not a C++ developer, so I had no clue where to begin. I downloaded cursor and started exploring implementing changes in the C++ codebase. After a while, I started getting used to the flow and was able to implement basic features using examples from other popular SWG server codebases.
 
-For pstraw.net V2, I knew I wanted a more modern design. I don't frequently do design work, so I knew I'd need some help starting out. I used [bolt.new](https://bolt.new/) to nail down the theme, and ran from there. I purposefully avoided using cursor AI while coding the design so I could have better control over everything. Over the past few months, it's definitely been interesting to see the benefits and drawbacks of using AI.
+For pstraw.net V3, I knew I wanted a more modern design. I don't frequently do design work, so I knew I'd need some help starting out. I used [bolt.new](https://bolt.new/) to nail down the theme, and ran from there. I purposefully avoided using cursor AI while coding the design so I could have better control over everything. Over the past few months, it's definitely been interesting to see the benefits and drawbacks of using AI.
 
 ## What's next?
 

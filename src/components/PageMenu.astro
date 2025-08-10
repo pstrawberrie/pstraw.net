@@ -1,5 +1,5 @@
 ---
-const { links, currentPage = null } = Astro.props;
+const { links, color = "tertiary", currentPage = null } = Astro.props;
 
 const currentPath = Astro.url.pathname;
 const isActive = (path) => {
@@ -36,7 +36,10 @@ const isActive = (path) => {
 };
 ---
 
-<div class="page-menu">
+<div
+  class="page-menu"
+  style={`--active-boxshadow: 0 0 20px rgba(var(--${color}-rgb), 0.3); --active-boxshadow-hover: 0 6px 40px rgba(var(--${color}-rgb), 0.6); --pagemenu-color: var(--c-${color});`}
+>
   <ul class="container">
     {
       links.map((l) => (
@@ -108,14 +111,13 @@ const isActive = (path) => {
 
   .active {
     position: relative;
-    border: 0;
-    background: var(--c-button-gradient);
-    color: var(--page-menu-text-color-active);
-    box-shadow: 0 0 20px rgba(var(--tertiary-rgb), 0.5);
+    color: var(--pagemenu-color);
+    border-color: var(--pagemenu-color);
+    box-shadow: var(--active-boxshadow);
     cursor: default;
 
     &::after {
-      box-shadow: 0 6px 40px rgba(var(--tertiary-rgb), 0.6);
+      box-shadow: var(--active-boxshadow-hover);
     }
 
     &:hover::after {

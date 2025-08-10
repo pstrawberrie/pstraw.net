@@ -12,9 +12,13 @@
       <span><%= messages.length %> Messages</span>
     </div>
     <div class="grid-2">
-      <% for(const [idx, message] of messages.entries()) { if(idx < 25) { %>
+      <% for(const [idx, message] of messages.entries()) { %>
         <div class="card message">
           <div class="top">
+            <div class="date">
+              <span>Date</span>
+              <%= formatDate(message.createdAt) %>
+            </div>
             <div class="name">
               <span>Name</span>
               <%= message.name || '(Not Provided)' %>
@@ -26,10 +30,10 @@
           </div>
           <div class="message">
             <span>Message</span>
-            <%= message.message %>
+            <p style="white-space: pre;"><%= message.message %></p>
           </div>
         </div>
-      <% }} %>
+      <% } %>
     </div>
   </section>
 

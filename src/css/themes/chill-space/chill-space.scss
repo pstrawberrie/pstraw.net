@@ -41,8 +41,11 @@
   --c-quaternary: rgb(var(--quaternary-rgb));
   --c-quinary: rgb(var(--quinary-rgb));
   --c-state-success: rgba(var(--state-success-rgb), 0.25);
+  --c-state-success-bright: rgb(var(--state-success-rgb));
   --c-state-info: rgba(var(--state-info-rgb), 0.25);
+  --c-state-info-bright: rgb(var(--state-info-rgb));
   --c-state-error: rgba(var(--state-error-rgb), 0.25);
+  --c-state-error-bright: rgb(var(--state-error-rgb));
 
   --c-background: rgb(var(--background-rgb));
   --c-background-accent: rgb(var(--background-accent-rgb));
@@ -177,16 +180,14 @@
 
   --c-primary-header-gradient: linear-gradient(
     135deg,
-    var(--c-primary) 40%,
-    var(--c-text) 49%,
-    var(--c-secondary) 62%
+    var(--c-primary) 15%,
+    var(--c-text) 69%
   );
 
   --c-tertiary-header-gradient: linear-gradient(
     135deg,
-    var(--c-tertiary) 35%,
-    var(--c-text) 49%,
-    var(--c-quaternary) 62%
+    var(--c-tertiary) 15%,
+    var(--c-text) 69%
   );
 
   --c-text-gradient-decoration: linear-gradient(
@@ -210,7 +211,7 @@ body {
 .logo {
   font-family: var(--font-family-brand);
   text-transform: uppercase;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   background-image: var(--c-logo-gradient);
 
   @include util.mq(sm) {

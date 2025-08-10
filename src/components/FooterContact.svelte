@@ -1,22 +1,39 @@
 <script>
   import { SERVER_URL } from "@env";
-  import { isLocalStorageAvailable } from "@util";
+  import { isLocalStorageAvailable, formatDate, getRelativeTime } from "@util";
   import SVG from "@components/SVG.svelte";
+  import Loader from "@components/Loader.svelte";
 
   let contactFormButtonEl;
   let formEl;
 
   let active = $state(false);
   let errors = $state([]);
-  let messageSent = $state(false);
+  let loading = $state(false);
+  let messageSent = $state(null);
+  let tempMessage = $state(null);
 
   let name = $state("");
   let email = $state("");
   let message = $state("");
   let naughty = $state("");
 
-  function saveMessageSentLS() {
-  if (!isLocalStorageAvailable) return;
+  let messageLength = $derived(message.length);
+
+  function setMessageSent() {
+    if (!isLocalStorageAvailable()) return;
+    const sentDate = new Date().toLocaleString();
+    localStorage.setItem("messageSent", sentDate);
+    messageSent = sentDate;
+  }
+
+  function clearMessageSent(e) {
+    if (isLocalStorageAvailable()) {
+      localStorage.removeItem("messageSent");
+      messageSent = null;
+    }
+
+    tempMessage = null;
   }
 
   function onFormSubmit(e) {
@@ -25,6 +42,7 @@
   }
 
   function clearForm() {
+    loading = false;
     name = "";
     email = "";
     message = "";
@@ -37,7 +55,7 @@
     }
 
     // low-hanging fruit for bots?
-    if (naughty.length) errors.push("Hmmm...");
+    if (naughty.length) errors.push("Something seems naughty here...");
 
     // clear errors after a few seconds
     if (errors.length) {
@@ -48,6 +66,7 @@
   }
 
   function showErrors() {
+    loading = false;
     formEl.classList.add("errors");
     setTimeout(() => {
       formEl.classList.remove("errors");
@@ -57,6 +76,8 @@
 
   async function postForm() {
     if (!active || naughty.length) return;
+
+    loading = true;
 
     // fetch
     const contactReq = await fetch(`${SERVER_URL}/contact`, {
@@ -82,10 +103,28 @@
       showErrors();
     } else {
       const json = await response.json();
-      console.log(json);
-      clearForm();
+
+      setTimeout(() => {
+        if (json.success) {
+          console.log("-> Your message has been sent");
+          clearForm();
+          setMessageSent();
+          tempMessage = true;
+        } else if (json.error) {
+          errors.push(json.error);
+          showErrors();
+        } else {
+          errors.push("Error sending message - try again later");
+          showErrors();
+        }
+      }, 690);
     }
   }
+
+  $effect(() => {
+    if (!isLocalStorageAvailable()) return;
+    messageSent = localStorage.getItem("messageSent");
+  });
 </script>
 
 <svelte:document
@@ -98,7 +137,9 @@
     if (
       active &&
       !e.target.closest("#contact-form") &&
-      e.target !== contactFormButtonEl
+      !e.target.closest(".status") &&
+      e.target !== contactFormButtonEl &&
+      !e.target.classList.contains("btn-content")
     ) {
       active = false;
     }
@@ -145,11 +186,15 @@
       <label for="message">Message *</label>
       <textarea
         bind:value={message}
-        placeholder="Required - enter an email if you'd like a response"
+        placeholder="Required - max 500 characters. Provide your email if you'd like a response ;]"
         id="message"
         name="message"
         tabindex={active ? "0" : "-1"}
       ></textarea>
+      <span
+        class={`message-length ${messageLength > 500 || messageLength === 0 ? "error" : ""}`}
+        >{messageLength}/500</span
+      >
     </fieldset>
     <input
       name="naughty"
@@ -170,11 +215,31 @@
       type="submit"
       value="Send"
       tabindex={active ? "0" : "-1"}
-      disabled={!message.length || errors.length}
+      disabled={!message.length || messageLength > 500 || errors.length}
     />
   </form>
-  <div class="status">
-    {#if true}{/if}
+  <div class={`status ${loading || messageSent ? "active" : ""}`}>
+    {#if loading}
+      <Loader />
+      <div class="loading-text">Sending...</div>
+    {/if}
+    {#if !loading && messageSent}
+      <div class="sent-text">
+        {#if !tempMessage}
+          <div>
+            You sent a message <i>{getRelativeTime(messageSent)}</i>, on {formatDate(
+              messageSent,
+            )}.
+          </div>
+          <button onclick={clearMessageSent} class="btn-content"
+            >Message Again</button
+          >
+        {/if}
+        {#if tempMessage}
+          <span><i>Your message has been sent!</i><br /> Have a nice day.</span>
+        {/if}
+      </div>
+    {/if}
   </div>
 </div>
 
@@ -199,7 +264,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    bottom: 115%;
+    bottom: 126%;
     left: 50%;
     width: 80vw;
     flex-wrap: nowrap;
@@ -216,6 +281,7 @@
       transform 0.3s ease;
     pointer-events: none;
     z-index: 10;
+    overflow: hidden;
 
     @include util.mq(md) {
       width: 420px;
@@ -296,6 +362,18 @@
     min-height: 100px;
   }
 
+  .message-length {
+    font-size: 0.75rem;
+    text-align: right;
+    padding: 0.15rem;
+
+    &.error {
+      font-size: 0.75rem;
+      color: var(--c-state-error-bright);
+      text-shadow: 0 0 5px var(--c-state-error);
+    }
+  }
+
   input[type="submit"] {
     text-align: center;
     cursor: pointer;
@@ -347,6 +425,55 @@
         height: 100%;
         background: rgba(var(--state-error-rgb), 0.1);
         transform-origin: left;
+      }
+    }
+  }
+
+  .status {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    line-height: 1.5;
+    background-color: rgba(0, 0, 0, 0.69);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+
+    &.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .loading-text {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .sent-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    i {
+      font-weight: 500;
+      color: var(--c-state-success-bright);
+      text-shadow: 0 0 5px var(--c-state-success);
+    }
+
+    button {
+      margin: 0 auto;
+
+      @include util.mq(md) {
+        margin: 0 auto 0 0;
       }
     }
   }

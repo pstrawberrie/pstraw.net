@@ -9,6 +9,7 @@ const {
   heroSubtitle,
   heroColor,
   pageMenuLinks = [],
+  pageMenuColor = "tertiary",
   currentPage = null,
 } = Astro.props;
 ---
@@ -17,7 +18,7 @@ const {
   <Hero title={heroTitle} subtitle={heroSubtitle} color={heroColor}>
     {
       pageMenuLinks.length > 0 && (
-        <PageMenu links={pageMenuLinks} {currentPage} />
+        <PageMenu links={pageMenuLinks} color={pageMenuColor} {currentPage} />
       )
     }
   </Hero>

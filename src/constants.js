@@ -3,6 +3,10 @@ export const SITE = {
   TITLE: "pstraw.net",
   DESCRIPTION:
     "A personal web playground and archive created for inspiration and exploration.",
+  VERSION: {
+    CURRENT: 3.1,
+    TITLE: "Chill Space",
+  },
   NOTES_PER_PAGE: 10,
   MOVIES_PER_PAGE: 20,
 };

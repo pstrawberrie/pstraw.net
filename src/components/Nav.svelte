@@ -31,7 +31,7 @@
           }
         });
       },
-      { root: null, threshold: 0 }
+      { root: null, threshold: 0 },
     );
 
     observer.observe(navGhostEl);
@@ -138,7 +138,11 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    gap: var(--nav-gap);
+    gap: 0.5rem;
+
+    @include util.mq(sm) {
+      gap: var(--nav-gap);
+    }
   }
 
   #hamburger,
@@ -321,5 +325,10 @@
         transition: transform 0.3s ease;
       }
     }
+  }
+
+  a.logo {
+    position: relative;
+    top: 1px;
   }
 </style>

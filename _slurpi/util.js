@@ -4,6 +4,13 @@ import crypto from "node:crypto";
 /**
  * Formatting
  */
+// Format Date
+export function formatDate(date, dateStyle = "long", locales = "en") {
+  const dateToFormat = new Date(date);
+  const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle });
+  return dateFormatter.format(dateToFormat);
+}
+
 // Format bytes into readable string
 export function formatBytes(bytes, decimals = 2) {
   if (bytes === 0) return "0 Bytes";

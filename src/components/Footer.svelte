@@ -1,5 +1,5 @@
 <script>
-  import { SITE, FOOTER_LINKS } from "@constants";
+  import { SITE } from "@constants";
   import { SITE_DATA } from "@env";
   import { formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
@@ -33,22 +33,14 @@
     <div class="bottom">
       <p>
         &copy; {new Date().getFullYear()}
-        {SITE.TITLE} • v2 <em>Chill Space</em> • Synced on {formatDate(
-          new Date(SITE_DATA.build_history[0]).toLocaleDateString()
+        {SITE.TITLE} • v{SITE.VERSION.CURRENT} <em>{SITE.VERSION.TITLE}</em> •
+        Synced on {formatDate(
+          new Date(SITE_DATA.build_history[0]).toLocaleDateString(),
         )}
       </p>
     </div>
   </div>
 </footer>
-
-<!-- {#each FOOTER_LINKS as parent}
-  <ul>
-    <li class="title">{parent.heading}</li>
-    {#each parent.links as link}
-      <li><a href={link.path}>{link.title}</a></li>
-    {/each}
-  </ul>
-{/each} -->
 
 <style lang="scss">
   @use "@css/util";

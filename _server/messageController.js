@@ -5,9 +5,12 @@ export const postMessage = async (req, res) => {
   try {
     const { name, email, message, naughty } = req.body;
 
-    if (naughty) return res.json({ error: "Hmmm..." });
+    if (naughty)
+      return res.json({ error: "Error: something seems naughty..." });
     if (!message || message.trim() === "")
       return res.json({ error: "Message is required" });
+    if (message.length > 500)
+      return res.json({ error: "Message is too long (500 character max)" });
 
     const messageObj = {};
     if (name && name.trim() !== "") messageObj.name = name.trim();

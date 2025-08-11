@@ -1,14 +1,14 @@
 ---
 title: 'V3 Release "Chill Space"'
-date: 2025-08-04
-updated: 2025-08-10
-description: "The version 3 release of pstraw.net is live!"
+date: 2025-08-05
+updated: 2025-08-11
+description: "The version 3 release of pstraw.net!"
 authors: ["pstraw"]
 tags: ["general"]
 published: true
 ---
 
-As of **August 5, 2025**, version 3 of pstraw.net is live and alive. As the second major design update to hit the site, this version tightens everything up and introduces a new unified theme with modern **spacing**, consistent **UI elements**, matching-ish **colors**, and more complementary **fonts**.
+As of **August 5, 2025**, version 3 of pstraw.net is live and alive. As the second major design update to hit the site, this version tightens everything up and introduces a new unified theme with modern **spacing**, consistent **UI elements** & **colors**, and more complementary **fonts**.
 
 ## V3 Changelog
 
@@ -34,26 +34,16 @@ Added "chill space" theme
   - Updated & modified ~10 existing components to match theme
   - Added consistent hover effects
 
-### V3.1 - Aug 10, 2025
-
-Added **contact functionality** and the **admin server**
-
-```js
-var x = 69;
-
-function honkIt() {
-  return x * x + x;
-}
-
-console.log(honkIt()); //4830
-```
-
-- Contact functionality
-  - Added front-end contact component `src/components/FooterContact.svelte`
-  - Added contact POST logic web server in `_server/messageController.js`
-- Admin server
-  - Added a new server at `_server/admin.js` to view database content
-
 ---
 
-## V1 Retrospective
+### V3.1 - Aug 11, 2025
+
+Added **contact** and **admin**
+
+- Contact
+  - Added front-end contact component `src/components/FooterContact.svelte`
+  - Added message functionality to back-end `_server/messageController.js`
+  - Added new schema for Message `_slurpi/db/Message.js`
+- Admin server
+  - Added a new server at `_server/admin.js` to view database content
+  - Added ejs and some partials for admin views `_server/views/`

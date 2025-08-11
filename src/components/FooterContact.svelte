@@ -117,7 +117,7 @@
           errors.push("Error sending message - try again later");
           showErrors();
         }
-      }, 420);
+      }, 250);
     }
   }
 
@@ -186,7 +186,7 @@
       <label for="message">Message *</label>
       <textarea
         bind:value={message}
-        placeholder="Required - max 500 characters. Provide your email if you'd like a response ;]"
+        placeholder="Required - max 500 characters. If you'd like a response don't forget to enter your email ;]"
         id="message"
         name="message"
         tabindex={active ? "0" : "-1"}

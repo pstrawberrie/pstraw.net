@@ -187,8 +187,9 @@
 
   --c-tertiary-header-gradient: linear-gradient(
     135deg,
-    var(--c-text) 15%,
-    var(--c-tertiary) 69%
+    rgba(var(--tertiary-rgb), 0.75) 18%,
+    rgba(var(--tertiary-rgb), 1) 26%,
+    rgba(var(--tertiary-rgb), 0.69) 80%
   );
 
   --c-text-gradient-decoration: linear-gradient(
@@ -306,13 +307,6 @@ footer {
   }
 }
 
-h2,
-h3 {
-  &.shimmer {
-    animation: shimmer 3s ease-in-out infinite alternate;
-  }
-}
-
 .header-primary {
   background-image: var(--c-primary-header-gradient);
 }
@@ -395,19 +389,6 @@ h3 {
     &::after {
       opacity: 1;
     }
-  }
-}
-
-/**
- * Animations
- */
-@keyframes shimmer {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-
-  100% {
-    filter: hue-rotate(30deg);
   }
 }
 

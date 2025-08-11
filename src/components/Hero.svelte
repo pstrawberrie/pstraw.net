@@ -1,6 +1,6 @@
 <script lang="ts">
   let { title, subtitle = undefined, color = undefined, links = [] } = $props();
-  const colorClass = color ? "shimmer text-gradient header-" + color : "";
+  const colorClass = color ? "text-gradient header-" + color : "";
 </script>
 
 <div class="hero">
@@ -29,10 +29,6 @@
     line-height: var(--line-height-h1-sm);
     margin-bottom: 0.35rem;
     line-height: 1.1;
-
-    &.shimmer {
-      animation: shimmer 3s ease-in-out infinite alternate;
-    }
   }
 
   p {

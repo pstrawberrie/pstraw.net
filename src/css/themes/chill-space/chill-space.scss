@@ -180,14 +180,15 @@
 
   --c-primary-header-gradient: linear-gradient(
     135deg,
-    var(--c-primary) 15%,
-    var(--c-text) 69%
+    rgba(var(--primary-rgb), 0.75) 22%,
+    rgba(var(--primary-rgb), 1) 37%,
+    rgba(var(--primary-rgb), 0.69) 44%
   );
 
   --c-tertiary-header-gradient: linear-gradient(
     135deg,
-    var(--c-tertiary) 15%,
-    var(--c-text) 69%
+    var(--c-text) 15%,
+    var(--c-tertiary) 69%
   );
 
   --c-text-gradient-decoration: linear-gradient(
@@ -213,6 +214,12 @@ body {
   text-transform: uppercase;
   font-size: 1.35rem;
   background-image: var(--c-logo-gradient);
+  transition: 0.3s ease;
+  filter: saturate(0.22);
+
+  &:hover {
+    filter: saturate(1);
+  }
 
   @include util.mq(sm) {
     font-size: 1.6rem;

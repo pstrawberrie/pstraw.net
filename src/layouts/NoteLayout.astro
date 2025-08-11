@@ -29,7 +29,7 @@ const { frontmatter, slug } = Astro.props;
             </div>
           )
         }
-        <h1 class="text-gradient">
+        <h1 class="text-gradient header-logo">
           {frontmatter.title}
         </h1>
         {
@@ -113,7 +113,6 @@ const { frontmatter, slug } = Astro.props;
       text-align: center;
       font-size: var(--font-size-h1-sm);
       line-height: var(--line-height-h1-sm);
-      background-image: var(--c-text-gradient-default);
       margin-bottom: 2rem;
       scroll-margin-top: calc(var(--nav-height) + 6rem);
     }
@@ -179,7 +178,15 @@ const { frontmatter, slug } = Astro.props;
       list-style-position: inside;
     }
     :global(ul) {
+      list-style-type: disc;
+    }
+
+    :global(ul ul) {
       list-style-type: circle;
+    }
+
+    :global(ul ul ul) {
+      padding-left: 1.25rem;
     }
 
     :global(ol) {
@@ -195,8 +202,37 @@ const { frontmatter, slug } = Astro.props;
     :global(pre) {
       padding: 1rem;
       border-radius: 0.5rem;
-      border: 1px solid var(--c-text-tertiary);
+      border: 1px solid var(--c-card-border);
       background: var(--c-background) !important;
+      font-size: 1rem;
+    }
+
+    :global(code:not(pre code)) {
+      background: var(--c-background);
+      font-size: 1rem;
+      padding: 0.25rem;
+      border: 1px solid var(--c-card-border);
+      border-radius: 0.42rem;
+    }
+
+    :global(.border-primary) {
+      border-color: var(--c-primary);
+    }
+
+    :global(.border-secondary) {
+      border-color: var(--c-secondary);
+    }
+
+    :global(.border-tertiary) {
+      border-color: var(--c-tertiary);
+    }
+
+    :global(.border-quaternary) {
+      border-color: var(--c-quaternary);
+    }
+
+    :global(.border-quinary) {
+      border-color: var(--c-quinary);
     }
 
     :global(blockquote) {

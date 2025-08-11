@@ -117,7 +117,7 @@
           errors.push("Error sending message - try again later");
           showErrors();
         }
-      }, 690);
+      }, 420);
     }
   }
 

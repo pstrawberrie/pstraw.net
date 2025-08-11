@@ -150,7 +150,7 @@
       {#if loading}
         <Loader />
       {/if}
-      {#if !hasError && !results.length}
+      {#if !hasError && !results.length && !noResults}
         <div class="info empty">
           <SVG name="search" />
           <div class="info-title">Search pstraw.net</div>
@@ -169,8 +169,9 @@
       {/if}
       {#if noResults && query.length > 1 && query !== ""}
         <div class="info no-results">
+          <SVG name="search" />
           <div class="info-title">No Results Found</div>
-          Try searching for a different title
+          Your search for "{query.trim()}" didn't return any results.
         </div>
       {/if}
       {#if results.length}
@@ -384,6 +385,12 @@
 
     :global(svg path) {
       fill: var(--c-text-muted);
+    }
+  }
+
+  .no-results {
+    :global(svg) {
+      opacity: 0.15;
     }
   }
 

@@ -16,7 +16,7 @@ As of **August 5, 2025**, version 3 of pstraw.net is live and alive. As the seco
 
 Added "chill space" theme
 
-- Removed dark/light mode in favor of a static theme. More themes to come
+- Removed dark/light mode in favor of a static theme. More themes to come.
 - Removed recent search terms functionality
 - Used [Bolt](https://bolt.new) to generate a space theme guide using [Star Trek: Prodigy](https://www.themoviedb.org/tv/106393-star-trek-prodigy) colors
   - Galactic colors
@@ -31,19 +31,19 @@ Added "chill space" theme
     - <span style="font-family: var(--font-family-brand)">Bitcount Prop</span>
       (brand)
   - Updated page layouts to have "modern" spacing
-  - Updated & modified ~10 existing components to match theme
+  - Updated & modified existing components to match theme
   - Added consistent hover effects
 
 ---
 
 ### V3.1 - Aug 11, 2025
 
-Added **contact** and **admin**
+Added **contact** and **admin** features
 
 - Contact
-  - Added front-end contact component `src/components/FooterContact.svelte`
-  - Added message functionality to back-end `_server/messageController.js`
-  - Added new schema for Message `_slurpi/db/Message.js`
+  - Added a front-end contact component
+  - Added a message schema to db
+  - Added message controller to validate & save messages
 - Admin server
-  - Added a new server at `_server/admin.js` to view database content
-  - Added ejs and some partials for admin views `_server/views/`
+  - Added a new admin server that displays database content
+  - Added ejs to the project and set up partials/views for admin dashboard

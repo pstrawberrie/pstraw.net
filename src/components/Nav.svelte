@@ -318,7 +318,7 @@
         bottom: 0.45rem;
         left: 0;
         width: 100%;
-        height: 2px;
+        height: 1px;
         transform: scaleX(0);
         background: var(--c-text-gradient-decoration);
         transform-origin: left;

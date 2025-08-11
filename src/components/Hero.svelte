@@ -1,5 +1,5 @@
 <script lang="ts">
-  let { title, subtitle = undefined, color = undefined, links = [] } = $props();
+  let { title, subtitle = undefined, color = undefined, children } = $props();
   const colorClass = color ? "text-gradient header-" + color : "";
 </script>
 
@@ -10,7 +10,7 @@
       <p>{subtitle}</p>
     </div>
   </div>
-  <slot />
+  {@render children?.()}
 </div>
 
 <style lang="scss">

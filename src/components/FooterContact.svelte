@@ -11,6 +11,7 @@
   let errors = $state([]);
   let loading = $state(false);
   let messageSent = $state(null);
+  let messageSentRelativeTime = $state(null);
   let tempMessage = $state(null);
 
   let name = $state("");
@@ -110,6 +111,12 @@
           clearForm();
           setMessageSent();
           tempMessage = true;
+
+          setTimeout(() => {
+            if (active === true) active = false;
+
+            setTimeout(() => (tempMessage = false), 400);
+          }, 5000);
         } else if (json.error) {
           errors.push(json.error);
           showErrors();
@@ -122,8 +129,14 @@
   }
 
   $effect(() => {
+    // on mount
     if (!isLocalStorageAvailable()) return;
     messageSent = localStorage.getItem("messageSent");
+
+    // update relative
+    if (active && messageSent) {
+      messageSentRelativeTime = getRelativeTime(messageSent);
+    }
   });
 </script>
 
@@ -227,7 +240,7 @@
       <div class="sent-text">
         {#if !tempMessage}
           <div>
-            You sent a message <i>{getRelativeTime(messageSent)}</i>, on {formatDate(
+            You sent a message <i>{messageSentRelativeTime}</i>, on {formatDate(
               messageSent,
             )}.
           </div>

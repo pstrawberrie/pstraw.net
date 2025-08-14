@@ -3,30 +3,35 @@
 <main>
   <div class="header">
     <h1>Dashboard</h1>
-    <p>Welcome to the admin dashboard.</p>
+    <p>Welcome to the admin dashboard. It's just messages for now.</p>
   </div>
 
   <section class="section messages">
     <h2>Messages</h2>
     <div class="stats">
-      <span><%= messages.length %> Messages</span>
+      <span><i data-type="message"><%= messages.length %></i> Messages</span>
     </div>
     <div class="grid-2">
-      <% for(const [idx, message] of messages.entries()) { %>
-        <div class="card message">
+      <% for(const [idx, message] of messages.reverse().entries()) { %>
+        <div class="card message" data-type="message" data-id="<%= message.id %>">
           <div class="top">
+            <% if(message.name) { %>
+              <div class="name">
+                <span>Name</span>
+                <%= message.name || '(Not Provided)' %>
+              </div>
+            <% } %>
+            <% if(message.email) { %> 
+              <div class="email">
+                <span>Email</span>
+                <%= message.email || '(Not Provided)' %>
+              </div>
+            <% } %>
             <div class="date">
               <span>Date</span>
               <%= formatDate(message.createdAt) %>
             </div>
-            <div class="name">
-              <span>Name</span>
-              <%= message.name || '(Not Provided)' %>
-            </div>
-            <div class="email">
-              <span>Email</span>
-              <%= message.email || '(Not Provided)' %>
-            </div>
+            <button class="delete">&times;</button>
           </div>
           <div class="message">
             <span>Message</span>
@@ -37,7 +42,7 @@
     </div>
   </section>
 
-  <section class="section tmdb">
+  <!-- <section class="section tmdb">
     <h2>TMDB</h2>
     <div class="stats">
       <span><%= movies.length %> Movies</span>
@@ -51,13 +56,56 @@
       <span>5 Notes</span>
       <span>9 Tags</span>
     </div>
-  </section>
+  </section> -->
 </main>
 
 <style>
   .section .stats {
     margin-bottom: 1.5rem;
   }
+
+  i {
+    font-style: normal;
+  }
 </style>
+
+<script>
+  const deleteButtons = document.querySelectorAll('button.delete');
+
+  function postDelete(type, id) {
+    fetch('/api/delete', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({type, id}) // Convert the JavaScript object to a JSON string
+    })
+    .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
+    })
+    .then(data => {
+      if(data.success) {
+        const countEl = document.querySelector(`i[data-type="${type}"]`);
+        const el = document.querySelector(`[data-type="${type}"][data-id="${id}"]`);
+
+        if(el) el.remove();
+        if(countEl && data?.total > -1) countEl.innerText = data.total;
+      } else {
+        console.log('Error: ', data.error);
+      }
+    })
+    .catch(error => { console.error('Error:', error) });
+  }
+
+  [...deleteButtons].map(button => {
+    button.addEventListener('click', () => {
+      const parent = button.parentNode.parentNode;
+      const type = parent.getAttribute('data-type');
+      const id = parent.getAttribute('data-id');
+
+      if(!type || !id) return;
+      postDelete(type, id);
+    });
+  });
+</script>
 
 <%- include('partials/bottom') %>

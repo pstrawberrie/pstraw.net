@@ -5,6 +5,10 @@
   --c-dark-accent-2: #3f3f3f;
   --c-light: #f0f0f0;
 
+  --c-state-error: rgb(173, 41, 41);
+  --c-state-info: rgb(221, 221, 78);
+  --c-state-success: rgb(77, 196, 77);
+
   --c-text: #efefef;
   --c-text-secondary: #ccc;
   --c-text-muted: #888;
@@ -221,6 +225,29 @@ main {
   flex-wrap: wrap;
   gap: 1rem;
   font-size: 1rem;
+  padding-right: 3rem;
+}
+
+.card .top button.delete {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0rem;
+  right: 0rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
+  border: 1px solid var(--c-state-error);
+  border-radius: 0.15rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--c-text);
+  cursor: pointer;
+}
+
+.card .top button.delete:hover {
+  color: var(--c-state-error);
 }
 
 .card .top div {

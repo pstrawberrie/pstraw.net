@@ -8,83 +8,81 @@
     </div>
 
     <div class="menu_links">
-      <a href="/messages">Messages</a>
-      <a href="/tmdb">TMDB</a>
+      <!-- <a href="/messages">Messages</a>
+      <a href="/tmdb">TMDB</a> -->
     </div>
 
-    <div class="menu_footer">
-      Footer
-    </div>
+    <div class="menu_footer">&nbsp;</div>
   </div>
 </nav>
 
 <style>
-/* Menu */
-#menu {
-  position: relative;
-  width: var(--menu-width);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: var(--c-dark-accent);
-  border-right: 1px solid var(--c-dark-accent-border);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
+  /* Menu */
+  #menu {
+    position: relative;
+    width: var(--menu-width);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--c-dark-accent);
+    border-right: 1px solid var(--c-dark-accent-border);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
 
-.menu_container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  height: 100%;
-  padding: 1rem;
-}
+  .menu_container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+    padding: 1rem;
+  }
 
-.menu_logo a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-family: var(--font-family-brand);
-}
+  .menu_logo a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-family-brand);
+  }
 
-.menu_logo img {
-  width: 3rem;
-  height: auto;
-}
+  .menu_logo img {
+    width: 3rem;
+    height: auto;
+  }
 
-.menu_links {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  border: 2px solid var(--c-dark-accent-2);
-  border-radius: .5rem;
-  overflow: hidden;
-}
+  .menu_links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 2px solid var(--c-dark-accent-2);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
 
-.menu_links a {
-  font-size: 1rem;
-  padding: .25rem .75rem;
-  transition: transform .2s ease;
-}
+  .menu_links a {
+    font-size: 1rem;
+    padding: 0.25rem 0.75rem;
+    transition: transform 0.2s ease;
+  }
 
-.menu_links a:first-child {
-  padding-top: .5rem;
-}
+  .menu_links a:first-child {
+    padding-top: 0.5rem;
+  }
 
-.menu_links a:last-child {
-  padding-bottom: .5rem;
-}
+  .menu_links a:last-child {
+    padding-bottom: 0.5rem;
+  }
 
-.menu_links a:hover {
-  text-decoration: underline;
-  transform: translateX(2px);
-}
+  .menu_links a:hover {
+    text-decoration: underline;
+    transform: translateX(2px);
+  }
 
-.menu_footer {
-  margin-top: auto;
-  font-size: .85rem;
-  color: var(--c-text-secondary);
-}
+  .menu_footer {
+    margin-top: auto;
+    font-size: 0.85rem;
+    color: var(--c-text-secondary);
+  }
 </style>

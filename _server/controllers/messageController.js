@@ -1,4 +1,4 @@
-import Message from "../_slurpi/db/Message.js";
+import Message from "../../_slurpi/db/Message.js";
 
 /* POST Message */
 export const postMessage = async (req, res) => {

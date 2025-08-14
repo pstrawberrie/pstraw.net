@@ -1,7 +1,9 @@
 import express from "express";
-import { getSearchStatus, postSearch } from "./searchController.js";
-import { postMessage } from "./messageController.js";
-import { getAdminDashboard } from "./adminController.js";
+import {
+  getSearchStatus,
+  postSearch,
+} from "../controllers/searchController.js";
+import { postMessage } from "../controllers/messageController.js";
 const router = express.Router();
 
 // Search Routes

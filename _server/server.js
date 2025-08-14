@@ -2,8 +2,8 @@ import "dotenv/config";
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
-import debugMiddleware from "./debugMiddleware.js";
-import routes from "./routes.js";
+import debugMiddleware from "./middlewares/debugMiddleware.js";
+import routes from "./routes/serverRoutes.js";
 
 const isDev = process.env.NODE_ENV !== "production";
 const app = express();

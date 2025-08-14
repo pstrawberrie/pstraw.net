@@ -5,15 +5,15 @@ import { formatDate } from "../_slurpi/util.js";
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
-import debugMiddleware from "./debugMiddleware.js";
-import routes from "./routes_admin.js";
+import debugMiddleware from "./middlewares/debugMiddleware.js";
+import routes from "./routes/adminRoutes.js";
 
 const isDev = process.env.NODE_ENV !== "production";
 const app = express();
 const PORT = process.env.ADMIN_SERVER_PORT;
 
 // Middlewares
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json());
 app.use(
   cors({

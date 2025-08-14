@@ -249,7 +249,10 @@
           >
         {/if}
         {#if tempMessage}
-          <span><i>Your message has been sent!</i><br /> Have a nice day.</span>
+          <span
+            ><i>Your message has been sent!</i><br /> This box will close shortly.
+            Have a nice day.</span
+          >
         {/if}
       </div>
     {/if}

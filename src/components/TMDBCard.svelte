@@ -1,7 +1,7 @@
 <script>
-  import { minutesToHours } from "@util";
+  import { minutesToHours, getRelativeTime } from "@util";
   import SVG from "@components/SVG.svelte";
-  let { itemData, exact = undefined } = $props();
+  let { itemData, exact = undefined, displayLastWatched = false } = $props();
   const id = itemData.id;
   const data = itemData.data ? itemData.data : itemData;
   const isMovie = itemData.collection === "movies";
@@ -14,6 +14,11 @@
     : minutesToHours(
         parseInt(episodeRuntimeArr[episodeRuntimeArr.length - 1], 10),
       );
+
+  // Recently Watched Time
+  const lastWatchedRelative = getRelativeTime(
+    data?.updatedAt || data.createdAt,
+  );
 </script>
 
 <a
@@ -28,7 +33,12 @@
       <img src={`/images/tmdb/${id}.webp`} alt="" loading="lazy" />
     </div>
     <div class="info">
-      <h3 class="title">{data.title}</h3>
+      <h3 class="title">
+        {data.title}
+        {#if displayLastWatched}
+          <span class="last-watched">Watched {lastWatchedRelative}</span>
+        {/if}
+      </h3>
       <div class="genres">
         {#each JSON.parse(data.genres) as g}
           <span class="genre" data-test={data.genres}>{g.name}</span>
@@ -189,9 +199,18 @@
     color: var(--c-card-content-background-text);
   }
 
-  h3 {
+  .title {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
     font-size: 1.25rem;
     font-weight: bold;
+
+    span {
+      font-size: 0.7rem;
+      color: var(--c-text-tertiary);
+    }
   }
 
   .bottom {

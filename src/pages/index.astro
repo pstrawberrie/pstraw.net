@@ -23,8 +23,9 @@ const excludedRecents = [
 ];
 
 // Movies/Shows
-const recentTMDBLimit = 12;
+const recentTMDBLimit = 15;
 const recentNotesLimit = 6;
+
 const movies = await getCollection(
   "movies",
   ({ id }) => excludedRecents.indexOf(id) === -1,
@@ -75,7 +76,8 @@ notes.sort((a, b) => {
       <div class="grid-default">
         {
           tmdbItems.map((i, idx) => {
-            if (idx < recentTMDBLimit) return <TMDBCard itemData={i} />;
+            if (idx < recentTMDBLimit)
+              return <TMDBCard itemData={i} displayLastWatched={true} />;
           })
         }
       </div>

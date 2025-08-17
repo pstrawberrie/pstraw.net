@@ -115,12 +115,8 @@ export const postSearch = async (req, res) => {
 export const postFilter = async (req, res) => {
   try {
     const { options = [], page = 1 } = req.body;
-    if (query.length < 2)
-      return res.json({ info: "insufficient character length" });
 
-    const lowerQuery = "" + query.trim().toLowerCase();
-
-    console.log(`Search received for term "${lowerQuery}" / page ${page}`);
+    console.log(`Filter received for term "${lowerQuery}" / page ${page}`);
 
     // Filter all matches
     const matchedResults = allData.filter((item) =>

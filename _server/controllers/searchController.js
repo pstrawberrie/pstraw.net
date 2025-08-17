@@ -110,3 +110,45 @@ export const postSearch = async (req, res) => {
     res.json({ error: "Search Error" });
   }
 };
+
+/* POST Filter */
+export const postFilter = async (req, res) => {
+  try {
+    const { options = [], page = 1 } = req.body;
+    if (query.length < 2)
+      return res.json({ info: "insufficient character length" });
+
+    const lowerQuery = "" + query.trim().toLowerCase();
+
+    console.log(`Search received for term "${lowerQuery}" / page ${page}`);
+
+    // Filter all matches
+    const matchedResults = allData.filter((item) =>
+      item.title.toLowerCase().includes(lowerQuery),
+    );
+
+    // Check for exact match
+    let exactMatches = [];
+    matchedResults.forEach((r) => {
+      if (r.title.toLowerCase() === lowerQuery) exactMatches.push(r);
+    });
+
+    // Matches totals & pages
+    const total = matchedResults.length;
+    const totalPages = Math.ceil(total / searchResultsPerPage);
+
+    // Paginated results
+    const results = matchedResults
+      .slice((page - 1) * searchResultsPerPage, page * searchResultsPerPage)
+      .map((r) => r);
+
+    // Send JSON
+    const finalJson = { results, total, totalPages };
+    if (exactMatches.length) finalJson.exactMatches = exactMatches;
+
+    res.json(finalJson);
+  } catch (err) {
+    console.error(err);
+    res.json({ error: "Search Error" });
+  }
+};

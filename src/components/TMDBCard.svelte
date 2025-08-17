@@ -14,11 +14,6 @@
     : minutesToHours(
         parseInt(episodeRuntimeArr[episodeRuntimeArr.length - 1], 10),
       );
-
-  // Recently Watched Time
-  const lastWatchedRelative = getRelativeTime(
-    data?.updatedAt || data.createdAt,
-  );
 </script>
 
 <a
@@ -36,7 +31,9 @@
       <h3 class="title">
         {data.title}
         {#if displayLastWatched}
-          <span class="last-watched">Watched {lastWatchedRelative}</span>
+          <span class="last-watched"
+            >Watched {getRelativeTime(data.createdAt)}</span
+          >
         {/if}
       </h3>
       <div class="genres">

@@ -1,55 +1,114 @@
 <script lang="ts">
   import { SERVER_URL, MEDIA_DATA, MOVIE_DATA, SHOW_DATA } from "@env";
   import SVG from "@components/SVG.svelte";
+  import Loader from "@components/Loader.svelte";
 
-  let { title = undefined, type = "all", color = "quinary" } = $props();
+  let {
+    title = undefined,
+    type = "all",
+    year = "all",
+    genre = "all",
+    rating = "all",
+    color = "quinary",
+  } = $props();
 
-  let filterType = $state(type);
   let yearOptions = $state([]);
   let genreOptions = $state([]);
   let ratingOptions = $state([]);
 
-  let currentFilter = $state(null);
-  let previousFilter = $state(null);
-  let result = $state([]);
+  let filterType = $state(type);
+  let filterYear = $state(year);
+  let filterGenre = $state(genre);
+  let filterRating = $state(rating);
 
-  // Initial Option Setup
-  function updateOptions() {
-    if (filterType === "all") {
-      genreOptions = MEDIA_DATA.genres;
-      yearOptions = MEDIA_DATA.years;
-      ratingOptions = MEDIA_DATA.ratings;
-    }
+  let currentPage = $state(1);
+  let loading = $state(false);
+  let error = $state("");
 
-    if (filterType === "movies") {
-      genreOptions = MOVIE_DATA.genres;
-      yearOptions = MOVIE_DATA.years;
-      ratingOptions = MOVIE_DATA.ratings;
-    }
+  // Update Options
+  function updateOptions(newOpts = undefined) {
+    if (newOpts) {
+      genreOptions = newOpts.genres;
+      yearOptions = newOpts.years;
+      ratingOptions = newOpts.ratings;
+    } else {
+      if (filterType === "all") {
+        genreOptions = MEDIA_DATA.genres;
+        yearOptions = MEDIA_DATA.years;
+        ratingOptions = MEDIA_DATA.ratings;
+      }
 
-    if (filterType === "shows") {
-      genreOptions = SHOW_DATA.genres;
-      yearOptions = SHOW_DATA.years;
-      ratingOptions = SHOW_DATA.ratings;
+      if (filterType === "movies") {
+        genreOptions = MOVIE_DATA.genres;
+        yearOptions = MOVIE_DATA.years;
+        ratingOptions = MOVIE_DATA.ratings;
+      }
+
+      if (filterType === "shows") {
+        genreOptions = SHOW_DATA.genres;
+        yearOptions = SHOW_DATA.years;
+        ratingOptions = SHOW_DATA.ratings;
+      }
     }
   }
 
   // On Selection Changes
-  function onMediaTypeChange(e) {
-    filterType = e.target.value;
-    updateOptions();
+  function onFilterChange() {
+    console.log(filterType, filterYear, filterGenre, filterRating);
+    filter();
   }
 
-  function onMediaYearChange(e) {
-    console.log(e.target.value);
-  }
+  /**
+   * Filter
+   */
+  async function filter() {
+    // fetch
+    loading = true;
+    const filterReq = await fetch(`${SERVER_URL}/filter/media`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        filter: {
+          type: filterType.trim().toLowerCase(),
+          year: filterYear.toString(),
+          genre: filterGenre.trim(),
+          rating: filterRating.trim(),
+        },
+        page: currentPage,
+      }),
+    }).catch((err) => {
+      error = "Error filtering - try again later";
+      loading = false;
+    });
 
-  function onMediaGenreChange(e) {
-    console.log(e.target.value);
-  }
+    const data = await filterReq.json();
 
-  function onMediaRatingChange(e) {
-    console.log(e.target.value);
+    if (data.error) {
+      error = data.error;
+    } else {
+      error = "";
+      console.log(data);
+    }
+
+    loading = false;
+
+    // totalResults = data.total;
+    // totalPages = data.totalPages;
+    // noResults = totalResults === 0;
+    // lastQuery = noResults ? query : "";
+
+    // minLengthMessage = false;
+    // hasError = false;
+    // loading = false;
+    // exactMatches = data?.exactMatches || [];
+
+    // if (currentPage > 1) {
+    //   results = [...results, ...data.results];
+    // } else {
+    //   results = data.results;
+    // }
   }
 
   $effect(() => {
@@ -68,7 +127,12 @@
     </div>
     <div class="filters">
       <div class="select-wrap">
-        <select id="media-type" name="media-type" onchange={onMediaTypeChange}>
+        <select
+          id="media-type"
+          name="media-type"
+          onchange={onFilterChange}
+          bind:value={filterType}
+        >
           <option value="all">All Media</option>
           <option value="movies">Movies</option>
           <option value="shows">Shows</option>
@@ -79,9 +143,10 @@
         <select
           id="media-genre"
           name="media-genre"
-          onchange={onMediaGenreChange}
+          onchange={onFilterChange}
+          bind:value={filterGenre}
         >
-          <option value="all">All Genres</option>
+          <option value="all">All Genres ({genreOptions.length})</option>
 
           {#each genreOptions as g}
             <option value={g}>{g}</option>
@@ -90,8 +155,13 @@
       </div>
 
       <div class="select-wrap">
-        <select id="media-year" name="media-year" onchange={onMediaYearChange}>
-          <option value="all">All Years</option>
+        <select
+          id="media-year"
+          name="media-year"
+          onchange={onFilterChange}
+          bind:value={filterYear}
+        >
+          <option value="all">All Years ({yearOptions.length})</option>
 
           {#each yearOptions as y}
             <option value={y}>{y}</option>
@@ -103,16 +173,27 @@
         <select
           id="media-rating"
           name="media-rating"
-          onchange={onMediaRatingChange}
+          onchange={onFilterChange}
+          bind:value={filterRating}
         >
-          <option value="all">All Ratings</option>
+          <option value="all">All Ratings ({ratingOptions.length})</option>
 
-          {#each MEDIA_DATA.ratings as r}
+          {#each ratingOptions as r}
             <option value={r}>{r}</option>
           {/each}
         </select>
       </div>
     </div>
+  </div>
+  <div class={`loading ${loading ? "active" : ""}`}>
+    {#if loading}
+      <Loader />
+    {/if}
+  </div>
+  <div class={`error ${error.length ? "active" : ""}`}>
+    {#if error}
+      {error}
+    {/if}
   </div>
 </div>
 
@@ -139,6 +220,33 @@
     border: 1px solid var(--c-card-border);
     border-top: 0;
     background: var(--c-button-background-hover);
+    overflow: hidden;
+  }
+
+  .loading,
+  .error {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    padding-top: 20px;
+    background: rgba(0, 0, 0, 0.95);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+
+    &.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    :global(.loader) {
+      padding: 0;
+      align-items: flex-start;
+    }
   }
 
   .title {
@@ -174,6 +282,7 @@
     border: 1px solid rgba(var(--background-accent-rgb), 0.25);
     line-height: 1;
     font-weight: 500;
+    min-width: 150px;
 
     option {
       color: black;

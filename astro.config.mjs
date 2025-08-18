@@ -65,14 +65,14 @@ export default defineConfig({
     define: {
       _SITE_DATA: siteData,
       _MOVIE_DATA: {
-        genres: movieGenres,
-        years: movieYears,
-        ratings: movieRatings,
+        genres: movieGenres.sort(),
+        years: movieYears.sort(),
+        ratings: movieRatings.sort(),
       },
       _SHOW_DATA: {
-        genres: showGenres,
-        years: showYears,
-        ratings: showRatings,
+        genres: showGenres.sort(),
+        years: showYears.sort(),
+        ratings: showRatings.sort(),
       },
       _MEDIA_DATA: {
         genres: [...new Set([...movieGenres, ...showGenres])].sort(),

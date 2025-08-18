@@ -78,8 +78,6 @@ export const postSearch = async (req, res) => {
 
     const lowerQuery = "" + query.trim().toLowerCase();
 
-    console.log(`Search received for term "${lowerQuery}" / page ${page}`);
-
     // Filter all matches
     const matchedResults = allData.filter((item) =>
       item.title.toLowerCase().includes(lowerQuery),
@@ -111,38 +109,60 @@ export const postSearch = async (req, res) => {
   }
 };
 
-/* POST Filter */
-export const postFilter = async (req, res) => {
+/* POST Media Filter */
+export const postMediaFilter = async (req, res) => {
   try {
-    const { options = [], page = 1 } = req.body;
+    const { filter, page = 1 } = req.body;
+    const { type, genre, year, rating } = filter;
 
-    console.log(`Filter received for term "${lowerQuery}" / page ${page}`);
+    if (!type || !genre || !year || !rating) {
+      res.json({ error: "Bad filter options - try again" });
+    }
+
+    const results = allData
+      .filter((i) =>
+        type === "all"
+          ? i.collection === "movies" || i.collection === "shows"
+          : i.collection === type,
+      )
+      .filter((i) => (rating === "all" ? true : i.rating === rating))
+      .filter((i) =>
+        year === "all"
+          ? true
+          : i?.release_date?.split("-")[0] === year ||
+            i?.first_air_date?.split("-")[0] === year,
+      )
+      .filter((i) =>
+        genre === "all"
+          ? true
+          : JSON.parse(i.genres).some((o) => o.name === genre),
+      );
+
+    // @TODO: left off here, return new filter options based on what's available in results
+    // const newFilterOptions = {filterType: type, genreOptions: [], yearOptions: [], ratingOptions: []};
+    // results.forEach(r => {
+
+    // });
+
+    res.json({ success: true, results });
 
     // Filter all matches
-    const matchedResults = allData.filter((item) =>
-      item.title.toLowerCase().includes(lowerQuery),
-    );
-
-    // Check for exact match
-    let exactMatches = [];
-    matchedResults.forEach((r) => {
-      if (r.title.toLowerCase() === lowerQuery) exactMatches.push(r);
-    });
+    // const matchedResults = allData.filter((item) =>
+    //   item.title.toLowerCase().includes(lowerQuery),
+    // );
 
     // Matches totals & pages
-    const total = matchedResults.length;
-    const totalPages = Math.ceil(total / searchResultsPerPage);
+    // const total = matchedResults.length;
+    // const totalPages = Math.ceil(total / searchResultsPerPage);
 
     // Paginated results
-    const results = matchedResults
-      .slice((page - 1) * searchResultsPerPage, page * searchResultsPerPage)
-      .map((r) => r);
+    // const results = matchedResults
+    //   .slice((page - 1) * searchResultsPerPage, page * searchResultsPerPage)
+    //   .map((r) => r);
 
     // Send JSON
-    const finalJson = { results, total, totalPages };
-    if (exactMatches.length) finalJson.exactMatches = exactMatches;
-
-    res.json(finalJson);
+    // const finalJson = { results, total, totalPages };
+    // res.json(finalJson);
   } catch (err) {
     console.error(err);
     res.json({ error: "Search Error" });

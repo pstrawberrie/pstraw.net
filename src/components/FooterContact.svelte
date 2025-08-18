@@ -181,7 +181,7 @@
         type="text"
         id="name"
         name="name"
-        tabindex={active ? "0" : "-1"}
+        tabindex={active && !messageSent ? "0" : "-1"}
       />
     </fieldset>
     <fieldset>
@@ -192,7 +192,7 @@
         type="email"
         id="email"
         name="email"
-        tabindex={active ? "0" : "-1"}
+        tabindex={active && !messageSent ? "0" : "-1"}
       />
     </fieldset>
     <fieldset>
@@ -202,7 +202,7 @@
         placeholder="Required - max 500 characters. If you'd like a response don't forget to enter your email ;]"
         id="message"
         name="message"
-        tabindex={active ? "0" : "-1"}
+        tabindex={active && !messageSent ? "0" : "-1"}
       ></textarea>
       <span
         class={`message-length ${messageLength > 500 || messageLength === 0 ? "error" : ""}`}
@@ -227,7 +227,7 @@
       class="btn cta"
       type="submit"
       value="Send"
-      tabindex={active ? "0" : "-1"}
+      tabindex={active && !messageSent ? "0" : "-1"}
       disabled={!message.length || messageLength > 500 || errors.length}
     />
   </form>
@@ -244,8 +244,10 @@
               messageSent,
             )}.
           </div>
-          <button onclick={clearMessageSent} class="btn-content"
-            >Message Again</button
+          <button
+            onclick={clearMessageSent}
+            class="btn-content"
+            tabindex={active ? "0" : "-1"}>Message Again</button
           >
         {/if}
         {#if tempMessage}
@@ -295,9 +297,9 @@
     transition:
       opacity 0.3s ease,
       transform 0.3s ease;
-    pointer-events: none;
     z-index: 10;
     overflow: hidden;
+    pointer-events: none;
 
     @include util.mq(md) {
       width: 420px;
@@ -465,8 +467,11 @@
 
     &.active {
       opacity: 1;
-      pointer-events: auto;
     }
+  }
+
+  button[aria-expanded="true"] + #contact-form .status.active {
+    pointer-events: auto;
   }
 
   .loading-text {

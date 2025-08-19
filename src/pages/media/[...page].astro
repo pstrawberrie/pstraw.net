@@ -25,6 +25,15 @@ const { page } = Astro.props;
 const { total, currentPage, lastPage } = page;
 ---
 
+<script is:inline>
+  window.addEventListener("MediaFilter", (e) => {
+    const filterResults = e?.detail?.data;
+    if (!filterResults || filterResults?.length < 1) return;
+
+    console.log(e?.detail?.data);
+  });
+</script>
+
 <CollectionLayout
   pageTitle={`Browse All Media${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
   pageDescription="Browse All Media"
@@ -38,23 +47,24 @@ const { total, currentPage, lastPage } = page;
   <section class="container-full">
     <MediaFilter
       client:load
-      collectionName="media"
-      type="all"
+      showTypes={true}
       color="tertiary"
       title="Filter Media"
     />
 
-    <div class="grid-default">
-      {page.data.map((movie) => <TMDBCard itemData={movie} />)}
-    </div>
+    <div class="filter-static-content">
+      <div class="grid-default">
+        {page.data.map((movie) => <TMDBCard itemData={movie} />)}
+      </div>
 
-    <Pagination
-      {total}
-      {currentPage}
-      {lastPage}
-      label="media"
-      nextUrl={page.url.next}
-      prevUrl={page.url.prev}
-    />
+      <Pagination
+        {total}
+        {currentPage}
+        {lastPage}
+        label="media"
+        nextUrl={page.url.next}
+        prevUrl={page.url.prev}
+      />
+    </div>
   </section>
 </CollectionLayout>

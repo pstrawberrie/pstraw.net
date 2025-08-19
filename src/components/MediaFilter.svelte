@@ -2,49 +2,57 @@
   import { SERVER_URL, MEDIA_DATA, MOVIE_DATA, SHOW_DATA } from "@env";
   import SVG from "@components/SVG.svelte";
   import Loader from "@components/Loader.svelte";
+  import TmdbCard from "@components/TMDBCard.svelte";
 
   let {
     title = undefined,
     type = "all",
-    year = "all",
-    genre = "all",
-    rating = "all",
+    showTypes = false,
     color = "quinary",
   } = $props();
 
+  let typeOptions = $state([]);
   let yearOptions = $state([]);
   let genreOptions = $state([]);
   let ratingOptions = $state([]);
 
   let filterType = $state(type);
-  let filterYear = $state(year);
-  let filterGenre = $state(genre);
-  let filterRating = $state(rating);
+  let filterYear = $state("all");
+  let filterGenre = $state("all");
+  let filterRating = $state("all");
 
-  let currentPage = $state(1);
   let loading = $state(false);
   let error = $state("");
+
+  let results = $state([]);
+  let totalResults = $state(0);
+  let currentPage = $state(1);
+  let totalPages = $state(1);
 
   // Update Options
   function updateOptions(newOpts = undefined) {
     if (newOpts) {
+      typeOptions = newOpts.types;
       genreOptions = newOpts.genres;
       yearOptions = newOpts.years;
       ratingOptions = newOpts.ratings;
     } else {
       if (filterType === "all") {
+        typeOptions = ["movies", "shows"];
         genreOptions = MEDIA_DATA.genres;
         yearOptions = MEDIA_DATA.years;
         ratingOptions = MEDIA_DATA.ratings;
       }
 
       if (filterType === "movies") {
+        typeOptions = [];
         genreOptions = MOVIE_DATA.genres;
         yearOptions = MOVIE_DATA.years;
         ratingOptions = MOVIE_DATA.ratings;
       }
 
       if (filterType === "shows") {
+        typeOptions = [];
         genreOptions = SHOW_DATA.genres;
         yearOptions = SHOW_DATA.years;
         ratingOptions = SHOW_DATA.ratings;
@@ -54,8 +62,13 @@
 
   // On Selection Changes
   function onFilterChange() {
-    console.log(filterType, filterYear, filterGenre, filterRating);
     filter();
+  }
+
+  // Update Filter Results
+  function removeStatic() {
+    const staticEl = document.querySelector(".filter-static-content");
+    if (staticEl) staticEl.remove();
   }
 
   /**
@@ -87,28 +100,24 @@
 
     if (data.error) {
       error = data.error;
+      updateOptions(undefined);
     } else {
-      error = "";
       console.log(data);
+      removeStatic();
+      updateOptions(data.filterOptions);
+
+      error = "";
+      totalResults = data.total;
+      totalPages = data.totalPages;
+
+      if (currentPage > 1) {
+        results = [...results, ...data.results];
+      } else {
+        results = data.results;
+      }
     }
 
     loading = false;
-
-    // totalResults = data.total;
-    // totalPages = data.totalPages;
-    // noResults = totalResults === 0;
-    // lastQuery = noResults ? query : "";
-
-    // minLengthMessage = false;
-    // hasError = false;
-    // loading = false;
-    // exactMatches = data?.exactMatches || [];
-
-    // if (currentPage > 1) {
-    //   results = [...results, ...data.results];
-    // } else {
-    //   results = data.results;
-    // }
   }
 
   $effect(() => {
@@ -122,22 +131,25 @@
     <div class="title">
       <SVG name="filter" />
       {#if title}
-        <span>{title}</span>
+        <span class="sr-only">{title}</span>
       {/if}
     </div>
     <div class="filters">
-      <div class="select-wrap">
-        <select
-          id="media-type"
-          name="media-type"
-          onchange={onFilterChange}
-          bind:value={filterType}
-        >
-          <option value="all">All Media</option>
-          <option value="movies">Movies</option>
-          <option value="shows">Shows</option>
-        </select>
-      </div>
+      {#if showTypes}
+        <div class="select-wrap">
+          <select
+            id="media-type"
+            name="media-type"
+            onchange={onFilterChange}
+            bind:value={filterType}
+          >
+            <option value="all">All</option>
+            {#each typeOptions as t}
+              <option value={t}>{t}</option>
+            {/each}
+          </select>
+        </div>
+      {/if}
 
       <div class="select-wrap">
         <select
@@ -164,7 +176,7 @@
           <option value="all">All Years ({yearOptions.length})</option>
 
           {#each yearOptions as y}
-            <option value={y}>{y}</option>
+            <option value={y.toString()}>{y}</option>
           {/each}
         </select>
       </div>
@@ -184,6 +196,9 @@
         </select>
       </div>
     </div>
+    <button class="reset" onclick={() => window.location.reload()}
+      ><SVG name="reset" /> <span class="sr-only">Reset Filter</span></button
+    >
   </div>
   <div class={`loading ${loading ? "active" : ""}`}>
     {#if loading}
@@ -196,8 +211,35 @@
     {/if}
   </div>
 </div>
+{#if results.length}
+  <div class="grid-default">
+    {#each results as r (r.id)}
+      <TmdbCard itemData={r} />
+    {/each}
+  </div>
+  <div class="grid-cta">
+    {#if currentPage < totalPages}
+      <div class="load-more">
+        <button
+          class="btn"
+          onclick={() => {
+            currentPage++;
+            filter();
+          }}>Load Page {currentPage + 1}/{totalPages}</button
+        >
+      </div>
+    {/if}
+    {#if currentPage === totalPages}
+      <div class="load-more">
+        Results complete: loaded {totalPages}/{totalPages} pages
+      </div>
+    {/if}
+  </div>
+{/if}
 
 <style lang="scss">
+  @use "@css/util";
+
   .media-filter {
     position: relative;
     display: flex;
@@ -210,9 +252,11 @@
   .inner {
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    width: 100%;
     gap: 1rem;
     padding: 1rem 1.5rem;
     border-bottom-left-radius: 0.5rem;
@@ -221,6 +265,11 @@
     border-top: 0;
     background: var(--c-button-background-hover);
     overflow: hidden;
+
+    @include util.mq(md) {
+      flex-direction: row;
+      width: auto;
+    }
   }
 
   .loading,
@@ -269,10 +318,19 @@
   .filters {
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    width: 100%;
     gap: 0.75rem;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+
+    @include util.mq(md) {
+      flex-direction: row;
+      width: auto;
+    }
   }
 
   select {
@@ -283,14 +341,27 @@
     line-height: 1;
     font-weight: 500;
     min-width: 150px;
+    width: 100%;
+    text-transform: capitalize;
 
     option {
       color: black;
+    }
+
+    &:focus-visible {
+      outline: 0;
+      background-color: var(--c-quinary);
+      color: black;
+    }
+
+    @include util.mq(md) {
+      width: auto;
     }
   }
 
   .select-wrap {
     position: relative;
+    width: 100%;
 
     &::after {
       content: "▼";
@@ -301,6 +372,32 @@
       transform: translate(-8px, -50%);
       color: var(--c-text-muted);
       pointer-events: none;
+    }
+
+    @include util.mq(sm) {
+      width: 60%;
+    }
+
+    @include util.mq(md) {
+      width: auto;
+    }
+  }
+
+  .reset {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+    color: var(--c-tertiary);
+    transition: color 0.3s ease;
+
+    :global(svg) {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &:hover {
+      color: var(--c-text-secondary);
     }
   }
 </style>

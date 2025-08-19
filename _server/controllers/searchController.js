@@ -119,7 +119,8 @@ export const postMediaFilter = async (req, res) => {
       res.json({ error: "Bad filter options - try again" });
     }
 
-    const results = allData
+    // Filter all matches
+    const matchedResults = allData
       .filter((i) =>
         type === "all"
           ? i.collection === "movies" || i.collection === "shows"
@@ -138,31 +139,45 @@ export const postMediaFilter = async (req, res) => {
           : JSON.parse(i.genres).some((o) => o.name === genre),
       );
 
-    // @TODO: left off here, return new filter options based on what's available in results
-    // const newFilterOptions = {filterType: type, genreOptions: [], yearOptions: [], ratingOptions: []};
-    // results.forEach(r => {
+    // Return new filter options based on what's available in results
+    const filterTypes = [];
+    const genreOptions = [];
+    const yearOptions = [];
+    const ratingOptions = [];
+    matchedResults.forEach((r) => {
+      if (filterTypes.indexOf(r.collection) === -1)
+        filterTypes.push(r.collection);
 
-    // });
+      const year =
+        r?.release_date?.split("-")[0] || r?.first_air_date?.split("-")[0];
+      if (yearOptions.indexOf(year) === -1) yearOptions.push(year);
 
-    res.json({ success: true, results });
+      if (ratingOptions.indexOf(r.rating) === -1) ratingOptions.push(r.rating);
 
-    // Filter all matches
-    // const matchedResults = allData.filter((item) =>
-    //   item.title.toLowerCase().includes(lowerQuery),
-    // );
+      JSON.parse(r.genres).forEach((g) => {
+        if (genreOptions.indexOf(g.name) === -1) genreOptions.push(g.name);
+      });
+    });
+
+    const filterOptions = {
+      types: filterTypes,
+      genres: genreOptions.sort(),
+      years: yearOptions.sort(),
+      ratings: ratingOptions.sort(),
+    };
 
     // Matches totals & pages
-    // const total = matchedResults.length;
-    // const totalPages = Math.ceil(total / searchResultsPerPage);
+    const total = matchedResults.length;
+    const totalPages = Math.ceil(total / searchResultsPerPage);
 
     // Paginated results
-    // const results = matchedResults
-    //   .slice((page - 1) * searchResultsPerPage, page * searchResultsPerPage)
-    //   .map((r) => r);
+    const results = matchedResults
+      .slice((page - 1) * searchResultsPerPage, page * searchResultsPerPage)
+      .map((r) => r);
 
     // Send JSON
-    // const finalJson = { results, total, totalPages };
-    // res.json(finalJson);
+    const finalJson = { results, total, totalPages, filterOptions };
+    res.json(finalJson);
   } catch (err) {
     console.error(err);
     res.json({ error: "Search Error" });

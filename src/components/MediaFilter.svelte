@@ -61,6 +61,7 @@
   }
 
   // On Selection Changes
+  // @TODO: error when next page is loaded and then filter is changed
   function onFilterChange() {
     filter();
   }
@@ -143,7 +144,10 @@
             onchange={onFilterChange}
             bind:value={filterType}
           >
-            <option value="all">All</option>
+            <option value="all">
+              {#if filterType === "all"}All Types ({typeOptions.length}){/if}
+              {#if filterType !== "all"}Reset Types{/if}
+            </option>
             {#each typeOptions as t}
               <option value={t}>{t}</option>
             {/each}
@@ -158,7 +162,10 @@
           onchange={onFilterChange}
           bind:value={filterGenre}
         >
-          <option value="all">All Genres ({genreOptions.length})</option>
+          <option value="all">
+            {#if filterGenre === "all"}All Genres ({genreOptions.length}){/if}
+            {#if filterGenre !== "all"}Reset Genre{/if}
+          </option>
 
           {#each genreOptions as g}
             <option value={g}>{g}</option>
@@ -173,8 +180,10 @@
           onchange={onFilterChange}
           bind:value={filterYear}
         >
-          <option value="all">All Years ({yearOptions.length})</option>
-
+          <option value="all">
+            {#if filterYear === "all"}All Years ({yearOptions.length}){/if}
+            {#if filterYear !== "all"}Reset Years{/if}
+          </option>
           {#each yearOptions as y}
             <option value={y.toString()}>{y}</option>
           {/each}
@@ -188,7 +197,10 @@
           onchange={onFilterChange}
           bind:value={filterRating}
         >
-          <option value="all">All Ratings ({ratingOptions.length})</option>
+          <option value="all">
+            {#if filterRating === "all"}All Ratings ({ratingOptions.length}){/if}
+            {#if filterRating !== "all"}Reset Ratings{/if}
+          </option>
 
           {#each ratingOptions as r}
             <option value={r}>{r}</option>
@@ -196,7 +208,10 @@
         </select>
       </div>
     </div>
-    <button class="reset" onclick={() => window.location.reload()}
+    <button
+      class="reset"
+      title="Reset All"
+      onclick={() => window.location.reload()}
       ><SVG name="reset" /> <span class="sr-only">Reset Filter</span></button
     >
   </div>

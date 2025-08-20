@@ -65,15 +65,32 @@ const isActive = (path) => {
   .page-menu ul {
     position: relative;
     display: flex;
+    width: 100%;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+
+    @include util.mq(sm) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: auto;
+    }
+  }
+
+  li {
+    width: 100%;
+
+    @include util.mq(sm) {
+      width: auto;
+    }
   }
 
   a {
     position: relative;
-    display: inline-flex;
+    display: flex;
+    justify-content: center;
     align-items: center;
     font-size: var(--page-menu-text-size);
     font-weight: bold;
@@ -106,6 +123,10 @@ const isActive = (path) => {
       &::after {
         opacity: 1;
       }
+    }
+
+    @include util.mq(sm) {
+      display: inline-flex;
     }
   }
 

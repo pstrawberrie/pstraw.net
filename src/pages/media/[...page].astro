@@ -45,12 +45,7 @@ const { total, currentPage, lastPage } = page;
   pageDescription="A list of the movies I like"
 >
   <section class="container-full">
-    <MediaFilter
-      client:load
-      showTypes={true}
-      color="tertiary"
-      title="Filter Media"
-    />
+    <MediaFilter client:load color="tertiary" title="Filter Media" />
 
     <div class="filter-static-content">
       <div class="grid-default">

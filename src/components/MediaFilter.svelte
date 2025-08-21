@@ -4,12 +4,7 @@
   import Loader from "@components/Loader.svelte";
   import TmdbCard from "@components/TMDBCard.svelte";
 
-  let {
-    title = undefined,
-    type = "all",
-    showTypes = false,
-    color = "quinary",
-  } = $props();
+  let { title = undefined, type = "all", color = "quinary" } = $props();
 
   let typeOptions = $state([]);
   let yearOptions = $state([]);
@@ -22,6 +17,7 @@
   let filterRating = $state("all");
 
   let loading = $state(false);
+  let isNewFilter = $state(true);
   let error = $state("");
 
   let results = $state([]);
@@ -63,6 +59,11 @@
   // On Selection Changes
   // @TODO: error when next page is loaded and then filter is changed
   function onFilterChange() {
+    if (currentPage > 1) {
+      isNewFilter = true;
+      currentPage = 1;
+    }
+
     filter();
   }
 
@@ -103,7 +104,6 @@
       error = data.error;
       updateOptions(undefined);
     } else {
-      console.log(data);
       removeStatic();
       updateOptions(data.filterOptions);
 
@@ -111,7 +111,7 @@
       totalResults = data.total;
       totalPages = data.totalPages;
 
-      if (currentPage > 1) {
+      if (currentPage > 1 && !isNewFilter) {
         results = [...results, ...data.results];
       } else {
         results = data.results;
@@ -119,6 +119,7 @@
     }
 
     loading = false;
+    isNewFilter = false;
   }
 
   $effect(() => {
@@ -136,7 +137,7 @@
       {/if}
     </div>
     <div class="filters">
-      {#if showTypes}
+      {#if type === "all"}
         <div class="select-wrap">
           <select
             id="media-type"
@@ -240,13 +241,13 @@
           onclick={() => {
             currentPage++;
             filter();
-          }}>Load Page {currentPage + 1}/{totalPages}</button
+          }}>Load More ({currentPage + 1}/{totalPages})</button
         >
       </div>
     {/if}
     {#if currentPage === totalPages}
       <div class="load-more">
-        Results complete: loaded {totalPages}/{totalPages} pages
+        End of Results - Loaded {totalPages}/{totalPages} Pages
       </div>
     {/if}
   </div>

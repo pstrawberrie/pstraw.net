@@ -15,17 +15,24 @@ const { frontmatter, slug } = Astro.props;
         {
           frontmatter?.date && (
             <div class="dates">
-              Written: {formatDate("" + frontmatter.date)} by{" "}
-              {frontmatter?.authors.map((a, idx) => (
-                <>
-                  <a class="author" href={`/notes/authors/${a}`}>
-                    {a}
-                  </a>
-                  <span>
-                    {idx !== frontmatter?.authors.length - 1 ? ", " : ""}
-                  </span>
-                </>
-              ))}
+              {frontmatter?.updated && (
+                <b>
+                  <em>Updated {formatDate("" + frontmatter.updated)}</em>
+                </b>
+              )}
+              <div>
+                Written {formatDate("" + frontmatter.date)} by{" "}
+                {frontmatter?.authors.map((a, idx) => (
+                  <>
+                    <a class="author" href={`/notes/authors/${a}`}>
+                      {a}
+                    </a>
+                    <span>
+                      {idx !== frontmatter?.authors.length - 1 ? ", " : ""}
+                    </span>
+                  </>
+                ))}
+              </div>
             </div>
           )
         }
@@ -78,6 +85,11 @@ const { frontmatter, slug } = Astro.props;
   article.note {
     // In-Layout Elements
     .dates {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
       font-family: var(--font-family-mono);
       font-size: 1rem;
       color: var(--c-text-tertiary);

@@ -16,6 +16,7 @@
   let filterGenre = $state("all");
   let filterRating = $state("all");
 
+  let active = $state(false);
   let loading = $state(false);
   let isNewFilter = $state(true);
   let error = $state("");
@@ -24,6 +25,9 @@
   let totalResults = $state(0);
   let currentPage = $state(1);
   let totalPages = $state(1);
+
+  // Check if mobile
+  const isMobile = () => window.innerWidth < 850;
 
   // Update Options
   function updateOptions(newOpts = undefined) {
@@ -71,6 +75,18 @@
   function removeStatic() {
     const staticEl = document.querySelector(".filter-static-content");
     if (staticEl) staticEl.remove();
+  }
+
+  // Reset Filter
+  function reset() {
+    if (type === "all") filterType = "all";
+    filterGenre = "all";
+    filterYear = "all";
+    filterRating = "all";
+    currentPage = 1;
+    isNewFilter = true;
+
+    filter();
   }
 
   /**
@@ -123,18 +139,32 @@
   }
 
   $effect(() => {
+    if (!isMobile()) active = true;
+
     // update options on initial load
     updateOptions();
   });
 </script>
 
-<div class="media-filter" style={`--filter-color: var(--c-${color})`}>
+<svelte:window
+  onresize={() => {
+    if (active) return;
+    if (!isMobile()) active = true;
+  }}
+/>
+
+<div
+  class={`media-filter ${active ? "active" : ""}`}
+  style={`--filter-color: var(--c-${color})`}
+>
   <div class="inner">
     <div class="title">
-      <SVG name="filter" />
-      {#if title}
-        <span class="sr-only">{title}</span>
-      {/if}
+      <button class="toggle" onclick={() => (active = !active)}>
+        <SVG name="filter" />
+        {#if title}
+          <span>{title}</span>
+        {/if}
+      </button>
     </div>
     <div class="filters">
       {#if type === "all"}
@@ -142,6 +172,7 @@
           <select
             id="media-type"
             name="media-type"
+            tabindex={active ? undefined : -1}
             onchange={onFilterChange}
             bind:value={filterType}
           >
@@ -160,6 +191,7 @@
         <select
           id="media-genre"
           name="media-genre"
+          tabindex={active ? undefined : -1}
           onchange={onFilterChange}
           bind:value={filterGenre}
         >
@@ -178,6 +210,7 @@
         <select
           id="media-year"
           name="media-year"
+          tabindex={active ? undefined : -1}
           onchange={onFilterChange}
           bind:value={filterYear}
         >
@@ -195,6 +228,7 @@
         <select
           id="media-rating"
           name="media-rating"
+          tabindex={active ? undefined : -1}
           onchange={onFilterChange}
           bind:value={filterRating}
         >
@@ -211,8 +245,9 @@
     </div>
     <button
       class="reset"
-      title="Reset All"
-      onclick={() => window.location.reload()}
+      title="Reset Filter"
+      tabindex={active ? undefined : -1}
+      onclick={reset}
       ><SVG name="reset" /> <span class="sr-only">Reset Filter</span></button
     >
   </div>
@@ -235,14 +270,17 @@
   </div>
   <div class="grid-cta">
     {#if currentPage < totalPages}
-      <div class="load-more">
+      <div class={`load-more ${loading ? "loading" : ""}`}>
         <button
           class="btn"
           onclick={() => {
             currentPage++;
             filter();
-          }}>Load More ({currentPage + 1}/{totalPages})</button
+          }}
         >
+          {#if loading}<Loader />{/if}
+          <span>Load More ({currentPage + 1}/{totalPages})</span>
+        </button>
       </div>
     {/if}
     {#if currentPage === totalPages}
@@ -268,12 +306,11 @@
   .inner {
     position: relative;
     display: flex;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 100%;
-    gap: 1rem;
     padding: 1rem 1.5rem;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
@@ -285,6 +322,7 @@
     @include util.mq(md) {
       flex-direction: row;
       width: auto;
+      gap: 1rem;
     }
   }
 
@@ -297,6 +335,7 @@
     width: 100%;
     height: 100%;
     justify-content: center;
+    align-items: center;
     padding-top: 20px;
     background: rgba(0, 0, 0, 0.95);
     opacity: 0;
@@ -322,6 +361,10 @@
     span {
       display: inline-block;
       margin-left: 0.5rem;
+
+      @include util.mq(md) {
+        display: none;
+      }
     }
 
     :global(svg) {
@@ -337,15 +380,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     width: 100%;
+    max-height: 0;
     gap: 0.75rem;
-    transition: transform 0.3s ease;
     overflow: hidden;
 
     @include util.mq(md) {
       flex-direction: row;
       width: auto;
+      max-height: 100%;
+      flex-wrap: wrap;
     }
   }
 
@@ -399,12 +443,25 @@
     }
   }
 
-  .reset {
+  button {
+    position: relative;
     display: flex;
     align-items: center;
+    overflow: hidden;
+  }
+
+  .toggle {
+    @include util.mq(md) {
+      pointer-events: none;
+    }
+  }
+
+  .reset {
     gap: 0.25rem;
     font-weight: 500;
     color: var(--c-tertiary);
+    max-height: 0;
+    transform-origin: bottom;
     transition: color 0.3s ease;
 
     :global(svg) {
@@ -414,6 +471,37 @@
 
     &:hover {
       color: var(--c-text-secondary);
+    }
+
+    @include util.mq(md) {
+      max-height: 100%;
+    }
+  }
+
+  .load-more {
+    position: relative;
+    :global(.loader) {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.loading {
+      span {
+        opacity: 0;
+      }
+    }
+  }
+
+  .media-filter.active {
+    .reset,
+    .filters,
+    select {
+      max-height: 100%;
+    }
+
+    .inner {
+      gap: 1rem;
     }
   }
 </style>

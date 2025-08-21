@@ -25,15 +25,6 @@ const { page } = Astro.props;
 const { total, currentPage, lastPage } = page;
 ---
 
-<script is:inline>
-  window.addEventListener("MediaFilter", (e) => {
-    const filterResults = e?.detail?.data;
-    if (!filterResults || filterResults?.length < 1) return;
-
-    console.log(e?.detail?.data);
-  });
-</script>
-
 <CollectionLayout
   pageTitle={`Browse All Media${currentPage > 1 ? " (" + currentPage + "/" + lastPage + ")" : ""}`}
   pageDescription="Browse All Media"

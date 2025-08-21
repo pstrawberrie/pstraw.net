@@ -5,7 +5,7 @@ import Movie from "../../_slurpi/db/Movie.js";
 import Show from "../../_slurpi/db/Show.js";
 
 /* Search Data Setup */
-const searchResultsPerPage = 10;
+const searchResultsPerPage = 20;
 const allData = [];
 
 /* Remove Articles (copied from src/util.ts) */
@@ -116,7 +116,7 @@ export const postMediaFilter = async (req, res) => {
     const { type, genre, year, rating } = filter;
 
     if (!type || !genre || !year || !rating) {
-      res.json({ error: "Bad filter options - try again" });
+      res.json({ error: "Filter options error - try again later" });
     }
 
     // Filter all matches
@@ -180,6 +180,6 @@ export const postMediaFilter = async (req, res) => {
     res.json(finalJson);
   } catch (err) {
     console.error(err);
-    res.json({ error: "Search Error" });
+    res.json({ error: "Filter error - try again later" });
   }
 };

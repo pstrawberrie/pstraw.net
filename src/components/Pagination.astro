@@ -7,6 +7,7 @@ const {
   prevUrl,
   nextUrl,
   label = "items",
+  withFilter = false,
 } = Astro.props;
 
 const baseUrl = !prevUrl
@@ -14,7 +15,7 @@ const baseUrl = !prevUrl
   : currentUrl.split("/").slice(0, -1).join("/");
 ---
 
-<div class="pagination">
+<div class={`pagination ${withFilter ? "with-filter" : ""}`}>
   {
     (prevUrl !== undefined || nextUrl !== undefined) && (
       <nav aria-label="Pagination Navigation">
@@ -58,6 +59,10 @@ const baseUrl = !prevUrl
     gap: 1rem;
     padding: 3rem 0;
     font-family: var(--font-family-mono);
+
+    &.with-filter {
+      padding-top: 1.5rem;
+    }
   }
 
   nav {

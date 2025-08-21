@@ -24,8 +24,9 @@ const excludedRecents = [
 ];
 
 // Movies/Shows
-const recentTMDBLimit = 12;
+const recentTMDBLimit = 15;
 const recentNotesLimit = 6;
+
 const movies = await getCollection(
   "movies",
   ({ id }) => excludedRecents.indexOf(id) === -1,
@@ -55,7 +56,7 @@ notes.sort((a, b) => {
   pageTitle="Home"
   fullHeroTitle="Welcome to"
   fullHeroColorTitle="pstraw.net"
-  fullHeroSubtitle={`Hello. You've landed on my cozy little internet planet. This is ${SITE.DESCRIPTION.charAt(0).toLowerCase() + SITE.DESCRIPTION.slice(1)} Take a poke around and see if anything catches your eye.`}
+  fullHeroSubtitle={`Hello. You've landed on my little internet planet. This is ${SITE.DESCRIPTION.charAt(0).toLowerCase() + SITE.DESCRIPTION.slice(1)} Take a poke around and see if anything catches your eye.`}
   fullHeroImage="/images/site/hero_default.png"
   fullHeroFeature="stars"
   fullHeroButtons={[
@@ -76,7 +77,8 @@ notes.sort((a, b) => {
       <div class="grid-default">
         {
           tmdbItems.map((i, idx) => {
-            if (idx < recentTMDBLimit) return <TMDBCard itemData={i} />;
+            if (idx < recentTMDBLimit)
+              return <TMDBCard itemData={i} displayLastWatched={true} />;
           })
         }
       </div>

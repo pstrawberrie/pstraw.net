@@ -5,7 +5,7 @@ import Movie from "../../_slurpi/db/Movie.js";
 import Show from "../../_slurpi/db/Show.js";
 
 /* Search Data Setup */
-const searchResultsPerPage = 10;
+const searchResultsPerPage = 20;
 const allData = [];
 
 /* Remove Articles (copied from src/util.ts) */
@@ -78,8 +78,6 @@ export const postSearch = async (req, res) => {
 
     const lowerQuery = "" + query.trim().toLowerCase();
 
-    console.log(`Search received for term "${lowerQuery}" / page ${page}`);
-
     // Filter all matches
     const matchedResults = allData.filter((item) =>
       item.title.toLowerCase().includes(lowerQuery),
@@ -108,5 +106,80 @@ export const postSearch = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.json({ error: "Search Error" });
+  }
+};
+
+/* POST Media Filter */
+export const postMediaFilter = async (req, res) => {
+  try {
+    const { filter, page = 1 } = req.body;
+    const { type, genre, year, rating } = filter;
+
+    if (!type || !genre || !year || !rating) {
+      res.json({ error: "Filter options error - try again later" });
+    }
+
+    // Filter all matches
+    const matchedResults = allData
+      .filter((i) =>
+        type === "all"
+          ? i.collection === "movies" || i.collection === "shows"
+          : i.collection === type,
+      )
+      .filter((i) => (rating === "all" ? true : i.rating === rating))
+      .filter((i) =>
+        year === "all"
+          ? true
+          : i?.release_date?.split("-")[0] === year ||
+            i?.first_air_date?.split("-")[0] === year,
+      )
+      .filter((i) =>
+        genre === "all"
+          ? true
+          : JSON.parse(i.genres).some((o) => o.name === genre),
+      );
+
+    // Return new filter options based on what's available in results
+    const filterTypes = [];
+    const genreOptions = [];
+    const yearOptions = [];
+    const ratingOptions = [];
+    matchedResults.forEach((r) => {
+      if (filterTypes.indexOf(r.collection) === -1)
+        filterTypes.push(r.collection);
+
+      const year =
+        r?.release_date?.split("-")[0] || r?.first_air_date?.split("-")[0];
+      if (yearOptions.indexOf(year) === -1) yearOptions.push(year);
+
+      if (ratingOptions.indexOf(r.rating) === -1) ratingOptions.push(r.rating);
+
+      JSON.parse(r.genres).forEach((g) => {
+        if (genreOptions.indexOf(g.name) === -1) genreOptions.push(g.name);
+      });
+    });
+
+    const filterOptions = {
+      types: filterTypes,
+      genres: genreOptions.sort(),
+      years: yearOptions.sort(),
+      ratings: ratingOptions.sort(),
+    };
+
+    // Matches totals & pages
+    const total = matchedResults.length;
+    const totalPages = Math.ceil(total / searchResultsPerPage);
+
+    // Paginated results
+    const results = matchedResults
+      .slice((page - 1) * searchResultsPerPage, page * searchResultsPerPage)
+      .map((r) => r);
+
+    // Send JSON
+    const finalJson = { results, total, totalPages, filterOptions };
+    res.json(finalJson);
+  } catch (err) {
+    console.error(err);
+    res.json({ error: "Filter error - try again later" });
   }
 };

@@ -4,6 +4,7 @@ import { removeArticles, getPageMenuLinksFromPath } from "@util";
 import { getCollection } from "astro:content";
 import CollectionLayout from "@layouts/CollectionLayout.astro";
 import TMDBCard from "@components/TMDBCard.svelte";
+import MediaFilter from "@components/MediaFilter.svelte";
 import Pagination from "@components/Pagination.astro";
 
 const pageMenuLinks = getPageMenuLinksFromPath("/media");
@@ -34,26 +35,26 @@ const { total, currentPage, lastPage } = page;
   pageDescription="A list of the tv shows I like"
 >
   <section class="container-full">
-    <Pagination
-      {total}
-      {currentPage}
-      {lastPage}
-      label="shows"
-      nextUrl={page.url.next}
-      prevUrl={page.url.prev}
+    <MediaFilter
+      client:load
+      type="shows"
+      color="tertiary"
+      title="Filter Shows"
     />
 
-    <div class="grid-default">
-      {page.data.map((show) => <TMDBCard itemData={show} />)}
+    <div class="filter-static-content">
+      <div class="grid-default">
+        {page.data.map((show) => <TMDBCard itemData={show} />)}
+      </div>
+
+      <Pagination
+        {total}
+        {currentPage}
+        {lastPage}
+        label="shows"
+        nextUrl={page.url.next}
+        prevUrl={page.url.prev}
+      />
     </div>
-
-    <Pagination
-      {total}
-      {currentPage}
-      {lastPage}
-      label="shows"
-      nextUrl={page.url.next}
-      prevUrl={page.url.prev}
-    />
   </section>
 </CollectionLayout>

@@ -247,8 +247,7 @@
       class="reset"
       title="Reset Filter"
       tabindex={active ? undefined : -1}
-      onclick={reset}
-      ><SVG name="reset" /> <span class="sr-only">Reset Filter</span></button
+      onclick={reset}><SVG name="reset" /> <span>Reset Filter</span></button
     >
   </div>
   <div class={`loading ${loading ? "active" : ""}`}>
@@ -472,12 +471,20 @@
       height: 1rem;
     }
 
+    span {
+      color: var(--c-text-secondary);
+    }
+
     &:hover {
       color: var(--c-text-secondary);
     }
 
     @include util.mq(md) {
       max-height: 100%;
+
+      span {
+        display: none;
+      }
     }
   }
 

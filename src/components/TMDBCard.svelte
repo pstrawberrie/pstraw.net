@@ -1,11 +1,14 @@
 <script>
-  import { minutesToHours, getRelativeTime } from "@util";
+  import { minutesToHours, getRelativeTime, formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
   let { itemData, exact = undefined, displayLastWatched = false } = $props();
   const id = itemData.id;
   const data = itemData.data ? itemData.data : itemData;
   const isMovie = itemData.collection === "movies";
   const tmdbUrl = `https://www.themoviedb.org/${isMovie ? "movie" : "tv"}/${id}`;
+
+  // Shortened Date
+  const shortDate = formatDate(data.createdAt).split(",")[0];
 
   // Runtime
   const episodeRuntimeArr = isMovie ? null : JSON.parse(data.episode_run_time);
@@ -32,7 +35,7 @@
         {data.title}
         {#if displayLastWatched}
           <span class="last-watched"
-            >Watched {getRelativeTime(data.createdAt)}</span
+            >Watched {shortDate} ({getRelativeTime(data.createdAt)})</span
           >
         {/if}
       </h3>

@@ -1,9 +1,24 @@
 import { GameDig } from "gamedig";
 
 const servers = [
-  { type: "valheim", host: "pstraw.net" },
-  { type: "projectzomboid", host: "pstraw.net" },
-  { type: "farts", host: "asfzzdftest.com" },
+  {
+    type: "valheim",
+    host: "pstraw.net",
+    connect: "pstraw.net:2456",
+    name: "DOOM Valheim",
+  },
+  {
+    type: "projectzomboid",
+    host: "pstraw.net",
+    connect: "pstraw.net:16261",
+    name: "DOOM Zomboid",
+  },
+  {
+    type: "farts",
+    host: "asfzzdftest.com",
+    connect: "pstraw.net:123123",
+    name: "Gamedig Test",
+  },
 ];
 
 export const getGameServers = async (req, res) => {
@@ -21,7 +36,9 @@ export const getGameServers = async (req, res) => {
       .then((result) => {
         result.forEach((r) => {
           if (r.status === "fulfilled") {
-            output.push(r);
+            output.push({ online: true, ...r.value });
+          } else {
+            output.push({ online: false, ...r.value });
           }
         });
 

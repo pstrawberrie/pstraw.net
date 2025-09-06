@@ -11,7 +11,7 @@
     <div class="top">
       <div class="left">
         <a href="/" class="logo text-gradient">{SITE.TITLE}</a>
-        <p>Hope you enjoyed your visit. Thanks for stopping by.</p>
+        <p>Hi! Nice to see you.</p>
       </div>
       <div class="middle">
         <div class="contact">

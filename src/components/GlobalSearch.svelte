@@ -132,7 +132,7 @@
         <SVG name="search" />
         <input
           type="text"
-          placeholder="Search Media and Notes..."
+          placeholder="Search site..."
           id="global-search-input"
           tabindex={active ? "0" : "-1"}
           bind:this={inputEl}
@@ -280,8 +280,8 @@
     border: 1px solid var(--c-card-border);
     border-radius: 1rem;
 
-    @include util.mq(md) {
-      max-width: 70vw;
+    @include util.mq(lg) {
+      max-width: 69vw;
     }
   }
 
@@ -315,13 +315,17 @@
 
   .searchbar input {
     width: 100%;
-    font-size: 1.125rem;
+    font-size: 0.9rem;
     padding: 1rem 1rem 1rem 3.5rem;
     color: var(--c-text);
     border-radius: 0.5rem;
 
     &::placeholder {
       color: var(--c-text-muted);
+    }
+
+    @include util.mq(md) {
+      font-size: 1.125rem;
     }
   }
 

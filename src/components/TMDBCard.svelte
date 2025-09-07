@@ -34,9 +34,7 @@
       <h3 class="title">
         {data.title}
         {#if displayLastWatched}
-          <span class="last-watched"
-            >Watched {shortDate} ({getRelativeTime(data.createdAt)})</span
-          >
+          <span class="last-watched">Watched {shortDate}</span>
         {/if}
       </h3>
       <div class="genres">

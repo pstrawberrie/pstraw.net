@@ -3,7 +3,7 @@ export const SITE = {
   TITLE: "pstraw.net",
   DESCRIPTION: "A personal web playground and archive.",
   VERSION: {
-    CURRENT: 3.1,
+    CURRENT: 3.2,
     TITLE: "Chill Space",
   },
   NOTES_PER_PAGE: 10,
@@ -22,7 +22,7 @@ export const TAG_DESCRIPTIONS = {
 export const AUTHOR_DESCRIPTIONS = {
   PSTRAW:
     "The person who made this site! He likes watching movies and shows, listening to music, playing games with friends, and making web stuff.",
-  EQSANCTUM: "EQSanctum from eqsanctum.com",
+  GHOST: "A ghost writer of the most mysterious origins...",
 };
 
 // All Links

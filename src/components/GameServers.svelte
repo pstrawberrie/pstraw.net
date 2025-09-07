@@ -22,7 +22,12 @@
     loading = false;
   }
 
-  getServers();
+  try {
+    getServers();
+  } catch (err) {
+    console.log(err);
+    loading = false;
+  }
 </script>
 
 <div class="game-servers">

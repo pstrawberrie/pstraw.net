@@ -13,7 +13,7 @@
     // fetch
     loading = true;
     const searchReq = await fetch(`${SERVER_URL}/game-servers`).catch((err) => {
-      hasError = true;
+      console.log(err);
       loading = false;
     });
 

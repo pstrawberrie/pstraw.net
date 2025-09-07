@@ -1,55 +1,70 @@
 import { GameDig } from "gamedig";
+import cron from "node-cron";
 
+// Define Servers
 const servers = [
   {
+    name: "DOOM Valheim",
     type: "valheim",
     host: "pstraw.net",
-    connect: "pstraw.net:2456",
-    name: "DOOM Valheim",
+    port: 2456,
+    icon: "valheim.png",
   },
   {
+    name: "DOOM Zomboid",
     type: "projectzomboid",
     host: "pstraw.net",
-    connect: "pstraw.net:16261",
-    name: "DOOM Zomboid",
+    port: 16261,
+    icon: "zomboid.png",
   },
-  {
-    type: "farts",
-    host: "asfzzdftest.com",
-    connect: "pstraw.net:123123",
-    name: "Gamedig Test",
-  },
+  // {
+  //   name: "Failure Test",
+  //   type: "minecraft",
+  //   host: "pstraw.net",
+  //   port: 123,
+  //   icon: "valheim.png",
+  // },
 ];
 
-export const getGameServers = async (req, res) => {
-  try {
-    console.log("GAME SERVER HIT"); //REMOVE
+// Set Up in-memory cache
+const cachedGameServers = {};
 
-    const queries = [];
-    const output = [];
-
-    servers.forEach((s) => {
-      queries.push(GameDig.query(s));
-    });
-
-    Promise.allSettled(queries)
-      .then((result) => {
-        result.forEach((r) => {
-          if (r.status === "fulfilled") {
-            output.push({ online: true, ...r.value });
-          } else {
-            output.push({ online: false, ...r.value });
-          }
-        });
-
-        res.json({ success: true, result: output });
-      })
-      .catch((error) => {
-        console.log(`Query failed: ${error}`);
-        res.json({ error: "failed" });
-      });
-  } catch (err) {
-    console.error(err);
-    res.json({ error: err });
+const queryGameServers = async () => {
+  console.log("Querying Game Servers...");
+  for (const server of servers) {
+    try {
+      const state = await GameDig.query(server);
+      // Use a unique key for each server based on its type and host
+      const key = `${server.name}`;
+      cachedGameServers[key] = {
+        numplayers: state?.numplayers || 0,
+        maxplayers: state?.maxplayers || 0,
+        map: state?.map !== state?.name ? state?.map : undefined,
+        icon: server.icon,
+        updated: new Date(),
+      };
+      console.log(`Updated data for ${server.type} server at ${server.host}`);
+    } catch (error) {
+      console.error(
+        `Failed to query server ${server.type} at ${server.host}: ${error.message}`,
+      );
+      // Store an error state or mark as offline in the cache
+      const key = `${server.name}`;
+      cachedGameServers[key] = {
+        error: `Server is offline or unreachable.`,
+        icon: server.icon,
+        lastAttempted: new Date(),
+      };
+    }
   }
+};
+
+// Schedule Cron
+cron.schedule("*/5 * * * *", queryGameServers);
+
+// Run Query on start
+queryGameServers();
+
+export const getGameServers = async (req, res) => {
+  res.json(cachedGameServers);
 };

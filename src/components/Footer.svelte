@@ -4,6 +4,7 @@
   import { formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
   import FooterContact from "@components/FooterContact.svelte";
+  import GameServers from "@components/GameServers.svelte";
 </script>
 
 <footer>
@@ -11,7 +12,8 @@
     <div class="top">
       <div class="left">
         <a href="/" class="logo text-gradient">{SITE.TITLE}</a>
-        <p>Hi! Nice to see you.</p>
+        <!-- <p>Nice to see you</p> -->
+        <GameServers client:load />
       </div>
       <div class="middle">
         <div class="contact">
@@ -132,11 +134,15 @@
 
   .logo {
     display: block;
-    margin: 0 auto 0.5rem;
+    margin: 0 auto 0.25rem;
 
     @include util.mq(md) {
-      margin: 0 auto 0.5rem 0;
+      margin: 0 auto;
     }
+  }
+
+  :global(.game-servers) {
+    margin-top: 0.5rem;
   }
 
   .bottom {

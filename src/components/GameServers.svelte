@@ -1,6 +1,5 @@
 <script>
   import { SERVER_URL } from "@env";
-  import { getRelativeTime } from "@util";
   import Loader from "@components/Loader.svelte";
 
   let servers = $state({});
@@ -10,24 +9,28 @@
    * Search
    */
   async function getServers() {
-    // fetch
-    loading = true;
-    const searchReq = await fetch(`${SERVER_URL}/game-servers`).catch((err) => {
+    try {
+      // fetch
+      loading = true;
+      const searchReq = await fetch(`${SERVER_URL}/game-servers`).catch(
+        (err) => {
+          console.log(err);
+          loading = false;
+        },
+      );
+
+      const data = await searchReq.json();
+      servers = data;
+      loading = false;
+    } catch (err) {
       console.log(err);
       loading = false;
-    });
-
-    const data = await searchReq.json();
-    servers = data;
-    loading = false;
+    }
   }
 
-  try {
+  $effect(() => {
     getServers();
-  } catch (err) {
-    console.log(err);
-    loading = false;
-  }
+  });
 </script>
 
 <div class="game-servers">
@@ -42,8 +45,8 @@
           alt=""
           class={value.error ? "offline" : "online"}
           title={value.error
-            ? `${key} offline (updated ${getRelativeTime(value.lastAttempted)})`
-            : `${key} - ${value.numplayers} online (updated ${getRelativeTime(value.updated)})`}
+            ? `${key} offline`
+            : `${key} - ${value.numplayers} online`}
         />
         {#if value.error}
           <span>Down</span>

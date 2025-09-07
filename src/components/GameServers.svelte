@@ -22,9 +22,7 @@
     loading = false;
   }
 
-  $effect(() => {
-    getServers();
-  });
+  getServers();
 </script>
 
 <div class="game-servers">

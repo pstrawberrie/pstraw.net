@@ -4,7 +4,6 @@
   import { formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
   import FooterContact from "@components/FooterContact.svelte";
-  // import GameServers from "@components/GameServers.svelte";
 </script>
 
 <footer>

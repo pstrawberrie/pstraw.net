@@ -4,7 +4,7 @@ import {
   postSearch,
   postMediaFilter,
 } from "../controllers/searchController.js";
-import { getGameServers } from "../controllers/gameServerController.js";
+// import { getGameServers } from "../controllers/gameServerController.js";
 import { postMessage } from "../controllers/messageController.js";
 const router = express.Router();
 
@@ -17,6 +17,6 @@ router.post("/filter/media", postMediaFilter);
 router.post("/contact", postMessage);
 
 // Game Server Routes
-router.get("/game-servers", getGameServers);
+// router.get("/game-servers", getGameServers);
 
 export default router;

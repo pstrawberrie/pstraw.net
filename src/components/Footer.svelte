@@ -4,7 +4,7 @@
   import { formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
   import FooterContact from "@components/FooterContact.svelte";
-  import GameServers from "@components/GameServers.svelte";
+  // import GameServers from "@components/GameServers.svelte";
 </script>
 
 <footer>
@@ -13,7 +13,7 @@
       <div class="left">
         <a href="/" class="logo text-gradient">{SITE.TITLE}</a>
         <!-- <p>Nice to see you</p> -->
-        <GameServers client:load />
+        <!-- <GameServers client:load /> -->
       </div>
       <div class="middle">
         <div class="contact">

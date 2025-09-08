@@ -26,6 +26,8 @@ const servers = [
   // },
 ];
 
+// @TODO: THIS IS BROKEN!!!!
+
 // Set Up in-memory cache
 const cachedGameServers = {};
 
@@ -63,7 +65,7 @@ const queryGameServers = async () => {
 cron.schedule("*/5 * * * *", queryGameServers);
 
 // Run Query on start
-queryGameServers();
+await queryGameServers();
 
 export const getGameServers = async (req, res) => {
   res.json(cachedGameServers);

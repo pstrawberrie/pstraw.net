@@ -3,7 +3,6 @@
   import Loader from "@components/Loader.svelte";
 
   let servers = $state({});
-  let updated = $state(new Date());
   let loading = $state(true);
 
   /**

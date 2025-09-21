@@ -12,7 +12,7 @@
     <div class="top">
       <div class="left">
         <a href="/" class="logo text-gradient">{SITE.TITLE}</a>
-        <GameServers client:load />
+        <GameServers load:client />
       </div>
       <div class="middle">
         <div class="contact">
@@ -74,13 +74,13 @@
     flex-direction: column;
     flex-wrap: wrap;
 
-    p {
-      font-size: 1rem;
+    // p {
+    //   font-size: 1rem;
 
-      @include util.mq(md) {
-        max-width: 300px;
-      }
-    }
+    //   @include util.mq(md) {
+    //     max-width: 300px;
+    //   }
+    // }
   }
 
   .middle {

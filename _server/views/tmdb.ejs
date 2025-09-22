@@ -1,0 +1,64 @@
+<%- include('partials/top') %>
+
+<main>
+  <div class="header">
+    <h1>TMDB</h1>
+  </div>
+
+  <div class="media">
+    <section class="section movies">
+      <h2>Movies</h2>
+      <!-- see dashboard for styles -->
+    </section>
+
+    <section class="section shows">
+      <h2>Shows</h2>
+      <!-- see dashboard for styles -->
+    </section>
+  </div>
+</main>
+
+<script>
+  // get the paginated movies first from the web server!
+  // @TODO
+
+  // let's do some event bubbling!
+  const parentClicker = document.querySelector(".media");
+
+  parentClicker.addEventListener("click", (e) => {
+    const { target } = e;
+    console.log("e.target:", target);
+  });
+
+  // fetch example!
+  // function postDelete(type, id) {
+  //   fetch("/api/delete", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ type, id }), // Convert the JavaScript object to a JSON string
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok)
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       if (data.success) {
+  //         const countEl = document.querySelector(`i[data-type="${type}"]`);
+  //         const el = document.querySelector(
+  //           `[data-type="${type}"][data-id="${id}"]`,
+  //         );
+
+  //         if (el) el.remove();
+  //         if (countEl && data?.total > -1) countEl.innerText = data.total;
+  //       } else {
+  //         console.log("Error: ", data.error);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }
+</script>
+
+<%- include('partials/bottom') %>

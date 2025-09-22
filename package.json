@@ -58,6 +58,7 @@
   "devDependencies": {
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-svelte": "^3.4.0"
+    "prettier-plugin-svelte": "^3.4.0",
+    "sequelize-cli": "^6.6.3"
   }
 }

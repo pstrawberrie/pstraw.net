@@ -50,6 +50,7 @@ const movies = defineCollection({
     title: z.string(),
     runtime: z.number(),
     rating: z.string(),
+    last_watch: z.string(),
     createdAt: z.string(),
     updatedAt: z.string(),
   }),
@@ -85,6 +86,7 @@ const shows = defineCollection({
     number_of_seasons: z.number(),
     in_production: z.number(), //Boolean Number
     rating: z.string(),
+    last_watch: z.string(),
     createdAt: z.string(),
     updatedAt: z.string(),
   }),

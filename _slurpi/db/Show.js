@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import sequelize from "./db.js";
 
 const Show = sequelize.define(
@@ -56,6 +56,11 @@ const Show = sequelize.define(
     rating: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    last_watch: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
   },
   { timestamps: true },

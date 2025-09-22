@@ -40,8 +40,8 @@ const shows = await getCollection(
 );
 const tmdbItems = [...movies, ...shows];
 tmdbItems.sort((a, b) => {
-  const aDate = a?.data?.createdAt;
-  const bDate = b?.data?.createdAt;
+  const aDate = a?.data?.last_watch;
+  const bDate = b?.data?.last_watch;
   return new Date(bDate) - new Date(aDate);
 });
 

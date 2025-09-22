@@ -54,7 +54,10 @@ function convertCSV() {
       // Some funky stuff to change 'createdAt':
       item.changed("createdAt", true);
       item.set("createdAt", date, { raw: true });
-      await item.save({ silent: true, fields: ["createdAt"] });
+      // Set last_watch as well, beacuse it is defaulted to the same as createdAt date!
+      item.set("last_watch", date, { raw: true });
+
+      await item.save({ silent: true, fields: ["createdAt", "last_watch"] });
       console.log(`updated ${i.Name} (${i.Type}): ${idx}/${total}`);
     }
   });

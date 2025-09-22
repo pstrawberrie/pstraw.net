@@ -25,6 +25,11 @@ export const getAdminDashboard = async (req, res) => {
   res.render("dashboard", { site, messages, movies, shows });
 };
 
+// GET TMDB
+export const getAdminTMDB = async (req, res) => {
+  res.render("tmdb");
+};
+
 // POST Delete
 export const postDeleteItem = async (req, res) => {
   try {

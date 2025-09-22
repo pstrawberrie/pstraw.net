@@ -27,7 +27,22 @@ export const getAdminDashboard = async (req, res) => {
 
 // GET TMDB
 export const getAdminTMDB = async (req, res) => {
-  res.render("tmdb");
+  const movies = await Movie.findAll({ raw: true });
+  const shows = await Show.findAll({ raw: true });
+
+  movies.sort((a, b) => {
+    const aDate = a?.last_watch;
+    const bDate = b?.last_watch;
+    return new Date(bDate) - new Date(aDate);
+  });
+
+  shows.sort((a, b) => {
+    const aDate = a?.last_watch;
+    const bDate = b?.last_watch;
+    return new Date(bDate) - new Date(aDate);
+  });
+
+  res.render("tmdb", { movies, shows });
 };
 
 // POST Delete

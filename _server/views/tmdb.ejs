@@ -8,15 +8,88 @@
   <div class="media">
     <section class="section movies">
       <h2>Movies</h2>
+      <div class="grid-auto">
+        <% movies.forEach(m => {%>
+          <div class="card">
+            <div class="top">
+              <%= m.title %> (<%= m.release_date.split('-')[0] %>)
+            </div>
+            <div class="dates">
+              <div>Created: <%= new Date(m.createdAt).toLocaleString("en-US", { year: "numeric", month: "numeric", day: "numeric", }) %></div>
+              <div>Last Watch: <input type="date" id="<%= m.id %>" value="<%= new Date(m.last_watch).toLocaleString("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit", }).replace(/\//g, '-') %>" onchange="this.parentNode.parentNode.classList.add('changed')" /></div>
+              <div class="actions">
+                <button class="refresh-last-watch" data-type="movie">Quick Refresh</button>
+                <button class="update-last-watch" data-type="movie">Update Last Watch</button>
+              </div>
+            </div>
+            <div class="status"></div>
+          </div>
+        <% }) %>
+      </div>
       <!-- see dashboard for styles -->
     </section>
 
     <section class="section shows">
       <h2>Shows</h2>
+      <div class="grid-auto">
+        <% shows.forEach(m => {%>
+          <div class="card">
+            <div class="top">
+              <%= m.title %> (<%= m.first_air_date.split('-')[0] %>)
+            </div>
+            <div class="dates">
+              <div>Created: <%= new Date(m.createdAt).toLocaleString("en-US", { year: "numeric", month: "numeric", day: "numeric", }) %></div>
+              <div>Last Watch: <input type="date" id="<%= m.id %>" value="<%= new Date(m.last_watch).toLocaleString("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit", }).replace(/\//g, '-') %>" onchange="this.parentNode.parentNode.classList.add('changed')" /></div>
+              <div class="actions">
+                <button class="refresh-last-watch" data-type="movie">Quick Refresh</button>
+                <button class="update-last-watch" data-type="movie">Update Last Watch</button>
+              </div>
+            </div>
+            <div class="status"></div>
+          </div>
+        <% }) %>
+      </div>
       <!-- see dashboard for styles -->
     </section>
   </div>
 </main>
+
+<style>
+  .dates {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    font-size: .9rem;
+  }
+
+  .dates .actions {
+    margin-top: .69rem;
+  }
+
+  .dates button {
+    padding: .5rem;
+    font-weight: bold;
+    background: var(--c-dark-accent);
+    color: var(--c-text-secondary);
+    border: 1px solid var(--c-dark-accent-border);
+    border-radius: .2rem;
+    cursor: pointer;
+  }
+
+  .dates button:hover {
+    border-color: var(--c-text-muted);
+  }
+
+  .dates button.update-last-watch {
+    opacity: .42;
+    pointer-events: none;
+  }
+
+  .dates.changed button.update-last-watch {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
 
 <script>
   // get the paginated movies first from the web server!
@@ -27,7 +100,18 @@
 
   parentClicker.addEventListener("click", (e) => {
     const { target } = e;
-    console.log("e.target:", target);
+    if(e.target.tagName === 'BUTTON') {
+      const isRefresh = e.target.className === "refresh-last-watch";
+      const isUpdate = e.target.className === "update-last-watch";
+
+      let date;
+
+      if(isUpdate) {
+        const dateInputEl = e.target.parentNode.parentNode.querySelector('input[type="date"]');
+        console.log(new Date(dateInputEl.value));
+        // date = dateInputValue;
+      }
+    }
   });
 
   // fetch example!

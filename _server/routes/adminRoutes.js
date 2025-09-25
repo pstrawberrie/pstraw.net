@@ -4,7 +4,10 @@ import {
   getAdminTMDB,
   postDeleteItem,
 } from "../controllers/adminController.js";
-import { refreshMedia } from "../controllers/tmdbController.js";
+import {
+  updateLastWatch,
+  suppressLastWatch,
+} from "../controllers/tmdbController.js";
 const router = express.Router();
 
 // Dashboard Routes
@@ -15,6 +18,7 @@ router.get("/tmdb", getAdminTMDB);
 router.post("/api/delete", postDeleteItem);
 
 // API TMDB Routes
-router.post("/api/tmdb/refresh", refreshMedia);
+router.post("/api/tmdb/update-last-watch", updateLastWatch);
+router.post("/api/tmdb/suppress-last-watch", suppressLastWatch);
 
 export default router;

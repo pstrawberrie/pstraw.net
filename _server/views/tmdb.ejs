@@ -10,7 +10,7 @@
       <h2>Movies</h2>
       <div class="grid-auto">
         <% movies.forEach(m => {%>
-          <div class="card">
+          <div class="card" data-type="movie" data-id="<%= m.id %>">
             <div class="top">
               <%= m.title %> (<%= m.release_date.split('-')[0] %>)
             </div>
@@ -18,8 +18,9 @@
               <div>Created: <%= new Date(m.createdAt).toLocaleString("en-US", { year: "numeric", month: "numeric", day: "numeric", }) %></div>
               <div>Last Watch: <input type="date" id="<%= m.id %>" value="<%= new Date(m.last_watch).toLocaleString("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit", }).replace(/\//g, '-') %>" onchange="this.parentNode.parentNode.classList.add('changed')" /></div>
               <div class="actions">
-                <button class="refresh-last-watch" data-type="movie">Quick Refresh</button>
-                <button class="update-last-watch" data-type="movie">Update Last Watch</button>
+                <button class="refresh-last-watch">Quick Refresh</button>
+                <button class="update-last-watch">Update Last Watch</button>
+                <button class="suppress-last-watch" data-suppressed="<%= m.last_watch_suppressed %>">👁️‍🗨️</button>
               </div>
             </div>
             <div class="status"></div>
@@ -33,7 +34,7 @@
       <h2>Shows</h2>
       <div class="grid-auto">
         <% shows.forEach(m => {%>
-          <div class="card">
+          <div class="card" data-type="show" data-id="<%= m.id %>">
             <div class="top">
               <%= m.title %> (<%= m.first_air_date.split('-')[0] %>)
             </div>
@@ -41,8 +42,9 @@
               <div>Created: <%= new Date(m.createdAt).toLocaleString("en-US", { year: "numeric", month: "numeric", day: "numeric", }) %></div>
               <div>Last Watch: <input type="date" id="<%= m.id %>" value="<%= new Date(m.last_watch).toLocaleString("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit", }).replace(/\//g, '-') %>" onchange="this.parentNode.parentNode.classList.add('changed')" /></div>
               <div class="actions">
-                <button class="refresh-last-watch" data-type="movie">Quick Refresh</button>
-                <button class="update-last-watch" data-type="movie">Update Last Watch</button>
+                <button class="refresh-last-watch">Quick Refresh</button>
+                <button class="update-last-watch">Update Last Watch</button>
+                <button class="suppress-last-watch" data-suppressed="<%= m.last_watch_suppressed %>">👁️‍🗨️</button>
               </div>
             </div>
             <div class="status"></div>
@@ -80,6 +82,10 @@
     border-color: var(--c-text-muted);
   }
 
+  .dates button.suppress-last-watch[data-suppressed="1"] {
+    background-color: var(--c-state-error);
+  }
+
   .dates button.update-last-watch {
     opacity: .42;
     pointer-events: none;
@@ -101,48 +107,61 @@
   parentClicker.addEventListener("click", (e) => {
     const { target } = e;
     if(e.target.tagName === 'BUTTON') {
+      let fetchUrl = '/api/tmdb';
+
+      const isSuppress = e.target.className === "suppress-last-watch";
       const isRefresh = e.target.className === "refresh-last-watch";
       const isUpdate = e.target.className === "update-last-watch";
 
-      let date;
+      const parentEl = e.target.parentNode.parentNode.parentNode;
+      console.log(parentEl);//REMOVE
+      const id = parentEl.getAttribute('data-id');
+      const type = parentEl.getAttribute('data-type');
 
-      if(isUpdate) {
-        const dateInputEl = e.target.parentNode.parentNode.querySelector('input[type="date"]');
-        console.log(new Date(dateInputEl.value));
-        // date = dateInputValue;
+      if(isSuppress) {
+        fetchUrl += '/suppress-last-watch';
+        console.log(`suppress ${type} ${id}`);
+      } else {
+        fetchUrl += '/update-last-watch';
+        let date = new Date();
+  
+        if(isUpdate) {
+          const dateInputEl = parentEl.querySelector('input[type="date"]');
+          date = new Date(dateInputEl.value);
+        }
+
+        console.log(`${isUpdate ? 'update' : 'refresh'} ${type} ${id} last_watch to ${JSON.stringify(date)}`);
       }
+
     }
   });
 
-  // fetch example!
-  // function postDelete(type, id) {
-  //   fetch("/api/delete", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ type, id }), // Convert the JavaScript object to a JSON string
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok)
-  //         throw new Error(`HTTP error! status: ${response.status}`);
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       if (data.success) {
-  //         const countEl = document.querySelector(`i[data-type="${type}"]`);
-  //         const el = document.querySelector(
-  //           `[data-type="${type}"][data-id="${id}"]`,
-  //         );
-
-  //         if (el) el.remove();
-  //         if (countEl && data?.total > -1) countEl.innerText = data.total;
-  //       } else {
-  //         console.log("Error: ", data.error);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //     });
-  // }
+  // Fetch Helper
+  function fetchTMDBApi(type, id, url) {
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type, id }), // Convert the JavaScript object to a JSON string
+    })
+      .then((response) => {
+        if (!response.ok)
+          throw new Error(`HTTP error in fetchTMDBApi! status: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          // do success
+          if(url.includes('suppress')) {
+            // do suppress data-attr switch
+          }
+        } else {
+          console.log("fetchTMDBApi Response returned an error:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("fetchTMDBApi Response returned an error:", error);
+      });
+  }
 </script>
 
 <%- include('partials/bottom') %>

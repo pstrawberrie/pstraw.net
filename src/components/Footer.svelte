@@ -12,7 +12,7 @@
     <div class="top">
       <div class="left">
         <a href="/" class="logo text-gradient">{SITE.TITLE}</a>
-        <GameServers load:client />
+        <GameServers />
       </div>
       <div class="middle">
         <div class="contact">

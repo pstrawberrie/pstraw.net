@@ -51,6 +51,11 @@ const Movie = sequelize.define(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    last_watch_suppressed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   { timestamps: true },
 );

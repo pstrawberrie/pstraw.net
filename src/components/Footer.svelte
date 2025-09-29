@@ -3,7 +3,7 @@
   import { SITE_DATA } from "@env";
   import { formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
-  import GameServers from "@components/GameServers.svelte";
+  // import GameServers from "@components/GameServers.svelte";
   import FooterContact from "@components/FooterContact.svelte";
 </script>
 
@@ -12,7 +12,7 @@
     <div class="top">
       <div class="left">
         <a href="/" class="logo text-gradient">{SITE.TITLE}</a>
-        <GameServers />
+        <!-- <GameServers /> -->
       </div>
       <div class="middle">
         <div class="contact">

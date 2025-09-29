@@ -10,7 +10,7 @@
       <h2>Movies</h2>
       <div class="grid-auto">
         <% movies.forEach(m => {%>
-          <div class="card" data-type="movie" data-id="<%= m.id %>">
+          <div class="card" data-type="movie" data-id="<%= m.id %>" data-suppressed="<%= m.last_watch_suppressed %>">
             <div class="top">
               <%= m.title %> (<%= m.release_date.split('-')[0] %>)
             </div>
@@ -20,7 +20,7 @@
               <div class="actions">
                 <button class="refresh-last-watch">Quick Refresh</button>
                 <button class="update-last-watch">Update Last Watch</button>
-                <button class="suppress-last-watch" data-suppressed="<%= m.last_watch_suppressed %>">👁️‍🗨️</button>
+                <button class="suppress-last-watch">👁️‍🗨️</button>
               </div>
             </div>
             <div class="status"></div>
@@ -34,7 +34,7 @@
       <h2>Shows</h2>
       <div class="grid-auto">
         <% shows.forEach(m => {%>
-          <div class="card" data-type="show" data-id="<%= m.id %>">
+          <div class="card" data-type="show" data-id="<%= m.id %>" data-suppressed="<%= m.last_watch_suppressed %>">
             <div class="top">
               <%= m.title %> (<%= m.first_air_date.split('-')[0] %>)
             </div>
@@ -44,7 +44,7 @@
               <div class="actions">
                 <button class="refresh-last-watch">Quick Refresh</button>
                 <button class="update-last-watch">Update Last Watch</button>
-                <button class="suppress-last-watch" data-suppressed="<%= m.last_watch_suppressed %>">👁️‍🗨️</button>
+                <button class="suppress-last-watch">👁️‍🗨️</button>
               </div>
             </div>
             <div class="status"></div>
@@ -82,18 +82,20 @@
     border-color: var(--c-text-muted);
   }
 
-  .dates button.suppress-last-watch[data-suppressed="1"] {
-    background-color: var(--c-state-error);
-  }
-
+  
   .dates button.update-last-watch {
     opacity: .42;
     pointer-events: none;
   }
-
+  
   .dates.changed button.update-last-watch {
     opacity: 1;
     pointer-events: auto;
+  }
+
+  .card[data-suppressed="1"] button.suppress-last-watch,
+  .card[data-suppressed="true"] button.suppress-last-watch {
+    background-color: var(--c-state-error);
   }
 </style>
 
@@ -114,13 +116,13 @@
       const isUpdate = e.target.className === "update-last-watch";
 
       const parentEl = e.target.parentNode.parentNode.parentNode;
-      console.log(parentEl);//REMOVE
       const id = parentEl.getAttribute('data-id');
       const type = parentEl.getAttribute('data-type');
 
       if(isSuppress) {
         fetchUrl += '/suppress-last-watch';
         console.log(`suppress ${type} ${id}`);
+        fetchTMDBApi(type, id, fetchUrl);
       } else {
         fetchUrl += '/update-last-watch';
         let date = new Date();
@@ -131,17 +133,20 @@
         }
 
         console.log(`${isUpdate ? 'update' : 'refresh'} ${type} ${id} last_watch to ${JSON.stringify(date)}`);
+        fetchTMDBApi(type, id, fetchUrl, date);
       }
-
     }
   });
 
   // Fetch Helper
-  function fetchTMDBApi(type, id, url) {
+  function fetchTMDBApi(type, id, url, date) {
+    const fetchBody = { type, id };
+    if(!url.includes('suppress') && date) fetchBody.date = date;
+
     fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type, id }), // Convert the JavaScript object to a JSON string
+      body: JSON.stringify(fetchBody),
     })
       .then((response) => {
         if (!response.ok)
@@ -152,7 +157,13 @@
         if (data.success) {
           // do success
           if(url.includes('suppress')) {
+            console.log('suppress call updated media:', data.media);
+
             // do suppress data-attr switch
+            const mediaEl = document.querySelector(`[data-id="${data.media.id}"]`);
+            mediaEl.setAttribute('data-suppressed', data.media.last_watch_suppressed);
+          } else {
+            console.log('updated media last_watch date:', data.media.last_watch);
           }
         } else {
           console.log("fetchTMDBApi Response returned an error:", data.error);

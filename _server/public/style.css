@@ -18,7 +18,7 @@
   --space-content-v: 2rem;
 
   /* Menu */
-  --menu-width: 230px;
+  --menu-height: 50px;
   --font-size-default: 1.125rem;
 
   /* Fonts */
@@ -101,6 +101,7 @@ body {
   color: var(--c-text);
   width: 100%;
   min-height: 100vh;
+  padding-top: var(--menu-height);
 }
 
 a {
@@ -131,9 +132,8 @@ h6 {
 /* Layout */
 .page_container {
   position: relative;
-  display: grid;
-  grid-template-columns: var(--menu-width) 1fr;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 main {

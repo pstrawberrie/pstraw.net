@@ -6,37 +6,17 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import TMDBCard from "@components/TMDBCard.svelte";
 import NoteCard from "@components/NoteCard.svelte";
 
-// Excluded Recents
-// - these are movies/shows i haven't watched recently but forgot to add from the past
-// - eventually integrate this into the DB
-const excludedRecents = [
-  "766507", //prey
-  "666277", //past lives
-  "19959", //surrogates
-  "1635", //the island
-  "7345", //there will be blood
-  "10350", //wing commander
-  "289123", //fred and rose west british horror story
-  "1466938", //deadly american marriage
-  "792", //platoon
-  "201124", //mo
-  "817758", //tar
-  "881415", //love me
-  "20526", //tron legacy
-  "975773", //wicked little letters
-];
-
 // Movies/Shows
 const recentTMDBLimit = 15;
 const recentNotesLimit = 6;
 
 const movies = await getCollection(
   "movies",
-  ({ id }) => excludedRecents.indexOf(id) === -1,
+  ({ data }) => data.last_watch_suppressed !== 1,
 );
 const shows = await getCollection(
   "shows",
-  ({ id }) => excludedRecents.indexOf(id) === -1,
+  ({ data }) => data.last_watch_suppressed !== 1,
 );
 const tmdbItems = [...movies, ...shows];
 tmdbItems.sort((a, b) => {

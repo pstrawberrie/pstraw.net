@@ -6,13 +6,8 @@ export const updateLastWatch = async (req, res) => {
   try {
     const { type, id, date = new Date() } = req.body;
     if (!id) throw new Error("no id provided");
-    if (
-      !type ||
-      type?.toLowerCase() !== "movie" ||
-      type?.toLowerCase() !== "show"
-    ) {
+    if (type !== "movie" && type !== "show")
       throw new Error(`bad type provided: ${type}`);
-    }
 
     const model = type === "movie" ? Movie : Show;
     const media = await model.findByPk(id);
@@ -23,8 +18,8 @@ export const updateLastWatch = async (req, res) => {
     } else {
       res.json({ error: `No ${type} media found with id ${id}` });
     }
-  } catch (err) {
-    res.json({ error: err });
+  } catch (error) {
+    res.json({ error: error.message });
   }
 };
 
@@ -33,13 +28,9 @@ export const suppressLastWatch = async (req, res) => {
   try {
     const { type, id } = req.body;
     if (!id) throw new Error("no id provided");
-    if (
-      !type ||
-      type?.toLowerCase() !== "movie" ||
-      type?.toLowerCase() !== "show"
-    ) {
+    console.log("got id", type);
+    if (type !== "movie" && type !== "show")
       throw new Error(`bad type provided: ${type}`);
-    }
 
     const model = type === "movie" ? Movie : Show;
     const media = await model.findByPk(id);
@@ -52,7 +43,7 @@ export const suppressLastWatch = async (req, res) => {
     } else {
       res.json({ error: `No ${type} media found with id ${id}` });
     }
-  } catch (err) {
-    res.json({ error: err });
+  } catch (error) {
+    res.json({ error: error.message });
   }
 };

@@ -4,7 +4,7 @@ import {
   postMediaFilter,
 } from "../controllers/searchController.js";
 import { postMessage } from "../controllers/messageController.js";
-import { getGameServerCachedStatus } from "../controllers/gameServerController.js";
+// import { getGameServerCachedStatus } from "../controllers/gameServerController.js";
 const router = express.Router();
 
 // Search Routes
@@ -15,6 +15,6 @@ router.post("/filter/media", postMediaFilter);
 router.post("/contact", postMessage);
 
 // Game Server Routes
-router.get("/game-servers", getGameServerCachedStatus);
+// router.get("/game-servers", getGameServerCachedStatus);
 
 export default router;

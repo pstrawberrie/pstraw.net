@@ -8,7 +8,7 @@
   const tmdbUrl = `https://www.themoviedb.org/${isMovie ? "movie" : "tv"}/${id}`;
 
   // Shortened Date
-  const shortDate = formatDate(data.createdAt).split(",")[0];
+  const lastWatchDate = formatDate(data.last_watch).split(",")[0];
 
   // Runtime
   const episodeRuntimeArr = isMovie ? null : JSON.parse(data.episode_run_time);
@@ -34,7 +34,7 @@
       <h3 class="title">
         {data.title}
         {#if displayLastWatched}
-          <span class="last-watched">Watched {shortDate}</span>
+          <span class="last-watched">Watched {lastWatchDate}</span>
         {/if}
       </h3>
       <div class="genres">

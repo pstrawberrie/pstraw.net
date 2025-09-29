@@ -7,7 +7,7 @@ import {
 import {
   updateLastWatch,
   suppressLastWatch,
-} from "../controllers/tmdbController.js";
+} from "../controllers/tmdbAdminController.js";
 const router = express.Router();
 
 // Dashboard Routes

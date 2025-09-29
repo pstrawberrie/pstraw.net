@@ -3,7 +3,7 @@ export const SITE = {
   TITLE: "pstraw.net",
   DESCRIPTION: "A personal web playground and archive.",
   VERSION: {
-    CURRENT: 3.2,
+    CURRENT: 3.3,
     TITLE: "Chill Space",
   },
   NOTES_PER_PAGE: 10,

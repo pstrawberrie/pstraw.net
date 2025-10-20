@@ -97,6 +97,11 @@
   .card[data-suppressed="true"] button.suppress-last-watch {
     background-color: var(--c-state-error);
   }
+
+  .card[data-loading] {
+    border-color: var(--c-state-info);
+    color: var(--c-state-info);
+  }
 </style>
 
 <script>
@@ -140,6 +145,11 @@
 
   // Fetch Helper
   function fetchTMDBApi(type, id, url, date) {
+    // get media element
+    const mediaEl = document.querySelector(`[data-id="${id}"]`);
+    mediaEl.setAttribute('data-loading', true);
+
+    // set up fetch body
     const fetchBody = { type, id };
     if(!url.includes('suppress') && date) fetchBody.date = date;
 
@@ -160,11 +170,14 @@
             console.log('suppress call updated media:', data.media);
 
             // do suppress data-attr switch
-            const mediaEl = document.querySelector(`[data-id="${data.media.id}"]`);
             mediaEl.setAttribute('data-suppressed', data.media.last_watch_suppressed);
           } else {
             console.log('updated media last_watch date:', data.media.last_watch);
           }
+
+          setTimeout(() => {
+              mediaEl.removeAttribute('data-loading');
+            }, 150);
         } else {
           console.log("fetchTMDBApi Response returned an error:", data.error);
         }

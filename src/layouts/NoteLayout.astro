@@ -126,12 +126,12 @@ const { frontmatter, slug } = Astro.props;
       font-size: var(--font-size-h1-sm);
       line-height: var(--line-height-h1-sm);
       margin-bottom: 2rem;
-      scroll-margin-top: calc(var(--nav-height) + 6rem);
+      scroll-margin-top: calc(var(--nav-height) + 5rem);
     }
 
     :global(h2, h3, h4) {
       line-height: 1.2;
-      scroll-margin-top: calc(var(--nav-height) + 6rem);
+      scroll-margin-top: calc(var(--nav-height) + 4.2rem);
     }
 
     :global(h2) {
@@ -213,6 +213,16 @@ const { frontmatter, slug } = Astro.props;
       border: 0;
       border-top: 1px solid var(--c-button-border);
       margin: 2rem 0;
+    }
+
+    :global(em) {
+      font-family: var(--font-family-mono);
+      font-size: 0.85em;
+      font-style: italic;
+    }
+
+    :global(del) {
+      text-decoration: line-through;
     }
 
     :global(pre) {

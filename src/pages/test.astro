@@ -1,14 +1,29 @@
 ---
+import "@splidejs/splide/css";
+import Splide from "@splidejs/splide";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 const testData = {
   some: "value",
 };
+
+new Splide(".slider", {
+  type: "loop",
+  gap: "20vw",
+  focus: "center",
+}).mount();
 ---
 
 <BaseLayout>
   <section id="straw-hero">
-    <div id="top"></div>
+    <div id="top">
+      <div class="slider">
+        <div>test 1</div>
+        <div>test 2</div>
+        <div>test 3</div>
+        <div>test 4</div>
+      </div>
+    </div>
     <div id="bottom"></div>
     <div class="bg"></div>
   </section>

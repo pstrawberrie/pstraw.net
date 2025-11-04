@@ -1,0 +1,56 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const testData = {
+  some: "value",
+};
+---
+
+<BaseLayout>
+  <section id="straw-hero">
+    <div id="top"></div>
+    <div id="bottom"></div>
+    <div class="bg"></div>
+  </section>
+  <div class="test-space"></div>
+</BaseLayout>
+
+<style lang="scss">
+  @use "@css/util";
+
+  #straw-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: var(--nav-height) var(--space-page-h) 4vh;
+    background: #000;
+  }
+
+  #top,
+  #bottom {
+    position: relative;
+    width: 100%;
+    height: 46vh;
+    background: rgba(255, 155, 0, 0.55);
+  }
+
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("/images/site/snowfall_lq.webp") repeat center center;
+    background-size: 390px 164px;
+    opacity: 0.69;
+  }
+
+  // Testing
+  .test-space {
+    padding: 10rem 0;
+  }
+</style>

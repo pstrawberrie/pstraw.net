@@ -1,5 +1,5 @@
 <script>
-  import "@splidejs/splide/css";
+  import "@splidejs/splide/dist/css/themes/splide-skyblue.min.css";
   import Splide from "@splidejs/splide";
 
   let sliderEl;
@@ -29,9 +29,7 @@
   });
 </script>
 
-<section class="splide" aria-labelledby="carousel-heading" bind:this={sliderEl}>
-  <h2 id="carousel-heading">Splide Basic HTML Example</h2>
-
+<section class="splide" bind:this={sliderEl}>
   <div class="splide__track">
     <ul class="splide__list">
       <li class="splide__slide">Slide 01</li>
@@ -47,9 +45,3 @@
     </ul>
   </div>
 </section>
-
-<style>
-  .splide {
-    background: #f0f;
-  }
-</style>

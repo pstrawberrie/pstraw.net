@@ -2,6 +2,8 @@
   import "@splidejs/splide/dist/css/themes/splide-skyblue.min.css";
   import Splide from "@splidejs/splide";
 
+  const { data } = $props();
+
   let sliderEl;
 
   $effect(() => {
@@ -32,16 +34,26 @@
 <section class="splide" bind:this={sliderEl}>
   <div class="splide__track">
     <ul class="splide__list">
-      <li class="splide__slide">Slide 01</li>
-      <li class="splide__slide">Slide 02</li>
-      <li class="splide__slide">Slide 03</li>
-      <li class="splide__slide">Slide 04</li>
-      <li class="splide__slide">Slide 05</li>
-      <li class="splide__slide">Slide 06</li>
-      <li class="splide__slide">Slide 07</li>
-      <li class="splide__slide">Slide 08</li>
-      <li class="splide__slide">Slide 09</li>
-      <li class="splide__slide">Slide 10</li>
+      {#each data as d, i}
+        {#if i < 14}
+          <li class="splide__slide">
+            <div class="media-slide">
+              <img src={`/images/tmdb/${d.id}.webp`} alt="" loading="lazy" />
+            </div>
+          </li>
+        {/if}
+      {/each}
     </ul>
   </div>
 </section>
+
+<style lang="scss">
+  .media-slide {
+    // width: 75px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+</style>

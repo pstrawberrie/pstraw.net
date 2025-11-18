@@ -1,16 +1,28 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import SplideSlider from "@components/SplideSlider.svelte";
+import TMDBSplideSlider from "@components/TMDBSplideSlider.svelte";
 
-const testData = {
-  some: "value",
-};
+const movies = await getCollection(
+  "movies",
+  ({ data }) => data.last_watch_suppressed !== 1,
+);
+const shows = await getCollection(
+  "shows",
+  ({ data }) => data.last_watch_suppressed !== 1,
+);
+const tmdbRecents = [...movies, ...shows];
+tmdbRecents.sort((a, b) => {
+  const aDate = a?.data?.last_watch;
+  const bDate = b?.data?.last_watch;
+  return new Date(bDate) - new Date(aDate);
+});
 ---
 
 <BaseLayout>
   <section id="straw-hero">
     <div id="top">
-      <SplideSlider client:only />
+      <TMDBSplideSlider client:only data={tmdbRecents} />
     </div>
     <div id="bottom"></div>
     <div class="bg"></div>
@@ -50,6 +62,15 @@ const testData = {
     background-size: 390px 164px;
     opacity: 0.69;
     z-index: 0;
+  }
+
+  .media-slide {
+    width: 75px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 
   // Testing

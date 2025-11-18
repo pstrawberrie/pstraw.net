@@ -44,6 +44,7 @@
     "gamedig": "^5.3.1",
     "gray-matter": "^4.0.3",
     "helmet": "^8.0.0",
+    "littlejsengine": "^1.17.5",
     "lodash-es": "^4.17.21",
     "node-cron": "^4.2.1",
     "nodemon": "^3.1.9",

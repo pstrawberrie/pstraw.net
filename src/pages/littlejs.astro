@@ -1,0 +1,64 @@
+---
+import * as LJS from "littlejs/dist/littlejs.esm.js";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+console.log("asdf");
+---
+
+<BaseLayout>
+  <section id="straw-hero">
+    <div id="top">top</div>
+    <div id="bottom">bot</div>
+    <div class="bg"></div>
+  </section>
+  <div class="test-space"></div>
+</BaseLayout>
+
+<style lang="scss">
+  @use "@css/util";
+
+  #straw-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: var(--nav-height) var(--space-page-h) 4vh;
+    background: #000;
+  }
+
+  #top,
+  #bottom {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("/images/site/snowfall_lq.webp") repeat center center;
+    background-size: 390px 164px;
+    opacity: 0.69;
+    z-index: 0;
+  }
+
+  .media-slide {
+    width: 75px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  // Testing
+  .test-space {
+    padding: 10rem 0;
+  }
+</style>

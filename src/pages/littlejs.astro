@@ -1,6 +1,23 @@
 ---
-import * as LJS from "littlejs/dist/littlejs.esm.js";
+import * as LJS from "@node/littlejsengine/dist/littlejs.esm.js";
 import BaseLayout from "@layouts/BaseLayout.astro";
+
+// @TODO put this into a component, use client:only or similar! looks like it's working ish so far
+function gameRender() {
+  // precreate variables to avoid overhead
+  const pos = LJS.vec2(),
+    size = LJS.vec2(),
+    color = LJS.rgb();
+  for (let i = 2e3; i--; ) {
+    // use math to generate random star positions
+    const offset = LJS.time * (9 + (i ** 2.1 % 15)) + i ** 2.3;
+    pos.x = (offset % 70) - 35;
+    pos.y = i / 110 - 9;
+    size.x = size.y = (i % 0.11) + 0.07;
+    color.set(1, 1, 1, LJS.sin(i) ** 4);
+    LJS.drawRect(pos, size, color);
+  }
+}
 
 console.log("asdf");
 ---
@@ -26,7 +43,7 @@ console.log("asdf");
     height: 100vh;
     margin: 0 auto;
     padding: var(--nav-height) var(--space-page-h) 4vh;
-    background: #000;
+    background: rgba(255, 0, 255, 0.1);
   }
 
   #top,
@@ -34,18 +51,6 @@ console.log("asdf");
     position: relative;
     width: 100%;
     z-index: 1;
-  }
-
-  .bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("/images/site/snowfall_lq.webp") repeat center center;
-    background-size: 390px 164px;
-    opacity: 0.69;
-    z-index: 0;
   }
 
   .media-slide {

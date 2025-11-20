@@ -1,32 +1,11 @@
 ---
-import * as LJS from "@node/littlejsengine/dist/littlejs.esm.js";
 import BaseLayout from "@layouts/BaseLayout.astro";
-
-// @TODO put this into a component, use client:only or similar! looks like it's working ish so far
-function gameRender() {
-  // precreate variables to avoid overhead
-  const pos = LJS.vec2(),
-    size = LJS.vec2(),
-    color = LJS.rgb();
-  for (let i = 2e3; i--; ) {
-    // use math to generate random star positions
-    const offset = LJS.time * (9 + (i ** 2.1 % 15)) + i ** 2.3;
-    pos.x = (offset % 70) - 35;
-    pos.y = i / 110 - 9;
-    size.x = size.y = (i % 0.11) + 0.07;
-    color.set(1, 1, 1, LJS.sin(i) ** 4);
-    LJS.drawRect(pos, size, color);
-  }
-}
-
-console.log("asdf");
+import HeroGame from "@components/games/HeroGame.svelte";
 ---
 
 <BaseLayout>
   <section id="straw-hero">
-    <div id="top">top</div>
-    <div id="bottom">bot</div>
-    <div class="bg"></div>
+    <HeroGame client:only />
   </section>
   <div class="test-space"></div>
 </BaseLayout>
@@ -44,22 +23,6 @@ console.log("asdf");
     margin: 0 auto;
     padding: var(--nav-height) var(--space-page-h) 4vh;
     background: rgba(255, 0, 255, 0.1);
-  }
-
-  #top,
-  #bottom {
-    position: relative;
-    width: 100%;
-    z-index: 1;
-  }
-
-  .media-slide {
-    width: 75px;
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
   }
 
   // Testing

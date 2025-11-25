@@ -1,155 +1,43 @@
 <script>
   import * as LJS from "@node/littlejsengine/dist/littlejs.esm.js";
+  const { tile, vec2, hsl } = LJS;
 
   console.log("== Hero Game ==");
 
-  // -----------------
-  // import LittleJS module
-  const { tile, vec2, hsl } = LJS;
-
-  // show the LittleJS splash screen
-  LJS.setShowSplashScreen(true);
-
-  // fix texture bleeding by shrinking tile slightly
-  LJS.setTileDefaultBleed(0.5);
-
-  // sound effects
-  const sound_click = new LJS.Sound([1, 0.5]);
-
-  // medals
-  const medal_example = new LJS.Medal(
-    0,
-    "Example Medal",
-    "Welcome to LittleJS!",
-  );
-  LJS.medalsInit("Hello World");
-
-  // game variables
-  let particleEmitter;
-
-  ///////////////////////////////////////////////////////////////////////////////
-  function gameInit() {
-    // create tile collision and visible tile layer
-    const pos = vec2();
-    const tileLayer = new LJS.TileCollisionLayer(pos, vec2(32, 16));
-
-    // get level data from the tiles image
-    const mainContext = LJS.mainContext;
-    const tileImage = LJS.textureInfos[0].image;
-    mainContext.drawImage(tileImage, 0, 0);
-    const imageData = mainContext.getImageData(
-      0,
-      0,
-      tileImage.width,
-      tileImage.height,
-    ).data;
-    for (pos.x = tileLayer.size.x; pos.x--; )
-      for (pos.y = tileLayer.size.y; pos.y--; ) {
-        // check if this pixel is set
-        const i = pos.x + tileImage.width * (15 + tileLayer.size.y - pos.y);
-        if (!imageData[4 * i]) continue;
-
-        // set tile data
-        const tileIndex = 1;
-        const direction = LJS.randInt(4);
-        const mirror = !LJS.randInt(2);
-        const color = LJS.randColor();
-        const data = new LJS.TileLayerData(tileIndex, direction, mirror, color);
-        tileLayer.setData(pos, data);
-        tileLayer.setCollisionData(pos);
-      }
-
-    // draw tile layer with new data
-    tileLayer.redraw();
-
-    // move camera to center of collision
-    LJS.setCameraPos(tileLayer.size.scale(0.5));
-    LJS.setCameraScale(32);
-
-    // enable gravity
-    LJS.setGravity(vec2(0, -0.01));
-
-    // create particle emitter
-    particleEmitter = new LJS.ParticleEmitter(
-      vec2(16, 9),
-      0, // emitPos, emitAngle
-      0,
-      0,
-      500,
-      3.14, // emitSize, emitTime, rate, cone
-      tile(0, 16), // tileIndex, tileSize
-      hsl(1, 1, 1),
-      hsl(0, 0, 0), // colorStartA, colorStartB
-      hsl(0, 0, 0, 0),
-      hsl(0, 0, 0, 0), // colorEndA, colorEndB
-      1,
-      0.2,
-      0.2,
-      0.1,
-      0.05, // time, sizeStart, sizeEnd, speed, angleSpeed
-      0.99,
-      1,
-      1,
-      3.14, // damping, angleDamping, gravityScale, cone
-      0.05,
-      0.5,
-      true,
-      true, // fadeRate, randomness, collide, additive
-    );
-    particleEmitter.restitution = 0.3; // bounce when it collides
-    particleEmitter.trailScale = 2; // stretch as it moves
-    particleEmitter.velocityInheritance = 0.3; // inherit emitter velocity
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  function gameUpdate() {
-    if (LJS.mouseWasPressed(0)) {
-      // play sound when mouse is pressed
-      sound_click.play(LJS.mousePos);
-
-      // change particle color and set to fade out
-      particleEmitter.colorStartA = LJS.randColor();
-      particleEmitter.colorStartB = LJS.randColor();
-      particleEmitter.colorEndA = particleEmitter.colorStartA.scale(1, 0);
-      particleEmitter.colorEndB = particleEmitter.colorStartB.scale(1, 0);
-
-      // unlock medals
-      medal_example.unlock();
+  class Player extends LJS.EngineObject {
+    constructor(pos) {
+      super(pos, vec2(2), tile(5), 0, RED);
+      this.setCollision(); // make object collide
+      this.renderOrder = 1; // render player on top
     }
 
-    // move particles to mouse location if on screen
-    if (LJS.mousePosScreen.x) particleEmitter.pos = LJS.mousePos;
+    update() {
+      // apply movement controls
+      const moveInput = keyDirection().clampLength(1).scale(0.2);
+      this.velocity = this.velocity.add(moveInput);
+
+      // move camera with player
+      cameraPos = this.pos;
+    }
   }
 
-  ///////////////////////////////////////////////////////////////////////////////
-  function gameUpdatePost() {}
+  function gameInit() {
+    // setup level
+    canvasClearColor = new LJS.hsl(0.3, 0.2, 0.6);
+    objectDefaultDamping = 0.7;
+    new Player();
 
-  ///////////////////////////////////////////////////////////////////////////////
-  function gameRender() {
-    // draw a grey square in the background
-    LJS.drawRect(vec2(16, 8), vec2(20, 14), hsl(0, 0, 0.6));
-
-    // draw the logo as a tile
-    LJS.drawTile(vec2(21, 5), vec2(4.5), tile(3, 128));
+    // create collision objects
+    for (let i = 300; i--; ) {
+      const pos = LJS.randInCircle(15 + i, 7);
+      const size = LJS.vec2(rand(4, 9), rand(4, 9));
+      const color = LJS.hsl(0.1, 0.5, rand(0.2));
+      const o = new LJS.EngineObject(pos, size, 0, 0, color);
+      o.setCollision(); // make object collide
+      o.mass = 0; // make object have static physics
+    }
   }
 
-  ///////////////////////////////////////////////////////////////////////////////
-  function gameRenderPost() {
-    LJS.drawTextScreen(
-      "LittleJS with Modules",
-      vec2(LJS.mainCanvasSize.x / 2, 80),
-      80,
-    );
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Startup LittleJS Engine
-  LJS.engineInit(
-    gameInit,
-    gameUpdate,
-    gameUpdatePost,
-    gameRender,
-    gameRenderPost,
-    ["/images/games/tiles.png"],
-  );
+  // START
+  LJS.engineInit(gameInit);
 </script>

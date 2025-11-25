@@ -19,10 +19,22 @@ import HeroGame from "@components/games/HeroGame.svelte";
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     margin: 0 auto;
     padding: var(--nav-height) var(--space-page-h) 4vh;
     background: rgba(255, 0, 255, 0.1);
+  }
+
+  #hero-game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100dvh;
+    z-index: 500;
   }
 
   // Testing

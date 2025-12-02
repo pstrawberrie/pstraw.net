@@ -5,7 +5,7 @@
 
 :root {
   --primary-rgb: 21, 189, 247;
-  --p: rgb(21, 189, 247); // ide preview
+  --p: rgb(var(--c-primary-rgb)); // ide preview
 
   --secondary-rgb: 59, 217, 183;
   --p: rgb(59, 217, 183); // ide preview

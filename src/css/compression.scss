@@ -1,0 +1,46 @@
+:root {
+  /**
+   * Core Colors
+   **/
+  --c-primary-oklch: 58.67% 0.2324 23.77;
+  --c-primary: oklch(var(--c-primary-oklch));
+
+  --c-secondary-oklch: 86.53% 0.1475 204.02;
+  --c-secondary: oklch(var(--c-secondary-oklch));
+
+  --c-tertiary-oklch: 75.7% 0.1772 60.16;
+  --c-tertiary: oklch(var(--c-tertiary-oklch));
+
+  /**
+   * Semantic Colors
+   **/
+  --c-success-oklch: 79.01% 0.2623 142.58;
+  --c-success: oklch(var(--c-success-oklch));
+
+  --c-info-oklch: 94.09% 0.1872 109.52;
+  --c-info: oklch(var(--c-info-oklch));
+
+  --c-error-oklch: 57.89% 0.2268 28.25;
+  --c-error: oklch(var(--c-error-oklch));
+
+  /**
+   * BG Colors
+   **/
+  --c-background-oklch: 9.69% 0 0;
+  --c-background: oklch(var(--c-background-oklch));
+
+  /**
+   * Font Colors
+   **/
+  --c-text-oklch: 95.51% 0 0;
+  --c-text: oklch(var(--c-text-oklch));
+
+  --c-text-2-oklch: 90.37% 0 0;
+  --c-text-2: oklch(var(--c-text-2-oklch));
+
+  --c-text-3-oklch: 83.69% 0 0;
+  --c-text-3: oklch(var(--c-text-3-oklch));
+
+  --c-text-invert-oklch: 11.69% 0 0;
+  --c-text-invert: oklch(var(--c-text-invert-oklch));
+}

@@ -3,7 +3,7 @@
 </script>
 
 <div id="activity-hero">
-  <div class="inner"></div>
+  <div class="inner">Activity Hero</div>
 </div>
 
 <style lang="scss">
@@ -13,7 +13,7 @@
     align-items: center;
     min-height: 100vh;
     background: var(--full-hero-gradient);
-    padding: var(--space-box-v) 0;
+    padding: var(--nav-height) 0;
     overflow: hidden;
   }
 

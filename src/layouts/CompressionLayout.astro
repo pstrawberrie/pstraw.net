@@ -70,28 +70,10 @@ const {
     <a class="skip-to-content" href="#main">Skip to content</a>
     <Nav client:load currentPage={Astro.url.pathname} {noBreadcrumbs} />
 
-    <!-- Full Hero -->
-    {
-      fullHeroTitle && (
-        <FullHero
-          client:load
-          title={fullHeroTitle}
-          colorTitle={fullHeroColorTitle}
-          subtitle={fullHeroSubtitle}
-          image={fullHeroImage}
-          buttons={fullHeroButtons}
-          feature={fullHeroFeature}
-        />
-      )
-    }
-
     <!-- Main Content -->
     <main id="main">
       <slot />
     </main>
-
-    <!-- Footer -->
-    <Footer client:load />
 
     <!-- Say hi to consolers -->
     <script is:inline>

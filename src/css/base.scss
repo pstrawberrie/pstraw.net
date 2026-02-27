@@ -84,6 +84,11 @@ textarea {
   font-family: var(--font-family-primary);
   border: none;
   background-color: transparent;
+
+  // IOS
+  @media (max-width: 1024px) {
+    font-size: 16px !important;
+  }
 }
 
 button {

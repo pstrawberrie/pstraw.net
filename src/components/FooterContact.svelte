@@ -262,7 +262,7 @@
 </div>
 
 <style lang="scss">
-  @use "@css/util" as util;
+  @use "../css/util" as util;
 
   button.btn {
     position: relative;

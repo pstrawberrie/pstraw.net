@@ -42,7 +42,7 @@
 </footer>
 
 <style lang="scss">
-  @use "@css/util";
+  @use "../css/util";
   footer {
     position: relative;
     background: linear-gradient(135deg, var(--c-background) 0%, black 100%);

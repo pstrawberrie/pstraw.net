@@ -33,7 +33,7 @@
 </a>
 
 <style lang="scss">
-  @use "@css/util";
+  @use "../css/util";
 
   .note-card {
     flex-direction: column;

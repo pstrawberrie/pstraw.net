@@ -236,7 +236,7 @@
 </div>
 
 <style lang="scss">
-  @use "@css/util";
+  @use "../css/util";
 
   .global-search {
     --search-padding: 1.5rem;

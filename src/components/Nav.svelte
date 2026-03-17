@@ -101,7 +101,7 @@
 <GlobalSearch bind:this={searchbarEl} />
 
 <style lang="scss">
-  @use "@css/util";
+  @use "../css/util";
 
   nav {
     --nav-gap: 1rem;

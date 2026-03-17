@@ -2,6 +2,7 @@
   import { minutesToHours, getRelativeTime, formatDate } from "@util";
   import SVG from "@components/SVG.svelte";
   let { itemData, exact = undefined, displayLastWatched = false } = $props();
+
   const id = itemData.id;
   const data = itemData.data ? itemData.data : itemData;
   const isMovie = itemData.collection === "movies";
@@ -82,7 +83,7 @@
 </a>
 
 <style lang="scss">
-  @use "@css/util";
+  @use "../css/util";
 
   .tmdb-card {
     position: relative;

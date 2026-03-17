@@ -1,7 +1,7 @@
 // Site Data
 export const SITE = {
   TITLE: "pstraw.net",
-  DESCRIPTION: "A personal web playground and archive.",
+  DESCRIPTION: "My personal web playground and media archive.",
   VERSION: {
     CURRENT: 3.3,
     TITLE: "Chill Space",

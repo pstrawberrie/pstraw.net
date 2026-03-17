@@ -1,5 +1,6 @@
 import { glob } from "astro/loaders";
-import { z, defineCollection } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 import Movie from "@slurpi/db/Movie.js";
 import Show from "@slurpi/db/Show.js";
 

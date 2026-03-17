@@ -72,7 +72,7 @@ const {
 
     <!-- Full Hero -->
     {
-      fullHeroTitle && (
+      (fullHeroTitle || fullHeroColorTitle) && (
         <FullHero
           client:load
           title={fullHeroTitle}

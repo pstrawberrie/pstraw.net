@@ -8,7 +8,7 @@ import NoteCard from "@components/NoteCard.svelte";
 
 // Movies/Shows
 const recentTMDBLimit = 15;
-const recentNotesLimit = 6;
+const recentNotesLimit = 4;
 
 const movies = await getCollection(
   "movies",
@@ -39,7 +39,7 @@ notes.sort((a, b) => {
   pageTitle="Home"
   fullHeroTitle="Welcome to"
   fullHeroColorTitle="pstraw.net"
-  fullHeroSubtitle={`Hello. You've landed on my little internet planet. This is ${SITE.DESCRIPTION.charAt(0).toLowerCase() + SITE.DESCRIPTION.slice(1)} Take a poke around and see if anything catches your eye.`}
+  fullHeroSubtitle={`You've arrived at ${SITE.DESCRIPTION.charAt(0).toLowerCase() + SITE.DESCRIPTION.slice(1)} Take a poke around and see if anything catches your eye.`}
   fullHeroImage="/images/site/hero_default.png"
   fullHeroFeature="stars"
   fullHeroButtons={[
@@ -49,7 +49,7 @@ notes.sort((a, b) => {
 >
   <!-- Recently Watched -->
   <section id="media">
-    <div class="container box">
+    <div class="container-full box">
       <div class="section-header">
         <h2 class="header-tertiary text-gradient">Recently Watched</h2>
         <p>
@@ -73,7 +73,7 @@ notes.sort((a, b) => {
 
   <!-- Latest Notes -->
   <section id="notes">
-    <div class="container box">
+    <div class="container-full box">
       <div class="section-header">
         <h2 class="header-primary text-gradient">Latest Notes</h2>
         <p>References, records, resources, and remembrances</p>

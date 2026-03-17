@@ -291,7 +291,7 @@
 {/if}
 
 <style lang="scss">
-  @use "@css/util";
+  @use "../css/util";
 
   .media-filter {
     position: relative;

@@ -37,6 +37,15 @@
           new Date(SITE_DATA.build_history[0]).toLocaleDateString(),
         )}
       </p>
+      <div class="attributions">
+        Powered by
+        <a href="https://astro.build/">
+          <SVG name="astro" />
+        </a>
+        <a href="https://www.themoviedb.org/">
+          <SVG name="tmdb" />
+        </a>
+      </div>
     </div>
   </div>
 </footer>
@@ -145,6 +154,10 @@
   }
 
   .bottom {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.33rem;
     padding-top: 2rem;
     border-top: 1px solid rgba(var(--background-accent-rgb), 0.2);
     color: var(--c-text-muted);
@@ -152,6 +165,31 @@
 
     p {
       font-size: 0.875rem;
+    }
+  }
+
+  .attributions {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-family-primary);
+    font-size: 0.9rem;
+    color: var(--c-text-tertiary);
+
+    a {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100px;
+      opacity: 0.45;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 </style>

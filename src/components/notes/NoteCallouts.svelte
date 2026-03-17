@@ -16,7 +16,7 @@
 </div>
 
 <style lang="scss">
-  @use "@css/util";
+  @use "../../css/util";
 
   :global([client] + .callouts) {
     margin-top: 1rem;

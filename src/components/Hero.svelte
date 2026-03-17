@@ -14,7 +14,7 @@
 </div>
 
 <style lang="scss">
-  @use "@css/util";
+  @use "../css/util";
 
   .hero {
     padding-top: var(--space-box-v);

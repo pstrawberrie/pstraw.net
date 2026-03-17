@@ -25,7 +25,7 @@
 </div>
 
 <style lang="scss">
-  @use "@css/util";
+  @use "../../css/util";
 
   .note-jump-wrapper {
     position: sticky;

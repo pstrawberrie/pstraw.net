@@ -28,6 +28,7 @@ const allTimeMoviesIds = [
   "339964", //valerian
   "399579", //alita
   "762975", //purple hearts
+  "359940", // three billboards outside ebbing missouri
 ];
 const allTimeShowsIds = [
   "64432", //the magicians
@@ -103,7 +104,7 @@ const allTimeShows = await getCollection("shows", ({ id }) =>
   </section>
 
   <style lang="scss">
-    @use "@css/util";
+    @use "../../css/util";
 
     .box-full {
       padding-top: var(--space-page-v);

@@ -5,6 +5,11 @@
   import SVG from "@components/SVG.svelte";
   // import GameServers from "@components/GameServers.svelte";
   import FooterContact from "@components/FooterContact.svelte";
+
+  // @TODO: this is broken - blocks build
+  const lastSyncDate = formatDate(
+    new Date(SITE_DATA.build_history[0]).toLocaleDateString(),
+  );
 </script>
 
 <footer>
@@ -33,9 +38,7 @@
       <p>
         &copy; {new Date().getFullYear()}
         {SITE.TITLE} • v{SITE.VERSION.CURRENT} <em>{SITE.VERSION.TITLE}</em> •
-        Synced on {formatDate(
-          new Date(SITE_DATA.build_history[0]).toLocaleDateString(),
-        )}
+        Synced on {lastSyncDate}
       </p>
       <div class="attributions">
         Powered by
